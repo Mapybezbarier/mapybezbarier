@@ -1,0 +1,400 @@
+// ZAKLADNI STYLY - pro vsechny stranky stejne (nw reset)
+
+@import "_base_mixins";
+
+@mixin base_styles {
+    // box-sizing pocitani rozmeru
+    * {
+        @include box-sizing(border-box);
+    }
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    .non-visible {
+        display: none !important;
+    }
+    // ponechani pro NW HTML
+    .form_cleaner,
+    .cleaner {
+        clear: both !important;
+        display: block !important;
+        float: none !important;
+        height: 0 !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: auto !important;
+    }
+    .clearfix {
+        @include clearfix;
+    }
+    .only_desktop {
+        @include mq($bp_mobile) {
+            display: none !important;
+        }
+    }
+    .only_mobile {
+        @include mq($bp_mobile, true) {
+            display: none !important;
+        }
+    }
+
+    // Chrome stop highlight form fields
+    *:focus {
+        outline: none;
+    }
+
+    // oznamovaci oblast o breakpointech vpravo dole
+    .grid_info {
+        background-color: $black_color;
+        color: $white_color;
+        bottom: 0;
+        display: block;
+        padding: 15px;
+        position: fixed;
+        right: 0;
+        z-index: 99999;
+    }
+
+    // reset buttonu pro mozillu
+    button::-moz-focus-inner {
+        border: 0;
+        margin-top: -2px;
+        margin-bottom: -2px;
+        padding: 0;
+    }
+
+    // zakazani zvyrazeneni aktivnich polozek v Chromu na tab
+    input,
+    textarea,
+    button,
+    select,
+    a {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    // mozilla zvyraznuje nevalidni inputy
+    :-moz-ui-invalid:not(output) {
+        @include box_shadow_reset;
+    }
+
+    // zakazani sipecek u inputu typu number
+    input[type='number'] {
+        -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    // zakazni mazaciho krizku u inputu pro IE
+    input::-ms-clear {
+        display: none;
+    }
+
+    // obalovac pro responzivni tabulku
+    .table_responsive_wrapper {
+        overflow-x: auto;
+    }
+    .fake_link {
+        cursor: pointer;
+    }
+
+    // POPUP
+    .popup_container {
+        background-color: _trans_color($black_color, 0.7);
+        bottom: 0;
+        color: $white_color;
+        left: 0;
+        overflow-y: auto;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 2147483647; // nejvyssi mozna cross-browser hodnota - kvuli napr. heureka apod. widgetum
+        @include opacity(1);
+        @include single-transition(opacity, $default-transition-duration);
+        -webkit-overflow-scrolling: touch;
+
+        .body {
+            background-color: $white_color;
+            @include border_radius(5px);
+            color: $base_font_color;
+            margin: 100px 20%;
+            padding: 40px;
+        }
+
+        &.popup_hidden {
+            height: 0;
+            @include opacity(0);
+            overflow: hidden;
+            padding: 0;
+        }
+    }
+    body.popup_shown {
+        overflow: hidden;
+    }
+
+    // responsivni waiter
+    .waiter-inspire {
+        background-color: _trans_color($white_color, 0.8);
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 150;
+
+        .waiter-inspire-img-helper,
+        .waiter-inspire-image {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .waiter-inspire-image {
+            max-height: 64px;
+            position: relative;
+            text-align: center;
+            width: 100%;
+            @include sizes_proportional;
+            overflow: visible;
+
+            .waiter-inspire-text {
+                bottom: -20px;
+                color: $black_color;
+                display: block;
+                font-size: 14px;
+                left: 0;
+                margin-top: 5px;
+                position: absolute;
+                width: 100%;
+            }
+
+            &:after {
+                background: transparent url('/media/nw7-module/img/waiter.svg') no-repeat center center;
+                @include bs(contain);
+                content: '';
+                display: block;
+                height: 100%;
+                @include opacity(0.3);
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                @include inspireAnimation(rotateWaiter linear 0.6s, infinite);
+            }
+        }
+    }
+
+    @include keyframesInspire(rotateWaiter) {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    .sitemap_wrap {
+        ul {
+            margin: 0 0 0 20px;
+
+            li {
+                list-style-type: disc;
+                margin-bottom: 10px;
+
+                ul {
+                    margin-top: 10px;
+                    margin-left: 50px;
+                }
+            }
+            li li {
+                list-style-type: circle;
+            }
+            li li li {
+                list-style-type: square;
+            }
+        }
+    }
+
+    // colorbox
+    #cboxOverlay {
+        background-color: #000;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 101;
+    }
+    #colorbox {
+        @include box-shadow(0 0 28px 12px rgba(70, 70, 70, 0.74));
+        z-index: 102;
+
+        .cboxPhoto {
+            border: 1px solid #000;
+            max-height: 100%;
+        }
+        #cboxLoadedContent {
+            overflow: hidden !important;
+        }
+        #cboxCurrent {
+            color: #fff;
+            float: none !important;
+            text-align: center;
+        }
+        #cboxClose {
+            background: transparent url('/media/nw7-module/img/colorbox/close.svg') no-repeat center center;
+            @include bs(20px);
+            border: 0 none;
+            cursor: pointer;
+            height: 20px;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: -25px;
+            text-indent: $position_out;
+            width: 20px;
+        }
+        #cboxPrevious,
+        #cboxNext {
+            background: transparent none no-repeat center center;
+            @include bs(36px);
+            border: 0 none;
+            cursor: pointer;
+            height: 100%;
+            @include opacity(0);
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            text-indent: $position_out;
+            width: 50%;
+            @include trans;
+
+            &:hover {
+                @include opacity(1);
+            }
+        }
+        #cboxPrevious {
+            background-image: url('/media/nw7-module/img/colorbox/prev.svg');
+            background-position: 20px center;
+            left: 0;
+        }
+        #cboxNext {
+            background-image: url('/media/nw7-module/img/colorbox/next.svg');
+            background-position: right 20px center;
+            right: 0;
+        }
+    }
+}
+
+// includuje se do souboru _csp do mixinu csp (ten poté do hlavního body RS i frontendu)
+@mixin base_csp_styles {
+    embed,
+    iframe,
+    img {
+        max-width: 100%;
+
+        &.float-left {
+            float: left;
+            margin: 0 20px 10px 0;
+        }
+        &.float-right {
+            float: right;
+            margin: 0 0 10px 20px;
+        }
+    }
+    a {
+        @include unstyled-link;
+        cursor: pointer;
+        @include trans;
+    }
+    h1 + h2,
+    h2 + h3,
+    h3 + h4 {
+        margin-top: 0;
+    }
+
+    // WYSIWYG
+    .wysiwyg_wrapper {
+        .align_left {
+            text-align: left;
+        }
+        .align_center {
+            text-align: center;
+        }
+        .align_right {
+            text-align: right;
+        }
+        .align_justify {
+            text-align: justify;
+        }
+        .nwjs_imagebox.align_left img,
+        img.align_left {
+            float: left;
+            margin: 0 20px 20px 0;
+        }
+        .nwjs_imagebox.align_center img,
+        img.align_center {
+            display: block;
+            margin: 20px auto;
+        }
+        .nwjs_imagebox.align_right img,
+        img.align_right {
+            float: right;
+            margin: 0 0 20px 20px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+        em {
+            font-style: oblique;
+        }
+        u {
+            text-decoration: underline;
+        }
+        del {
+            text-decoration: line-through;
+        }
+        sup,
+        sub {
+            font-size: smaller;
+            line-height: normal;
+        }
+        sup {
+            vertical-align: super;
+        }
+        sub {
+            vertical-align: sub;
+        }
+    }
+
+    > *:first-child,
+    > .wiki-box > *:first-child,
+    > .wysiwyg_wrapper > *:first-child {
+        margin-top: 0;
+    }
+
+    // responsivni video
+    .video_wrapper {
+        height: 0;
+        padding-bottom: 75%;
+        position: relative;
+        overflow: hidden;
+
+        iframe,
+        object,
+        embed,
+        video {
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+    }
+}
+

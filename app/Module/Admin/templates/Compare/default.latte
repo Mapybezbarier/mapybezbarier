@@ -1,0 +1,13 @@
+{includeblock APP_DIR . "/Module/Admin/templates/Object/blocks.latte"}
+
+{block body}
+    <section class="mapping_section">
+        <div class="ms_header no_attachement">
+            <h2 class="ms_headline">{_backend.object.title.compare, ['title' => $version['title']]}</h2>
+            <div class="form_notification_wrapper only_note">{_backend.object.compare.help}</div>
+        </div>
+        <div class="ms_body">
+            {control compare}
+        </div>
+    </section>
+{/block}

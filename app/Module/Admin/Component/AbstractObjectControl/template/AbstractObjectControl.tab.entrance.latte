@@ -1,0 +1,320 @@
+{define tabEntrance}
+    <div class="table_responsive_wrapper">
+        <fieldset class="formee">
+            <table>
+            {if 'entrance2' == $prefix}
+                {* LOKALIZACE *}
+                <tr>
+                    <th>{label "{$prefix}Localization" /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "{$prefix}Localization", class => 'no_label'}</td>
+                </tr>
+
+                {* OZNACENI VSTUPU *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.entrance.marked}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsSideEntranceMarked", label => TRUE}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsSideEntranceInformation", label => TRUE}
+                    </td>
+                </tr>
+            {/if}
+                {* VYHRAZENE PARKOVACI STANI *}
+                <tr>
+                    <th rowspan="4"><label>{_backend.control.object.label.entrance.isReservedParking}</label></th>
+                    <td colspan="3">{include radioGroup _form => $_form, name => "{$prefix}IsReservedParking"}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}ReservedParkingLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}NumberOfReservedParking", class => 'short'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}ReservedParkingAccessDescription", placeholder => 'backend.control.object.placeholder.entranceReservedParkingAccessDescription'}
+                    </td>
+                </tr>
+
+                {* PRISTUP KE VSTUPU *}
+                <tr>
+                    <th rowspan="9"><label>{_backend.control.object.label.accessToEntrance}</label></th>
+                    <td rowspan="2"><label>{_backend.control.object.label.entrance.isDifficultSurface}</label></td>
+                    <td colspan="2">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsDifficultSurface"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}DifficultSurfaceDescription", placeholder => 'backend.control.object.placeholder.entranceDifficultSurfaceDescription'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><label>{_backend.control.object.label.entrance.isLongitudinalInclination}</label></td>
+                    <td colspan="2">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsLongitudinalInclination"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}LongitudinalInclinationLocalization", placeholder => 'backend.control.object.placeholder.entranceLongitudinalInclinationLocalization'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}LongitudinalInclination", class => 'short percent'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><label>{_backend.control.object.label.entrance.isTransverseInclination}</label></td>
+                    <td colspan="2">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsTransverseInclination"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}TransverseInclinationLocalization", placeholder => 'backend.control.object.placeholder.entranceTransverseInclinationLocalization'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}TransverseInclination", class => 'short percent'}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>{_backend.control.object.label.entrance.guidingline}</label></td>
+                    <td colspan="2">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Guidingline"}
+                    </td>
+                </tr>
+
+                {* PRISTUPNOST VSTUPU *}
+            {if 'entrance2' == $prefix}
+                <tr>
+                    <th rowspan="2">{label "{$prefix}Accessibility"/}</th>
+                    <td colspan="2">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Access"}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}AccessProvidedBy"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Accessibility"}
+                    </td>
+                </tr>
+            {else}
+                <tr>
+                    <th>{label "{$prefix}Accessibility"/}</th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Accessibility"}
+                    </td>
+                </tr>
+            {/if}
+                {* SCHODY PRED VSTUPEM *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.entrance.stepsBeforeEntrance}</label></th>
+                    <td><label>{_backend.control.object.label.entrance.oneStep}</label></td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}Steps1Height", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}Steps1Depth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>{_backend.control.object.label.entrance.moreSteps}</label></td>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}Steps1NumberOf", class => 'short'}
+                    </td>
+                </tr>
+
+                {* PLOCHA PRED DVERMI *}
+                <tr>
+                    <th><label>{_backend.control.object.label.entrance.areaBeforeDoor}</label></th>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}AreaBeforeDoorWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}AreaBeforeDoorDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* ZVONEK *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.entrance.bell}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}BellType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}BellHeight", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}BellIndentation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* AOM (AKUSTICKY ORIENTACNI MAJACEK) *}
+                <tr>
+                    <th rowspan="3"><label>{_backend.control.object.label.entrance.isAOB}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}IsAOB"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}AobIsAboveDoor", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}AobLocalization"}
+                    </td>
+                </tr>
+
+                {* DVERE *}
+                <tr>
+                    <th rowspan="6"><label>{_backend.control.object.label.entrance.door}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door1Type"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door1Opening"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door1OpeningDirection"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door1MainpanelWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door1SidepanelWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door1StepHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* ZADVERI *}
+                <tr>
+                    <th><label>{_backend.control.object.label.entrance.lobby}</label></th>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}LobbyWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}LobbyWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* DVERE ZADVERI *}
+                <tr>
+                    <th rowspan="6"><label>{_backend.control.object.label.entrance.lobbyDoor}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door2Type"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door2Opening"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}Door2OpeningDirection"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door2MainpanelWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door2SidepanelWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}Door2StepHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* SCHODY V ZADVERI *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.entrance.stepsInLobby}</label></th>
+                    <td><label>{_backend.control.object.label.entrance.oneStep}</label></td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}Steps2Height", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "{$prefix}Steps2Depth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>{_backend.control.object.label.entrance.moreSteps}</label></td>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "{$prefix}Steps2NumberOf", class => 'short'}
+                    </td>
+                </tr>
+
+                {* KONTRASTNI ZNACENI PROSKLENYCH PLOCH *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.entrance.contrastMarkingIsGlassSurfaces}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}ContrastMarkingIsGlassSurfaces", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}ContrastMarkingLocalization"}
+                    </td>
+                </tr>
+
+                {* KONTRASTNI ZNACENI SCHODU *}
+                <tr>
+                    <th><label>{_backend.control.object.label.entrance.stepsIsContrastMarked}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "{$prefix}StepsIsContrastMarked", label => TRUE}
+                    </td>
+                </tr>
+
+                {* POZNAMKY *}
+                <tr>
+                    <th>{label "{$prefix}HasNotes"/}</th>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "{$prefix}HasNotes", class => 'no_label'}
+                    </td>
+                </tr>
+
+                {* SLOVNI POPIS USEKU *}
+                <tr>
+                    <th>{label "{$prefix}HasDescription" /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "{$prefix}HasDescription", class => 'no_label'}</td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </div>
+{/define}

@@ -1,0 +1,37 @@
+<div n:if="1 < $paginator->pageCount" class="paginator_wrapper">
+    <div class="paginator">
+        {if $paginator->isFirst()}
+            <span class="item button prev">
+                <span class="arrow left">&lt;</span>
+            </span>
+        {else}
+            <a class="item button prev link ajax" n:href="setPage!, 'page' => $paginator->page - 1">
+                <span class="arrow left">&lt;</span>
+            </a>
+        {/if}
+
+        {foreach $steps as $step}
+            {? $firstClass = $iterator->first ? 'first'}
+            {? $lastClass  = $iterator->last  ? 'last'}
+            {if $step == $paginator->page}
+                <span n:class="item, page_number, current, $firstClass, $lastClass">{$step}</span>
+            {else}
+                <a n:class="item, page_number, link, $firstClass, $lastClass, ajax" n:href="setPage!, 'page' => $step">{$step}</a>
+            {/if}
+
+            {if $iterator->nextValue > $step + 1}
+                <span n:class="item, dots, $firstClass, $lastClass">&hellip;</span>
+            {/if}
+        {/foreach}
+
+        {if $paginator->isLast()}
+            <span class="item button next">
+                <span class="arrow right">&gt;</span>
+            </span>
+        {else}
+            <a class="item button next link ajax" n:href="setPage!, 'page' => $paginator->page + 1">
+                <span class="arrow right">&gt;</span>
+            </a>
+        {/if}
+    </div>
+</div>

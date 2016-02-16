@@ -1,0 +1,41 @@
+<div class="detail_pictograms">
+    {foreach $object['pictograms'] as $key => $pictogram}
+        {? $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
+        {capture $keyClass}{$key|lower}{/capture}
+        <div n:class="detail_pictogram, nwjs_description_opener, !empty($pictogram['description']) ? 'with_description', $keyClass">
+            <strong class="title">{_'messages.control.map.detail.pictogram.' . $key}</strong>
+            <span n:class="detail_pictogram_accessibility, null !== $pictogram['accessible'] ? ('accessibility_' . $pictogram['accessible'])">
+            {if is_bool($pictogram['value'])}
+                {if $pictogram['value']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}
+            {else}
+                {$pictogram['value']}
+            {/if}
+            </span>
+
+            {if !empty($pictogram['description'])}
+                <div class="description">
+                    {$pictogram['description']|escape|nl2br|noescape}
+                </div>
+            {/if}
+        </div>
+    {/foreach}
+</div>
+
+<div n:if="$object['image']" class="detail_image">
+    <a href="/storage/{$object['image']}" class="nwjs_imagebox">
+        <img n:src="'default://' . $object['image'], '560'" alt="{$object['title']}" />
+    </a>
+</div>
+
+<div class="detail_descriptions">
+    {foreach $object['descriptions'] as $title => $description}
+        <div n:if="$description" class="detail_description">
+            <h3 class="dd_headline">{_messages.control.map.detail.title.description.$title}</h3>
+            {if is_array($description)}
+                <p n:foreach="$description as $item">{$item|escape|nl2br|noescape}</p>
+            {else}
+                <p>{$description|escape|nl2br|noescape}</p>
+            {/if}
+        </div>
+    {/foreach}
+</div>

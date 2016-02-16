@@ -1,0 +1,38 @@
+{snippet list}
+    {if $items}
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="created">{_backend.control.import.list.head.created}</th>
+                        <th class="user">{_backend.control.import.list.head.user}</th>
+                        <th class="source">{_backend.control.import.list.head.source}</th>
+                        <th class="last_run">{_backend.control.import.list.head.lastRun}</th>
+                        <th class="last_success">{_backend.control.import.list.head.lastSuccess}</th>
+                        <th class="hours_offset">{_backend.control.import.list.head.hoursOffset}</th>
+                        <th class="certified">{_backend.control.import.list.head.certified}</th>
+                        <th class="url">{_backend.control.import.list.head.url}</th>
+                        <th class="delete tool">{_backend.control.import.action.delete}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr n:foreach="$items as $item">
+                        <td class="created">{$item['created']|date:'j. n. Y H:i'}</td>
+                        <td class="user">{$item['user']}</td>
+                        <td class="source">{$item['source']}</td>
+                        <td class="last_run">{$item['last_run']|date:'j. n. Y H:i'}</td>
+                        <td class="last_success">{$item['last_success']|date:'j. n. Y H:i'}</td>
+                        <td class="hours_offset">{$item['hours_offset']}</td>
+                        <td class="certified">{_'backend.enum.bool.' . ($item['certified'] ? 'true' : 'false')}</td>
+                        <td class="url">{$item['url']}</td>
+                        <td class="delete tool">
+                            <a n:href="delete! id => $item['id']" class="ajax" data-ajax-off="history" data-confirm="{_backend.import.confirm.delete}" title="{$item['id']}">{_backend.control.import.action.delete}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {else}
+        <div class="error_notice">{_backend.control.nodata}</div>
+    {/if}
+{/snippet}

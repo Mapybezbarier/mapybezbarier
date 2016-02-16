@@ -1,0 +1,163 @@
+{block content}
+    {control map}
+
+    {snippet markers}
+        {control map:markers}
+    {/snippet}
+
+    <div class="content">
+        {* HLAVICKA *}
+        <header role="banner" aria-label="{_messages.semantics.header}">
+
+            <div class="logo">
+                <a n:href=":Web:Homepage:default" title="{_messages.header.logo} - {_messages.header.motto}">
+                    <strong class="headline">{_messages.header.logo}</strong>
+                    <span class="motto">{_messages.header.motto}</span>
+                </a>
+                <h1>{_messages.header.h1}</h1>
+            </div>
+
+            <nav class="main_menu nwjs_main_menu" role="navigation" aria-label="{_messages.semantics.mainMenu}">
+                {control navigation}
+                <span class="main_menu_opener nwjs_main_menu_opener"><span>{_messages.header.mainMenuOpener}</span></span>
+            </nav>
+
+            <nav class="languages" role="navigation" aria-label="{_messages.semantics.languages}">
+                <ul>
+                    <li n:class="'cs' === $locale? active"><a n:href="this locale => 'cs'">cz</a></li>
+                    <li n:class="'en' === $locale? active"><a n:href="this locale => 'en'">eng</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+        {* FILTRY *}
+        <div n:class="$filtered ? opened, opened, col_wrapper, nwjs_filter, left" role="complementary" aria-label="{_messages.semantics.aside}">
+            <div class="filters col_wrapper_inner" role="navigation" aria-label="{_messages.semantics.filter}">
+                {snippet filter}
+                    {control filter}
+                {/snippet}
+                <div class="open_button nwjs_filter_opener"></div>
+
+                {* VYHLEDAVANI *}
+                <div class="search nwjs_search" role="search" aria-label="{_messages.semantics.search}">
+                    <div class="open_button nwjs_search_opener">{_messages.semantics.search}</div>
+                    <div class="search_holder">
+                        <input type="text" name="search_place" id="nwjs_search_place" placeholder="{_messages.control.search.placeholder}" />
+                    </div>
+                </div>
+            </div>
+            <div class="tools">
+                <ul>
+                    <li class="tool_ico inserted_map">
+                        <a class="nwjs_embedded_popup_opener" href="{link embeddedInfo}" title="{_messages.control.filter.tools.insertedMap}">{_messages.control.filter.tools.insertedMap}</a>
+                    </li>
+                    <li class="tool_ico export">
+                        <a class="nwjs_popup_opener" href="{link exportInfo}" title="{_messages.control.filter.tools.export}">{_messages.control.filter.tools.export}</a>
+                    </li>
+                    <li class="tool_ico help">
+                        <a class="nwjs_popup_opener" href="{link help}" title="{_messages.control.filter.tools.help}">{_messages.control.filter.tools.help}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {* DETAIL *}
+        {snippet detail}
+        {capture $detail}
+            {control detail}
+        {/capture}
+
+        {? $detail = MP\Util\Strings::trim($detail)}
+
+        <div n:class="col_wrapper, right, nwjs_detail, $detail ? opened" role="complementary" aria-label="{_messages.semantics.aside}">
+            <div n:if="$detail" class="nwjs_spinner detail col_wrapper_inner">
+                {$detail|noescape}
+            </div>
+            {include zoomControl}
+        </div>
+        {/snippet}
+
+        {* NEWS IFRAME *}
+        {capture $news}
+            {control news}
+        {/capture}
+
+        {? $news = MP\Util\Strings::trim($news)}
+
+        <div n:if="$news" n:class="col_wrapper, right, nwjs_news, news_iframe, opened" role="complementary" aria-label="{_messages.semantics.aside}">
+            <div class="col_wrapper_inner">
+                {$news|noescape}
+                <span class="close_news nwjs_close_news"></span>
+            </div>
+            {include zoomControl}
+        </div>
+
+        {* FOOTER *}
+        <footer class="nwjs_footer half_opened" role="contentinfo" aria-label="{_messages.semantics.footer}">
+            <div class="footer_logos">
+                <div class="footer_logo">
+                    <a class="fl_cont" href="http://www.kvalitazivota.eu/" target="_blank">
+                        <img src="/asset/img/footer_logos/iop.png" alt="IOP">
+                    </a>
+                </div>
+                <div class="footer_logo">
+                    <span class="fl_cont">
+                        <img src="/asset/img/footer_logos/integrovany-operacni-program.png" alt="Intergrovaný operační program">
+                    </span>
+                </div>
+                <div class="footer_logo">
+                    <a class="fl_cont" href="http://ec.europa.eu/" target="_blank">
+                        <img src="/asset/img/footer_logos/eu.png" alt="EU">
+                    </a>
+                </div>
+                <div class="footer_logo">
+                    <a class="fl_cont" href="http://www.mmr.cz/" target="_blank">
+                        <img src="/asset/img/footer_logos/mpmr.png" alt="MPMR">
+                    </a>
+                </div>
+            </div>
+            <div class="footer_cols_wrapper">
+                <div class="footer_col" role="navigation" aria-label="{_messages.semantics.quickContact}">
+                    <div class="fc_headline">{_messages.footer.address.headline}:</div>
+                    {_messages.footer.address.line1}<br />
+                    {_messages.footer.address.line2}<br />
+                    {_messages.footer.address.line3}<br />
+                    {_messages.footer.address.line4}<br />
+                    <br />
+                    {_messages.footer.address.phoneLabel}: {_messages.footer.address.phone}<br />
+                    {_messages.footer.address.emailLabel}: <a href="mailto:{_messages.footer.address.email}">{_messages.footer.address.email}</a>
+                </div>
+                <div class="footer_col">
+                    <div class="fc_headline">{_messages.footer.navigation.headline}:</div>
+                    <nav class="footer_nav" role="navigation" aria-label="{_messages.semantics.bottomMenu}">
+                        {control navigation}
+                    </nav>
+                </div>
+                <div class="footer_col">
+                    <div class="banner img_inside">
+                        <a href="http://www.kontobariery.cz/">
+                            <img src="/asset/img/konto-bariery.png" alt="{_messages.footer.headline}">
+                        </a>
+                    </div>
+                    <div class="share">
+                        <div class="fc_headline">{_messages.footer.share.headline}:</div>
+                        <div class="fb img_inside">
+                            <a href="https://www.facebook.com/mapybezbarier?fref=ts">
+                                <img src="/asset/img/ico-fb.png" alt="{_messages.footer.share.headline}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="open_button nwjs_footer_opener">{_messages.footer.headline}</div>
+        </footer>
+    </div>
+{/block}
+
+{define zoomControl}
+    <div class="zoom_control">
+        <span class="nwjs_map_zoom map_zoom map_zoom_in" data-type="in">&plus;</span>
+        <span class="nwjs_map_zoom map_zoom map_zoom_out" data-type="out">&ndash;</span>
+    </div>
+{/define}

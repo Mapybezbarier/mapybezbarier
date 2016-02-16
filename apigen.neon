@@ -1,0 +1,8 @@
+source:
+    - ./app
+
+destination: ./api
+exclude:
+    - bootstrap.php
+title: Mapy bez bariér
+debug: yes

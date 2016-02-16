@@ -1,0 +1,40 @@
+<div class="action_content">
+    <h3 class="action_headline">{_backend.control.import.log.title}</h3>
+
+    <p n:class="$hasErrors ? error, action_note">
+        {if $hasErrors}
+            {_backend.control.import.log.hasErrors}
+        {else}
+            {_backend.control.import.log.count, ['count' => $count]}
+        {/if}
+    </p>
+
+    <div class="log_items_wrapper">
+        {foreach $log as $item}
+            <div class="log_item_wrapper">
+                <h4 class="action_subheadline">{$item['data']['title']}</h4>
+                {!Tracy\Dumper::toHtml($item['data'])}
+                <ol class="log_items">
+                    {foreach $item['errors'] as $error}
+                        {include logItem, 'item' => $error, 'type' => 'error', 'data' => $item['data']}
+                    {/foreach}
+                    {foreach $item['notices'] as $notice}
+                        {include logItem, 'item' => $notice, 'type' => 'notice', 'data' => $item['data']}
+                    {/foreach}
+                </ol>
+            </div>
+        {/foreach}
+    </div>
+</div>
+
+{define logItem}
+    <li class="{$type}">
+        {if MP\Util\Strings::startsWith($item['message'], 'consistency.wc')}
+            <span class="consistency">{_backend.import.consistency.wcPrefix}:</span>
+        {elseif MP\Util\Strings::startsWith($item['message'], 'consistency')}
+            <span class="consistency">{_backend.import.consistency.objectPrefix} ({_"messages.enum.value.accessibility.".MP\Util\Strings::firstLower($data['accessibility'])}):</span>
+        {/if}
+        {_"backend.import.{$type}.{$item['message']}", $item['arguments']}
+    </li>
+{/define}
+

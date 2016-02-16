@@ -1,0 +1,7 @@
+<nav class="footer_nav">
+    <ul>
+        <li n:foreach="$items as $key => $seo">
+            <a href="{$baseUri}/{$seo}" title="{_messages.control.navigation.$key}">{_messages.control.navigation.$key}</a>
+        </li>
+    </ul>
+</nav>

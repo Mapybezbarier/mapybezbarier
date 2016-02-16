@@ -1,0 +1,11 @@
+parameters:
+    exporter:
+        mapping:
+            xml: xmlExporter
+            json: jsonExporter
+            csv: csvExporter
+
+services:
+    xmlExporter: MP\Exchange\Export\XmlExporter
+    jsonExporter: MP\Exchange\Export\JsonExporter
+    csvExporter: MP\Exchange\Export\CsvExporter

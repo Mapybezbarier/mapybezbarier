@@ -1,0 +1,2 @@
+services:
+    apiObjectRestrictorBuilder: MP\Module\Api\Service\ObjectRestrictorBuilder

@@ -1,0 +1,28 @@
+{define content}
+    {include contentTop}
+    {block body}{/block}
+    {include contentBottom}
+{/define}
+
+{define contentTop}
+    <div class="content_head{block headerClass}{/block}">
+        {include headline}
+        {include submenu}
+    </div>
+    <div class="content_body">
+{/define}
+
+{define submenuUserItems}{/define}
+{define headline}{/define}
+
+{define contentBottom}
+    </div>
+{/define}
+
+{define submenu}
+    <nav class="submenu">
+        <ul>
+            {include submenuUserItems}
+        </ul>
+    </nav>
+{/define}

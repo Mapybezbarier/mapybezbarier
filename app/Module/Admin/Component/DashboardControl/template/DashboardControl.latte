@@ -1,0 +1,34 @@
+<div class="dashboard">
+    {? $i = 0}
+    {? $modulesHtml = ''}
+    {foreach $modules as $resource => $data}
+        {capture $modulesHtml}
+            {$modulesHtml|noescape}
+            {if $user->isAllowed($resource, $data['defaultAction'])}
+                {? $i++}
+                {capture $resourceClass}{$resource|lower}{/capture}
+                <div n:class="module_wrapper, $resourceClass">
+                    <div class="module">
+                        <div n:class="module_headline, $resourceClass">
+                            <a class="mh_cont" href="{plink ':Admin:' . $resource . ':' . $data['defaultAction']}">
+                                <span>{_'backend.control.dashboard.' . $resource . '.headline'}</span>
+                            </a>
+                        </div>
+                        <ul class="module_links">
+                            <li n:if="$user->isAllowed($resource, $action)" n:foreach="$data['links'] as $action" class="module_link">
+                                <a class="ml_cont" href="{plink :Admin:$resource:$action}">
+                                    <span>{_'backend.control.dashboard.' . $resource . '.' . $action}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {/if}
+        {/capture}
+    {/foreach}
+    <div n:class="modules_wrapper, $i % 2 ? odd_count : even_count">
+        {$modulesHtml|noescape}
+    </div>
+
+    <div class="training_link"><a href="{_backend.control.dashboard.trainingLink.link}" target="_blank">{_backend.control.dashboard.trainingLink.text}</a></div>
+</div>

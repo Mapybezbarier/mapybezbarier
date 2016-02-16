@@ -1,0 +1,190 @@
+// MEDIA QUERIES
+
+// breakpoints
+$bp_1600: 1600px;
+$bp_1300: 1300px;
+$bp_1024: 1024px;
+$bp_960 : 960px;
+$bp_720 : 720px;
+$bp_540 : 540px;
+$bp_430 : 430px;
+$bp_320 : 320px;
+
+$bp_mobile: $bp_720;
+
+// media queries zakladni mixin
+@mixin mq($breakpoint, $min_width: false) {
+    $mv: "max-width";
+
+    @if ($min_width) {
+        $breakpoint: $breakpoint + 1;
+        $mv: "min-width";
+    }
+
+    @media only screen and ($mv: $breakpoint) {
+        @content;
+    }
+}
+
+// media queries between mixin
+// $revert obrati podminku
+@mixin mqbetween($breakpoint_1, $breakpoint_2, $revert: false) {
+    $mv_1: "min-width";
+    $mv_2: "max-width";
+
+    @if ($revert) {
+        $breakpoint_1: $breakpoint_1 - 1;
+        $breakpoint_2: $breakpoint_2 + 1;
+
+        @media only screen and ($mv_2: $breakpoint_1), screen and ($mv_1: $breakpoint_2) {
+            @content;
+        }
+    } @else {
+        $breakpoint_1: $breakpoint_1 + 1;
+        $breakpoint_2: $breakpoint_2 - 1;
+
+        @media only screen and ($mv_1: $breakpoint_1) and ($mv_2: $breakpoint_2) {
+            @content;
+        }
+    }
+}
+
+
+// GRIDS
+
+@mixin grid($width: 100%) {
+    float: left;
+    width: $width;
+}
+@mixin grid_1 {
+    @include grid(8.33333%);
+}
+@mixin grid_2 {
+    @include grid(16.66667%);
+}
+@mixin grid_3 {
+    @include grid(25%);
+}
+@mixin grid_4 {
+    @include grid(33.33333%);
+}
+@mixin grid_5 {
+    @include grid(41.66667%);
+}
+@mixin grid_6 {
+    @include grid(50%);
+}
+@mixin grid_7 {
+    @include grid(58.33333%);
+}
+@mixin grid_8 {
+    @include grid(66.66667%);
+}
+@mixin grid_9 {
+    @include grid(75%);
+}
+@mixin grid_10 {
+    @include grid(83.33333%);
+}
+@mixin grid_11 {
+    @include grid(91.66667%);
+}
+@mixin grid_12 {
+    @include grid;
+}
+@mixin grid_full {
+    width: 100% !important;
+}
+
+
+// PADDINGS
+
+// zakladni relativni paddings
+$grid_padding       : 5%;
+$grid_padding_half  : $grid_padding / 2;
+$grid_padding_double: $grid_padding * 2;
+
+// vynuti relativni padding
+@mixin grid_padding_force($padding: $grid_padding) {
+    padding-left: $padding !important;
+    padding-right: $padding !important;
+}
+
+// univerzalni padding pro grid_6 (2 sloupce)
+@mixin padding_2_cols($koef: 20%, $stop: $bp_960) {
+    &:nth-of-type(2n+1) {
+        padding-left: 0;
+        padding-right: ($koef / 2);
+    }
+    &:nth-of-type(2n) {
+        padding-left: ($koef / 2);
+        padding-right: 0;
+    }
+
+    @include mq($stop) {
+        &:nth-of-type(1n) {
+            padding: 0;
+        }
+    }
+}
+
+// univerzalni padding pro grid_4 (3 sloupce)
+@mixin padding_3_cols($koef: 10%, $stop: $bp_720) {
+    &:nth-of-type(3n+1) {
+        padding-left: 0;
+        padding-right: ($koef / 2);
+    }
+    &:nth-of-type(3n+2) {
+        padding-left: ($koef / 4);
+        padding-right: ($koef / 4);
+    }
+    &:nth-of-type(3n) {
+        padding-left: ($koef / 2);
+        padding-right: 0;
+    }
+
+    @include mq($stop) {
+        &:nth-of-type(1n) {
+            padding: 0;
+        }
+    }
+}
+
+// univerzalni padding pro grid_3 (4 sloupce)
+@mixin padding_4_cols($koef: 6%, $stop: $bp_430, $to_two: $bp_960) {
+    &:nth-of-type(4n+1) {
+        padding-left: 0;
+        padding-right: ($koef * 3 / 4);
+    }
+    &:nth-of-type(4n+2) {
+        padding-left: ($koef / 4);
+        padding-right: ($koef / 2);
+    }
+    &:nth-of-type(4n+3) {
+        padding-left: ($koef / 2);
+        padding-right: ($koef / 4);
+    }
+    &:nth-of-type(4n) {
+        padding-left: ($koef * 3 / 4);
+        padding-right: 0;
+    }
+
+    @include mq($to_two) {
+        &:nth-of-type(1n) {
+            padding: 0;
+        }
+        &:nth-of-type(2n+1) {
+            padding-left: 0;
+            padding-right: ($koef / 2);
+        }
+        &:nth-of-type(2n) {
+            padding-left: ($koef / 2);
+            padding-right: 0;
+        }
+    }
+    @include mq($stop) {
+        &:nth-of-type(1n) {
+            padding: 0;
+        }
+    }
+}

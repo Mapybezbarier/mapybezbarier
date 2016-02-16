@@ -1,0 +1,13 @@
+{snippet object}
+    {includeblock "InfoBoxControl.blocks.latte"}
+
+    {include infoBox}
+
+    {define after}
+        <div class="ib_paginator">
+            {$paginator->getPage()}/{$paginator->getPageCount()}
+            <a n:if="!$paginator->isFirst()" class="ajax arrow prev nwjs_detail_closer" data-spinner=".info_box" data-ajax-pass n:href="setPage! 'page' => $paginator->getPage() - 1">&lt;</a>
+            <a n:if="!$paginator->isLast()" class="ajax arrow next nwjs_detail_closer" data-spinner=".info_box" data-ajax-pass n:href="setPage! 'page' => $paginator->getPage() + 1">&gt;</a>
+        </div>
+    {/define}
+{/snippet}

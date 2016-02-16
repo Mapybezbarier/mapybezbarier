@@ -1,0 +1,183 @@
+{define tabRampskids}
+    <div class="table_responsive_wrapper">
+        <fieldset class="formee">
+            <table>
+                <tr>
+                    <th><label>{_backend.control.object.label.rampskids.rampRelation}</label></th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampRelation"}
+                    </td>
+                </tr>
+
+                {* Rampa *}
+                <tr>
+                    <th rowspan="15">
+                        <label>{_backend.control.object.label.rampskids.ramp}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampLocalization"}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampInteriorLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampMobility"}
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampAccessProvidedBy"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampNumberOfLegs", class => 'short'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.leg1}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Inclination", class => 'short percent'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Width", class => 'short measure_unit'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Length", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.leg2}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Inclination", class => 'short percent'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Width", class => 'short measure_unit'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Length", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.leg3}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Inclination", class => 'short percent'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Width", class => 'short measure_unit'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Length", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.leg4}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Inclination", class => 'short percent'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Width", class => 'short measure_unit'}
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Length", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.bottomEntryArea}</label>
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampBottomEntryareaWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampBottomEntryareaDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.topEntryArea}</label>
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampTopEntryareaWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampTopEntryareaDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.landingsEntryArea}</label>
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.rampskids.surface}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampSurface"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" rowspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampIsHandle", label => TRUE}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampHandleOrientation"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampHandle1Height", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Ližiny *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.rampskids.skids}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "skidsLocalization"}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsInteriorLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "skidsMobility"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsInclination", class => 'short percent'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsLength", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Poznámky *}
+                <tr>
+                    <th>{label "rampSkidsHasNotes", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "rampSkidsHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+
+                {* Slovní popis úseku *}
+                <tr>
+                    <th>{label "rampSkidsHasDescription", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "rampSkidsHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+{/define}

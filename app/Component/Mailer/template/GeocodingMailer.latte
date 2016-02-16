@@ -1,0 +1,26 @@
+{layout APP_DIR . "/Component/Mailer/template/@layout.latte"}
+
+{block body}
+    {if $data['multiple']}
+        <h3>{_'messages.geocoding.report.heading.multiple'}</h3>
+        {include items, items => $data['multiple']}
+    {/if}
+
+    {if $data['zero']}
+        <h3>{_'messages.geocoding.report.heading.zero'}</h3>
+        {include items, items => $data['zero']}
+    {/if}
+
+    {if $data['error']}
+        <h3>{_'messages.geocoding.report.heading.error'}</h3>
+        {include items, items => $data['error']}
+    {/if}
+{/block}
+
+{define items}
+    <ul>
+    {foreach $items as $item}
+        <li>{MP\Object\ObjectHelper::getAddressString($item)} ({$item['object_id']})</li>
+    {/foreach}
+    </ul>
+{/define}

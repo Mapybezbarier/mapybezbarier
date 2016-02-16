@@ -1,0 +1,85 @@
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.object.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.entrance.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.interior.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.rampskids.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.platform.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.elevator.latte'}
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.wc.latte'}
+
+{define tabObject}
+    {include parent}
+
+    {include inputText, _form => $_form, name => 'id'}
+    {include inputText, _form => $_form, name => 'objectId'}
+{/define}
+
+{define tabObjectImage}
+    {include inputText, _form => $_form, name => 'image'}
+
+    <div n:if="$image" class="object_photo_wrapper">
+        <div class="object_photo">
+            <a href="/storage/{$image}" class="nwjs_imagebox">
+                <img n:src="'default://' . $image, '200x200'" />
+            </a>
+        </div>
+        <div class="delete_button">
+            {input removeImage}
+        </div>
+    </div>
+{/define}
+
+{define tabObjectParent}
+    <div class="parent_block form_pair block">
+        <div class="block_inner">
+            {include inputText, _form => $_form, name => 'parentObject'}
+            {include parent}
+        </div>
+    </div>
+{/define}
+
+{define tabCityBlock}
+    <div n:class="$hasAddress ? has_address, city_block, form_pair, block">
+        <div class="block_inner">
+            {include inputText, _form => $_form, name => 'helpAddress1'}
+            {include parent}
+        </div>
+    </div>
+{/define}
+
+{define tabStreetBlock}
+    <div n:class="$hasAddress ? has_address, street_block, form_pair, block">
+        <div class="block_inner">
+            {include inputText, _form => $_form, name => 'helpAddress2'}
+            {include parent}
+        </div>
+    </div>
+{/define}
+
+{define tabHouseNumberBlock}
+    <div n:class="$hasAddress ? has_address, house_number_block, form_pair, block">
+        <div class="block_inner">
+            {include inputText, _form => $_form, name => 'helpAddress3'}
+            {include parent}
+        </div>
+    </div>
+{/define}
+
+{define tabGPSBlock}
+    <div n:class="$hasAddress ? has_address, gps_block">
+        {include parent}
+    </div>
+{/define}
+
+{define objectAddressChange}
+    <div class="open_button_wrapper">
+        <div class="open_button">
+            <a href="#" class="nwjs_address_toggler">{_backend.control.object.text.changeAddress}</a>
+        </div>
+    </div>
+{/define}
+
+{define objectAddressMap}
+    <div n:class="$hasAddress ? has_address, gps_picker_block">
+        {control objectAddressMap}
+    </div>
+{/define}

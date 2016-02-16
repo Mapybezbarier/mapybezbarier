@@ -1,0 +1,229 @@
+@import "static/_base_styles";
+
+
+/// SETTINGS ///
+$base_border_radius     : 5px;
+$icons_size             : 16px;
+$header_height          : 90px;
+$header_height_mobile   : 65px;
+$cols_width             : 280px;
+$page_h_padding         : 30px;
+$trans_duration         : $default-transition-duration;
+$tools_height           : 50px;
+$module_height          : 190px;
+$module_header_height   : 90px;
+$module_item_height     : ($module_height - $module_header_height) / 2; // 2 polozky
+$dashborad_bp           : 700px;
+$object_select_btn_width: 110px;
+$object_select_inpheight: 60px;
+$wc_item_height         : 40px;
+
+// form
+$form_items: $form_items + ', input[type=date], input[type=file]';
+
+$rs_path: "_rs/";
+$rs_icons_path: $rs_path + $icons_path;
+
+
+// barvy
+$base_font_color: #404040;
+$purple_color: #250e62;
+$red_color: #e4002b;
+$gray_color: #f2f2f2;
+$gray_d_color: #424344;
+$gray_l_color: #f8f8f8;
+$yellow_color: #fffdcc;
+$border_blue_color: #62a5e7;
+
+$pict_green_color: #059747;
+$pict_orange_color: #ef7f1b;
+$pict_gray_color: #bfbfbf;
+$pict_gray_l_color: #d8d8d8;
+$pict_blue_color: #01a0e3;
+$pict_red_color: #e31e25;
+
+$access_green_color: #00803a;
+$access_orange_color: #de6f0b;
+$access_red_color: #c91117;
+
+$max_height_detail_pictogram: 60px;
+$max_height_detail_pictogram_wc: 300px;
+
+$special_font_name: 'Source Sans Pro';
+
+@mixin special_font_pattern($size: 0, $line_height: 0) {
+    @include font_repo($special_font_name, $size, $line_height);
+}
+
+// light
+@mixin special_font_light($size: 0, $line_height: 0) {
+    @include special_font_pattern($size, $line_height);
+    font-weight: 300;
+}
+// regular
+@mixin special_font($size: 0, $line_height: 0) {
+    @include special_font_pattern($size, $line_height);
+    font-weight: 400;
+}
+// semibold
+@mixin special_font_semibold($size: 0, $line_height: 0) {
+    @include special_font_pattern($size, $line_height);
+    font-weight: 600;
+}
+// bold
+@mixin special_font_bold($size: 0, $line_height: 0) {
+    @include special_font_pattern($size, $line_height);
+    font-weight: 700;
+}
+// arbutus
+@mixin special_font_cutive($size: 0, $line_height: 0) {
+    @include font_repo('Cutive Mono', $size, $line_height);
+}
+
+/// HEADLINLES ///
+
+@mixin headlines {
+    @include special_font_bold;
+    color: $black_color;
+}
+@mixin h1 {
+    @include font_sizes(40, 40);
+    margin-bottom: $headlines_top_margin;
+}
+@mixin h2 {
+    @include font_sizes(30, 30);
+}
+@mixin h3 {
+    @include font_sizes(20, 25);
+}
+@mixin h4 {
+    @include font_sizes(16, 16);
+}
+@mixin h5 {
+    @include h4;
+}
+@mixin perex {
+    @include font_sizes(20, 30);
+    margin-bottom: $headlines_top_margin;
+    margin-top: -($headlines_top_margin - 20);
+}
+
+
+@mixin base_border_radius {
+    @include border-radius($base_border_radius);
+}
+
+// box shadow - fix pro safari
+@mixin box_shadow_fix($value...) {
+    -webkit-appearance: none; // SAFARI FIX
+    @include box-shadow($value);
+}
+
+@mixin base_box_shadow {
+    @include box_shadow_fix(1px 1.732px 5px 0 rgba(0, 0, 0, .2));
+}
+
+@mixin button_mp {
+    @include button;
+    background-color: $red_color;
+    @include special_font_bold(14);
+    padding: 25px 65px;
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: $black_color;
+    }
+}
+@mixin button_gray {
+    background-color: $base_font_color;
+
+    &:hover {
+        background-color: $black_color;
+    }
+}
+@mixin button_thin {
+    min-height: 40px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+@mixin text_link {
+    a {
+        color: $red_color;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+@mixin _cont {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1170px;
+}
+@mixin ico_circle {
+    &:before,
+    &:after {
+        @include after_ico;
+        @include border_radius(15px);
+        height: 30px;
+        width: 30px;
+    }
+    &:after {
+        background: transparent none no-repeat center center;
+        @include bs($icons_size);
+    }
+}
+
+@mixin radiogroup {
+    .rg_item {
+        float: left;
+        position: relative;
+
+        input {
+            margin: $check_radio_margin;
+            height: $check_radio_width;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: $check_radio_width;
+        }
+        label {
+            margin-right: 15px;
+            padding-left: 24px;
+        }
+
+        &:last-of-type label {
+            margin-right: 0;
+        }
+    }
+}
+
+@mixin reset_form_item_float {
+    &:nth-of-type(1n) {
+        clear: left;
+        float: none;
+        padding-left: 0;
+        padding-right: 0;
+        width: auto;
+    }
+}
+
+@mixin has_error_sign {
+    &:after {
+        @include after_ico;
+        background-color: $red_color;
+        content: '!';
+        @include special_font_bold(16, 20);
+        color: $white_color;
+        @include border-radius(10px);
+        @include base_box_shadow;
+        height: 20px;
+        left: 50%;
+        margin-left: -10px;
+        top: -10px;
+        text-align: center;
+        width: 20px;
+        @include trans;
+    }
+}

@@ -1,0 +1,37 @@
+{includeblock "InfoBoxControl.blocks.latte"}
+
+{include infoBox}
+
+{define infoBox}
+    <div class="info_box_content_wrapper detail accessible_{$object['accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
+        {include content}
+    </div>
+{/define}
+
+{define content}
+    {include header}
+    {include renderer}
+    {include source}
+{/define}
+
+{define localLink}
+    <a href="{plink :Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}">{include objectTitle}</a>
+{/define}
+
+{define closer}
+    <span class="closer nwjs_detail_closer" title="{_messages.control.map.infoBox.close}">{_messages.control.map.infoBox.close}</span>
+{/define}
+
+{define renderer}
+    {control renderer:detail}
+{/define}
+
+{define source}
+    {if !empty($object['source'])}
+    <div class="ib_source">
+        <div class="addr_item source" title="{_messages.control.map.infoBox.source}">
+            {$object['source']}
+        </div>
+    </div>
+    {/if}
+{/define}

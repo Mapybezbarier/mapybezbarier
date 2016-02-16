@@ -1,0 +1,59 @@
+parameters:
+    categories:
+        mapping:
+            churches: [1, 6, 7, 10, 12, 13, 20]
+            theatres: [2]
+            muzeums: [3, 14, 15, 16]
+            historical: [4, 5, 9, 17, 21, 23]
+            libraries: [11]
+            memorials: [18]
+            towers: [22]
+            other: [8, 19]
+
+    sourceDetail:
+        mapping:
+            vozejkmap: webVozejkmapSourceDetail
+
+services:
+    #factories
+    sourceDetailFactory: MP\Module\SourceDetail\SourceDetailFactory(..., ..., %sourceDetail.mapping%)
+
+    # components
+    filterControlFactory:
+        implement: MP\Module\Web\Component\FilterControl\IFilterControlFactory
+        arguments: [..., ..., ..., %categories.mapping%]
+    infoBoxControlFactory:
+        implement: MP\Module\Web\Component\InfoBoxControl\IInfoBoxControlFactory
+        arguments: [..., ..., @infoBoxRendererFactory]
+    detailControlFactory:
+        implement: MP\Module\Web\Component\DetailControl\IDetailControlFactory
+        arguments: [..., ..., @detailRendererFactory]
+    exportControlFactory: MP\Module\Web\Component\IExportControlFactory
+    embeddedInfoControlFactory: MP\Module\Web\Component\IEmbeddedInfoControlFactory
+    helpControlFactory: MP\Module\Web\Component\IHelpControlFactory
+    gAControlFactory:
+        implement: MP\Module\Web\Component\IGAControlFactory
+        arguments: [%gA%]
+    mapControlFactory:
+        implement: MP\Module\Web\Component\MapControl\IMapControlFactory
+        arguments: [..., ..., ..., %categories.mapping%]
+    navigationControlFactory:
+        implement: MP\Module\Web\Component\NavigationControl\INavigationControlFactory
+        arguments: [..., %navigation%]
+    newsControlSection:
+        class: @session::getSection('newsControl')
+        setup:
+            - setExpiration(0)
+    newsControlFactory:
+        implement: MP\Module\Web\Component\INewsControlFactory
+        arguments: [..., @newsControlSection]
+
+    # services
+    webObjectService: MP\Module\Web\Service\ObjectService
+    webObjectRestrictorBuilder: MP\Module\Web\Service\ObjectRestrictorBuilder
+    webDetailService: MP\Module\SourceDetail\DetailService(..., ..., ..., ..., %categories.mapping%)
+    webVozejkmapSourceDetail: MP\Module\SourceDetail\VozejkmapSourceDetail
+
+includes:
+    - navigation.neon
+    - renderers.neon

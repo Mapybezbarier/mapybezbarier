@@ -1,0 +1,239 @@
+{define tabPlatform}
+    <div class="table_responsive_wrapper">
+        <fieldset class="formee">
+            <table>
+                <tr>
+                    <th><label>{_backend.control.object.label.platform.platformRelation}</label></th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformRelation"}
+                    </td>
+                </tr>
+
+                {* Lokalizace *}
+                <tr>
+                    <th>{label "platformLocalization", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformLocalization", class => 'no_label'}
+                    </td>
+                </tr>
+
+
+                {* Typ plošiny *}
+                <tr>
+                    <th rowspan="2">
+                        <label>{_backend.control.object.label.platform.type}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformAccess"}
+                    </td>
+                </tr>
+
+                {* Parametry plošiny *}
+                <tr>
+                    <th rowspan="3">
+                        <label>{_backend.control.object.label.platform.params}</label>
+                        <div class="th_help">({_backend.control.object.label.platform.paramsHelp})</div>
+                    </th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformMaxLoad", class => 'short weight_unit'}
+                    </td>
+                </tr>
+
+                {* Minimální parametry *}
+                <tr>
+                    <th>
+                        <label>{_backend.control.object.label.platform.minParams}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformIsMinParameters", label => TRUE}
+                    </td>
+                </tr>
+
+                {* Dolní nástupní plocha, vstup a dojezd *}
+                <tr>
+                    <th rowspan="8">
+                        <label>{_backend.control.object.label.platform.entryAreaBottom}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Entry"}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaSize}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Width", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Depth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaEntry}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1IsEntryClosing", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1EntryWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1HeightElevation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaBell}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellHeight", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellIndentation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Horní nástupní plocha, vstup a dojezd *}
+                <tr>
+                    <th rowspan="8">
+                        <label>{_backend.control.object.label.platform.entryAreaBottom}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Entry"}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaSize}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Width", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Depth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaEntry}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2IsEntryClosing", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2EntryWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2HeightElevation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.platform.entryAreaBell}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellHeight", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellIndentation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Umístění ovladačů *}
+                <tr>
+                    <th rowspan="3">
+                        <label>{_backend.control.object.label.platform.controls}</label>
+                    </th>
+                    <td>
+                        <label>{_backend.control.object.label.platform.controlsBottom}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformOutsideBottomControlHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.platform.controlsTop}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformOutsideTopControlHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>{_backend.control.object.label.platform.controlsInside}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformInsideControlHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Převýšení překonávané plošinou *}
+                <tr>
+                    <th rowspan="2">
+                        <label>{_backend.control.object.label.platform.elevation}</label>
+                    </th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformNumberOfSteps", class => 'short'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformNumberOfFloors", class => 'short'}
+                    </td>
+                </tr>
+
+                {* Poznámky *}
+                <tr>
+                    <th>{label "platformHasNotes", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "platformHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+
+                {* Slovní popis úseku *}
+                <tr>
+                    <th>{label "platformHasDescription", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "platformHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+{/define}

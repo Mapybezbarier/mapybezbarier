@@ -1,0 +1,54 @@
+{includeblock APP_DIR . "/Module/Admin/templates/blocks.latte"}
+
+{define submenu}
+    {include parent}
+    {include languages}
+{/define}
+
+{define languages}
+    <div class="languages">
+        <div class="label">{_backend.langSwitcher.label}:</div>
+        <ul>
+            <li n:class="'cs' === $lang ? active">
+                <a n:href=":Admin:Object:default, lang => 'cs'">CS</a>
+            </li>
+            <li n:class="'en' === $lang ? active">
+                <a n:href=":Admin:Object:default, lang => 'en'">EN</a>
+            </li>
+        </ul>
+    </div>
+{/define}
+
+{define submenuUserItems}
+    {ifCurrent :Admin:Draft:default}
+        <li class="active">
+            <span class="cont" title="{_backend.object.action.edit}">{_backend.object.action.edit}</span>
+        </li>
+    {/ifCurrent}
+    {ifCurrent :Admin:Object:history}
+        <li class="active">
+            <span class="cont" title="{_backend.object.action.history}">{_backend.object.action.history}</span>
+        </li>
+    {/ifCurrent}
+    {ifCurrent :Admin:Object:join}
+        <li class="active">
+            <span class="cont" title="{_backend.object.action.join}">{_backend.object.action.join}</span>
+        </li>
+    {/ifCurrent}
+    {ifCurrent :Admin:Compare:default}
+        <li class="active">
+            <span class="cont" title="{_backend.object.action.compare}">{_backend.object.action.compare}</span>
+        </li>
+    {/ifCurrent}
+    <li{ifCurrent :Admin:Object:default} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Object:default" title="{_backend.control.dashboard.Object.default}">{_backend.control.dashboard.Object.default}</a>
+    </li>
+    <li{ifCurrent :Admin:Object:select} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Object:select" title="{_backend.control.dashboard.Object.select}">{_backend.control.dashboard.Object.select}</a>
+    </li>
+{/define}
+
+{block headerClass} object{/block} {* jine pozadi zahlavi*}
+{define headline}
+    <h1 class="headline object">{_backend.control.dashboard.Object.headline}</h1>
+{/define}

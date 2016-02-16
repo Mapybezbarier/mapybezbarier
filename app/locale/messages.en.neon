@@ -1,0 +1,442 @@
+router:
+    embeddedInfo: sharing-maps
+    exportInfo: data-export
+    help: help
+
+enum:
+    bool:
+        "true": "Yes"
+        "false": "No"
+
+    boolLower:
+        "true": "yes"
+        "false": "no"
+
+    value:
+        category:
+            basilicaObjectCategory: a basilica
+            theatreObjectCategory: a theater
+            galleryObjectCategory: a gallery
+            defensivecastleObjectCategory: a castle
+            defensivecastleStatelyhomeObjectCategory: a castle and a chateau
+            templeObjectCategory: a temple
+            chapelObjectCategory: a chapel
+            cathedralObjectCategory: a cathedral
+            monasteryObjectCategory: a monastery
+            libraryObjectCategory: a library
+            churchObjectCategory: a church
+            lorettaObjectCategory: a loretta
+            museumObjectCategory: a museum
+            museumGalleryObjectCategory: a museum and a gallery
+            museumLibraryObjectCategory: a museum and a library
+            palaceObjectCategory: a palace
+            monumentObjectCategory: a memorial
+            townhallObjectCategory: a town hall
+            synagogueObjectCategory: a synagogue
+            fortressObjectCategory: a fortress
+            towerObjectCategory: a tower
+            statelyhomeObjectCategory: a chateau
+            otherObjectCategory: other
+
+        accessibility:
+            accessibleObjectMKPO: accessible
+            partlyAccessibleObjectMKPO: partially accessible
+            inAccessibleObjectMKPO: inaccessible
+            full:
+                accessibleObjectMKPO: accessible
+                partlyAccessibleObjectMKPO: partially accessible
+                inAccessibleObjectMKPO: inaccessible
+
+        type:
+            certified: professional
+            outdated: "professional, but outdated"
+            community: community
+
+        wcCategorization:
+            accessibleWCMKPO: accessible toilet
+            partlyAccessibleWCMKPO: partially accessible toilet
+            inAccessibleWCMKPO: Difficult to access or an inaccessible restroom
+            none: "Toilet: No"
+
+        wcCabinLocalization:
+            SelfcontainedWCCabinLocalization: independently
+            LadiesWCCabinLocalization: in the toilets for women
+            GentsWCCabinLocalization: in the toilets for men
+            GentsLadiesWCCabinLocalization: in the toilets for women and for men
+
+        wcCabinAccess:
+            FreelyaccessibleMappableEntityAccess: freely accessible
+            LockedMappableEntityAccess: locked
+
+        doorOpeningDirection:
+            OutwardsDoorOpeningDirection: from the cabin
+            InwardsDoorOpeningDirection: to the cabin
+            SidesDoorOpeningDirection: movable
+
+        handleType:
+            FoldingHandleType: steady
+            FixedHandleType: folding
+
+        washbasinUnderpass:
+            SufficientWashbasinUnderpass: sufficient
+            InsufficientWashbasinUnderpass: insufficient
+
+        wcChangingdesk:
+            FoldingWCChangingdesk: folding
+            MobileWCChangingdesk: mobile
+
+popup:
+    loadingError: Contents failed to load.
+    close: Close
+    embedded:
+        title: Share the map
+        beforeInfo: "You can use the accessibility map on your websites via HTML iframe tag. Just copy and and paste the generated HTML code into your site. The displayed places can be minimized by adjusting of the filter, the generated code iframe in addition reflects the current setting of the center of the map and its zoom. The size of the embedded iframe can be adjust by changing the width and height parameters."
+        license:
+            link: http://web.mapybezbarier.cz/sdileni-mapy-podminky
+            title: The terms of sharing of the maps
+
+    export:
+        title: Data export
+        introText: "One of the main objectives of the project Maps without barriers is to provide all the information about the accessibility of the places in open and computer readable format. Therefore,  a public API was created allowing you to select the exported data not only according to criteria corresponding to filter of the web applications, but also on the basis of a region, a municipality or its part. It is also possible to restrict the exported data by date of last modification option for incremental exports. More information incl. a description of the individual formats can be found in %startTag%specifikaci API%endTag%."
+        exampleText: "As an example, you can export the information about the places corresponding to the current set filter in the following formats:"
+        sparqlText: "A public SPARQL endpoint is also opened within the export interface, which allows the external services querying RDF representation of the database using the the SPARQL query language. The endpoint is available at: %link%."
+        turtleText: RDF representation of the actual data can also be downloaded in a format %startTag%Turtle%endTag%.
+
+stats:
+    title: Mapping statistics
+    totalCount: "Mapped places in total: %count%"
+    table:
+        title: A region
+        count: A number
+
+form:
+    error:
+        equal: Please enter a value %s
+        notQqual: Please enter a valid value
+        blank: This text box can not be empty
+        required: A text box '%label' is obligatory
+        minLength: A text box '%label' must contain at least %d characters
+        maxLength: A text box '%label' can contain a maximum of %d  characters.
+        length: A text box '%label' must be between  %d and %d characters.
+        email: The entered email address is invalid
+        url: Please enter a valid URL
+        integer: Please enter a valid integer.
+        float: Please enter a valid number.
+        min: Please enter a value greater than or equal to %d.
+        max: Please enter a value less than or equal to %d.
+        range: "Please enter a value in the range from: %d to: %d"
+        maxFileSize: The uploaded file exceeded the allowed size of %d bytes.
+        maxPostSize: The consigned data exceed the allowed limit of %d bytes.
+        mimeType: The recorded file is not in a supported format.
+        image: "The uploaded image file must be in JPG, GIF or PNG format."
+        valid: Please select one of the valid values.
+        csrf: The data validity has expired. Please try again one more time.
+        date: The date entered is in the prescribed format %d.
+
+control:
+    search:
+        placeholder: A locality
+
+    filter:
+        mapType:
+            headline: A map type
+            items:
+                roadmap: A map
+                satellite: A satelite
+
+            seekPositionButton: Load a position
+
+        label:
+            accessibility: A place accessibility
+            category: A type of a place
+            type: Data categories
+
+        values:
+            category:
+                churches: church buildings
+                theatres: theaters
+                muzeums: museums and galleries
+                historical: historical buildings
+                libraries: libraries
+                memorials: memorials
+                towers: observation towers
+                other: other
+
+        tools:
+            insertedMap: A code for an inserted map
+            export: Export
+            help: Help
+
+    map:
+        infoBox:
+            loading: Loading…
+            error: The information about the place failed to load.
+            autocompleteError: Current position failed to load!
+            close: Close
+            detail: Detail
+            wc: WC
+            changingDesk: A changing table
+            entrance1Accessibility: Accessible through the main entrance
+            entrance2Accessibility: Accessible through the side entrance
+            outdatedWarning: Please note that the place data %tagStart% is more than 3 years old %tagEnd%.
+            address: An address
+            gps: GPS coordinates
+            web: A webpage
+            source: Data source
+
+        detail:
+            pictogram:
+                parking: a reserved parking space
+                difficult_surface: A difficult surface
+                difficult_inclination: A difficult incline
+                stairs: Stairs
+                spiral_stairs: A spiral staircase
+                elevator: A lift
+                platform: A platform
+                rampskids: A ramp/skids
+                narrowed_passage: A narrowed passage
+                door_width: A limited width of the door
+                AccessibleWCMKPO: accessible toilet
+                PartlyAccessibleWCMKPO: partially accessible toilet
+                InAccessibleWCMKPO: Difficult to access or an inaccessible restroom
+
+            description:
+                elevator: "The dimensions of the smallest lift: %size% cm"
+                platform: "The smallest dimensions platforms: %size% cm"
+                rampskids1: "The largest slope of the ramp/rails: %size% %"
+                rampskids2: "The maximum length of the ramp/rails: %size% cm"
+                entrance1: infront of the main entrance
+                entrance2: infront of the side entrance
+                wc:
+                    location: "%localization% (%access%)"
+                    cabinSize: "dimensions: %size% cm"
+                    doorOpeningDirection: "a direction towards which the door slides: %value%"
+                    wcBasinLeftDistance: "a space on the left of WC: %size% cm"
+                    wcBasinRightDistance: "a space of the right of WC: %size% cm"
+                    wcBasinSeatHeight: "a seat height: %size% cm"
+                    handleLeft: "left handle: %size% cm (%type%)"
+                    handleLeftMissing: "left handle: missing"
+                    handleRight: "right handle: %size% cm (%type%)"
+                    handleRightMissing: "right handle: missing"
+                    washbasinUnderpass: "underpassing of the sink: %value%"
+                    wcChangingdeskTrue: "a changing table: %bool% (%value%)"
+                    wcChangingdeskFalse: "a changing table: %bool%"
+
+            title:
+                description:
+                    object: A description of the place
+                    mainEntrance: A description of the main entrance
+                    sideEntrance: A description of the side entrance
+                    interior: A description of the interior
+                    rampskids: A descriptionof the ramp / skids
+                    platform: A description of the platform
+                    elevator: A description of the lift
+                    wc: A description of the toilet
+
+    mailer:
+        subject: A new message from the mapybezbarier.cz web
+        passwordReset:
+            headline: A password reset
+
+    navigation:
+        news: News
+        about: About the project
+        media: Media
+        mapping: Mapping
+        openData: Open data
+        contact: Contacts
+
+renderer:
+    vozejkmap:
+        objectAccessible: "An accessible place (unverified information)"
+        accessibility: Wheelchair accessible
+        wcAccessible: Wheelchair accessible WC
+        parkingAccessible: Parking for the disabled
+        "yes": "yes"
+        "no": "no"
+
+header:
+    h1: Maps without barriers - wheelchair access - an interactive map
+    logo: Maps without barriers
+    motto: We are making a barrier-free map of the Czech Republic
+    mainMenuOpener: Open the main menu
+
+seo:
+    title: Konto Bariéry - Maps without barriers
+    description: We are making a barrier-free map of the Czech Republic
+    keywords: "a barrier-free map, accessibility, traveling, monuments, buildings, open data"
+
+footer:
+    headline: Konto Bariéry
+    address:
+        headline: Address
+        line1: Nadace Charty 77
+        line2: Melantrichova 5
+        line3: "Praha 1, 110 00"
+        line4: Czech Republic
+        line5: Nadace Charty 77
+        phoneLabel: Tel.
+        phone: "420224214452"
+        emailLabel: E-mail address
+        email: info@mapybezbarier.cz
+
+    navigation:
+        headline: Navigation
+
+    share:
+        headline: Share with us
+
+geocoding:
+    report:
+        subject: A report to search GPS coordinates by address
+        heading:
+            multiple: Ambiguous addresses
+            zero: The addresses which could not be traced
+            error: The addresses which Geocoding API returned as an error
+
+semantics:
+    header: The header
+    footer: The footer
+    mainMenu: Main menu
+    search: Search
+    languages: Language selection
+    mainContent: Main content
+    aside: Additional content
+    bottomMenu: Bottom menu
+    quickContact: Contact
+    filter: Filters
+
+help:
+    mainToolsButtons:
+        headline: The main tool buttons
+        search:
+            button: A button to open the search
+            sentence1: "After clicking on the icon [Search], an editable box for tracking the locations on the map unfolds. It is possible to enter a specific location (eg. The Broadway Theatre) as well as the bigger territorial units such as parts of the city, a municipality or a region. In this case a so-called \"Suggestions\" work for suggesting the existing locations. In the available options it is possible to comfortably select your choice with arrows on the keyboard and confirming the selection with clicking Enter. After selecting one of the places to visit, the map moves and centers on the location."
+            sentence2: The suggestions are restricted to the Czech Republic. The search can be used only for zooming in a certain place on the map and does not affect the displayed places.
+            sentence3: By clicking on the X it is possible to close the search. The selected location on the map remains unchanged.
+
+        filter:
+            button: A button to open the filter
+            sentence1: "After clicking on the icon [Filter] a left panel appears from the side, containing the tool buttons and sets of filters. By double-clicking on this button you can hide the left panel again. The selected filters remain on the map."
+
+    leftPanel:
+        headline: Left panel
+        sentence1: "All actions taken while filtering, hence the left column, are done through AJAX technology. This eliminates re-rendering of the page."
+        sentence2: All filters can be combined.
+        sentence3: "If no item is selected in a certain group, all places will appear in the map, like in the case of all selected items."
+        topTools:
+            headline: A tool menu at the top
+            mapChanger:
+                headline: Switching of the map types
+                sentence1: "The default map view is CLASSIC [Map]. It is possible to switch to the satellite (HYBRID) map view, [Satellite]."
+
+            actualPositon:
+                headline: Determining the current position
+                sentence1: "On the right from the option Switching of the map types is button for estimating the current location. After clicking on it, the confirmation screen appears and after the confirming, the map moves and centers on its current position."
+
+        filter:
+            headline: Filter
+            methodicsLinkText: for more information click here
+            accessibility:
+                headline: The accessibility of a place
+                sentence1: "By clicking on the filter item, only the places corresponding to the selected type of accessibility appear in the map. The item will be marked as selected. This way, you can also select multiple items at once."
+                sentence2: "The accessibility is determined by the color in the application. This color is then reflected in the marking on the map, a floating window with brief information also in the detail of the place."
+                accessibility1:
+                    headline: The place is accessible
+                    sentence1: The place or its main part is accessible through at least one wheelchair access. The visit is possible without a prior arrangement.
+
+                accessibility2:
+                    headline: The place is partially accessible
+                    sentence1: Only a certain part of the place is accessible or the place does not fulfil some of the requirements for the place to be confirmed as accessible.
+
+                accessibility3:
+                    headline: The place is accessible with difficulties or inaccessible
+                    sentence1: "The access or movement around the place is particularly complicated (a combination of different reasons)."
+
+            objectType:
+                headline: A type of a place
+                sentence1: "By clicking on the filter item in the map, only the places corresponding to the selected place type appear. The item will be marked as selected. This way, you can also select multiple items at once."
+
+        bottomTools:
+            headline: Lower tool menu
+            sentence1: "Down under the filter there are 3 filter tool buttons. Once you move your mouse on a certain icon, in the help will appear the button function. After clicking on the button, the content will appear in a floating window."
+            insertedMap:
+                headline: Share the map
+                sentence1: Here you will find a HTML code for sharing the application on other websites incl. help to use.
+
+            export:
+                headline: Data export
+                sentence1: "Viewing of the export options for the map information. There are 3 most used formats: XML, JSON, and CSV (Excel)."
+
+            help:
+                headline: Help
+                sentence1: This is a help.
+
+    marker:
+        headline: An place on the map
+        sentence1: "The place on the map is graphically customized to the accessibility (color) and place type (pictogram). The lower part precisely targets the GPS coordinates of the place on the map."
+        mergedObject:
+            headline: A combined place
+            sentence1: "There also exists a so-called a combined place, in case that there is more than one place in the map. Instead of the place icon there appears a numeral indicating the number of the places within the combination."
+
+    infobox:
+        headline: Brief information
+        sentence1: "A brief summary of the selected place and the link to the detailed information appears in the floating box. In the case of a combined place, at the bottom of the floating box appears a switch to another olace within the combination."
+
+    detail:
+        headline: Detail information.
+        sentence1: "When you click on the link [Detail] in a floating window, a right panel appears containing extended information about the place, incl. a detailed description and photo (if available)."
+
+    methodics:
+        headline: The methodology of categorizing the accessibility of the places
+        accessibility:
+            headline: A categorization of the accessibility
+            accessibility1:
+                headline: The place is accessible
+                sentence1: The whole place or its bigger part is accessible via at least one wheelchair access. The visit is possible without a prior arrangement.
+                sentence2: "Ramps (mobile and fixed) infront of and inside the place have a length of 3 meters and an incline up to 12.5%, at a length of 9 meters to a maximum of 8%. The width of the fixed ramp is at least 110 cm."
+                sentence3: "Doors and passageways are at least 80 cm wide, also applies to the entrance (main) wing of double doors. The height threshold is a maximum 2 cm."
+                sentence4: "To overcome differences in height there is a self-service elevator and its dimensions are at least: door width 80 cm, internal dimensions of the cubicle: width 100 cm x 125 cm depth. We do not evaluate places with a platform as accessible."
+                sentence5: "When it comes to a place with public toilets, there is accessible toilet: WC I or in the event that all other accessibility requirements are fulfilled, at least one partially accessible toilet WC II."
+                sentence6: Surfaces and inclination of the paths in the facility and its immediate surroundings do not complicate the movement of a wheelchair.
+
+            accessibility2:
+                headline: The place is partially accessible
+                sentence1: Only a part of the place or the place itself does not fulfill some of the requirements listed in the accessible places. The description unmet requirements is in the text.
+                sentence2: "Ramps and rails (mobile and fixed) infront of and inside the place have a length of 3 meters and an incline up 16.5%, at a length of 9 meters to a maximum of 12.5%. The width of the fixed ramp is at least 110 cm."
+                sentence3: Doors and passageways are at least 70 cm wide. The height threshold is a maximum of 7 cm.
+                sentence4: "The elevator has dimensions at least: door width 70 cm, inner dimensions of the chamber: width 100 cm x 110 cm depth."
+                sentence5: "Platform dimensions are at least: door width 70 cm, transport area: width 70 cm x depth 90 cm. Information on load capacity are given in the supplementary text."
+                sentence6: "The accessibility of the is not a determinative factor. Given the current state of the accessibility in the Czech Republic, the requirement to have at least the WC II. the objects partially open to reassignment meant largely inaccessible objects to objects."
+                sentence7: "Before the entracne of the place, there is one step up without a solution to overcome it."
+
+            accessibility3:
+                headline: The place is hardly accessible or inaccessible
+                sentence1: "The access to or moving around the place is particularly complicated (a combination of different reasons)."
+
+        wc:
+            headline: A categorization of the WC
+            wc1:
+                headline: An accessible toilet - WC I.
+                sentence1: "Located in the ladie's toilet (or in ladies's and gents) or placed separately."
+                sentence2: Entrance door cab and all approaches to it are at least 80 cm wide. Doors open outwards from the cubicle.
+                sentence3: "The dimensions of the cabin are minimal: width of 160 cm x 160 cm depth."
+                sentence4: "Access to the toilet from the side (side access toilet) is at least 80 cm."
+                sentence5: There are handles by the toilet and the toilet paper is in reach of a person sitting on the toilet.
+                sentence6: There is enough space below the sink is for a wheelchair to access it. The space is not restricted other furniture.
+
+            wc2:
+                headline: Partially accessible toilet - WC II.
+                sentence1: "Located in the ladies' room (or gents) or placed separately."
+                sentence2: The cabin entrance door and all accesses to it are at least 70 cm wide. Doors open outwards from the cab.
+                sentence3: "The cabin dimensions are at least: 140 cm x 140 m depth. Handling space must be located opposite the door."
+                sentence4: "The access to the toilet from the side (side access toilet) is at least 70 cm."
+
+            wc3:
+                headline: Difficult to access or inaccessible toilets - regular WC
+                sentence1: "This is a normal toilet or modified toilet that has one or more deficiencies:"
+                sentence2: "Insufficient cabin dimension (width and / or depth of less than 140 cm)."
+                sentence3: "The cabin doors are of unsatisfactory width (less than 70 cm), or open inwards."
+                sentence4: Unsatisfactory cabin layout.
+                sentence5: "Access to the toilet from the side (side access to the toilet) is less than 70 cm."
+                sentence6: The toilet is located in the inaccessible part of the place.

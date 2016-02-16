@@ -1,0 +1,14 @@
+{layout APP_DIR . "/Component/Mailer/template/@layout.latte"}
+
+{block body}
+    <h1>{_backend.control.import.mailer.headline, ['sourceTitle' => $data['sourceTitle'], 'sourceType' => $data['sourceType']]}</h1>
+    {capture $title}{_backend.control.import.mailer.button}{/capture}
+    {include APP_DIR . "/Component/Mailer/template/button.latte"
+        , title => $title
+        , link => $data['link']
+        , width => 350
+        , height => 55
+        , bgColor => '#e4002b'
+        , class => 'long'
+    }
+{/block}

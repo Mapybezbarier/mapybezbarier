@@ -1,0 +1,965 @@
+import:
+    headline: "Import"
+    confirm:
+        delete: "Opravdu chcete import smazat?"
+    consistency:
+        wcPrefix: "Porušení pravidla konzistence WC"
+        objectPrefix: "Porušení pravidla konzistence objektu"
+    error:
+        unknownRuian: "Atribut ruianAddress obsahuje neznámou hodnotu."
+        unknownObjectKey: "Neznamý klíč '%key%'."
+        missingObjectKey: "Chybějící klíč '%key%'."
+        invalidObjectValueType: "Hodnota '%value%' klíče '%key%' má nesprávný typ. Je očekáván typ '%type%'."
+        invalidObjectEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
+        invalidObjectMinimalValue: "Hodnota '%value%' klíče '%key%' je mimo rozsah. Minimální možná hodnota je '%extreme%'."
+        invalidObjectMaximalValue: "Hodnota '%value%' klíče '%key%' je mimo rozsah. Maximální možná hodnota je '%extreme%'."
+        invalidObjectExternalData: "Externí data neobsahují validní JSON."
+        unknownObjectLocation: "Není známá poloha objektu. Musí být zadána buď RUIAN adresa nebo GPS souřadnice."
+
+    notice:
+        ruianNotFound: "Dle adresy se nepodařilo dohledat žádné adresní místo RUIAN, adresu je třeba opravit."
+        ruianDuplicity: "Dle adresy se nepodařilo dohledat žádné jedinečné adresní místo RUIAN, adresu je třeba upřesnit."
+        invalidVozejkmapObjectEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
+        currentObject: "Importovaný objekt byl spárován se stávajícím, data byla přepsána."
+        consistency:
+            object1: "Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem."
+            ramps1: "Rampy a ližiny (mobilní i pevné) před vstupem i uvnitř objektu mají sklon při délce do 3 metrů maximálně 16,5 %, při délce do 9 metrů maximálně 12,5 %. Šířka pevných ramp je minimálně 110 cm."
+            doors1: "Dveře a průchody jsou široké minimálně 80 cm, platí i pro vstupní (hlavní) křídlo dvoukřídlých dveří."
+            doorsteps1: "Výška prahů je maximálně 2 cm."
+            elevators1: "Pro překonání výškových rozdílů je k dispozici samoobslužný výtah a jeho rozměry jsou minimálně: šířka dveří 80 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 125 cm."
+            wcs1: "Pokud se jedná o objekt s toaletami pro veřejnost, k dispozici je přístupná toaleta: WC I. nebo v případě, že jsou všechny ostatní požadavky na přístupnost naplněny, alespoň částečně přístupná toaleta WC II."
+            interior2: "Přístupnost interiéru není ani částečná."
+            ramps2: "Rampy a ližiny (mobilní i pevné) před vstupem i uvnitř objektu mají sklon při délce do 3 metrů maximálně 16,5 %, při délce do 9 metrů maximálně 12,5 %. Šířka pevných ramp je minimálně 110 cm."
+            doors2: "Dveře a průchody jsou široké minimálně 70 cm."
+            doorsteps2: "Výška prahů je maximálně 7 cm."
+            elevators2: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 110 cm."
+            platforms2: "Rozměry plošiny jsou minimálně: šířka vstupu 70 cm, přepravní plocha: šířka 70 cm x hloubka 90 cm."
+            object2: "Před vstupem do objektu je maximálně jeden schod bez řešení k jeho překonání."
+            wc:
+                location1: "Nachází se v dámských toaletách (případně v dámských i pánských) nebo je umístěna samostatně. (příloha %key%)"
+                doors1: "Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 80 cm. Dveře se otevírají směrem ven z kabiny. (příloha %key%)"
+                cabin1: "Rozměry kabiny jsou minimálně: šířka 160 cm x hloubka 160 cm. (příloha %key%)"
+                basin1: "Přístup k míse z boku (boční přístup k míse) je minimálně 80 cm. (příloha %key%)"
+                handles1: "U mísy jsou madla, toaletní papír je v dosahu osoby sedící na míse. (příloha %key%)"
+                washbasin1: "Pod umyvadlem je dostatečný prostor pro podjetí vozíku. (příloha %key%)"
+                space1: "Manipulační prostor v kabině není omezený dalším zařízením toalety. (příloha %key%)"
+                doors2: "Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 70 cm. Dveře se otevírají směrem ven z kabiny. (příloha %key%)"
+                cabin2: "Rozměry kabiny jsou minimálně: šířka 140 cm x hloubka 140 cm. (příloha %key%)"
+                basin2: "Přístup k míse z boku (boční přístup k míse) je minimálně 70 cm. (příloha %key%)"
+    action:
+        manual: "manuální import"
+        create: "nastavit nový automatický import"
+        delete: "smazat"
+        license: "licence"
+        licenseCreate: "vytvořit novou licenci"
+enum:
+    value:
+        roleId:
+            master: "master"
+            admin: "admin"
+            agency: "agentura"
+            mapper: "mapař"
+    bool:
+        "true": Ano
+        "false": Ne
+
+control:
+    nodata: "Nebyly nalezeny žádné položky."
+    objectSelect:
+        control:
+            label:
+                title: "Název objektu"
+                submit: "Hotovo"
+        error:
+            objectNotFound: "Objekt nebyl nalezen"
+        hint: "Pro nové mapování stávajícího objektu začněte psát jeho název a vyberte jej z našeptávače. Pro mapování nového objektu zadejte jeho název."
+    login:
+        title: "Přihlášení"
+        label:
+            login: "uživatelské jméno"
+            password: "heslo"
+            permanent: "trvalé přihlášení"
+        error:
+            indentityNotFound: "Uživatelské jméno '%login%' nenalezeno."
+            invalidCredentials: "Neplatné heslo."
+            failure: "Přihlášení se nezdařilo."
+            protection: "Platnost formuláře vypršela"
+    registration:
+        title: "Registrace"
+    passwordReset:
+        title: "Obnova hesla"
+        label:
+            email: "e-mail"
+        error:
+            unknownEmail: "Neznámý e-mail."
+        mail:
+            subject: "Žádost o obnovu hesla z webu mapybezbarier.cz"
+            title: "Dobrý den,"
+            body: "přijali jsme žádost o obnovu vašeho hesla. Pro jeho změnu prosím klikněte na odkaz níže. Pokud jste o změnu hesla nezažádali, tento e-mail ignorujte. Váš účet je i tak v bezpečí."
+        flash:
+            success:
+                sent: "Na zadaný e-mail byl odeslán odkaz pro obnovu hesla"
+            error:
+                validToken: "Odkaz není platný"
+    passwordChange:
+        title: "Změna hesla"
+        label:
+            currentPassword: "stávající heslo"
+            newPassword: "nové heslo"
+        error:
+            invalidCurrentPassword: "Stávající heslo není platné"
+            failure: "Heslo se nepodařilo změnit"
+        flash:
+            success:
+                change: "Heslo bylo změněno"
+    user:
+        label:
+            role: "role"
+            agency: "agentura"
+            firstname: "jméno"
+            surname: "příjmení"
+            ic: "IČ"
+            icTitle: "název subjektu"
+            icPlace: "sídlo subjektu"
+            icForm: "právní forma subjektu"
+            agencyCertified: "certifikovaná agentura"
+            mapperCertified: "certifikovaný mapař"
+            city: "město"
+            email: "e-mail"
+            phone: "telefon"
+            login: "uživatelské jméno"
+            password: "heslo"
+            submit: "uložit"
+            license: "licence"
+        prompt:
+            role: "-- vyberte roli --"
+        value:
+            license:
+                default: "výchozí"
+        error:
+            emailAlreadyTaken: "Zadaný e-mail je již registrován"
+            loginAlreadyTaken: "Zadané přihlašovací jméno je již registrováno"
+        flash:
+            success:
+                create: "Uživatel byl vytvořen"
+                edit: "Uživatel byl uložen"
+        ares:
+            FO: "FO"
+            PO: "PO"
+    import:
+        label:
+            source: "Zdroj dat"
+            license: "Licence dat"
+            url: "URL adresa zdrojového souboru"
+            file: "NEBO nahrát soubor"
+            hours_offset: "Jak často provádět import (v hodinách)"
+            certified: "Certifikovaná data?"
+            submit: "Uložit"
+            process: "Importovat"
+        action:
+            delete: "Smazat"
+        list:
+            head:
+                created: "Vytvořeno"
+                user: "Uživatel"
+                source: "Zdroj"
+                lastRun: "Naposledy spuštěno"
+                lastSuccess: "Naposledy naimportováno"
+                url: "URL"
+                hoursOffset: "Četnost (h)"
+                certified: "Certifikovaná"
+        license:
+            head:
+                title: "Název"
+        requiredInfo: "Je nutné zadat URL adresu zdrojového souboru nebo nahrát soubor."
+        manual:
+            success: "Import proběhl úspěšně, bližší informace najdete v logu."
+            error: "Import se nezdařil, bližší informace najdete v logu."
+            null: "V importované dávce nebyly žádné nové či změněné objekty."
+        log:
+            title: "Report importu"
+            hasErrors: "Nebyly naimportovány žádné objekty, importní dávka obsahovala chyby."
+            count: "Celkový počet naimportovaných objektů: %count%"
+            head:
+                created: "Spuštěno"
+                user: "Uživatel"
+                source: "Zdroj"
+                errorsCount: "Počet chyb"
+                noticesCount: "Počet upozornění"
+                count: "Počet objektů"
+                detail: "Detail"
+        mailer:
+            subject: "Report automatického importu z webu mapybezbarier.cz"
+            headline: "Automatický import z %sourceTitle% (%sourceType%)"
+            button: "Report kontroly kvality a konzistence"
+    license:
+        label:
+            title: "Název licence"
+            submit: "Uložit"
+        deleteError: "Licenci není možné smazat - je nastavena u některého z existujících záznamů."
+    system:
+        log:
+            head:
+                 module: "Modul"
+                 action: "Akce"
+                 id: "ID"
+                 user: "Uživatel"
+                 created: "Datum a čas"
+                 detail: "Detail"
+
+            user:
+                title: "Změna dat uživatele"
+                label: "Uložená data"
+            login:
+                title: "Přihlášení uživatele"
+                ip: "IP adresa"
+                ua: "User Agent"
+    logSearch:
+        label:
+            moduleKey: "Modul"
+            actionKey: "Akce"
+            userId: "Uživatel"
+            changedId: "ID"
+    userSearch:
+        label:
+            roleId: "Role"
+            title: "Jméno/Příjmení/Login/Název subjektu"
+        prompt:
+            roleId: "-- vyberte roli --"
+    dashboard:
+        openButton: "Dashboard"
+        Object:
+            headline: "Objekty"
+            default: "Přehled objektů"
+            select: "Nové mapování"
+        User:
+            headline: "Uživatelé"
+            default: "Přehled uživatelů"
+            create: "Přidat uživatele"
+        Import:
+            headline: "Import"
+            default: "Automatické importy"
+            logs: "Logy importů"
+        System:
+            headline: "Systém"
+            default: "Akce uživatelů"
+            backup: "Zálohy databáze"
+        trainingLink:
+            link: http://web.mapybezbarier.cz/backend-skoleni
+            text: Školení/nápověda
+    object:
+        drafts:
+            head:
+                title: "Název"
+        objects:
+            head:
+                title: "Název"
+        tab:
+            object: "Obecné údaje"
+            mainEntrance: "Hlavní vstup"
+            sideEntrance: "Vedlejší vstup"
+            interior: "Interiér"
+            rampskids: "Rampa/ližiny"
+            platform: "Plošina"
+            elevator: "Výtah"
+            wc: "WC"
+            confirm:
+                delete: "Opravdu chcete přílohu smazat?"
+        label:
+            title: "Název objektu"
+            addAttachement: "Nová příloha"
+            removeAttachement: "odebrat přílohu"
+            removeImage: "Odebrat fotku"
+            draft: "Uložit koncept"
+            publish: "Publikovat"
+            publishWithNotices: "Publikovat s nekonzistencemi"
+            true: "Ano"
+            false: "Ne"
+            mainEntrance: "Vstup hlavní"
+            sideEntrance: "Vstup Vedlejší"
+            accessToEntrance: "Přístup ke vstupu"
+
+            attachement:
+                rampskids: "rampa/ližiny"
+                platform: "plošina"
+                elevator: "výtah"
+                wc: "wc"
+
+            object:
+                title: "Název mapovaného objektu"
+                description: "Popis mapovaného objektu"
+                image: "Vložit novou fotografii"
+                parentObjectId: "Je objekt součástí komplexu budov? Pokud ano, uveďte"
+                organizationName: "Je objekt součástí organizace? Pokud ano, uveďte"
+                mappingDate: "Datum mapování objektu"
+                objectType: "Typ objektu"
+                accessibility: "Přístupnost objektu podle Metodiky kategorizace přístupnosti objektů (MKPO)"
+                region: "Kraj"
+                ruianAddress: "RUIAN ID"
+                zipcode: "PSČ"
+                city: "Obec"
+                cityPart: "Část obce"
+                street: "Ulice"
+                streetDescNo: "Číslo popisné"
+                streetOrientNo: "Číslo orientační"
+                streetOrientSymbol: "Číslo orientační - symbol"
+                objectTypeCustom: "jiné"
+                latitude: "Zeměpisná šířka"
+                longitude: "Zeměpisná délka"
+                helpAddress1: "PSČ nebo obec"
+                helpAddress2: "Ulice"
+                helpAddress3: "Číslo domu"
+                webUrl: "URL adresa webových stránek"
+                certified: "Certifikovaný"
+
+            entrance:
+                localization: "Lokalizace"
+                marked: "Označení vstupu"
+                aobIsAboveDoor: "Nad osou vstupních dveří"
+                accessibility: "Přístupnost vstupu"
+                isAOB: "AOM (akustický orientační majáček)"
+                aobLocalization: "Lokalizace AOM v případě, že není nad osou dveří"
+                areaBeforeDoor: "Plocha před dveřmi"
+                areaBeforeDoorDepth: "Hloubka"
+                areaBeforeDoorWidth: "Šířka"
+                artificialEntranceGuidingline: "Umělá"
+                bell: "Zvonek"
+                bellHeight: "Výška"
+                bellIndentation: "Odsazení od rohu"
+                contrastMarkingIsGlassSurfaces: "Kontrastní značení prosklených ploch"
+                difficultSurfaceDescription: "Typ povrchu"
+                door: "Dveře"
+                door1MainpanelWidth: "Průjezdová šířka hlavního křídla"
+                door1SidepanelWidth: "Šířka vedlejšího křídla"
+                door1StepHeight: "Výška prahu"
+                door2MainpanelWidth: "Průjezdová šířka hlavního křídla"
+                door2SidepanelWidth: "Šířka vedlejšího křídla"
+                door2StepHeight: "Výška prahu"
+                firstLastStepMarked: "První a poslední schod kontrastně vyznačen"
+                glassSurfaces: "Prosklené plochy (prosklení níže než 80 cm nad podlahu)"
+                guidingline: "Vodící linie"
+                hasDescription: "Slovní popis úseku"
+                hasNotes: "Poznámky"
+                longitudinalInclination: "Sklon"
+                longitudinalInclinationLocalization: "Lokalizace"
+                transverseInclination: "Sklon"
+                transverseInclinationLocalization: "Lokalizace"
+                isDifficultSurface: "Obtížný povrch"
+                isLongitudinalInclination: "Sklon podélný"
+                isReservedParking: "Vyhrazené parkovací stání"
+                isTransverseInclination: "Sklon příčný"
+                lobby: "Zádveří"
+                lobbyDepth: "Hloubka"
+                lobbyDoor: "Dveře zádveří"
+                lobbyWidth: "Šířka"
+                missingEntranceGuidingline: "Chybí"
+                moreSteps: "Více schodů"
+                naturalEntranceGuidingline: "Přirozená"
+                numberOfReservedParking: "Počet"
+                oneStep: "Jeden schod"
+                reservedParkingAccessDescription: "Přístup od VPS ke vstupu objektu"
+                reservedParkingLocalization: "Lokalizace"
+                stepsBeforeEntrance: "Schody před vstupem"
+                stepsIsContrastMarked: "Kontrastní značení schodů"
+                stepsInLobby: "Schody v zádveří"
+                steps1Depth: "Hloubka"
+                steps1Height: "Výška"
+                steps1NumberOf: "Počet"
+                steps2Depth: "Hloubka"
+                steps2Height: "Výška"
+                steps2NumberOf: "Počet"
+                isSideEntranceMarked: "Vedlejší vstup vyznačen"
+                isSideEntranceInformation: "Informace o vedlejším vstupu u vstupu hlavního"
+                accessProvidedBy: "Přístup zajistí"
+            interior:
+                steps: "Schody v interiéru"
+                oneStep: "jeden schod"
+                objectSteps1Height: "výška"
+                objectSteps1Depth: "hloubka"
+                moreSteps: "více schodů"
+                objectSteps1NumberOf: "počet"
+                objectSteps1Localization: "lokalizace"
+                stairs: "Schodiště v interiéru"
+                stairsHelp: "spojující patra budovy"
+                objectStairsWidth: "šířka schodiště"
+                objectStairsIsBannister: "zábradlí u schodiště"
+                narrowedPassage: "Zúžený průchod"
+                narrowedPassageHelp: "méně než 80 cm"
+                objectNarrowedPassageWidth: "šířka"
+                objectNarrowedPassageLocalization: "lokalizace"
+                tourniquet: "Turnikety"
+                objectTourniquetLocalization: "lokalizace"
+                contrastMarkingGlass: "Kontrastní značení prosklených ploch"
+                objectContrastMarkingIsGlassSurfaces: "prosklené plochy (prosklení níže než 80 cm nad podlahu)"
+                contrastMarkingSteps: "Kontrastní značení schodů"
+                objectStepsIsContrastMarked: "první a poslední schod kontrastně vyznačen"
+                aob: "AOM (akustický orientační majáček)"
+                objectAobIsAboveDoor: "nad osou vstupních dveří"
+                objectAobLocalization: "lokalizace AOM v případě, že není nad osou dveří"
+                navigationSystem: "Navigační systém pro osoby se zrakovým omezením"
+                objectNavigationSystemDescription: "popis"
+                objectInteriorAccessibility: "Přístupnost interiéru"
+                objectHasNotes: "Poznámky"
+                objectHasDescription: "Slovní popis úseku"
+            rampskids:
+                rampRelation: "Vazba ke vstupu"
+                ramp: "Rampa"
+                skids: "Ližiny"
+                rampSkidsHasNotes: "Poznámky"
+                rampSkidsHasDescription: "Slovní popis úseku"
+                rampInteriorLocalization: "lokalizace v interiéru"
+                rampAccessProvidedBy: "přístup zajistí"
+                rampNumberOfLegs: "počet ramen (úseků)"
+                leg1: "1. rameno"
+                rampleg1Inclination: "sklon"
+                rampleg1Width: "šířka"
+                rampleg1Length: "délka"
+                leg2: "2. rameno"
+                rampleg2Inclination: "sklon"
+                rampleg2Width: "šířka"
+                rampleg2Length: "délka"
+                leg3: "3. rameno"
+                rampleg3Inclination: "sklon"
+                rampleg3Width: "šířka"
+                rampleg3Length: "délka"
+                leg4: "4. rameno"
+                rampleg4Inclination: "sklon"
+                rampleg4Width: "šířka"
+                rampleg4Length: "délka"
+                bottomEntryArea: "plocha pod rampou"
+                rampBottomEntryareaWidth: "šířka"
+                rampBottomEntryareaDepth: "hloubka"
+                topEntryArea: "plocha nad rampou"
+                rampTopEntryareaWidth: "šířka"
+                rampTopEntryareaDepth: "hloubka"
+                landingsEntryArea: "podesty"
+                rampLandingsEntryareaWidth: "šířka"
+                rampLandingsEntryareaDepth: "hloubka"
+                surface: "povrch"
+                rampIsHandle: "madlo (zábradlí)"
+                rampHandle1Height: "výška"
+                skidsInteriorLocalization: "lokalizace v interiéru"
+                skidsInclination: "sklon"
+                skidsLength: "délka"
+            wc:
+                wcAccessibility: "Přístupnost WC"
+                wcLocalization: "Lokalizace WC"
+                wcAccessProvidedBy: "přístup zajistí"
+                hallway1: "Předsíň 1"
+                hallwayHelp: "V případě, že je kabina přístupná přes předsíně"
+                hallway:
+                    size: "rozměry"
+                    door: "dveře do předsíně"
+                hallway1Width: "šířka"
+                hallway1Depth: "hloubka"
+                hallway1DoorWidth: "šířka"
+                hallway1DoorMarking: "označení na dveřích"
+                hallway2: "Předsíň 2"
+                hallway2Width: "šířka"
+                hallway2Depth: "hloubka"
+                hallway2DoorWidth: "šířka"
+                hallway2DoorMarking: "označení na dveřích"
+                cabinType: "Typ upravené WC kabiny"
+                door: "Dveře upravené WC kabiny"
+                doorWidth: "šířka"
+                doorOpeningDirection: "směr otevírání"
+                doorHandlePosition: "madlo"
+                doorIsMarking: "označení na dveřích"
+                switch: "Vypínač"
+                wcSwitchHeight: "výška"
+                cabin: "Kabina"
+                wcCabinWidth: "šířka"
+                wcCabinDepth: "hloubka"
+                basin: "Mísa WC"
+                wcBasinLeftDistance: "vzdálenost od levého boku mísy k levé stěně"
+                wcBasinRightDistance: "vzdálenost od pravého boku mísy k pravé stěně"
+                wcBasinSeatHeight: "výška sedátka"
+                wcBasinBackIndentation: "odsazení WC mísy od zadní stěny"
+                wcBasinSpace: "prostor pro vozík vedle WC mísy"
+                wcBasinIsPaperReach: "toaletní papír v dosahu z mísy"
+                flushing: "Splachování WC"
+                flushingBack: "vzadu"
+                wcFlushingBackHeight: "výška"
+                flushingSide: "z boku"
+                wcFlushingSideHeight: "výška"
+                wcFlushingSideDistanc: "vzdálenost od rohu"
+                handle: "Madla WC"
+                handle1Type: "madlo vlevo"
+                handle1Length: "délka"
+                handle1Height: "výška"
+                handle2Type: "madlo vpravo"
+                handle2Length: "délka"
+                handle2Height: "výška"
+                wcHandlesDistance: "osová vzdálenost madel"
+                cabinDisposition: "Dispozice kabiny"
+                wcCabinDoorDisposition: "Dveře"
+                wcCabinWCBasinDisposition: "WC mísa"
+                wcCabinWashBasinDisposition: "Umyvadlo"
+                washbasin: "Umyvadlo"
+                washbasinHeight: "výška umístění umyvadla"
+                washbasinUnderpass: "podjezd umyvadla v hloubce 20 cm od hrany umyvadla"
+                washbasinTap: "baterie"
+                tapHeight: "výška od podlahy"
+                washbasinIsHandle: "madlo"
+                washbasinHandleType: "typ"
+                washbasinHandleHeight: "výška"
+                washbasinHandleLength: "délka"
+                alarmButton: "Signalizační tlačítko"
+                wcAlarmbuttonTopHeigh: "výška signalizace v horní úrovni"
+                wcAlarmbuttonBottomHeight: "výška signalizace ve spodní úrovni"
+                changingDesk: "Přebalovací pult"
+                wcIsChangingdeskObstructs: "překáží při obsluze WC"
+                regularWc: "Běžné WC v objektu"
+                wcIsRegularWCBrailleMarking: "označení Braille"
+                wcHasNotes: "Poznámky"
+                wcHasDescription: "Slovní popis úseku"
+            platform:
+                platformRelation: "Vazba ke vstupu"
+                platformLocalization: "Lokalizace plošiny"
+                type: "Typ plošiny"
+                params: "Parametry plošiny"
+                paramsHelp: "ve směru jízdy"
+                platformWidth: "šířka"
+                platformDepth: "hloubka"
+                platformMaxLoad: "nosnost"
+                minParams: "Minimální parametry"
+                platformIsMinParameters: "min. rozměr 70 x 90 cm, min. nosnost 150 kg"
+                entryAreaBottom: "Dolní nástupní plocha, vstup a dojezd"
+                entryAreaSize: "rozměry nástupní plochy"
+                entryarea1Width: "šířka"
+                entryarea1Depth: "hloubka"
+                entryAreaEntry: "vstup na plošinu"
+                entryarea1IsEntryClosing: "zavírání (dvířka, zábrana)"
+                entryarea1EntryWidth: "šířka vstupu"
+                entryarea1HeightElevation: "výška převýšení mezi podlahou plošiny a nástupištěm"
+                entryAreaBell: "zvonek"
+                entryarea1BellHeight: "výška"
+                entryarea1BellIndentation: "odsazení"
+                entryarea2Width: "šířka"
+                entryarea2Depth: "hloubka"
+                entryarea2IsEntryClosing: "zavírání (dvířka, zábrana)"
+                entryarea2EntryWidth: "šířka vstupu"
+                entryarea2HeightElevation: "výška převýšení mezi podlahou plošiny a nástupištěm"
+                entryarea2BellHeight: "výška"
+                entryarea2BellIndentation: "odsazení"
+                controls: "Umístění ovladačů"
+                controlsBottom: "vně plošiny dole"
+                platformOutsideBottomControlHeight: "výška"
+                controlsTop: "vně plošiny nahoře"
+                platformOutsideTopControlHeight: "výška"
+                controlsInside: "uvnitř plošiny"
+                platformInsideControlHeight: "výška"
+                elevation: "Převýšení překonávané plošinou"
+                platformNumberOfSteps: "počet schodů"
+                platformNumberOfFloors: "počet podlaží"
+                platformHasNotes: "Poznámky"
+                platformHasDescription: "Slovní popis úseku"
+            elevator:
+                elevatorLocalization: "Lokalizace výtahu"
+                type: "Typ výtahu"
+                elevatorAccessProvidedBy: "přístup do výtahu zajistí"
+                elevatorConnectsFloors: "výtah spojuje patra"
+                entryArea: "Nástupní plocha"
+                entryareaWidth: "šířka"
+                entryareaDepth: "hloubka"
+                entryareaHeightElevation: "převýšení (rozdíl výšek mezi podlahou klece a nástupištěm)"
+                door: "Dveře"
+                doorShaft: "šachetní"
+                door1Width: "šířka"
+                door1Opening: "otevírání"
+                doorCage: "klecové"
+                door2Width: "šířka"
+                door2Opening: "otevírání"
+                control: "Ovladače na nástupních místech"
+                elevatorControl1MaxHeight: "výška horního tlačítka ve všech vytapatrech max."
+                controlMarking: "označení"
+                elevatorControl1ReliefMarking: "reliéf"
+                elevatorControl1FlatMarking: "ploché"
+                elevatorIsControl1BrailleMarking: "Braille"
+                aob: "AOM (akustický orientační majáček)"
+                elevatorAobIsAboveDoor: "nad osou dveří"
+                elevatorAobLocalization: "lokalizace AOM v případě, že není nad osou dveří"
+                elevatorAOBAnnouncementsScheme: "hlášení"
+                cage: "Klec"
+                cageSize: "rozměry"
+                elevatorCageWidth: "šířka"
+                elevatorCageDepth: "hloubka"
+                cageType: "průchozí"
+                controlCage: "Ovladače uvnitř klece"
+                elevatorCageControlDistance: "vzdálenost ovladače od nejbližšího rohu"
+                elevatorCageControlHeight: "výška horního tlačítka"
+                elevatorControl2ReliefMarking: "reliéf"
+                elevatorControl2FlatMarking: "ploché"
+                elevatorIsControl2BrailleMarking: "Braille"
+                controlAnnouncement: "hlášení"
+                elevatorIsCageControlAnnouncementAcoustic: "akustické"
+                elevatorIsCageControlAnnouncementPhonetic: "fonetické"
+                cageEquipment: "Vybavení klece"
+                cageHandle: "madlo"
+                cageMirror: "zrcadlo"
+                elevatorCageMirrorHeight: "výška spodní hrany"
+                cageSeat: "sedátko"
+                elevatorIsCageSeatFunctional: "funkční ve všech polohách"
+                elevatorIsCageSeatWithinreach: "ovladač v dosahu"
+                elevatorHasNotes: "Poznámky"
+                elevatorHasDescription: "Slovní popis úseku"
+        placeholder:
+            entranceReservedParkingAccessDescription: "(bezbariérový, obrubník bez nájezdu, zúžení…)"
+            entranceDifficultSurfaceDescription: "(hrubá historická dlažba, popraskaný asfalt…)"
+            entranceLongitudinalInclinationLocalization: "(přístupová komunikace, prostor před vstupem)"
+            entranceTransverseInclinationLocalization: "(přístupová komunikace, prostor před vstupem)"
+            objectNavigationSystemDescription: "(haptický, elektronický…)"
+
+        value:
+            yes: "ano"
+            no: "ne"
+
+            objectType:
+                basilicaObjectCategory: "bazilika"
+                theatreObjectCategory: "divadlo"
+                galleryObjectCategory: "galerie"
+                defensivecastleObjectCategory: "hrad"
+                defensivecastleStatelyhomeObjectCategory: "hrad a zámek"
+                templeObjectCategory: "chrám"
+                chapelObjectCategory: "kaple"
+                cathedralObjectCategory: "katedrála"
+                monasteryObjectCategory: "klášter"
+                libraryObjectCategory: "knihovna"
+                churchObjectCategory: "kostel"
+                lorettaObjectCategory: "loreta"
+                museumObjectCategory: "muzeum"
+                museumGalleryObjectCategory: "muzeum a galerie"
+                museumLibraryObjectCategory: "muzeum a knihovna"
+                palaceObjectCategory: "palác"
+                monumentObjectCategory: "památník"
+                townhallObjectCategory: "radnice"
+                synagogueObjectCategory: "synagoga"
+                fortressObjectCategory: "tvrz"
+                towerObjectCategory: "věž"
+                statelyhomeObjectCategory: "zámek"
+                otherObjectCategory: "jiné"
+
+            entranceGuidingline:
+                naturalEntranceGuidingline: "Přirozená"
+                artificialEntranceGuidingline: "Umělá"
+                missingEntranceGuidingline: "Chybí"
+                naturalArtificialEntranceGuidingline: "Přirozená a umělá"
+
+            entranceAccessibility:
+                noelevationEntranceAccessibility: "Bez převýšení"
+                oneStepEntranceAccessibility: "Jeden schod"
+                moreStepsEntranceAccessibility: "Více schodů"
+                platformEntranceAccessibility: "Plošina (příloha č. 2)"
+                rampEntranceAccessibility: "Rampa (příloha č. 3)"
+
+            bellType:
+                ringonlyBellType: "Pouze zvonění"
+                intercomBellType: "Interkom"
+                missingBellType: "Chybí"
+
+            contrastMarkingLocalization:
+                bottomContrastMarkingLocalization: "Ve spodní výškové úrovni"
+                topContrastMarkingLocalization: "V horní výškové úrovni"
+                bottomTopContrastMarkingLocalization: "V horní i spodní výškové úrovni"
+                missingContrastMarkingLocalization: "Chybí"
+
+            doorType:
+                singlepanelledDoorType: "Jednokřídlé"
+                doublepanelledDoorType: "Dvoukřídlé"
+                carouselDoorType: "Karuselové"
+
+            doorOpening:
+                mechanicalDoorOpening: "Mechanické"
+                automaticDoorOpening: "Automatické"
+                slidingDoorOpening: "Posuvné"
+                swingingDoorOpening: "Kyvné"
+
+            doorOpeningDirection:
+                outwardsDoorOpeningDirection: "Otevírání ven"
+                inwardsDoorOpeningDirection: "Otevírání dovnitř"
+                sidesDoorOpeningDirection: "Otevírání do stran"
+                onesideDoorOpeningDirection: "Otevírání do strany"
+
+            accessibility:
+                accessibleObjectMKPO: přístupný
+                partlyAccessibleObjectMKPO: částečně přístupný
+                inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+
+            objectStairsType:
+                directObjectStairsType: "přímé"
+                spiralObjectStairsType: "točité"
+                directSpiralObjectStairsType: "přímé a točité"
+            objectInteriorAccessibility:
+                entireObjectInteriorAccessibility: "celý interiér nebo jeho větší část"
+                partObjectInteriorAccessibility: "pouze část interiéru"
+                inaccessibleObjectInteriorAccessibility: "nepřístupný interiér"
+            mappableEntityAccess:
+                freelyaccessibleMappableEntityAccess: "volně přístupná"
+                lockedMappableEntityAccess: "uzamčená"
+
+            hallwayDoorMarking:
+                doorIsMarking: "ano"
+                doorIsNotMarking: "ne"
+                doorIsBrailleMarking: "Braille"
+
+            wCCategorization:
+                accessibleWCMKPO: Přístupná toaleta - WC I.
+                partlyAccessibleWCMKPO: Částečně přístupná toaleta - WC II.
+                inAccessibleWCMKPO: Obtížně přístupná nebo nepřístupná toaleta - běžné WC
+
+            wCCabinLocalization:
+                selfcontainedWCCabinLocalization: "samostatná"
+                ladiesWCCabinLocalization: "v oddělení WC ženy"
+                gentsWCCabinLocalization: "v oddělení WC muži"
+                gentsLadiesWCCabinLocalization: "v oddělení WC muži a ženy"
+
+            wCDoorOpeningDirection:
+                outwardsDoorOpeningDirection: "z kabiny"
+                inwardsDoorOpeningDirection: "do kabiny"
+                sidesDoorOpeningDirection: "posuvné"
+
+            wCDoorHandlePosition:
+                insideHandlePosition: "uvnitř"
+                outsideHandlePosition: "vně"
+                missingHandlePosition: "chybí"
+                insideOutsideHandlePosition: "uvnitř a vně"
+
+            wCSwitch:
+                yesWCSwitch: "ano"
+                missingWCSwitch: "chybí"
+                automaticWCSwitch: "automat"
+
+            wCBasinSpace:
+                freeWCBasinSpace: "volný"
+                blockedbymobileWCBasinSpace: "blokovaný mobilním prvkem"
+                blockedbyfixedWCBasinSpace: "blokovaný pevným prvkem"
+
+            wCFlushing:
+                automaticWCFlushing: "automatické"
+                mechanicalWCFlushing: "mechanické"
+
+            wCFlushingDifficulty:
+                oKWCFlushingDifficulty: "v pořádku"
+                difficultWCFlushingDifficulty: "obtížné"
+                brokenWCFlushingDifficulty: "rozbité"
+
+            handleType:
+                foldingHandleType: "sklopné"
+                fixedHandleType: "pevné"
+
+            wCCabinDisposition:
+                topLeftWCCabinDisposition: ""
+                topRightWCCabinDisposition: ""
+                leftTopWCCabinDisposition: ""
+                leftBottomWCCabinDisposition: ""
+                bottomLeftWCCabinDisposition: ""
+                bottomRightWCCabinDisposition: ""
+                rightTopWCCabinDisposition: ""
+                rightBottomWCCabinDisposition: ""
+
+            washbasinUnderpass:
+                sufficientWashbasinUnderpass: "dostatečný"
+                insufficientWashbasinUnderpass: "nedostatečný"
+
+            tapType:
+                levelTap: "páková"
+                touchfreeTap: "bezdotyková"
+                valveTap: "ventil (kohoutek)"
+
+            washbasinHandleType:
+                verticalHandleOrientation: "svislé"
+                horizontalHandleOrientation: "vodorovné"
+
+            wCChangingdesk:
+                foldingWCChangingdesk: "sklopný"
+                mobileWCChangingdesk: "mobilní"
+
+            platformType:
+                verticalPlatformType: "volně přístupná"
+                inclinedPlatformType: "uzamčená (přístup zajištěn obsluhou)"
+
+            entryareaEntry:
+                sideEntryareaEntry: "nástup z boku"
+                frontEntryareaEntry: "nástup čelní"
+
+            elevatorType:
+                personalElevatorType: "osobní"
+                cargoElevatorType: "nákladní"
+
+            elevatorDriveoff:
+                landingsElevatorDriveoff: "dojezd na hlavních podestách"
+                mezzaninesElevatorDriveoff: "dojezd v mezipatrech"
+
+            elevatorControlReliefMarking:
+                engravedElevatorControlReliefMarking: "ryté"
+                protrudingElevatorControlReliefMarking: "vystouplé"
+
+            elevatorControlFlatMarking:
+                graphicElevatorControlFlatMarking: "grafické"
+                digitalElevatorControlFlatMarking: "digitální (dotyk)"
+
+            aOBAnnouncement:
+                phraseAOBAnnouncement: "fráze"
+                jingleAOBAnnouncement: "trylek"
+                phraseJingleAOBAnnouncement: "fráze a trylek"
+
+            elevatorCageSeconddoorLocalization:
+                frontElevatorCageSeconddoorLocalization: "druhé dveře na čelní stěně"
+                sideElevatorCageSeconddoorLocalization: "boční stěně"
+
+            elevatorHandleLocalization:
+                frontwallHandleLocalization: "čelní stěna"
+                sidewallHandleLocalization: "boční stěny"
+                sidewallsHandleLocalization: "boční stěny"
+
+            elevatorCageMirrorLocalization:
+                frontwallElevatorCageMirrorLocalization: "čelní stěna"
+                sidewallElevatorCageMirrorLocalization: "boční stěny"
+                sidewallsElevatorCageMirrorLocalization: "boční stěny"
+
+            rampHandleLocalization:
+                sidewallHandleLocalization: "jednostranné "
+                sidewallsHandleLocalization: "oboustranné"
+
+            rampSurface:
+                slipperyRampSurface: "kluzký"
+                nonslipperyRampSurface: "nekluzký"
+
+            rampType:
+                directRampType: "přímá"
+                bentRampType: "zalomená"
+                spiralRampType: "točitá"
+
+            rampSkidsMobility:
+                fixedRampSkidsMobility: "pevná"
+                mobileRampSkidsMobility: "mobilní"
+
+            rampSkidsLocalization:
+                entranceRampSkidsLocalization: "před vstupními dveřmi"
+                lobbyRampSkidsLocalization: "v zádveří"
+                interiorRampSkidsLocalization: "v interiéru"
+
+            rampskidsPlatformRelation:
+                mainEntrance: "hlavní vstup"
+                sideEntrance: "vedlejší vstup"
+
+        error:
+            objectNotFound: "Zadaný objekt nebyl nalezen, hodnota musí být vybrána z našeptávače."
+            address1NotFound: "PSČ/obec se nepodařilo dohledat, hodnota musí být vybrána z našeptávače."
+            address2NotFound: "Ulici se nepodařilo dohledat, hodnota musí být vybrána z našeptávače."
+            address3NotFound: "Číslo domu se nepodařilo dohledat, hodnota musí být vybrána z našeptávače."
+            validation: "Odeslaný formulář obsahuje chyby kvality nebo konzistence"
+
+        text:
+            noAddress: "Objekt nemá adresu"
+            changeAddress: "Změnit adresu"
+
+        validation:
+            title: "Výstup kontroly kvality a konzistence"
+            description: "Níže naleznete popis chyb zjištěných po posledním odeslání formuláře."
+            continue: "Pokračovat v editaci objektu"
+
+    search:
+        label:
+            search: "hledat"
+            reset: "reset"
+
+    objectSearch:
+        label:
+            term: "Název objektu"
+            user: "Uživatel"
+            accessibility: "Přístupnost objektu"
+            category: "Typ objektu"
+            type: "Podklady"
+
+    objectHistory:
+        currentVersion: "Aktuální verze"
+        previousVersion: "Předchozí verze"
+
+object:
+    headline: "Objekty"
+    title:
+        create: "Mapování objektu %title%"
+        mapping: "Nové mapování objektu %title%"
+        edit: "Editace objektu %title%"
+        compare: "Porovnání objektu %title%"
+        draft: "Koncept objektu %title%"
+
+    hasDraft: "Objekt má svoji rozpracovanou verzi!"
+    action:
+        mapping: "Nové mapování"
+        history: "Historie"
+        edit: "Upravit"
+        delete: "Smazat"
+        split: "Rozdělit"
+        join: "Sloučit"
+        revert: "Obnovit"
+        compare: "Porovnat"
+
+    confirm:
+        delete: "Opravdu chcete objekt smazat?"
+        revert: "Opravdu chcete objekt obnovit?"
+        split: "Opravdu chcete objekt rozdělit?"
+        exit: "Touto akcí přijdete o neuloženou práci, chcete pokračovat?"
+
+    flash:
+        split:
+            success: "Objekt byl rozdělen, nacházíte se ve výpisu historie nově vytvořeného objektu."
+        revert:
+            success: "Objekt byl obnoven"
+        join:
+            success: "Objekt byl sloučen"
+        save:
+            success: "Koncept byl uložen"
+        publish:
+            success: "Objekt byl publikován"
+
+    compare:
+        help: "Formulář je naplněn hodnotami mapového objektu ve verzi, kterou jste zvolili pro porovnávání. Pod formulářovými poli jsou vypsány hodnoty téhož objektu v aktuální verzi."
+
+    list:
+        drafts: "Koncepty objektů"
+        objects: "Mapové objekty"
+
+    history:
+        list:
+            mappingDate: "Datum mapování"
+            modifiedDate: "Poslední změna"
+            title: "Název"
+            split: "Rozdělit"
+            revert: "Obnovit"
+            compare: "Porovnat"
+
+user:
+    confirm:
+        delete: "Opravdu chcete uživatele smazat?"
+    action:
+        logout: "odhlásit se"
+        register: "registrovat se"
+        login: "přihlásit se"
+        delete: "smazat"
+        edit: "upravit"
+        editProfile: "upravit profil"
+        reset: "zapomenuté heslo"
+        changePassword: "změnit své heslo"
+        resetPassword: "obnovit heslo"
+    list:
+        name: "Jméno a příjmení"
+        role: "Role"
+        login: "Uživatelské jméno"
+        edit: "Upravit"
+        delete: "Smazat"
+
+system:
+    confirm:
+        delete: "Opravdu chcete licenci smazat?"
+
+format:
+    date: "j. n. Y"
+    datetime: "j. n. Y H:i:s"
+
+langSwitcher:
+    label: "Jazyk dat"
+
+footer:
+    adminEmail: "info@mapybezbarier.cz"

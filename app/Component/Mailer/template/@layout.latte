@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$lang}" lang="{$lang}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="Author" content="INSPIRE CZ s.r.o. (www.inspire.cz)"/>
+    <meta name="Powered-by" content="Redakční systém Netwings"/>
+    <title>{block title}{/block}</title>
+</head>
+<body n:block="bodyContent">
+    <div id="html_email">
+        <table{!$tableParam} width="100%">
+            <tr>
+                <td align="center">
+                    <table{!$tableParam} id="content" width="600">
+                        {block header}
+                            <tr><td class="header_wrapper">
+                                <a class="image" href="{$baseUrl}" title="{_messages.header.logo} - {_messages.header.motto}">
+                                    <img src="{$baseImageUrl}/head2.jpg" alt="{_messages.header.logo} - {_messages.header.motto}" />
+                                </a>
+                            </td></tr>
+                        {/block}
+                        <tr>
+                            <td class="body_wrapper text">
+                                {block body}{/block}
+                            </td>
+                        </tr>
+                        {block footer}
+                            <tr><td class="footer_wrapper text">
+                                <a href="mailto:{_messages.footer.address.email}">{_messages.footer.address.email}</a>
+                            </td></tr>
+                        {/block}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{block content}
+    <div class="stats">
+        <h1>{_messages.stats.title}</h1>
+        <h3>{_messages.stats.totalCount, ['count' => $totalCount]}</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>{_messages.stats.table.title}</th>
+                <th>{_messages.stats.table.count}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr n:foreach="$regions as $region">
+                <td>{$region['region']}</td>
+                <td class="count">{$region['count']}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{/block}

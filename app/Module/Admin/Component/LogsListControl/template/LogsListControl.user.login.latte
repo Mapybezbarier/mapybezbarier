@@ -1,0 +1,17 @@
+{extends 'LogsListControl.detail.latte'}
+
+{block actionHeadlineContent}{_backend.control.system.log.login.title}{/block}
+{block actionBody}
+    <div class="list">
+        <table>
+            <tr>
+                <th>{_backend.control.system.log.login.ip}</th>
+                <td>{$data['ip']}</td>
+            </tr>
+            <tr>
+                <th>{_backend.control.system.log.login.ua}</th>
+                <td>{$data['ua']}</td>
+            </tr>
+        </table>
+    </div>
+{/block}

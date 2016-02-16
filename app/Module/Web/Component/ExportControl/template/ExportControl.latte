@@ -1,0 +1,18 @@
+<h2 class="popup_headline">{_messages.popup.export.title}</h2>
+<div class="popup_body">
+    <p>{_messages.popup.export.introText, ['startTag' => '<a href="http://docs.mapybezbarier.apiary.io" target="_blank">', 'endTag' => '</a>']|noescape}</p>
+    <p>{_messages.popup.export.exampleText}</p>
+    <div class="buttons">
+        <div class="button xml">
+            <a href="{$xmlLink}" download="export.xml">XML</a>
+        </div>
+        <div class="button json">
+            <a href="{$jsonLink}" download="export.json">JSON</a>
+        </div>
+        <div class="button csv">
+            <a href="{$csvLink}" download="export.csv">CSV</a>
+        </div>
+    </div>
+    <p>{_messages.popup.export.sparqlText, ['link' => '<a href="http://lod.mapybezbarier.cz/sparql">http://lod.mapybezbarier.cz/sparql</a>']|noescape}</p>
+    <p>{_messages.popup.export.turtleText, ['startTag' => '<a href="/download/turtle/mapybezbarier.ttl.zip" download="mapybezbarier.ttl.zip">', 'endTag' => '</a>']|noescape}</p>
+</div>

@@ -1,0 +1,730 @@
+@import "compass";
+@import "_grid_mixins";
+@import "_burger";
+
+/// SETTINGS ///
+
+// ** NAPOVEDA **
+
+// ** kompilace (watcher i commit vzdy stejne)
+// **   - na projektu poustet ve slozce /asset
+// **   - v ramci balicku poustet zvlast vzdy v root slozce balicku (napr. /nw7-module)
+// **   - v ramci _csp.scss nepouzivat inline-image (nelze zkompilovat)
+
+// ** pouziti cest ve stylech
+// ** - generovana media (/media)
+// **    - url($genering_path + 'obrazek.jpg') [typicky na velke obrazky, kde nechci data-uri]
+// ** - data-uri media
+// **    - na projektu:
+// **       - obrazky z projektu:
+// **           - inline-image($project_path + 'obrazek.svg') [popr. $project_img_path nebo $project_icons_path]
+// **       - obrazky z nw:
+// **           - inline-image($nw7_path + 'obrazek.svg') [popr. $nw7_img_path nebo $nw7_icons_path]
+// **    - v ramci balicku:
+// **       - inline-image($package_path + 'obrazek.svg') [popr. $package_img_path nebo $package_icons_path]
+
+// px conversion
+@function _2px($number) {
+    @return #{$number + 'px'}
+}
+
+// paths
+$media_path         : '/';
+$img_path           : 'img/';
+$icons_path         : 'icons/';
+
+$gen_media          : $media_path + 'asset/';
+$genering_path      : $gen_media + $img_path;
+$font_path          : $gen_media + 'font/';
+
+$package_path       : 'src' + $media_path;
+$package_img_path   : $package_path + $img_path;
+$package_icons_path : $package_img_path + $icons_path;
+
+$nw7_path           : '../lib/composer/inspire/nw7-module/' + $package_path;
+$nw7_img_path       : $nw7_path + $img_path;
+$nw7_icons_path     : $nw7_img_path + $icons_path;
+
+$project_path       : $media_path;
+$project_img_path   : $project_path + $img_path;
+$project_icons_path : $project_img_path + $icons_path;
+
+// barvy
+$base_font_color    : #808080;
+$black_color        : $contrasted-dark-default;
+$white_color        : $contrasted-light-default;
+$border_color       : #e5e5e5;
+
+// zakladni velikosti
+$base_line_height           : 130%;
+
+$base_width                 : 1170px; // zarazka
+$position_out               : -5000px;
+$fake_padding               : 0.01px;
+
+$check_radio_width          : 16px;
+$check_radio_margin_right   : 7px;
+$check_radio_margin         : 2px $check_radio_margin_right 0 0;
+
+$headlines_top_margin       : 65px;
+$headlines_bottom_margin    : 10px;
+$wiki_elems_bottom_margin   : 20px;
+$wiki_li_left_margin        : 20px;
+
+$button_height              : 50;
+$button_height_px           : _2px($button_height);
+
+$max_data_uri_length        : 5000;
+
+// zakladni nastaveni transition
+$default-transition-duration: 0.2s;
+$default-transition-function: ease-in-out;
+
+// nastaveni pro fonty
+$base_font_family   : Arial, helvetica, sans-serif;
+$base_font_size     : 14;
+
+// form
+$form_items: 'input[type=text], input[type=password], input[type=number], input[type=email], input[type=tel], select, textarea';
+
+// pomery
+$proportion_2_3 : 150%;
+$proportion_3_2 : 66.66%;
+$proportion_3_4 : 133.33%;
+$proportion_4_3 : 75%;
+$proportion_9_16: 177.77%;
+$proportion_16_9: 56.25%;
+
+
+/// FONTY ///
+
+// velikost fontu a vyska radku (lze pouzit samostatne, pokud jiz mam font prirazeny)
+@mixin font_sizes($size: 0, $line_height: 0) {
+    @if $size != 0 {
+        font-size: $size/$base_font_size*100%;
+    }
+    @if $line_height != 0 {
+        line-height: $line_height/$size*100%;
+    }
+}
+
+// specialni font typu 1 (zdroje v repozitari)
+@mixin font_repo($family, $size: 0, $line_height: 0) {
+    font-family: $family, $base_font_family;
+    font-style: normal;
+    font-weight: normal;
+    @include font_sizes($size, $line_height);
+}
+
+// specialni font typu 2 (zdroj Adobe)
+@mixin font_typekit($family, $size: 0, $line_height: 0, $ductus: 0, $italic: false) {
+    font-family: $family, $base_font_family;
+    @if $italic {
+        font-style: italic;
+    } @else {
+        font-style: normal;
+    }
+    font-weight: $ductus;
+    @include font_sizes($size, $line_height);
+}
+// fontface $map: (('name', 'file'), ('name', 'file'))
+@mixin nw_font_face($map, $path: $font_path) {
+    @each $font in $map {
+        $name: map-get($font, name);
+        $file: $path + map-get($font, file);
+
+        @font-face {
+            font-family: $name;
+            src: url($file + '.eot');
+            src: url($file + '.eot?#iefix') format('embedded-opentype'),
+            url($file + '.svg#' + $name) format('svg'),
+            url($file + '.woff') format('woff'),
+            url($file + '.ttf') format('truetype');
+        }
+    }
+}
+
+
+
+
+/// MIXINY ///
+
+// background-size - pomocna fce
+@mixin bs($bs) {
+    @include background-size($bs);
+}
+
+// transition - pomocna fce
+@mixin trans($duration: 0.2s) {
+    @include single-transition(all, $duration);
+}
+
+// horizontalni rotace grafickeho prvku
+@mixin hflip {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+// vertikalni rotace grafickeho prvku
+@mixin vflip {
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: FlipV;
+    -ms-filter: "FlipV";
+}
+
+// zamezeni oznaceni prvku
+@mixin no_select {
+//    @include user-select(none); -- asi zatim nepodporovano
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// obrazek uvnitr centrovan vertikalne i horizontalne na stred - nutno zadat sirku a vysku tohoto elementu
+@mixin image_centered {
+    overflow: hidden;
+    position: relative;
+
+    img {
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+// linearni gradient
+@mixin background_gradient($color_1, $color_2, $color_ie_alt_1: '', $color_ie_alt_2: '', $start: left top, $color_1_start: 0%, $color_2_start: 100%) {
+    @include background-image(linear-gradient($start, $color_1 $color_1_start, $color_2 $color_2_start));
+    background-image: -ms-linear-gradient($start, $color_1 $color_1_start, $color_2 $color_2_start);
+
+    // IE9 nebere polopruhledne barvy - zde moznost alternovat
+    @if $color_ie_alt_1 != '' {
+        $color_1: $color_ie_alt_1;
+    }
+    @if $color_ie_alt_2 != '' {
+        $color_2: $color_ie_alt_2;
+    }
+    filter: unquote('progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=' + $color_1 + ', endColorstr=' + $color_2 + ')');
+}
+
+// calc sirka (100% - Xpx)
+@mixin width_calc($expr, $old_browsers_width: 70%) {
+    width: $old_browsers_width;
+    @include experimental-value(width, calc(100% - #{$expr}));
+}
+
+// clearfix
+@mixin clearfix {
+    display: block;
+
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+        visibility: hidden;
+        height: 0;
+    }
+}
+
+// vycentruje text v obou osach
+@mixin text_centered {
+    display: table;
+    height: 100%;
+    width: 100%;
+
+    > div,
+    > span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+    }
+}
+
+// zajisti proporcionalitu boxu
+@mixin sizes_proportional {
+    height: 100%;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+    }
+}
+
+// transparentni HEXA barva
+@mixin trans_color($color: $white_color, $transparency: 0.5, $rule: 'background-color') {
+    #{$rule}: rgba(red($color), green($color), blue($color), $transparency);
+}
+
+// cerne pruhledne pozadi
+@mixin black_transp_bg($opacity: 0.7) {
+    @include trans_color($black_color, $opacity);
+}
+
+// bile pruhledne pozadi
+@mixin white_transp_bg($opacity: 0.7) {
+    @include trans_color($white_color, $opacity);
+}
+
+// transparentni HEXA barva (fce)
+@function _trans_color($color: $white_color, $transparency: 0.5) {
+    @return rgba(red($color), green($color), blue($color), $transparency);
+}
+
+
+// zalamovani slov
+@mixin wordwrap($set: true) {
+    @if $set {
+        word-wrap: break-word;
+    } @else {
+        word-wrap: inherit;
+    }
+}
+
+// pouziti pravidla pro placeholder form prvku
+@mixin placeholder()
+{
+    &::-webkit-input-placeholder { @content; }
+    &:-moz-placeholder { @content; } /* FF 4-18 */
+    &::-moz-placeholder { @content; } /* FF 19+ */
+    &:-ms-input-placeholder { @content; } /* IE 10+ */
+}
+
+// mixin pro obecny button
+@mixin button {
+    @include text_centered;
+    background-color: $black_color;
+    border: 0 none;
+    color: $white_color;
+    cursor: pointer;
+    @include font_sizes(16, 18);
+    min-height: $button_height_px;
+    padding: 15px 25px;
+    text-align: center;
+    width: auto;
+    @include appearance(none);
+    @include trans;
+
+    > span {
+        display: inline;
+    }
+}
+
+// mixin pro tlacitko ikony
+@mixin ico_button {
+    background: transparent none no-repeat center center;
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-indent: $position_out;
+    top: 0;
+    width: 100%;
+}
+
+@mixin after_ico {
+    content: '';
+    display: block;
+    position: absolute;
+}
+@mixin before_ico {
+    @include after_ico;
+}
+
+// table
+@mixin common_table($class: '') {
+    $table_class: '';
+
+    @if $class != '' {
+        $table_class: $table_class + '.' + $class;
+    }
+
+    table#{$table_class} {
+        margin: $headlines_top_margin 0 $wiki_elems_bottom_margin;
+        text-align: left;
+        width: 100%;
+
+        th,
+        td {
+            border-bottom: 1px solid $border_color;
+            font-weight: normal;
+            padding: 12px 18px;
+            text-align: left;
+        }
+        th {
+            border-color: $black_color;
+            color: $black_color;
+        }
+    }
+}
+
+// reset stinu
+@mixin box_shadow_reset {
+    @include box-shadow(0 0 0 transparent);
+}
+
+// burger
+@mixin nw_burger_base {
+    @include burger;
+}
+// burger to cross
+@mixin nw_burger_cross {
+    @include burger-to-cross;
+}
+
+// scale (s hackem)
+@mixin trans_scale($scale: 1.2) {
+    @include transform(scale($scale) rotate(0.02deg));
+}
+
+// specialni cislovany seznam, operace s cisly pres li:before
+@mixin ol_special {
+    counter-reset: li;
+    list-style-type: decimal;
+
+    > li {
+        list-style-type: none;
+
+        &:before {
+            content: counter(li);
+            counter-increment: li;
+        }
+    }
+}
+
+// ** Fixovana paticka **
+// $footer_height Vyska paticky (nutna)
+// $stop_bp Breakpoint, kde se prestane paticka fixovat
+// $stop_footer_height Pokud neni 'auto', tak v rezimu $stop_bp nastavi vysku paticky na danou hodnotu
+// inspired by bootstrap
+@mixin sticky_footer($footer_height, $stop_bp: 0, $stop_footer_height: auto) {
+    html {
+        min-height: 100%;
+        position: relative;
+
+        body {
+            margin-bottom: $footer_height;
+
+            footer {
+                bottom: 0;
+                height: $footer_height;
+                left: 0;
+                position: absolute;
+                width: 100%;
+            }
+        }
+    }
+
+    @if ($stop_bp > 0) {
+        @include mq($stop_bp) {
+            html {
+                @if ($stop_footer_height != auto) {
+                    body {
+                        margin-bottom: $stop_footer_height;
+
+                        footer {
+                            height: $stop_footer_height;
+                        }
+                    }
+                } @else {
+                    min-height: 0;
+                    position: static;
+
+                    body {
+                        margin-bottom: 0;
+
+                        footer {
+                            height: auto;
+                            position: static;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// helper pro keyframees animace
+@mixin keyframesInspire($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        $browser: '-webkit-'; @content;
+    }
+    @-moz-keyframes #{$animationName} {
+        $browser: '-moz-'; @content;
+    }
+    @-o-keyframes #{$animationName} {
+        $browser: '-o-'; @content;
+    }
+    @-ms-keyframes #{$animationName} {
+        $browser: '-ms-'; @content;
+    }
+    @keyframes #{$animationName} {
+        $browser: ''; @content;
+    }
+}$browser: null;
+
+// animace
+@mixin inspireAnimation($animation, $iteration_count: 1, $transform_origin: 50% 50%) {
+    @include crossBrowser(animation, $animation);
+    @include crossBrowser(animation-iteration-count, $iteration_count);
+    @include crossBrowser(transform-origin, $transform_origin);
+}
+
+@mixin crossBrowser($property, $value) {
+    #{'-webkit-' + $property}: $value;
+    #{'-moz-' + $property}: $value;
+    #{'-o-' + $property}: $value;
+    #{'-ms-' + $property}: $value;
+    #{$property}: $value;
+}
+
+// funkce pro obrazek na pozadi
+// dle velikosti data-uri rozhodne, zda jej pouzit, ci vratit odkaz na obrazek
+@function bg_image($url) {
+    $abs_url: $project_img_path + $url;
+    $rel_url: $genering_path + $url;
+
+    @if (str_length(inline-image($abs_url)) < $max_data_uri_length) {
+        @return inline-image($abs_url);
+    } @else {
+        @return url($rel_url);
+    }
+}
+
+// plynula vymena obrazku na pozadi
+@mixin picture_hover($action: ':hover') {
+    @include picture_hover_state_0;
+
+    &#{$action} {
+        @include picture_hover_state_1;
+    }
+}
+@mixin picture_hover_state_0 {
+    &:before,
+    &:after {
+        @include after_ico;
+        @include trans;
+    }
+    &:after {
+        @include opacity(0);
+    }
+}
+@mixin picture_hover_state_1 {
+    &:before {
+        @include opacity(0);
+    }
+    &:after {
+        @include opacity(1);
+    }
+}
+
+// graficky checkbox/radiobutton
+@mixin checkey {
+    overflow: hidden;
+    position: relative;
+
+    > input {
+        left: -30px;
+        position: absolute;
+        top: -30px;
+    }
+    > label {
+        display: block !important;
+        height: auto;
+        padding: 3px 0 3px 45px;
+        position: relative;
+        text-transform: none;
+
+        &:before,
+        &:after {
+            @include after_ico;
+            left: 3px;
+            top: 1px;
+        }
+        &:before {
+            border: 1px solid $black_color;
+            @include border-radius(10.5px);
+            height: 21px;
+            width: 21px;
+        }
+        &:after {
+            background-color: #231f20;
+            @include border-radius(7.5px);
+            height: 15px;
+            @include opacity(0);
+            margin: 4px;
+            text-align: center;
+            width: 15px;
+            @include trans;
+        }
+    }
+    > input:checked + label:after {
+        @include opacity(1);
+    }
+}
+
+// vlastni graficky select - pro wrapper selectu
+@mixin special_select {
+    display: block;
+    overflow: hidden;
+
+    select {
+        background-color: transparent;
+        border-width: 0;
+        @include appearance(none);
+        width: 115%;
+    }
+}
+
+// fallback pro pozadi pozicovane odprava
+@mixin background_position_right($second_position: center, $px: 0, $fallback_percent: 95%) {
+    background-position: $fallback_percent $second_position;
+    background-position: right $px $second_position;
+}
+
+// vlastni hvezdicka pro required -- pouziti na label:after
+@mixin label_required_star {
+    content: '*';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 8px;
+    top: 5px\0; // IE ALL hack
+}
+
+// polozka prestane floatovat
+@mixin stop_float($width: auto) {
+    float: none;
+    width: $width;
+}
+
+// obecny mixin pro obalovac obrazku pres bgimage
+@mixin img_wrapper($proportion: $proportion_3_2) {
+    background: transparent none no-repeat center center;
+    @include bs(cover);
+
+    &:before {
+        @include before_ico;
+        position: static;
+        padding-bottom: $proportion;
+    }
+}
+
+// mixin pro otvirani skryteho bloku pres max-height
+@mixin max_height_opener($opened_div, $max_height: 1000px, $trans_delay: $default-transition-duration) {
+    #{$opened_div} {
+        max-height: 0;
+        overflow: hidden;
+        @include trans($trans_delay);
+    }
+
+    &.opened {
+        #{$opened_div} {
+            max-height: $max_height;
+        }
+    }
+}
+
+// jeden div s dvoubarevnym pozadim
+@mixin two_coloured_bg($color_1, $color_2, $point: 50%) {
+    background: -moz-linear-gradient(left, $color_1 0%, $color_1 $point, $color_2 $point, $color_2 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, $color_1), color-stop($point, $color_1), color-stop($point, $color_2), color-stop(100%, $color_2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, $color_1 0%, $color_1 $point, $color_2 $point, $color_2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, $color_1 0%, $color_1 $point, $color_2 $point, $color_2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, $color_1 0%, $color_1 $point, $color_2 $point, $color_2 100%); /* IE10+ */
+    background: linear-gradient(to right, $color_1 0%, $color_1 $point, $color_2 $point, $color_2 100%); /* W3C */
+}
+
+// zajisti rozdeleni paddingu (_grid_mixins) i s chovanim na ruznych bp
+@mixin padding_with_break($cols: 2, $padding: 5%, $bp: $bp_mobile, $bp_4_to_2: $bp_960) {
+    @if ($cols == 3) {
+        @include padding_3_cols($padding, $bp);
+    } @else if ($cols == 4) {
+        @include padding_4_cols($padding, $bp, $bp_4_to_2);
+    } @else {
+        @include padding_2_cols($padding, $bp);
+    }
+
+    @include mq($bp) {
+        @include stop_float;
+    }
+}
+
+// flexbox
+@mixin nw_flex($columns: 2, $item: '.item') {
+    @include clearfix; // IE 9 fallback
+    @include display-flex;
+    @include flex-wrap(wrap);
+
+    #{$item} {
+        float: left; // IE 9 fallback
+        @include nw_flex_item($columns);
+        -ms-flex: 0 0 auto; // IE hack http://stackoverflow.com/questions/29562755/flexbox-ie10-width-issues
+    }
+}
+
+// flexbox item - lze volat samostatne
+@mixin nw_flex_item($columns: 2) {
+    $width: _nw_round(100%/$columns, 2, 'floor'); // zaokrouhleni na 2 des. mista (napric prohlizeci funguje)
+
+    width: $width; // IE 9 fallback
+    @include flex(0 0 $width);
+}
+
+// zaokrouhleni
+// @see https://gist.github.com/terkel/4373420
+@function _nw_round($number, $digits: 0, $mode: round) {
+    $n: 1;
+    // $number must be a number
+    @if type-of($number) != number {
+        @warn '#{$number} is not a number.';
+        @return $number;
+    }
+    // $digits must be a unitless number
+    @if type-of($digits) != number {
+        @warn '#{$digits} is not a number.';
+        @return $number;
+    } @else if not unitless($digits) {
+        @warn '#{$digits} has a unit.';
+        @return $number;
+    }
+    @for $i from 1 through $digits {
+        $n: $n * 10;
+    }
+    @if $mode == round {
+        @return round($number * $n) / $n;
+    } @else if $mode == ceil {
+        @return ceil($number * $n) / $n;
+    } @else if $mode == floor {
+        @return floor($number * $n) / $n;
+    } @else {
+        @warn '#{$mode} is undefined keyword.';
+        @return $number;
+    }
+}
+
+/// HTML MAIL ///
+
+// font size pro html mail
+@mixin mail_font_size($size: 14px) {
+    font-size: $size !important;
+    font-size: $size;
+}
+

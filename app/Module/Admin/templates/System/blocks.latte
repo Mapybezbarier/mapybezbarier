@@ -1,0 +1,15 @@
+{includeblock APP_DIR . "/Module/Admin/templates/blocks.latte"}
+
+{define submenuUserItems}
+    <li{ifCurrent :Admin:System:default} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:System:default" title="{_backend.control.dashboard.System.default}">{_backend.control.dashboard.System.default}</a>
+    </li>
+    <li{ifCurrent :Admin:System:backup} class="active"{/ifCurrent} n:if="$user->isAllowed(\MP\Module\Admin\Service\Authorizator::RESOURCE_SYSTEM, \MP\Module\Admin\Service\Authorizator::ACTION_BACKUP)">
+        <a class="cont" n:href=":Admin:System:backup" title="{_backend.control.dashboard.System.backup}">{_backend.control.dashboard.System.backup}</a>
+    </li>
+{/define}
+
+{block headerClass} system{/block} {* jine pozadi zahlavi*}
+{define headline}
+    <h1 class="headline system">{_backend.control.dashboard.System.headline}</h1>
+{/define}

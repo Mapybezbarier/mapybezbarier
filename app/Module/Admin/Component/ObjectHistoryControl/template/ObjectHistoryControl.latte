@@ -1,0 +1,61 @@
+{snippet current}
+    <div class="items_section">
+        <h2 class="is_headline">{_backend.control.objectHistory.currentVersion}</h2>
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th class="mapping_date">{_backend.object.history.list.mappingDate}</th>
+                    <th class="modified_date">{_backend.object.history.list.modifiedDate}</th>
+                    <th class="title">{_backend.object.history.list.title}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="mapping_date">{$current['mapping_date']}</td>
+                    <td class="modified_date">{$current['modified_date']}</td>
+                    <td class="title" title="{$current['id']}">{$current['title']}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{/snippet}
+
+{if $history}
+{snippet history}
+    <div class="items_section">
+        <h2 class="is_headline">{_backend.control.objectHistory.previousVersion}</h2>
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th class="mapping_date">{_backend.object.history.list.mappingDate}</th>
+                    <th class="modified_date">{_backend.object.history.list.modifiedDate}</th>
+                    <th class="title">{_backend.object.history.list.title}</th>
+                    <th class="split tool">{_backend.object.history.list.split}</th>
+                    <th class="revert tool">{_backend.object.history.list.revert}</th>
+                    <th class="compare tool">{_backend.object.history.list.compare}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr n:foreach="$history as $version">
+                    <td class="mapping_date">{$version['mapping_date']}</td>
+                    <td class="modified_date">{$version['modified_date']}</td>
+                    <td class="title" title="{$version['id']}">{$version['title']}</td>
+                    <td class="split tool">
+                        <a n:href="split, id => $version['id']" class="nwjs_confirm" data-confirm="{_backend.object.confirm.split}" title="{_backend.object.action.split}">{_backend.object.action.split}</a>
+                    </td>
+                    <td class="revert tool">
+                        <a n:href="revert, id => $version['id']" class="nwjs_confirm" data-confirm="{_backend.object.confirm.revert}" title="{_backend.object.action.revert}">{_backend.object.action.revert}</a>
+                    </td>
+                    <td class="compare tool">
+                        <a href="{plink :Admin:Compare:default, id => $version['id']}" title="{_backend.object.action.compare}">{_backend.object.action.compare}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{/snippet}
+{/if}

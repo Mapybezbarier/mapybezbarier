@@ -1,0 +1,5 @@
+RewriteEngine Off
+
+ExpiresActive On
+ExpiresByType image/png "modification plus 1 month"
+ExpiresByType image/svg+xml "modification plus 1 month"

@@ -1,0 +1,40 @@
+{includeblock 'ObjectControl.blocks.latte'}
+{includeblock 'ObjectControl.tabs.latte'}
+
+{form form}
+    <div n:if="$form->hasErrors()" class="form_notification_wrapper nwjs_form_notification_wrapper">
+        <div class="fnw_inner">
+            <div class="fnw_headline">{_backend.control.object.validation.title}</div>
+            <p class="fnw_info">{_backend.control.object.validation.description}</p>
+            <div class="fnw_notifications">
+                <ul n:if="$errors" class="fnw_errors">
+                    <li n:foreach="$errors as $error">{$error}</li>
+                </ul>
+                <ul n:if="$notices" class="fnw_notics">
+                    <li n:foreach="$notices as $notice">{$notice}</li>
+                </ul>
+            </div>
+            <div class="more"><span class="nwjs_notification_opener">&hellip;</span></div>
+        </div>
+    </div>
+
+    {include attachementAddControls, _form => $_form}
+
+    <div class="form_outer_wrapper">
+        {include formContent, _form => $_form}
+
+        <div class="form_buttons">
+            {input 'save', class => 'save'}
+            {input 'publish'}
+        </div>
+
+        {if !$errors && $notices}
+            <div class="float_notification nwjs_float_notification">
+                <div class="fn_inner">
+                    <span class="back nwjs_back_with_notices">{_backend.control.object.validation.continue}</span>
+                    {input 'publishWithNotices'}
+                </div>
+            </div>
+        {/if}
+    </div>
+{/form}

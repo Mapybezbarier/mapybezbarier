@@ -1,0 +1,80 @@
+{define tabObject}
+    <div class="form_wrapper common_info_form">
+        <div class="form_inner">
+            <div class="form_block accessibility">
+                {include radioGroup, _form => $_form, name => 'accessibility'}
+            </div>
+            <div class="form_block">
+                {include inputText, _form => $_form, name => 'title'}
+                {include tabObjectParent, _form => $_form}
+
+                {include inputText, _form => $_form, name => 'organizationName'}
+                {include inputText, _form => $_form, name => 'mappingDate'}
+            </div>
+            <div class="form_block">
+                {include inputText, _form => $_form, name => 'region'}
+                {include tabObjectAddress, _form => $_form}
+            </div>
+            <div class="form_block">
+                {include radioGroup, _form => $_form, name => 'objectType', label => true}
+                {include inputText, _form => $_form, name => 'objectTypeCustom', class => 'other'}
+            </div>
+            <div class="form_block">
+                {include tabObjectImage, _form => $_form}
+                {include inputText, _form => $_form, name => 'description', class => 'textarea description'}
+            </div>
+            <div class="form_block">
+                {include inputText, _form => $_form, name => 'webUrl'}
+
+                {if $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_MASTER) || $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_ADMIN)}
+                    {include inputText, _form => $_form, name => 'certified'}
+                {/if}
+            </div>
+        </div>
+    </div>
+{/define}
+
+{define tabObjectImage}{/define}
+
+{define tabObjectParent}
+    {include inputText, _form => $_form, name => 'parentObjectId'}
+{/define}
+
+{define tabObjectAddress}
+    {include tabCityBlock _form => $_form}
+    {include tabStreetBlock _form => $_form}
+    {include tabHouseNumberBlock _form => $_form}
+    {include tabGPSBlock _form => $_form}
+
+    {if $hasAddress}
+        {include objectAddressChange}
+    {/if}
+
+    {include objectAddressMap}
+
+    {include inputText, _form => $_form, name => 'ruianAddress', class => 'hidden'}
+{/define}
+
+{define tabCityBlock}
+    {include inputText, _form => $_form, name => 'zipcode'}
+    {include inputText, _form => $_form, name => 'city'}
+    {include inputText, _form => $_form, name => 'cityPart'}
+{/define}
+
+{define tabStreetBlock}
+    {include inputText, _form => $_form, name => 'street'}
+{/define}
+
+{define tabHouseNumberBlock}
+    {include inputText, _form => $_form, name => 'streetDescNo'}
+    {include inputText, _form => $_form, name => 'streetOrientNo'}
+    {include inputText, _form => $_form, name => 'streetOrientSymbol'}
+{/define}
+
+{define tabGPSBlock}
+    {include inputText, _form => $_form, name => 'latitude'}
+    {include inputText, _form => $_form, name => 'longitude'}
+{/define}
+
+{define objectAddressChange}{/define}
+{define objectAddressMap}{/define}

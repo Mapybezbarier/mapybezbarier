@@ -1,0 +1,879 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mapybezbarier.cz/XMLSchema"
+           xmlns="http://mapybezbarier.cz/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="objects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="object" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- Export only -->
+                            <xs:element name="sourceId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="parentObjectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="userId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="licenseId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="certified" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="photoUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="externalData" type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                            <!-- General information -->
+                            <xs:element name="title" type="xs:string"/>
+                            <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="accessibility" type="ObjectCategorization"/>
+                            <xs:element name="organizationIc" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="organizationName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="mappingDate" type="xs:dateTime"/>
+                            <xs:element name="modifiedDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectType" type="ObjectType"/>
+                            <xs:element name="objectTypeCustom" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="longitude" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="latitude" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="ruianAddress" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="zipcode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="region" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="city" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="cityPart" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="street" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="streetDescNo" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="streetOrientNo" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="streetOrientSymbol" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="webUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                            <!-- Main entrance -->
+                            <xs:element name="entrance1IsReservedParking" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1NumberOfReservedParking" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1ReservedParkingLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1ReservedParkingAccessDescription" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1IsLongitudinalInclination" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1LongitudinalInclination" type="Inclination" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1LongitudinalInclinationLocalization" type="xs:string"
+                                        minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1IsTransverseInclination" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1TransverseInclination" type="Inclination" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1TransverseInclinationLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1IsDifficultSurface" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1DifficultSurfaceDescription" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Guidingline" type="EntranceGuidingline" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Accessibility" type="EntranceAccessibility" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1AreaBeforeDoorWidth" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1AreaBeforeDoorDepth" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1LobbyWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1LobbyDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1IsAOB" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1AobIsAboveDoor" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1AobLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1HasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1HasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1BellType" type="BellType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1BellHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1BellIndentation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps1NumberOf" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps1Height" type="StepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps1Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps2NumberOf" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps2Height" type="StepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Steps2Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1ContrastMarkingIsGlassSurfaces" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1ContrastMarkingLocalization" type="ContrastMarkingLocalization" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1StepsIsContrastMarked" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door1MainpanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door1SidepanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door1Type" type="DoorType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Door1Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Door1OpeningDirection" type="DoorOpeningDirection" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door1StepHeight" type="DoorStepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Door2MainpanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door2SidepanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door2Type" type="DoorType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Door2Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance1Door2OpeningDirection" type="DoorOpeningDirection" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance1Door2StepHeight" type="DoorStepHeight" minOccurs="0" maxOccurs="1"/>
+
+                            <!-- Side entrance -->
+                            <xs:element name="entrance2IsSideEntranceMarked" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2IsSideEntranceInformation" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Localization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Access" type="MappableEntityAccess" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2AccessProvidedBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2IsReservedParking" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2NumberOfReservedParking" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2ReservedParkingLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2ReservedParkingAccessDescription" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2IsLongitudinalInclination" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2LongitudinalInclination" type="Inclination" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2LongitudinalInclinationLocalization" type="xs:string"
+                                        minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2IsTransverseInclination" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2TransverseInclination" type="Inclination" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2TransverseInclinationLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2IsDifficultSurface" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2DifficultSurfaceDescription" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Guidingline" type="EntranceGuidingline" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Accessibility" type="EntranceAccessibility" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2AreaBeforeDoorWidth" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2AreaBeforeDoorDepth" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2LobbyWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2LobbyDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2IsAOB" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2AobIsAboveDoor" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2AobLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2HasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2HasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2BellType" type="BellType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2BellHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2BellIndentation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps1NumberOf" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps1Height" type="StepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps1Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps2NumberOf" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps2Height" type="StepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Steps2Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2ContrastMarkingIsGlassSurfaces" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2ContrastMarkingLocalization" type="ContrastMarkingLocalization" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2StepsIsContrastMarked" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door1MainpanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door1SidepanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door1Type" type="DoorType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Door1Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Door1OpeningDirection" type="DoorOpeningDirection" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door1StepHeight" type="DoorStepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Door2MainpanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door2SidepanelWidth" type="DoorPanelWidth" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door2Type" type="DoorType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Door2Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="entrance2Door2OpeningDirection" type="DoorOpeningDirection" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="entrance2Door2StepHeight" type="DoorStepHeight" minOccurs="0" maxOccurs="1"/>
+
+                            <!-- Interior -->
+                            <xs:element name="objectIsSteps" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectSteps1NumberOf" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectSteps1Height" type="StepHeight" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectSteps1Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectSteps1Localization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectIsStairs" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectStairsType" type="ObjectStairsType" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectStairsWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectStairsIsBannister" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectIsNarrowedPassage" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectNarrowedPassageWidth" type="xs:integer" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectNarrowedPassageLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectIsTourniquet" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectTourniquetLocalization" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectIsNavigationSystem" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectNavigationSystemDescription" type="xs:string" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectInteriorAccessibility" type="ObjectInteriorAccessibility"
+                                        minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectHasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectHasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectContrastMarkingIsGlassSurfaces" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectContrastMarkingLocalization" type="ContrastMarkingLocalization" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectStepsIsContrastMarked" type="xs:boolean" minOccurs="0"
+                                        maxOccurs="1"/>
+                            <xs:element name="objectIsAOB" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectAobIsAboveDoor" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="objectAobLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                            <!-- Ramp/skids -->
+                            <xs:element name="rampskids" type="RampSkids" minOccurs="0" maxOccurs="unbounded"/>
+
+                            <!-- Platform -->
+                            <xs:element name="platform" type="Platform" minOccurs="0" maxOccurs="unbounded"/>
+
+                            <!-- Elevator -->
+                            <xs:element name="elevator" type="Elevator" minOccurs="0" maxOccurs="unbounded"/>
+
+                            <!-- WC -->
+                            <xs:element name="wc" type="WC" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Simple types -->
+    <xs:simpleType name="Inclination">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StepHeight">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorStepHeight">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorPanelWidth">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="30"/>
+            <xs:maxInclusive value="300"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorWidth">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="40"/>
+            <xs:maxInclusive value="500"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Complex types -->
+    <xs:complexType name="RampSkids">
+        <xs:sequence>
+            <xs:element name="rampRelation" type="RelationType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampLocalization" type="RampSkidsLocalization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampInteriorLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampMobility" type="RampSkidsMobility" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampAccessProvidedBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampType" type="RampType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampNumberOfLegs" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg1Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg1Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg1Inclination" type="Inclination" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg2Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg2Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg2Inclination" type="Inclination" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg3Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg3Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg3Inclination" type="Inclination" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg4Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg4Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampleg4Inclination" type="Inclination" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampBottomEntryareaWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampBottomEntryareaDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampTopEntryareaWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampTopEntryareaDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampLandingsEntryareaWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampLandingsEntryareaDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampSurface" type="RampSurface" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampIsHandle" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampHandleOrientation" type="RampHandleLocalization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampHandle1Height" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampHandle2Height" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="skidsLocalization" type="RampSkidsLocalization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="skidsInteriorLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="skidsMobility" type="RampSkidsMobility" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="skidsInclination" type="Inclination" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="skidsLength" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampSkidsHasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="rampSkidsHasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Platform">
+        <xs:sequence>
+            <xs:element name="platformRelation" type="RelationType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformAccess" type="MappableEntityAccess" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformType" type="PlatformType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformMaxLoad" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformWidth" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="40"/>
+                        <xs:maxInclusive value="400"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="platformDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformIsMinParameters" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformNumberOfSteps" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformNumberOfFloors" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformOutsideBottomControlHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformOutsideTopControlHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformInsideControlHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformHasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="platformHasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1Entry" type="EntryareaEntry" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1IsEntryClosing" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1EntryWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1HeightElevation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1BellType" type="BellType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1BellHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea1BellIndentation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2Entry" type="EntryareaEntry" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2IsEntryClosing" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2EntryWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2HeightElevation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2BellType" type="BellType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2BellHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryarea2BellIndentation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Elevator">
+        <xs:sequence>
+            <xs:element name="elevatorLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorAccess" type="MappableEntityAccess" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorType" type="ElevatorType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorAccessProvidedBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorConnectsFloors" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorDriveoff" type="ElevatorDriveoff" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorControl1MaxHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorControl1ReliefMarking" type="ElevatorControlReliefMarking" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorControl1FlatMarking" type="ElevatorControlFlatMarking" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorIsControl1BrailleMarking" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsAOB" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorAobIsAboveDoor" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorAobLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorAOBAnnouncementsScheme" type="AOBAnnouncement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCagePassthrough" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorCageWidth" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="40"/>
+                        <xs:maxInclusive value="400"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="elevatorCageDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorCageSeconddoorLocalization" type="ElevatorCageSeconddoorLocalization"
+                        minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorCageControlDistance" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorCageControlHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorControl2ReliefMarking" type="ElevatorControlReliefMarking" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorControl2FlatMarking" type="ElevatorControlFlatMarking" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorIsControl2BrailleMarking" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageControlAnnouncementAcoustic" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageControlAnnouncementPhonetic" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageHandle" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorHandleLocalization" type="ElevatorHandleLocalization" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorIsCageMirror" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorCageMirrorLocalization" type="ElevatorCageMirrorLocalization" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="elevatorCageMirrorHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageSeat" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageSeatWithinreach" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorIsCageSeatFunctional" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorHasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="elevatorHasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryareaWidth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryareaDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="entryareaHeightElevation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="door1Width" type="DoorWidth" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="door1Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="door2Width" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="40"/>
+                        <xs:maxInclusive value="300"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="door2Opening" type="DoorOpening" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WC">
+        <xs:sequence>
+            <xs:element name="wcAccessibility" type="WCCategorization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcLocalization" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcAccessProvidedBy" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinAccess" type="MappableEntityAccess" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinLocalization" type="WCCabinLocalization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcSwitch" type="WCSwitch" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcSwitchHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinWidth" minOccurs="0" maxOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="90"/>
+                        <xs:maxInclusive value="400"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="wcCabinDepth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcFlushingBackHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcFlushingSideHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcFlushingSideDistanc" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcFlushing" type="WCFlushing" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcFlushingDifficulty" type="WCFlushingDifficulty" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcHandlesDistance" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinLeftDistance" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinRightDistance" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinBackIndentation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinSeatHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinIsPaperReach" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcBasinSpace" type="WCBasinSpace" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcIsChangingdesk" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcIsChangingdeskObstructs" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcChangingdesk" type="WCChangingdesk" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcIsAlarmbutton" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcAlarmbuttonTopHeigh" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcAlarmbuttonBottomHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcIsRegularWC" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcIsRegularWCBrailleMarking" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinDoorDisposition" type="WCCabinDisposition" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinWCBasinDisposition" type="WCCabinDisposition" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcCabinWashBasinDisposition" type="WCCabinDisposition" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcHasNotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="wcHasDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway1Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway1Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway1DoorWidth" type="DoorWidth" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway1DoorMarking" type="HallwayDoorMarking" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway2Width" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway2Depth" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway2DoorWidth" type="DoorWidth" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hallway2DoorMarking" type="HallwayDoorMarking" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle1Type" type="HandleType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle1Height" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle1Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle2Type" type="HandleType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle2Height" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="handle2Length" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="doorWidth" type="DoorWidth" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="doorOpeningDirection" type="WCDoorOpeningDirection" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="doorIsMarking" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="doorHandlePosition" type="WCDoorHandlePosition" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinUnderpass" type="WashbasinUnderpass" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinIsHandle" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinHandleType" type="WashbasinHandleType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinHandleHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="washbasinHandleLength" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="tapHeight" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="tapType" type="TapType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Enumerations -->
+    <xs:simpleType name="ObjectCategorization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AccessibleObjectMKPO"/>
+            <xs:enumeration value="PartlyAccessibleObjectMKPO"/>
+            <xs:enumeration value="InAccessibleObjectMKPO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RelationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="mainEntrance"/>
+            <xs:enumeration value="sideEntrance"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ObjectStairsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DirectObjectStairsType"/>
+            <xs:enumeration value="SpiralObjectStairsType"/>
+            <xs:enumeration value="DirectSpiralObjectStairsType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ObjectInteriorAccessibility">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EntireObjectInteriorAccessibility"/>
+            <xs:enumeration value="PartObjectInteriorAccessibility"/>
+            <xs:enumeration value="InaccessibleObjectInteriorAccessibility"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EntranceGuidingline">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NaturalEntranceGuidingline"/>
+            <xs:enumeration value="ArtificialEntranceGuidingline"/>
+            <xs:enumeration value="MissingEntranceGuidingline"/>
+            <xs:enumeration value="NaturalArtificialEntranceGuidingline"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EntranceAccessibility">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NoelevationEntranceAccessibility"/>
+            <xs:enumeration value="OneStepEntranceAccessibility"/>
+            <xs:enumeration value="MoreStepsEntranceAccessibility"/>
+            <xs:enumeration value="PlatformEntranceAccessibility"/>
+            <xs:enumeration value="RampEntranceAccessibility"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="BellType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="RingonlyBellType"/>
+            <xs:enumeration value="IntercomBellType"/>
+            <xs:enumeration value="MissingBellType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ContrastMarkingLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BottomContrastMarkingLocalization"/>
+            <xs:enumeration value="TopContrastMarkingLocalization"/>
+            <xs:enumeration value="MissingContrastMarkingLocalization"/>
+            <xs:enumeration value="BottomTopContrastMarkingLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SinglepanelledDoorType"/>
+            <xs:enumeration value="DoublepanelledDoorType"/>
+            <xs:enumeration value="CarouselDoorType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorOpening">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MechanicalDoorOpening"/>
+            <xs:enumeration value="AutomaticDoorOpening"/>
+            <xs:enumeration value="SlidingDoorOpening"/>
+            <xs:enumeration value="SwingingDoorOpening"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DoorOpeningDirection">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OutwardsDoorOpeningDirection"/>
+            <xs:enumeration value="InwardsDoorOpeningDirection"/>
+            <xs:enumeration value="SidesDoorOpeningDirection"/>
+            <xs:enumeration value="OnesideDoorOpeningDirection"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RampSkidsLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EntranceRampSkidsLocalization"/>
+            <xs:enumeration value="LobbyRampSkidsLocalization"/>
+            <xs:enumeration value="InteriorRampSkidsLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RampSkidsMobility">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FixedRampSkidsMobility"/>
+            <xs:enumeration value="MobileRampSkidsMobility"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RampType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DirectRampType"/>
+            <xs:enumeration value="BentRampType"/>
+            <xs:enumeration value="SpiralRampType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RampSurface">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SlipperyRampSurface"/>
+            <xs:enumeration value="NonslipperyRampSurface"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RampHandleLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SidewallHandleLocalization"/>
+            <xs:enumeration value="SidewallsHandleLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorHandleLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FrontwallHandleLocalization"/>
+            <xs:enumeration value="SidewallHandleLocalization"/>
+            <xs:enumeration value="SidewallsHandleLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PersonalElevatorType"/>
+            <xs:enumeration value="CargoElevatorType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorDriveoff">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LandingsElevatorDriveoff"/>
+            <xs:enumeration value="MezzaninesElevatorDriveoff"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorControlReliefMarking">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EngravedElevatorControlReliefMarking"/>
+            <xs:enumeration value="ProtrudingElevatorControlReliefMarking"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorControlFlatMarking">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GraphicElevatorControlFlatMarking"/>
+            <xs:enumeration value="DigitalElevatorControlFlatMarking"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="AOBAnnouncement">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PhraseAOBAnnouncement"/>
+            <xs:enumeration value="JingleAOBAnnouncement"/>
+            <xs:enumeration value="PhraseJingleAOBAnnouncement"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorCageSeconddoorLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FrontElevatorCageSeconddoorLocalization"/>
+            <xs:enumeration value="SideElevatorCageSeconddoorLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ElevatorCageMirrorLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FrontwallElevatorCageMirrorLocalization"/>
+            <xs:enumeration value="SidewallElevatorCageMirrorLocalization"/>
+            <xs:enumeration value="SidewallsElevatorCageMirrorLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MappableEntityAccess">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FreelyaccessibleMappableEntityAccess"/>
+            <xs:enumeration value="LockedMappableEntityAccess"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PlatformType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VerticalPlatformType"/>
+            <xs:enumeration value="InclinedPlatformType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="EntryareaEntry">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SideEntryareaEntry"/>
+            <xs:enumeration value="FrontEntryareaEntry"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCCategorization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AccessibleWCMKPO"/>
+            <xs:enumeration value="PartlyAccessibleWCMKPO"/>
+            <xs:enumeration value="InAccessibleWCMKPO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCCabinLocalization">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SelfcontainedWCCabinLocalization"/>
+            <xs:enumeration value="LadiesWCCabinLocalization"/>
+            <xs:enumeration value="GentsWCCabinLocalization"/>
+            <xs:enumeration value="GentsLadiesWCCabinLocalization"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCSwitch">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="YesWCSwitch"/>
+            <xs:enumeration value="MissingWCSwitch"/>
+            <xs:enumeration value="AutomaticWCSwitch"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCFlushing">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AutomaticWCFlushing"/>
+            <xs:enumeration value="MechanicalWCFlushing"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCFlushingDifficulty">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OKWCFlushingDifficulty"/>
+            <xs:enumeration value="DifficultWCFlushingDifficulty"/>
+            <xs:enumeration value="BrokenWCFlushingDifficulty"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCBasinSpace">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FreeWCBasinSpace"/>
+            <xs:enumeration value="BlockedbymobileWCBasinSpace"/>
+            <xs:enumeration value="BlockedbyfixedWCBasinSpace"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCChangingdesk">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FoldingWCChangingdesk"/>
+            <xs:enumeration value="MobileWCChangingdesk"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCCabinDisposition">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TopLeftWCCabinDisposition"/>
+            <xs:enumeration value="TopRightWCCabinDisposition"/>
+            <xs:enumeration value="LeftTopWCCabinDisposition"/>
+            <xs:enumeration value="LeftBottomWCCabinDisposition"/>
+            <xs:enumeration value="BottomLeftWCCabinDisposition"/>
+            <xs:enumeration value="BottomRightWCCabinDisposition"/>
+            <xs:enumeration value="RightTopWCCabinDisposition"/>
+            <xs:enumeration value="RightBottomWCCabinDisposition"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- V RDF je rozdeleno na 2 pole doorIsMarking:bool a doorIsBrailleMarking:bool -->
+    <xs:simpleType name="HallwayDoorMarking">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DoorIsMarking"/>
+            <xs:enumeration value="DoorIsNotMarking"/>
+            <xs:enumeration value="DoorIsBrailleMarking"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="HandleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FoldingHandleType"/>
+            <xs:enumeration value="FixedHandleType"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCDoorOpeningDirection">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OutwardsDoorOpeningDirection"/>
+            <xs:enumeration value="InwardsDoorOpeningDirection"/>
+            <xs:enumeration value="SidesDoorOpeningDirection"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WCDoorHandlePosition">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="InsideHandlePosition"/>
+            <xs:enumeration value="OutsideHandlePosition"/>
+            <xs:enumeration value="MissingHandlePosition"/>
+            <xs:enumeration value="InsideOutsideHandlePosition"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WashbasinUnderpass">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SufficientWashbasinUnderpass"/>
+            <xs:enumeration value="InsufficientWashbasinUnderpass"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WashbasinHandleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VerticalHandleOrientation"/>
+            <xs:enumeration value="HorizontalHandleOrientation"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TapType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LevelTap"/>
+            <xs:enumeration value="TouchfreeTap"/>
+            <xs:enumeration value="ValveTap"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ObjectType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BasilicaObjectCategory"/>
+            <xs:enumeration value="TheatreObjectCategory"/>
+            <xs:enumeration value="GalleryObjectCategory"/>
+            <xs:enumeration value="DefensivecastleObjectCategory"/>
+            <xs:enumeration value="DefensivecastleStatelyhomeObjectCategory"/>
+            <xs:enumeration value="TempleObjectCategory"/>
+            <xs:enumeration value="OtherObjectCategory"/>
+            <xs:enumeration value="ChapelObjectCategory"/>
+            <xs:enumeration value="CathedralObjectCategory"/>
+            <xs:enumeration value="MonasteryObjectCategory"/>
+            <xs:enumeration value="LibraryObjectCategory"/>
+            <xs:enumeration value="ChurchObjectCategory"/>
+            <xs:enumeration value="LorettaObjectCategory"/>
+            <xs:enumeration value="MuseumObjectCategory"/>
+            <xs:enumeration value="MuseumGalleryObjectCategory"/>
+            <xs:enumeration value="MuseumLibraryObjectCategory"/>
+            <xs:enumeration value="PalaceObjectCategory"/>
+            <xs:enumeration value="MonumentObjectCategory"/>
+            <xs:enumeration value="TownhallObjectCategory"/>
+            <xs:enumeration value="SynagogueObjectCategory"/>
+            <xs:enumeration value="FortressObjectCategory"/>
+            <xs:enumeration value="TowerObjectCategory"/>
+            <xs:enumeration value="StatelyhomeObjectCategory"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

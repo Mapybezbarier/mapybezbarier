@@ -1,0 +1,88 @@
+@import "_mixins";
+
+.base {
+    color: $base_font_color;
+    font-family: $special_font_name, Arial, sans-serif;
+    @include mail_font_size(14px);
+    line-height: 21px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+#html_email {
+    .text {
+        @extend .base;
+    }
+    .body_wrapper a:not(.button) {
+        color: $red_color;
+        text-decoration: underline;
+    }
+    #{headings(2,4)} {
+        @extend .base;
+        color: $black_color;
+        font-weight: normal;
+        margin: 0;
+        padding-bottom: 5px;
+    }
+    h2 {
+        @include mail_font_size(25px);
+    }
+    h3 {
+        @include mail_font_size(20px);
+    }
+    h4 {
+        @include mail_font_size(18px);
+    }
+    p {
+        @extend .base;
+        @include mail_font_size(14px);
+        margin: 0;
+        padding: 0 0 15px;
+    }
+    .button_wrap {
+        padding-top: 20px;
+    }
+    a.button {
+        @extend .base;
+        background-color: $red_color;
+        color: $white_color;
+        display: inline-block;
+        height: 55px;
+        line-height: 55px;
+        text-align: center;
+        text-decoration: none;
+        width: 211px;
+        -webkit-text-size-adjust: none;
+
+        &.long {
+            width: 350px;
+        }
+    }
+    a.long_link {
+        @include wordwrap(true);
+    }
+    a.image {
+        display: block;
+    }
+    img {
+        display: block;
+    }
+    .header_wrapper {
+        border-bottom: 1px solid $gray_color;
+    }
+    .body_wrapper {
+        padding: 60px 50px;
+    }
+    .footer_wrapper {
+        background-color: $purple_color;
+        padding: 35px 0;
+        text-align: center;
+
+        a {
+            color: $white_color;
+            text-decoration: underline;
+        }
+    }
+}

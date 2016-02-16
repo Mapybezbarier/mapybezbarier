@@ -1,0 +1,82 @@
+.base, #html_email .text, #html_email h2, #html_email h3, #html_email h4, #html_email p, #html_email a.button {
+  color: #404040;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 14px !important;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#html_email .body_wrapper a:not(.button) {
+  color: #e4002b;
+  text-decoration: underline;
+}
+#html_email h2, #html_email h3, #html_email h4 {
+  color: #000;
+  font-weight: normal;
+  margin: 0;
+  padding-bottom: 5px;
+}
+#html_email h2 {
+  font-size: 25px !important;
+  font-size: 25px;
+}
+#html_email h3 {
+  font-size: 20px !important;
+  font-size: 20px;
+}
+#html_email h4 {
+  font-size: 18px !important;
+  font-size: 18px;
+}
+#html_email p {
+  font-size: 14px !important;
+  font-size: 14px;
+  margin: 0;
+  padding: 0 0 15px;
+}
+#html_email .button_wrap {
+  padding-top: 20px;
+}
+#html_email a.button {
+  background-color: #e4002b;
+  color: #fff;
+  display: inline-block;
+  height: 55px;
+  line-height: 55px;
+  text-align: center;
+  text-decoration: none;
+  width: 211px;
+  -webkit-text-size-adjust: none;
+}
+#html_email a.button.long {
+  width: 350px;
+}
+#html_email a.long_link {
+  word-wrap: break-word;
+}
+#html_email a.image {
+  display: block;
+}
+#html_email img {
+  display: block;
+}
+#html_email .header_wrapper {
+  border-bottom: 1px solid #f2f2f2;
+}
+#html_email .body_wrapper {
+  padding: 60px 50px;
+}
+#html_email .footer_wrapper {
+  background-color: #250e62;
+  padding: 35px 0;
+  text-align: center;
+}
+#html_email .footer_wrapper a {
+  color: #fff;
+  text-decoration: underline;
+}

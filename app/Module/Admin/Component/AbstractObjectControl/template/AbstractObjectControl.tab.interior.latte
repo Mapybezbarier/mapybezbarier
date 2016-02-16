@@ -1,0 +1,166 @@
+{define tabInterior}
+    <div class="table_responsive_wrapper">
+        <fieldset class="formee">
+            <table>
+                {* Schody v interiéru *}
+                <tr>
+                    <th rowspan="4"><label>{_backend.control.object.label.interior.steps}</label></th>
+                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsSteps"}</td>
+                </tr>
+
+                <tr>
+                    <td><label>{_backend.control.object.label.interior.oneStep}</label></td>
+                    <td>
+                        {include inputText, _form => $_form, name => "objectSteps1Height", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText, _form => $_form, name => "objectSteps1Depth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>{_backend.control.object.label.interior.moreSteps}</label></td>
+                    <td colspan="2">
+                        {include inputText, _form => $_form, name => "objectSteps1NumberOf", class => 'short'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectSteps1Localization"}
+                    </td>
+                </tr>
+
+                {* Schodiště v interiéru *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.interior.stairs}</label>
+                        <div class="th_help">({_backend.control.object.label.interior.stairsHelp})</div>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectIsStairs"}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectStairsType"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectStairsWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectStairsIsBannister", label => TRUE}
+                    </td>
+                </tr>
+
+                {* Zúžený průchod *}
+                <tr>
+                    <th rowspan="3">
+                        <label>{_backend.control.object.label.interior.narrowedPassage}</label>
+                        <div class="th_help">({_backend.control.object.label.interior.narrowedPassageHelp})</div>
+                    </th>
+                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsNarrowedPassage"}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectNarrowedPassageWidth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectNarrowedPassageLocalization"}
+                    </td>
+                </tr>
+
+                {* Turnikety *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.interior.tourniquet}</label></th>
+                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsTourniquet"}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectTourniquetLocalization"}
+                    </td>
+                </tr>
+
+                {* Kontrastní značení prosklených ploch *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.interior.contrastMarkingGlass}</label></th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectContrastMarkingIsGlassSurfaces", label => TRUE}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectContrastMarkingLocalization"}
+                    </td>
+                </tr>
+
+                {* Kontrastní značení prosklených ploch *}
+                <tr>
+                    <th><label>{_backend.control.object.label.interior.contrastMarkingSteps}</label></th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, name => "objectStepsIsContrastMarked", label => TRUE}
+                    </td>
+                </tr>
+
+                {* AOM (akustický orientační majáček) *}
+                <tr>
+                    <th rowspan="3"><label>{_backend.control.object.label.interior.aob}</label></th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "objectIsAOB"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "objectAobIsAboveDoor", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectAobLocalization"}
+                    </td>
+                </tr>
+
+                {* Navigační systém pro osoby se zrakovým omezením *}
+                <tr>
+                    <th rowspan="2"><label>{_backend.control.object.label.interior.navigationSystem}</label></th>
+                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsNavigationSystem"}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectNavigationSystemDescription", placeholder => TRUE}
+                    </td>
+                </tr>
+
+                {* Přístupnost interiéru *}
+                <tr>
+                    <th>{label "objectInteriorAccessibility"/}</th>
+                    <td colspan="3">
+                        {include radioGroup, _form => $_form, name => "objectInteriorAccessibility"}
+                    </td>
+                </tr>
+
+                {* Poznámky *}
+                <tr>
+                    <th>{label "objectHasNotes"/}</th>
+                    <td colspan="3">
+                        {include inputText, _form => $_form, name => "objectHasNotes", class => 'no_label'}
+                    </td>
+                </tr>
+
+                {* Slovní popis úseku *}
+                <tr>
+                    <th>{label "objectHasDescription" /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "objectHasDescription", class => 'no_label'}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+{/define}

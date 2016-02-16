@@ -1,0 +1,1161 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:cz:mapybezbarier:schema:Objects",
+  "properties" : {
+    "object" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "id" : "urn:jsonschema:cz:mapybezbarier:schema:Objects:Object",
+        "properties" : {
+          "sourceId" : {
+            "type" : "integer"
+          },
+          "objectId" : {
+            "type" : "integer"
+          },
+          "parentObjectId" : {
+            "type" : "integer"
+          },
+          "userId" : {
+            "type" : "integer"
+          },
+          "licenseId" : {
+            "type" : "integer"
+          },
+          "certified" : {
+            "type" : "boolean"
+          },
+          "photoUrl" : {
+            "type" : "string"
+          },
+          "externalData" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string",
+            "required" : true
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "accessibility" : {
+            "type" : "string",
+            "required" : true,
+            "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]
+          },
+          "organizationIc" : {
+            "type" : "string"
+          },
+          "organizationName" : {
+            "type" : "string"
+          },
+          "mappingDate" : {
+            "type" : "string",
+            "required" : true,
+            "format" : "DATE_TIME"
+          },
+          "modifiedDate" : {
+            "type" : "string",
+            "format" : "DATE_TIME"
+          },
+          "objectType" : {
+            "type" : "string",
+            "required" : true,
+            "enum" : [ "BasilicaObjectCategory", "TheatreObjectCategory", "GalleryObjectCategory", "DefensivecastleObjectCategory", "DefensivecastleStatelyhomeObjectCategory", "TempleObjectCategory", "OtherObjectCategory", "ChapelObjectCategory", "CathedralObjectCategory", "MonasteryObjectCategory", "LibraryObjectCategory", "ChurchObjectCategory", "LorettaObjectCategory", "MuseumObjectCategory", "MuseumGalleryObjectCategory", "MuseumLibraryObjectCategory", "PalaceObjectCategory", "MonumentObjectCategory", "TownhallObjectCategory", "SynagogueObjectCategory", "FortressObjectCategory", "TowerObjectCategory", "StatelyhomeObjectCategory" ]
+          },
+          "objectTypeCustom" : {
+            "type" : "string"
+          },
+          "longitude" : {
+            "type" : "number"
+          },
+          "latitude" : {
+            "type" : "number"
+          },
+          "ruianAddress" : {
+            "type" : "integer"
+          },
+          "zipcode" : {
+            "type" : "string"
+          },
+          "region" : {
+            "type" : "string"
+          },
+          "city" : {
+            "type" : "string"
+          },
+          "cityPart" : {
+            "type" : "string"
+          },
+          "street" : {
+            "type" : "string"
+          },
+          "streetDescNo" : {
+            "type" : "integer"
+          },
+          "streetOrientNo" : {
+            "type" : "integer"
+          },
+          "streetOrientSymbol" : {
+            "type" : "string"
+          },
+          "webUrl" : {
+            "type" : "string"
+          },
+          "entrance1IsReservedParking" : {
+            "type" : "boolean"
+          },
+          "entrance1NumberOfReservedParking" : {
+            "type" : "integer"
+          },
+          "entrance1ReservedParkingLocalization" : {
+            "type" : "string"
+          },
+          "entrance1ReservedParkingAccessDescription" : {
+            "type" : "string"
+          },
+          "entrance1IsLongitudinalInclination" : {
+            "type" : "boolean"
+          },
+          "entrance1LongitudinalInclination" : {
+            "type" : "number",
+            "maximum" : 100.0
+          },
+          "entrance1LongitudinalInclinationLocalization" : {
+            "type" : "string"
+          },
+          "entrance1IsTransverseInclination" : {
+            "type" : "boolean"
+          },
+          "entrance1TransverseInclination" : {
+            "type" : "number",
+            "maximum" : 100.0
+          },
+          "entrance1TransverseInclinationLocalization" : {
+            "type" : "string"
+          },
+          "entrance1IsDifficultSurface" : {
+            "type" : "boolean"
+          },
+          "entrance1DifficultSurfaceDescription" : {
+            "type" : "string"
+          },
+          "entrance1Guidingline" : {
+            "type" : "string",
+            "enum" : [ "NaturalEntranceGuidingline", "ArtificialEntranceGuidingline", "MissingEntranceGuidingline", "NaturalArtificialEntranceGuidingline" ]
+          },
+          "entrance1Accessibility" : {
+            "type" : "string",
+            "enum" : [ "NoelevationEntranceAccessibility", "OneStepEntranceAccessibility", "MoreStepsEntranceAccessibility", "PlatformEntranceAccessibility", "RampEntranceAccessibility" ]
+          },
+          "entrance1AreaBeforeDoorWidth" : {
+            "type" : "integer"
+          },
+          "entrance1AreaBeforeDoorDepth" : {
+            "type" : "integer"
+          },
+          "entrance1LobbyWidth" : {
+            "type" : "integer"
+          },
+          "entrance1LobbyDepth" : {
+            "type" : "integer"
+          },
+          "entrance1IsAOB" : {
+            "type" : "boolean"
+          },
+          "entrance1AobIsAboveDoor" : {
+            "type" : "boolean"
+          },
+          "entrance1AobLocalization" : {
+            "type" : "string"
+          },
+          "entrance1HasDescription" : {
+            "type" : "string"
+          },
+          "entrance1HasNotes" : {
+            "type" : "string"
+          },
+          "entrance1BellType" : {
+            "type" : "string",
+            "enum" : [ "RingonlyBellType", "IntercomBellType", "MissingBellType" ]
+          },
+          "entrance1BellHeight" : {
+            "type" : "integer"
+          },
+          "entrance1BellIndentation" : {
+            "type" : "integer"
+          },
+          "entrance1Steps1NumberOf" : {
+            "type" : "integer"
+          },
+          "entrance1Steps1Height" : {
+            "type" : "integer",
+            "maximum" : 50.0,
+            "minimum" : 1.0
+          },
+          "entrance1Steps1Depth" : {
+            "type" : "integer"
+          },
+          "entrance1Steps2NumberOf" : {
+            "type" : "integer"
+          },
+          "entrance1Steps2Height" : {
+            "type" : "integer",
+            "maximum" : 50.0,
+            "minimum" : 1.0
+          },
+          "entrance1Steps2Depth" : {
+            "type" : "integer"
+          },
+          "entrance1ContrastMarkingIsGlassSurfaces" : {
+            "type" : "boolean"
+          },
+          "entrance1ContrastMarkingLocalization" : {
+            "type" : "string",
+            "enum" : [ "BottomContrastMarkingLocalization", "TopContrastMarkingLocalization", "MissingContrastMarkingLocalization", "BottomTopContrastMarkingLocalization" ]
+          },
+          "entrance1StepsIsContrastMarked" : {
+            "type" : "boolean"
+          },
+          "entrance1Door1MainpanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance1Door1SidepanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance1Door1Type" : {
+            "type" : "string",
+            "enum" : [ "SinglepanelledDoorType", "DoublepanelledDoorType", "CarouselDoorType" ]
+          },
+          "entrance1Door1Opening" : {
+            "type" : "string",
+            "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+          },
+          "entrance1Door1OpeningDirection" : {
+            "type" : "string",
+            "enum" : [ "OutwardsDoorOpeningDirection", "InwardsDoorOpeningDirection", "SidesDoorOpeningDirection", "OnesideDoorOpeningDirection" ]
+          },
+          "entrance1Door1StepHeight" : {
+            "type" : "integer",
+            "maximum" : 50.0
+          },
+          "entrance1Door2MainpanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance1Door2SidepanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance1Door2Type" : {
+            "type" : "string",
+            "enum" : [ "SinglepanelledDoorType", "DoublepanelledDoorType", "CarouselDoorType" ]
+          },
+          "entrance1Door2Opening" : {
+            "type" : "string",
+            "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+          },
+          "entrance1Door2OpeningDirection" : {
+            "type" : "string",
+            "enum" : [ "OutwardsDoorOpeningDirection", "InwardsDoorOpeningDirection", "SidesDoorOpeningDirection", "OnesideDoorOpeningDirection" ]
+          },
+          "entrance1Door2StepHeight" : {
+            "type" : "integer",
+            "maximum" : 50.0
+          },
+          "entrance2IsSideEntranceMarked" : {
+            "type" : "boolean"
+          },
+          "entrance2IsSideEntranceInformation" : {
+            "type" : "boolean"
+          },
+          "entrance2Localization" : {
+            "type" : "string"
+          },
+          "entrance2Access" : {
+            "type" : "string",
+            "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess" ]
+          },
+          "entrance2AccessProvidedBy" : {
+            "type" : "string"
+          },
+          "entrance2IsReservedParking" : {
+            "type" : "boolean"
+          },
+          "entrance2NumberOfReservedParking" : {
+            "type" : "integer"
+          },
+          "entrance2ReservedParkingLocalization" : {
+            "type" : "string"
+          },
+          "entrance2ReservedParkingAccessDescription" : {
+            "type" : "string"
+          },
+          "entrance2IsLongitudinalInclination" : {
+            "type" : "boolean"
+          },
+          "entrance2LongitudinalInclination" : {
+            "type" : "number",
+            "maximum" : 100.0
+          },
+          "entrance2LongitudinalInclinationLocalization" : {
+            "type" : "string"
+          },
+          "entrance2IsTransverseInclination" : {
+            "type" : "boolean"
+          },
+          "entrance2TransverseInclination" : {
+            "type" : "number",
+            "maximum" : 100.0
+          },
+          "entrance2TransverseInclinationLocalization" : {
+            "type" : "string"
+          },
+          "entrance2IsDifficultSurface" : {
+            "type" : "boolean"
+          },
+          "entrance2DifficultSurfaceDescription" : {
+            "type" : "string"
+          },
+          "entrance2Guidingline" : {
+            "type" : "string",
+            "enum" : [ "NaturalEntranceGuidingline", "ArtificialEntranceGuidingline", "MissingEntranceGuidingline", "NaturalArtificialEntranceGuidingline" ]
+          },
+          "entrance2Accessibility" : {
+            "type" : "string",
+            "enum" : [ "NoelevationEntranceAccessibility", "OneStepEntranceAccessibility", "MoreStepsEntranceAccessibility", "PlatformEntranceAccessibility", "RampEntranceAccessibility" ]
+          },
+          "entrance2AreaBeforeDoorWidth" : {
+            "type" : "integer"
+          },
+          "entrance2AreaBeforeDoorDepth" : {
+            "type" : "integer"
+          },
+          "entrance2LobbyWidth" : {
+            "type" : "integer"
+          },
+          "entrance2LobbyDepth" : {
+            "type" : "integer"
+          },
+          "entrance2IsAOB" : {
+            "type" : "boolean"
+          },
+          "entrance2AobIsAboveDoor" : {
+            "type" : "boolean"
+          },
+          "entrance2AobLocalization" : {
+            "type" : "string"
+          },
+          "entrance2HasDescription" : {
+            "type" : "string"
+          },
+          "entrance2HasNotes" : {
+            "type" : "string"
+          },
+          "entrance2BellType" : {
+            "type" : "string",
+            "enum" : [ "RingonlyBellType", "IntercomBellType", "MissingBellType" ]
+          },
+          "entrance2BellHeight" : {
+            "type" : "integer"
+          },
+          "entrance2BellIndentation" : {
+            "type" : "integer"
+          },
+          "entrance2Steps1NumberOf" : {
+            "type" : "integer"
+          },
+          "entrance2Steps1Height" : {
+            "type" : "integer",
+            "maximum" : 50.0,
+            "minimum" : 1.0
+          },
+          "entrance2Steps1Depth" : {
+            "type" : "integer"
+          },
+          "entrance2Steps2NumberOf" : {
+            "type" : "integer"
+          },
+          "entrance2Steps2Height" : {
+            "type" : "integer",
+            "maximum" : 50.0,
+            "minimum" : 1.0
+          },
+          "entrance2Steps2Depth" : {
+            "type" : "integer"
+          },
+          "entrance2ContrastMarkingIsGlassSurfaces" : {
+            "type" : "boolean"
+          },
+          "entrance2ContrastMarkingLocalization" : {
+            "type" : "string",
+            "enum" : [ "BottomContrastMarkingLocalization", "TopContrastMarkingLocalization", "MissingContrastMarkingLocalization", "BottomTopContrastMarkingLocalization" ]
+          },
+          "entrance2StepsIsContrastMarked" : {
+            "type" : "boolean"
+          },
+          "entrance2Door1MainpanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance2Door1SidepanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance2Door1Type" : {
+            "type" : "string",
+            "enum" : [ "SinglepanelledDoorType", "DoublepanelledDoorType", "CarouselDoorType" ]
+          },
+          "entrance2Door1Opening" : {
+            "type" : "string",
+            "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+          },
+          "entrance2Door1OpeningDirection" : {
+            "type" : "string",
+            "enum" : [ "OutwardsDoorOpeningDirection", "InwardsDoorOpeningDirection", "SidesDoorOpeningDirection", "OnesideDoorOpeningDirection" ]
+          },
+          "entrance2Door1StepHeight" : {
+            "type" : "integer",
+            "maximum" : 50.0
+          },
+          "entrance2Door2MainpanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance2Door2SidepanelWidth" : {
+            "type" : "integer",
+            "maximum" : 300.0,
+            "minimum" : 30.0
+          },
+          "entrance2Door2Type" : {
+            "type" : "string",
+            "enum" : [ "SinglepanelledDoorType", "DoublepanelledDoorType", "CarouselDoorType" ]
+          },
+          "entrance2Door2Opening" : {
+            "type" : "string",
+            "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+          },
+          "entrance2Door2OpeningDirection" : {
+            "type" : "string",
+            "enum" : [ "OutwardsDoorOpeningDirection", "InwardsDoorOpeningDirection", "SidesDoorOpeningDirection", "OnesideDoorOpeningDirection" ]
+          },
+          "entrance2Door2StepHeight" : {
+            "type" : "integer",
+            "maximum" : 50.0
+          },
+          "objectIsSteps" : {
+            "type" : "boolean"
+          },
+          "objectSteps1NumberOf" : {
+            "type" : "integer"
+          },
+          "objectSteps1Height" : {
+            "type" : "integer",
+            "maximum" : 50.0,
+            "minimum" : 1.0
+          },
+          "objectSteps1Depth" : {
+            "type" : "integer"
+          },
+          "objectSteps1Localization" : {
+            "type" : "string"
+          },
+          "objectIsStairs" : {
+            "type" : "boolean"
+          },
+          "objectStairsType" : {
+            "type" : "string",
+            "enum" : [ "DirectObjectStairsType", "SpiralObjectStairsType", "DirectSpiralObjectStairsType" ]
+          },
+          "objectStairsWidth" : {
+            "type" : "integer"
+          },
+          "objectStairsIsBannister" : {
+            "type" : "boolean"
+          },
+          "objectIsNarrowedPassage" : {
+            "type" : "boolean"
+          },
+          "objectNarrowedPassageWidth" : {
+            "type" : "integer"
+          },
+          "objectNarrowedPassageLocalization" : {
+            "type" : "string"
+          },
+          "objectIsTourniquet" : {
+            "type" : "boolean"
+          },
+          "objectTourniquetLocalization" : {
+            "type" : "string"
+          },
+          "objectIsNavigationSystem" : {
+            "type" : "boolean"
+          },
+          "objectNavigationSystemDescription" : {
+            "type" : "string"
+          },
+          "objectInteriorAccessibility" : {
+            "type" : "string",
+            "enum" : [ "EntireObjectInteriorAccessibility", "PartObjectInteriorAccessibility", "InaccessibleObjectInteriorAccessibility" ]
+          },
+          "objectHasDescription" : {
+            "type" : "string"
+          },
+          "objectHasNotes" : {
+            "type" : "string"
+          },
+          "objectContrastMarkingIsGlassSurfaces" : {
+            "type" : "boolean"
+          },
+          "objectContrastMarkingLocalization" : {
+            "type" : "string",
+            "enum" : [ "BottomContrastMarkingLocalization", "TopContrastMarkingLocalization", "MissingContrastMarkingLocalization", "BottomTopContrastMarkingLocalization" ]
+          },
+          "objectStepsIsContrastMarked" : {
+            "type" : "boolean"
+          },
+          "objectIsAOB" : {
+            "type" : "boolean"
+          },
+          "objectAobIsAboveDoor" : {
+            "type" : "boolean"
+          },
+          "objectAobLocalization" : {
+            "type" : "string"
+          },
+          "rampskids" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "id" : "urn:jsonschema:cz:mapybezbarier:schema:RampSkids",
+              "properties" : {
+                "rampRelation" : {
+                  "type" : "string",
+                  "enum" : [ "mainEntrance", "sideEntrance" ]
+                },
+                "rampLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "EntranceRampSkidsLocalization", "LobbyRampSkidsLocalization", "InteriorRampSkidsLocalization" ]
+                },
+                "rampInteriorLocalization" : {
+                  "type" : "string"
+                },
+                "rampMobility" : {
+                  "type" : "string",
+                  "enum" : [ "FixedRampSkidsMobility", "MobileRampSkidsMobility" ]
+                },
+                "rampAccessProvidedBy" : {
+                  "type" : "string"
+                },
+                "rampType" : {
+                  "type" : "string",
+                  "enum" : [ "DirectRampType", "BentRampType", "SpiralRampType" ]
+                },
+                "rampNumberOfLegs" : {
+                  "type" : "integer"
+                },
+                "rampleg1Width" : {
+                  "type" : "integer"
+                },
+                "rampleg1Length" : {
+                  "type" : "integer"
+                },
+                "rampleg1Inclination" : {
+                  "type" : "number",
+                  "maximum" : 100.0
+                },
+                "rampleg2Width" : {
+                  "type" : "integer"
+                },
+                "rampleg2Length" : {
+                  "type" : "integer"
+                },
+                "rampleg2Inclination" : {
+                  "type" : "number",
+                  "maximum" : 100.0
+                },
+                "rampleg3Width" : {
+                  "type" : "integer"
+                },
+                "rampleg3Length" : {
+                  "type" : "integer"
+                },
+                "rampleg3Inclination" : {
+                  "type" : "number",
+                  "maximum" : 100.0
+                },
+                "rampleg4Width" : {
+                  "type" : "integer"
+                },
+                "rampleg4Length" : {
+                  "type" : "integer"
+                },
+                "rampleg4Inclination" : {
+                  "type" : "number",
+                  "maximum" : 100.0
+                },
+                "rampBottomEntryareaWidth" : {
+                  "type" : "integer"
+                },
+                "rampBottomEntryareaDepth" : {
+                  "type" : "integer"
+                },
+                "rampTopEntryareaWidth" : {
+                  "type" : "integer"
+                },
+                "rampTopEntryareaDepth" : {
+                  "type" : "integer"
+                },
+                "rampLandingsEntryareaWidth" : {
+                  "type" : "integer"
+                },
+                "rampLandingsEntryareaDepth" : {
+                  "type" : "integer"
+                },
+                "rampSurface" : {
+                  "type" : "string",
+                  "enum" : [ "SlipperyRampSurface", "NonslipperyRampSurface" ]
+                },
+                "rampIsHandle" : {
+                  "type" : "boolean"
+                },
+                "rampHandleOrientation" : {
+                  "type" : "string",
+                  "enum" : [ "SidewallHandleLocalization", "SidewallsHandleLocalization" ]
+                },
+                "rampHandle1Height" : {
+                  "type" : "integer"
+                },
+                "rampHandle2Height" : {
+                  "type" : "integer"
+                },
+                "skidsLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "EntranceRampSkidsLocalization", "LobbyRampSkidsLocalization", "InteriorRampSkidsLocalization" ]
+                },
+                "skidsInteriorLocalization" : {
+                  "type" : "string"
+                },
+                "skidsMobility" : {
+                  "type" : "string",
+                  "enum" : [ "FixedRampSkidsMobility", "MobileRampSkidsMobility" ]
+                },
+                "skidsInclination" : {
+                  "type" : "number",
+                  "maximum" : 100.0
+                },
+                "skidsLength" : {
+                  "type" : "integer"
+                },
+                "rampSkidsHasNotes" : {
+                  "type" : "string"
+                },
+                "rampSkidsHasDescription" : {
+                  "type" : "string"
+                }
+              }
+            }
+          },
+          "platform" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "id" : "urn:jsonschema:cz:mapybezbarier:schema:Platform",
+              "properties" : {
+                "platformRelation" : {
+                  "type" : "string",
+                  "enum" : [ "mainEntrance", "sideEntrance" ]
+                },
+                "platformLocalization" : {
+                  "type" : "string"
+                },
+                "platformAccess" : {
+                  "type" : "string",
+                  "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess" ]
+                },
+                "platformType" : {
+                  "type" : "string",
+                  "enum" : [ "VerticalPlatformType", "InclinedPlatformType" ]
+                },
+                "platformMaxLoad" : {
+                  "type" : "integer"
+                },
+                "platformWidth" : {
+                  "type" : "integer",
+                  "maximum" : 400.0,
+                  "minimum" : 40.0
+                },
+                "platformDepth" : {
+                  "type" : "integer"
+                },
+                "platformIsMinParameters" : {
+                  "type" : "boolean"
+                },
+                "platformNumberOfSteps" : {
+                  "type" : "integer"
+                },
+                "platformNumberOfFloors" : {
+                  "type" : "integer"
+                },
+                "platformOutsideBottomControlHeight" : {
+                  "type" : "integer"
+                },
+                "platformOutsideTopControlHeight" : {
+                  "type" : "integer"
+                },
+                "platformInsideControlHeight" : {
+                  "type" : "integer"
+                },
+                "platformHasNotes" : {
+                  "type" : "string"
+                },
+                "platformHasDescription" : {
+                  "type" : "string"
+                },
+                "entryarea1Entry" : {
+                  "type" : "string",
+                  "enum" : [ "SideEntryareaEntry", "FrontEntryareaEntry" ]
+                },
+                "entryarea1IsEntryClosing" : {
+                  "type" : "boolean"
+                },
+                "entryarea1EntryWidth" : {
+                  "type" : "integer"
+                },
+                "entryarea1Width" : {
+                  "type" : "integer"
+                },
+                "entryarea1Depth" : {
+                  "type" : "integer"
+                },
+                "entryarea1HeightElevation" : {
+                  "type" : "integer"
+                },
+                "entryarea1BellType" : {
+                  "type" : "string",
+                  "enum" : [ "RingonlyBellType", "IntercomBellType", "MissingBellType" ]
+                },
+                "entryarea1BellHeight" : {
+                  "type" : "integer"
+                },
+                "entryarea1BellIndentation" : {
+                  "type" : "integer"
+                },
+                "entryarea2Entry" : {
+                  "type" : "string",
+                  "enum" : [ "SideEntryareaEntry", "FrontEntryareaEntry" ]
+                },
+                "entryarea2IsEntryClosing" : {
+                  "type" : "boolean"
+                },
+                "entryarea2EntryWidth" : {
+                  "type" : "integer"
+                },
+                "entryarea2Width" : {
+                  "type" : "integer"
+                },
+                "entryarea2Depth" : {
+                  "type" : "integer"
+                },
+                "entryarea2HeightElevation" : {
+                  "type" : "integer"
+                },
+                "entryarea2BellType" : {
+                  "type" : "string",
+                  "enum" : [ "RingonlyBellType", "IntercomBellType", "MissingBellType" ]
+                },
+                "entryarea2BellHeight" : {
+                  "type" : "integer"
+                },
+                "entryarea2BellIndentation" : {
+                  "type" : "integer"
+                }
+              }
+            }
+          },
+          "elevator" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "id" : "urn:jsonschema:cz:mapybezbarier:schema:Elevator",
+              "properties" : {
+                "elevatorLocalization" : {
+                  "type" : "string"
+                },
+                "elevatorAccess" : {
+                  "type" : "string",
+                  "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess" ]
+                },
+                "elevatorType" : {
+                  "type" : "string",
+                  "enum" : [ "PersonalElevatorType", "CargoElevatorType" ]
+                },
+                "elevatorAccessProvidedBy" : {
+                  "type" : "string"
+                },
+                "elevatorConnectsFloors" : {
+                  "type" : "string"
+                },
+                "elevatorDriveoff" : {
+                  "type" : "string",
+                  "enum" : [ "LandingsElevatorDriveoff", "MezzaninesElevatorDriveoff" ]
+                },
+                "elevatorControl1MaxHeight" : {
+                  "type" : "integer"
+                },
+                "elevatorControl1ReliefMarking" : {
+                  "type" : "string",
+                  "enum" : [ "EngravedElevatorControlReliefMarking", "ProtrudingElevatorControlReliefMarking" ]
+                },
+                "elevatorControl1FlatMarking" : {
+                  "type" : "string",
+                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking" ]
+                },
+                "elevatorIsControl1BrailleMarking" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsAOB" : {
+                  "type" : "boolean"
+                },
+                "elevatorAobIsAboveDoor" : {
+                  "type" : "boolean"
+                },
+                "elevatorAobLocalization" : {
+                  "type" : "string"
+                },
+                "elevatorAOBAnnouncementsScheme" : {
+                  "type" : "string",
+                  "enum" : [ "PhraseAOBAnnouncement", "JingleAOBAnnouncement", "PhraseJingleAOBAnnouncement" ]
+                },
+                "elevatorIsCagePassthrough" : {
+                  "type" : "boolean"
+                },
+                "elevatorCageWidth" : {
+                  "type" : "integer",
+                  "maximum" : 400.0,
+                  "minimum" : 40.0
+                },
+                "elevatorCageDepth" : {
+                  "type" : "integer"
+                },
+                "elevatorCageSeconddoorLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "FrontElevatorCageSeconddoorLocalization", "SideElevatorCageSeconddoorLocalization" ]
+                },
+                "elevatorCageControlDistance" : {
+                  "type" : "integer"
+                },
+                "elevatorCageControlHeight" : {
+                  "type" : "integer"
+                },
+                "elevatorControl2ReliefMarking" : {
+                  "type" : "string",
+                  "enum" : [ "EngravedElevatorControlReliefMarking", "ProtrudingElevatorControlReliefMarking" ]
+                },
+                "elevatorControl2FlatMarking" : {
+                  "type" : "string",
+                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking" ]
+                },
+                "elevatorIsControl2BrailleMarking" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsCageControlAnnouncementAcoustic" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsCageControlAnnouncementPhonetic" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsCageHandle" : {
+                  "type" : "boolean"
+                },
+                "elevatorHandleLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "FrontwallHandleLocalization", "SidewallHandleLocalization", "SidewallsHandleLocalization" ]
+                },
+                "elevatorIsCageMirror" : {
+                  "type" : "boolean"
+                },
+                "elevatorCageMirrorLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "FrontwallElevatorCageMirrorLocalization", "SidewallElevatorCageMirrorLocalization", "SidewallsElevatorCageMirrorLocalization" ]
+                },
+                "elevatorCageMirrorHeight" : {
+                  "type" : "integer"
+                },
+                "elevatorIsCageSeat" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsCageSeatWithinreach" : {
+                  "type" : "boolean"
+                },
+                "elevatorIsCageSeatFunctional" : {
+                  "type" : "boolean"
+                },
+                "elevatorHasNotes" : {
+                  "type" : "string"
+                },
+                "elevatorHasDescription" : {
+                  "type" : "string"
+                },
+                "entryareaWidth" : {
+                  "type" : "integer"
+                },
+                "entryareaDepth" : {
+                  "type" : "integer"
+                },
+                "entryareaHeightElevation" : {
+                  "type" : "integer"
+                },
+                "door1Width" : {
+                  "type" : "integer",
+                  "maximum" : 500.0,
+                  "minimum" : 40.0
+                },
+                "door1Opening" : {
+                  "type" : "string",
+                  "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+                },
+                "door2Width" : {
+                  "type" : "integer",
+                  "maximum" : 300.0,
+                  "minimum" : 40.0
+                },
+                "door2Opening" : {
+                  "type" : "string",
+                  "enum" : [ "MechanicalDoorOpening", "AutomaticDoorOpening", "SlidingDoorOpening", "SwingingDoorOpening" ]
+                }
+              }
+            }
+          },
+          "wc" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "id" : "urn:jsonschema:cz:mapybezbarier:schema:WC",
+              "properties" : {
+                "wcAccessibility" : {
+                  "type" : "string",
+                  "enum" : [ "AccessibleWCMKPO", "PartlyAccessibleWCMKPO", "InAccessibleWCMKPO" ]
+                },
+                "wcLocalization" : {
+                  "type" : "string"
+                },
+                "wcAccessProvidedBy" : {
+                  "type" : "string"
+                },
+                "wcCabinAccess" : {
+                  "type" : "string",
+                  "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess" ]
+                },
+                "wcCabinLocalization" : {
+                  "type" : "string",
+                  "enum" : [ "SelfcontainedWCCabinLocalization", "LadiesWCCabinLocalization", "GentsWCCabinLocalization", "GentsLadiesWCCabinLocalization" ]
+                },
+                "wcSwitch" : {
+                  "type" : "string",
+                  "enum" : [ "YesWCSwitch", "MissingWCSwitch", "AutomaticWCSwitch" ]
+                },
+                "wcSwitchHeight" : {
+                  "type" : "integer"
+                },
+                "wcCabinWidth" : {
+                  "type" : "integer",
+                  "maximum" : 400.0,
+                  "minimum" : 90.0
+                },
+                "wcCabinDepth" : {
+                  "type" : "integer"
+                },
+                "wcFlushingBackHeight" : {
+                  "type" : "integer"
+                },
+                "wcFlushingSideHeight" : {
+                  "type" : "integer"
+                },
+                "wcFlushingSideDistanc" : {
+                  "type" : "integer"
+                },
+                "wcFlushing" : {
+                  "type" : "string",
+                  "enum" : [ "AutomaticWCFlushing", "MechanicalWCFlushing" ]
+                },
+                "wcFlushingDifficulty" : {
+                  "type" : "string",
+                  "enum" : [ "OKWCFlushingDifficulty", "DifficultWCFlushingDifficulty", "BrokenWCFlushingDifficulty" ]
+                },
+                "wcHandlesDistance" : {
+                  "type" : "integer"
+                },
+                "wcBasinLeftDistance" : {
+                  "type" : "integer"
+                },
+                "wcBasinRightDistance" : {
+                  "type" : "integer"
+                },
+                "wcBasinBackIndentation" : {
+                  "type" : "integer"
+                },
+                "wcBasinSeatHeight" : {
+                  "type" : "integer"
+                },
+                "wcBasinIsPaperReach" : {
+                  "type" : "boolean"
+                },
+                "wcBasinSpace" : {
+                  "type" : "string",
+                  "enum" : [ "FreeWCBasinSpace", "BlockedbymobileWCBasinSpace", "BlockedbyfixedWCBasinSpace" ]
+                },
+                "wcIsChangingdesk" : {
+                  "type" : "boolean"
+                },
+                "wcIsChangingdeskObstructs" : {
+                  "type" : "boolean"
+                },
+                "wcChangingdesk" : {
+                  "type" : "string",
+                  "enum" : [ "FoldingWCChangingdesk", "MobileWCChangingdesk" ]
+                },
+                "wcIsAlarmbutton" : {
+                  "type" : "boolean"
+                },
+                "wcAlarmbuttonTopHeigh" : {
+                  "type" : "integer"
+                },
+                "wcAlarmbuttonBottomHeight" : {
+                  "type" : "integer"
+                },
+                "wcIsRegularWC" : {
+                  "type" : "boolean"
+                },
+                "wcIsRegularWCBrailleMarking" : {
+                  "type" : "boolean"
+                },
+                "wcCabinDoorDisposition" : {
+                  "type" : "string",
+                  "enum" : [ "TopLeftWCCabinDisposition", "TopRightWCCabinDisposition", "LeftTopWCCabinDisposition", "LeftBottomWCCabinDisposition", "BottomLeftWCCabinDisposition", "BottomRightWCCabinDisposition", "RightTopWCCabinDisposition", "RightBottomWCCabinDisposition" ]
+                },
+                "wcCabinWCBasinDisposition" : {
+                  "type" : "string",
+                  "enum" : [ "TopLeftWCCabinDisposition", "TopRightWCCabinDisposition", "LeftTopWCCabinDisposition", "LeftBottomWCCabinDisposition", "BottomLeftWCCabinDisposition", "BottomRightWCCabinDisposition", "RightTopWCCabinDisposition", "RightBottomWCCabinDisposition" ]
+                },
+                "wcCabinWashBasinDisposition" : {
+                  "type" : "string",
+                  "enum" : [ "TopLeftWCCabinDisposition", "TopRightWCCabinDisposition", "LeftTopWCCabinDisposition", "LeftBottomWCCabinDisposition", "BottomLeftWCCabinDisposition", "BottomRightWCCabinDisposition", "RightTopWCCabinDisposition", "RightBottomWCCabinDisposition" ]
+                },
+                "wcHasNotes" : {
+                  "type" : "string"
+                },
+                "wcHasDescription" : {
+                  "type" : "string"
+                },
+                "hallway1Width" : {
+                  "type" : "integer"
+                },
+                "hallway1Depth" : {
+                  "type" : "integer"
+                },
+                "hallway1DoorWidth" : {
+                  "type" : "integer",
+                  "maximum" : 500.0,
+                  "minimum" : 40.0
+                },
+                "hallway1DoorMarking" : {
+                  "type" : "string",
+                  "enum" : [ "DoorIsMarking", "DoorIsNotMarking", "DoorIsBrailleMarking" ]
+                },
+                "hallway2Width" : {
+                  "type" : "integer"
+                },
+                "hallway2Depth" : {
+                  "type" : "integer"
+                },
+                "hallway2DoorWidth" : {
+                  "type" : "integer",
+                  "maximum" : 500.0,
+                  "minimum" : 40.0
+                },
+                "hallway2DoorMarking" : {
+                  "type" : "string",
+                  "enum" : [ "DoorIsMarking", "DoorIsNotMarking", "DoorIsBrailleMarking" ]
+                },
+                "handle1Type" : {
+                  "type" : "string",
+                  "enum" : [ "FoldingHandleType", "FixedHandleType" ]
+                },
+                "handle1Height" : {
+                  "type" : "integer"
+                },
+                "handle1Length" : {
+                  "type" : "integer"
+                },
+                "handle2Type" : {
+                  "type" : "string",
+                  "enum" : [ "FoldingHandleType", "FixedHandleType" ]
+                },
+                "handle2Height" : {
+                  "type" : "integer"
+                },
+                "handle2Length" : {
+                  "type" : "integer"
+                },
+                "doorWidth" : {
+                  "type" : "integer",
+                  "maximum" : 500.0,
+                  "minimum" : 40.0
+                },
+                "doorOpeningDirection" : {
+                  "type" : "string",
+                  "enum" : [ "OutwardsDoorOpeningDirection", "InwardsDoorOpeningDirection", "SidesDoorOpeningDirection" ]
+                },
+                "doorIsMarking" : {
+                  "type" : "boolean"
+                },
+                "doorHandlePosition" : {
+                  "type" : "string",
+                  "enum" : [ "InsideHandlePosition", "OutsideHandlePosition", "MissingHandlePosition", "InsideOutsideHandlePosition" ]
+                },
+                "washbasinHeight" : {
+                  "type" : "integer"
+                },
+                "washbasinUnderpass" : {
+                  "type" : "string",
+                  "enum" : [ "SufficientWashbasinUnderpass", "InsufficientWashbasinUnderpass" ]
+                },
+                "washbasinIsHandle" : {
+                  "type" : "boolean"
+                },
+                "washbasinHandleType" : {
+                  "type" : "string",
+                  "enum" : [ "VerticalHandleOrientation", "HorizontalHandleOrientation" ]
+                },
+                "washbasinHandleHeight" : {
+                  "type" : "integer"
+                },
+                "washbasinHandleLength" : {
+                  "type" : "integer"
+                },
+                "tapHeight" : {
+                  "type" : "integer"
+                },
+                "tapType" : {
+                  "type" : "string",
+                  "enum" : [ "LevelTap", "TouchfreeTap", "ValveTap" ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

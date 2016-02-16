@@ -1,0 +1,9 @@
+{includeblock 'blocks.latte'}
+
+{block body}
+    {if $id}
+        {control logsList:detail, id => $id}
+    {else}
+        {control logsList}
+    {/if}
+{/block}

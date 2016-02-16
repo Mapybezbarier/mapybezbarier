@@ -1,0 +1,13 @@
+parameters:
+    parser:
+        mapping:
+            xml: xmlParser
+            json: jsonParser
+            csv: csvParser
+            vozejkmap: vozejkmapParser
+
+services:
+    xmlParser: MP\Exchange\Parser\XmlParser
+    jsonParser: MP\Exchange\Parser\JsonParser
+    csvParser: MP\Exchange\Parser\CsvParser
+    vozejkmapParser: MP\Exchange\Parser\VozejkmapParser

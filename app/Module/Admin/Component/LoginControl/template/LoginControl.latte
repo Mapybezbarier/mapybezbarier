@@ -1,0 +1,10 @@
+<div class="login_form form_wrapper">
+    <h1>{_backend.control.login.title}</h1>
+    {control form}
+    <div n:if="$debugMode || $stagingMode" class="bottom_links">
+        <ul>
+            <li><a href="{plink :Admin:Access:registration}">{_backend.user.action.register}</a></li>
+            <li><a href="{plink :Admin:Access:reset}">{_backend.user.action.reset}</a></li>
+        </ul>
+    </div>
+</div>

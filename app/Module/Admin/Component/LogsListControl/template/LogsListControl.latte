@@ -1,0 +1,41 @@
+{if empty($isDetail)}
+    {control search}
+{/if}
+
+{snippet list}
+    {include tableView}
+    {control paginator}
+{/snippet}
+
+{define tableView}
+    {if $items}
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="module">{_backend.control.system.log.head.module}</th>
+                        <th class="action">{_backend.control.system.log.head.action}</th>
+                        <th class="id">{_backend.control.system.log.head.id}</th>
+                        <th class="user">{_backend.control.system.log.head.user}</th>
+                        <th class="created">{_backend.control.system.log.head.created}</th>
+                        <th class="detail tool" n:if="empty($isDetail)">{_backend.control.system.log.head.detail}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr n:foreach="$items as $item">
+                        <td class="module">{$item['module_key']}</td>
+                        <td class="action">{$item['action_key']}</td>
+                        <td class="id">{$item['changed_id']}</td>
+                        <td class="user">{$item['login']}</td>
+                        <td class="created">{$item['created']|date:'j. n. Y H:i'}</td>
+                        <td class="detail tool" n:if="empty($isDetail)">
+                            <a n:if="!empty($item['link'])" href="{$item['link']}" title="{_backend.control.system.log.head.detail}">{_backend.control.system.log.head.detail}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {else}
+        <div class="error_notice">{_backend.control.nodata}</div>
+    {/if}
+{/define}

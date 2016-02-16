@@ -1,0 +1,90 @@
+{define infoBox}
+    <div class="info_box_content_wrapper accessible_{$object['accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
+        {include content}
+    </div>
+{/define}
+
+{define content}
+    {include before}
+    {include header}
+    {include renderer}
+    {include detail}
+    {include warning}
+    {include after}
+{/define}
+
+{define before}
+{/define}
+
+{define header}
+    <div class="ib_header">
+        <h2
+            class="title"
+            title="{_'messages.enum.value.accessibility.full.' . \MP\Util\Strings::firstLower($object['accessibility']['title'])}"
+        >
+            {include headerLink}
+        </h2>
+        {include closer}
+    </div>
+{/define}
+
+{define headerLink}
+    <span>
+        {if $embedded}
+            {include embeddedLink}
+        {else}
+            {include localLink}
+        {/if}
+    </span>
+{/define}
+
+{define embeddedLink}
+    <a href="{plink //:Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}" target="_blank">{include objectTitle}</a>
+{/define}
+
+{define localLink}
+    <a class="ajax nwjs_detail_opener detail_cont"
+       href="{plink detail!, 'id' => $object['id']}" title="{$object['title']}"
+       data-spinner=".nwjs_detail"
+       data-ajax-pass
+    >{include objectTitle}</a>
+{/define}
+
+{define objectTitle}
+    <span property="name">{$object['title']}</span>
+{/define}
+
+{define closer}
+    <span class="closer nwjs_infobox_closer" title="{_messages.control.map.infoBox.close}">{_messages.control.map.infoBox.close}</span>
+{/define}
+
+{define renderer}
+    {control renderer}
+{/define}
+
+{define detail}
+    <div class="ib_detail">
+        {if $embedded}
+            <a class="detail_cont" href="{plink //:Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}"
+               target="_blank"
+            >{_messages.control.map.infoBox.detail}</a>
+        {else}
+            <a class="ajax nwjs_detail_opener detail_cont"
+               href="{plink detail!, 'id' => $object['id']}" title="{$object['title']}"
+               data-spinner=".nwjs_detail"
+               data-ajax-pass
+            >{_messages.control.map.infoBox.detail}</a>
+        {/if}
+    </div>
+{/define}
+
+{define warning}
+{if $object['outdated']}
+    <div class="ib_warning">
+        {!_'messages.control.map.infoBox.outdatedWarning', ['tagStart' => '<strong>', 'tagEnd' => '</strong>']}
+    </div>
+{/if}
+{/define}
+
+{define after}
+{/define}

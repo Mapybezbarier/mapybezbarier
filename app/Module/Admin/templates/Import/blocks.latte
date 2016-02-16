@@ -1,0 +1,27 @@
+{includeblock APP_DIR . "/Module/Admin/templates/blocks.latte"}
+
+{define submenuUserItems}
+    <li{ifCurrent :Admin:Import:default} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Import:default" title="{_backend.control.dashboard.Import.default}">{_backend.control.dashboard.Import.default}</a>
+    </li>
+    <li class="sub{ifCurrent :Admin:Import:create} active{/ifCurrent}">
+        <a class="cont" n:href=":Admin:Import:create" title="{_backend.import.action.create}">{_backend.import.action.create}</a>
+    </li>
+    <li{ifCurrent :Admin:Import:logs} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Import:logs" title="{_backend.control.dashboard.Import.logs}">{_backend.control.dashboard.Import.logs}</a>
+    </li>
+    <li{ifCurrent :Admin:Import:license} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Import:license" title="{_backend.import.action.license}">{_backend.import.action.license}</a>
+    </li>
+    <li class="sub{ifCurrent :Admin:Import:licenseCreate} active{/ifCurrent}">
+        <a class="cont" n:href=":Admin:Import:licenseCreate" title="{_backend.import.action.licenseCreate}">{_backend.import.action.licenseCreate}</a>
+    </li>
+    <li{ifCurrent :Admin:Import:manual} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:Import:manual" title="{_backend.import.action.manual}">{_backend.import.action.manual}</a>
+    </li>
+{/define}
+
+{block headerClass} import{/block} {* jine pozadi zahlavi*}
+{define headline}
+    <h1 class="headline import">{_backend.control.dashboard.Import.headline}</h1>
+{/define}

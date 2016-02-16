@@ -1,0 +1,9 @@
+<div id="map" data-info-box-load-url="{link infoBox!}" role="main" aria-label="{_messages.semantics.mainContent}"></div>
+
+<div id="info-box-template-spinner"><div class="info_box_content_wrapper waiter">{_messages.control.map.infoBox.loading}</div></div>
+<div id="info-box-template-error"><div class="info_box_content_wrapper error">{_messages.control.map.infoBox.error}</div></div>
+<div id="info-box-template-autocompleteerror">{_messages.control.map.infoBox.autocompleteError}</div>
+
+<script type="text/javascript">
+    var mapConfig = {$config|noescape};
+</script>

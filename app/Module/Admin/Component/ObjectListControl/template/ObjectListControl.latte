@@ -1,0 +1,81 @@
+{snippet drafts}
+    {if $drafts}
+    <div class="items_section">
+        <h2 class="is_headline">{_backend.object.list.drafts}</h2>
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th class="title">{_backend.control.object.drafts.head.title}</th>
+                    <th class="edit tool">{_backend.object.action.edit}</th>
+                    <th class="delete tool">{_backend.object.action.delete}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr n:foreach="$drafts as $draft">
+                    <td class="title" title="{$draft['id']}">{$draft['title']}</td>
+                    <td class="edit tool">
+                        <a href="{plink :Admin:Draft:default, id => $draft['id']}" title="{_backend.object.action.edit}">{_backend.object.action.edit}</a>
+                    </td>
+                    <td class="delete tool">
+                        <a n:href="deleteDraft, id => $draft['id']" class="ajax" data-confirm="{_backend.object.confirm.delete}" data-ajax-off="history" title="{_backend.object.action.delete}">{_backend.object.action.delete}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {/if}
+{/snippet}
+
+{snippet objects}
+    <div class="items_section">
+        <h2 class="is_headline">{_backend.object.list.objects}</h2>
+        {control search}
+        {if $objects}
+            <div class="items table_responsive_wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="title">{_backend.control.object.objects.head.title}</th>
+                            <th n:ifset="$actions['history']" class="history tool">{_backend.object.action.history}</th>
+                            <th n:ifset="$actions['join']" class="join tool">{_backend.object.action.join}</th>
+                            <th n:ifset="$actions['edit']" class="edit tool">{_backend.object.action.edit}</th>
+                            <th n:ifset="$actions['delete']" class="delete tool">{_backend.object.action.delete}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $objects as $object}
+                            {? $hasDraft = in_array($object['object_id'], $draftMapObjectIds)}
+                            <tr n:class="$hasDraft ? has_draft">
+                                <td class="title" title="{$object['object_id']}"><span{if $hasDraft} title="{_backend.object.hasDraft}"{/if}>{$object['title']}</span></td>
+                                <td n:ifset="$actions['history']" class="history tool">
+                                    <a href="{plink :Admin:Object:history, id => $object['object_id']}" title="{_backend.object.action.history}">{_backend.object.action.history}</a>
+                                </td>
+                                <td n:ifset="$actions['join']" class="join tool">
+                                    <a href="{plink :Admin:Object:join, id => $object['object_id']}" title="{_backend.object.action.join}">{_backend.object.action.join}</a>
+                                </td>
+                                <td n:ifset="$actions['edit']" class="edit tool">
+                                    <a href="{plink :Admin:Object:edit, id => $object['object_id']}" title="{_backend.object.action.edit}">{_backend.object.action.edit}</a>
+                                </td>
+                                <td n:ifset="$actions['delete']" class="delete tool">
+                                    <a n:href="deleteObject, id => $object['id']"
+                                       class="ajax"
+                                       data-confirm="{_backend.object.confirm.delete}"
+                                       data-ajax-off="history"
+                                       title="{_backend.object.action.delete}"
+                                    >
+                                        {_backend.object.action.delete}
+                                    </a>
+                                </td>
+                            </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        {else}
+            <div class="error_notice">{_backend.control.nodata}</div>
+        {/if}
+    </div>
+    {control paginator}
+{/snippet}

@@ -1,0 +1,13 @@
+parameters:
+    navigation:
+        cs:
+            news: "category/novinky"
+            about: "o-projektu"
+            media: "pro-media"
+            mapping: "mapovani"
+            openData: "otevrena-data"
+            contact: "kontakty"
+        en:
+            news: "en/category/news"
+            about: "en/about-project"
+            contact: "en/contact"

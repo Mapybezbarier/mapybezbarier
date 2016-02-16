@@ -1,0 +1,22 @@
+{includeblock APP_DIR . "/Module/Admin/templates/blocks.latte"}
+
+{define submenuUserItems}
+    {ifCurrent :Admin:User:edit}
+        <li class="active">
+            <span class="cont" title="{_backend.user.action.edit}">{_backend.user.action.edit}</span>
+        </li>
+    {/ifCurrent}
+    <li{ifCurrent :Admin:User:default} class="active"{/ifCurrent}>
+        <a class="cont" n:href=":Admin:User:default" title="{_backend.control.dashboard.User.default}">{_backend.control.dashboard.User.default}</a>
+    </li>
+    <li{ifCurrent :Admin:User:create} class="active"{/ifCurrent} n:if="$user->isAllowed(\MP\Module\Admin\Service\Authorizator::RESOURCE_USER, \MP\Module\Admin\Service\Authorizator::ACTION_CREATE)">
+        <a class="cont" n:href=":Admin:User:create" title="{_backend.control.dashboard.User.create}">{_backend.control.dashboard.User.create}</a>
+    </li>
+    <li n:if="$user->isLoggedIn()">
+        <a class="cont" n:href=":Admin:Access:change" title="{_backend.user.action.changePassword}">{_backend.user.action.changePassword}</a>
+    </li>
+{/define}
+
+{define headline}
+    <h1 class="headline user">{_backend.control.dashboard.User.headline}</h1>
+{/define}

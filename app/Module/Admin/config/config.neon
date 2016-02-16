@@ -1,0 +1,115 @@
+parameters:
+    paginator:
+        itemsPerPage: 25
+
+services:
+    #factories
+    loginControlFactory: MP\Module\Admin\Component\LoginControl\ILoginControlFactory
+    userListControlFactory: MP\Module\Admin\Component\UserList\IUserListControlFactory
+    userControlFactory: MP\Module\Admin\Component\UserControl\IUserControlFactory
+    registrationControlFactory: MP\Module\Admin\Component\RegistrationControl\IRegistrationControlFactory
+    passwordResetControlFactory: MP\Module\Admin\Component\PasswordResetControl\IPasswordResetControlFactory
+    passwordChangeControlFactory: MP\Module\Admin\Component\PasswordChangeControl\IPasswordChangeControlFactory
+    automaticImportListControlFactory: MP\Module\Admin\Component\AutomaticImportList\IAutomaticImportListControlFactory
+    importLogsListControlFactory: MP\Module\Admin\Component\ImportLogsList\IImportLogsListControlFactory
+    automaticImportControlFactory: MP\Module\Admin\Component\AutomaticImportControl\IAutomaticImportControlFactory
+    manualImportControlFactory: MP\Module\Admin\Component\ManualImportControl\IManualImportControlFactory
+    objectListControlFactory: MP\Module\Admin\Component\ObjectListControl\IObjectListControlFactory
+    objectSelectControlFactory: MP\Module\Admin\Component\ObjectSelectControl\IObjectSelectControlFactory
+    objectControlFactory: MP\Module\Admin\Component\ObjectControl\IObjectControlFactory
+    objectAddressMapControlFactory: MP\Module\Admin\Component\ObjectAddressMapControl\IObjectAddressMapControlFactory
+    licenseListControlFactory: MP\Module\Admin\Component\LicenseListControl\ILicenseListControlFactory
+    licenseControlFactory: MP\Module\Admin\Component\LicenseControl\ILicenseControlFactory
+    logsListControlFactory: MP\Module\Admin\Component\LogsList\ILogsListControlFactory
+    paginatorControlFactory:
+        implement: MP\Module\Admin\Component\PaginatorControl\IPaginatorControlFactory
+        arguments: [@paginatorFactory::create(%paginator.itemsPerPage%)]
+    objectSearchControlFactory: MP\Module\Admin\Component\ObjectSearchControl\IObjectSearchControlFactory
+    logSearchControlFactory: MP\Module\Admin\Component\LogSearchControl\ILogSearchControlFactory
+    userSearchControlFactory: MP\Module\Admin\Component\UserSearchControl\IUserSearchControlFactory
+    objectHistoryControlFactory: MP\Module\Admin\Component\ObjectHistoryControl\IObjectHistoryControlFactory
+    objectCompareControlFactory: MP\Module\Admin\Component\ObjectCompareControl\IObjectCompareControlFactory
+    dashboardControlFactory: MP\Module\Admin\Component\DashboardControl\IDashboardControlFactory
+    backupListControlFactory:
+        implement: MP\Module\Admin\Component\BackupList\IBackupListControlFactory
+        arguments: [%backupDir%]
+
+    #mailers
+    passwrodResetMailer: MP\Module\Admin\Component\PasswordResetMailer\PasswordResetMailer
+    importReportMailer: MP\Module\Admin\Component\ImportReportMailer\ImportReportMailer
+
+    authenticator: MP\Module\Admin\Service\Authenticator
+    authorizator: MP\Module\Admin\Service\Authorizator
+    accessService: MP\Module\Admin\Service\AccessService
+    userService: MP\Module\Admin\Service\UserService(..., ..., ..., @userServiceCache)
+    manualImportService: MP\Module\Admin\Service\ManualImportService
+    importLogService: MP\Module\Admin\Service\ImportLogService
+    logService: MP\Module\Admin\Service\LogService
+    logDetailService: MP\Module\Admin\Service\LogDetailService
+
+    # managers
+    automaticImportManager:
+        class: MP\Module\Admin\Manager\AutomaticImportManager(..., ..., @importEnumValueResolver)
+        tags: [mp.manager = import]
+    importLogManager:
+        class: MP\Module\Admin\Manager\ImportLogManager
+        tags: [mp.manager = import_log]
+    objectDraftManager:
+        class: MP\Module\Admin\Manager\ObjectDraftManager
+        tags: [mp.manager = map_object_draft]
+    licenseManager:
+        class: MP\Module\Admin\Manager\LicenseManager
+        tags: [mp.manager = license]
+    logManager:
+        class: MP\Module\Admin\Manager\LogManager
+        tags: [mp.manager = log]
+    objectVersionManager:
+        class: MP\Module\Admin\Manager\Version\ObjectManager(..., ..., @objectEnumValueResolver)
+        tags: [mp.manager = versions.map_object]
+    rampSkidsVersionManager:
+        class: MP\Module\Admin\Manager\Version\RampSkidsManager(..., ..., @rampSkidsEnumValueResolver)
+        tags: [mp.manager = versions.rampskids]
+    platformVersionManager:
+        class: MP\Module\Admin\Manager\Version\PlatformManager(..., ..., @platformEnumValueResolver)
+        tags: [mp.manager = versions.platform]
+    elevatorVersionManager:
+        class: MP\Module\Admin\Manager\Version\ElevatorManager(..., ..., @elevatorEnumValueResolver)
+        tags: [mp.manager = versions.elevator]
+    wcVersionManager:
+        class: MP\Module\Admin\Manager\Version\WcManager(..., ..., @wcEnumValueResolver)
+        tags: [mp.manager = versions.wc]
+
+
+    # mappers
+    objectVersionMapper: MP\Mapper\ObjectMapper
+    elevatorVersionMapper: MP\Mapper\ElevatorMapper
+    platformVersionMapper: MP\Mapper\PlatformMapper
+    rampSkidsVersionMapper: MP\Mapper\RampSkidsMapper
+    wcVersionMapper: MP\Mapper\WcMapper
+    objectDraftMapper: MP\Module\Admin\Mapper\ObjectDraftMapper
+    logMapper: MP\Module\Admin\Mapper\LogMapper
+
+    # cache
+    objectFormGeneratorCacheStorage:
+        class: Nette\Caching\Storages\MemoryStorage
+        autowired: false
+    objectFormGeneratorCache:
+        class: Nette\Caching\Cache(@objectFormGeneratorCacheStorage)
+        autowired: false
+
+    userServiceCacheStorage:
+        class: Nette\Caching\Storages\MemoryStorage
+        autowired: false
+    userServiceCache:
+        class: Nette\Caching\Cache(@userServiceCacheStorage)
+        autowired: false
+
+    # services
+    adminObjectService: MP\Module\Admin\Service\ObjectService
+    adminObjectDraftService: MP\Module\Admin\Service\ObjectDraftService
+    adminObjectFormGenerator: MP\Module\Admin\Component\AbstractObjectControl\Service\FormGenerator(..., ..., @objectFormGeneratorCache)
+    adminObjectRestrictorBuilder: MP\Module\Admin\Service\ObjectRestrictorBuilder
+    adminObjectHistoryService: MP\Module\Admin\Service\ObjectHistoryService
+    adminLogRestrictorBuilder: MP\Module\Admin\Service\LogRestrictorBuilder
+    adminUserRestrictorBuilder: MP\Module\Admin\Service\UserRestrictorBuilder
+    adminObjectSuggestionProvier: MP\Module\Admin\Service\ObjectSuggestionProvider

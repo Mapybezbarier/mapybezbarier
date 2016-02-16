@@ -1,0 +1,12 @@
+{includeblock 'blocks.latte'}
+
+{block body}
+    <section class="mapping_section">
+        <div class="ms_header">
+            <h2 class="ms_headline">{_backend.object.title.mapping, ['title' => $object['title']]}</h2>
+        </div>
+        <div class="ms_body">
+            {control object}
+        </div>
+    </section>
+{/block}

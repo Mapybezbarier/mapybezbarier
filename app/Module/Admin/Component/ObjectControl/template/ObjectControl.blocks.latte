@@ -1,0 +1,13 @@
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.blocks.latte'}
+
+{define attachementControlAdd}
+    <div class="tab_add">
+        {input 'add' . MP\Util\Strings::firstUpper($attachement)}
+    </div>
+{/define}
+
+{define attachementControlDelete}
+    <div class="tab_delete nwjs_confirm" data-confirm="{_backend.control.object.tab.confirm.delete}">
+        {input 'remove' . MP\Util\Strings::firstUpper($attachement) . $index}
+    </div>
+{/define}

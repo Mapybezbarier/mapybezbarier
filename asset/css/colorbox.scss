@@ -1,0 +1,122 @@
+@import "_mixins";
+
+/*
+    Colorbox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden; -webkit-transform: translate3d(0,0,0);}
+#cboxWrapper {max-width:none;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{position:relative;}
+#cboxLoadedContent{overflow:auto; -webkit-overflow-scrolling: touch;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none; -ms-interpolation-mode:bicubic;}
+.cboxIframe{width:100%; height:100%; display:block; border:0; padding:0; margin:0;}
+#colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
+
+/*
+  The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
+  when an alpha filter (opacity change) is set on the element or ancestor element.  This style is not applied to or needed in IE9.
+  See: http://jacklmoore.com/notes/ie-transparency-problems/
+*/
+.cboxIE #cboxTopLeft,
+.cboxIE #cboxTopCenter,
+.cboxIE #cboxTopRight,
+.cboxIE #cboxBottomLeft,
+.cboxIE #cboxBottomCenter,
+.cboxIE #cboxBottomRight,
+.cboxIE #cboxMiddleLeft,
+.cboxIE #cboxMiddleRight {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
+}
+
+// colorbox
+#cboxOverlay {
+    background-color: #000;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+}
+#colorbox {
+    @include box-shadow(0 0 28px 12px rgba(70, 70, 70, 0.74));
+    z-index: 102;
+
+    #cboxTopLeft,
+    #cboxTopCenter,
+    #cboxTopRight,
+    #cboxMiddleLeft,
+    #cboxMiddleRight,
+    #cboxBottomLeft,
+    #cboxBottomCenter,
+    #cboxBottomRight {
+        display: none;
+    }
+
+    .cboxPhoto {
+        border: 1px solid #000;
+        max-height: none; // SAFARI problems
+        max-width: none; // SAFARI problems
+    }
+    #cboxLoadedContent {
+        overflow: hidden !important;
+    }
+    #cboxCurrent,
+    #cboxTitle {
+        color: #fff;
+    }
+    #cboxCurrent {
+        float: right !important;
+        padding-left: 5px;
+    }
+    #cboxTitle {
+        padding-right: 5px;
+    }
+    #cboxClose {
+        background: transparent bg_image('colorbox/close.svg') no-repeat center center;
+        @include bs(20px);
+        border: 0 none;
+        cursor: pointer;
+        height: 20px;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: -25px;
+        text-indent: $position_out;
+        width: 20px;
+    }
+    #cboxPrevious,
+    #cboxNext {
+        background: transparent none no-repeat center center;
+        @include bs(36px);
+        border: 0 none;
+        cursor: pointer;
+        height: 100%;
+        @include opacity(0);
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        text-indent: $position_out;
+        width: 50%;
+        @include trans;
+
+        &:hover {
+            @include opacity(1);
+        }
+    }
+    #cboxPrevious {
+        background-image: bg_image('colorbox/prev.svg');
+        background-position: 20px center;
+        left: 0;
+    }
+    #cboxNext {
+        background-image: bg_image('colorbox/next.svg');
+        background-position: right 20px center;
+        right: 0;
+    }
+}

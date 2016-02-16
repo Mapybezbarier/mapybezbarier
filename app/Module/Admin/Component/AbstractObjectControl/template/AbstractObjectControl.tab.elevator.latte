@@ -1,0 +1,311 @@
+{define tabElevator}
+    <div class="table_responsive_wrapper">
+        <fieldset class="formee">
+            <table>
+                {* Lokalizace *}
+                <tr>
+                    <th>{label "elevatorLocalization", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorLocalization", class => 'no_label'}
+                    </td>
+                </tr>
+
+
+                {* Typ výtahu *}
+                <tr>
+                    <th rowspan="3">
+                        <label>{_backend.control.object.label.elevator.type}</label>
+                    </th>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorAccess"}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorAccessProvidedBy"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorType"}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorConnectsFloors"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorDriveoff"}
+                    </td>
+                </tr>
+
+                {* Nástupní plocha *}
+                <tr>
+                    <th rowspan="2">
+                        <label>{_backend.control.object.label.elevator.entryArea}</label>
+                    </th>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryareaWidth", class => 'short measure_unit'}
+                    </td>
+                    <td>
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryareaDepth", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryareaHeightElevation", class => 'short measure_unit'}
+                    </td>
+                </tr>
+
+                {* Dveře *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.elevator.door}</label>
+                    </th>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.doorShaft}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "door1Width", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "door1Opening", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.doorCage}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "door2Width", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "door2Opening", label => TRUE}
+                    </td>
+                </tr>
+
+                {* Ovladače na nástupních místech *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.elevator.control}</label>
+                    </th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorControl1MaxHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">
+                        <label>{_backend.control.object.label.elevator.controlMarking}</label>
+                    </td>
+                    <td>
+                        {label "elevatorControl1ReliefMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorControl1ReliefMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label "elevatorControl1FlatMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorControl1FlatMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label "elevatorIsControl1BrailleMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsControl1BrailleMarking"}
+                    </td>
+                </tr>
+
+                {* AOM (akustický orientační majáček) *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.elevator.aob}</label>
+                    </th>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsAOB"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorAobIsAboveDoor", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorAobLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorAOBAnnouncementsScheme", label => TRUE}
+                    </td>
+                </tr>
+
+                {* Klec *}
+                <tr>
+                    <th rowspan="4">
+                        <label>{_backend.control.object.label.elevator.cage}</label>
+                    </th>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.cageSize}</label>
+                    </td>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageWidth"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageDepth"}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.cageType}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCagePassthrough"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageSeconddoorLocalization"}
+                    </td>
+                </tr>
+
+                {* Ovladače uvnitř klece *}
+                <tr>
+                    <th rowspan="7">
+                        <label>{_backend.control.object.label.elevator.controlCage}</label>
+                    </th>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageControlDistance", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageControlHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">
+                        <label>{_backend.control.object.label.elevator.controlMarking}</label>
+                    </td>
+                    <td>
+                        {label "elevatorControl2ReliefMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorControl2ReliefMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label "elevatorControl2FlatMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorControl2FlatMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label "elevatorIsControl2BrailleMarking"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsControl2BrailleMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.controlAnnouncement}</label>
+                    </td>
+                    <td>
+                        {label "elevatorIsCageControlAnnouncementAcoustic"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementAcoustic"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {label "elevatorIsCageControlAnnouncementPhonetic"/}
+                    </td>
+                    <td>
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementPhonetic"}
+                    </td>
+                </tr>
+
+                {* Vybavení klece *}
+                <tr>
+                    <th rowspan="8">
+                        <label>{_backend.control.object.label.elevator.cageEquipment}</label>
+                    </th>
+                    <td rowspan="2">
+                        <label>{_backend.control.object.label.elevator.cageHandle}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageHandle"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorHandleLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">
+                        <label>{_backend.control.object.label.elevator.cageMirror}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageMirror"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageMirrorLocalization"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "elevatorCageMirrorHeight", class => 'short measure_unit'}
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">
+                        <label>{_backend.control.object.label.elevator.cageSeat}</label>
+                    </td>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageSeat"}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatFunctional", label => TRUE}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatWithinreach", label => TRUE}
+                    </td>
+                </tr>
+
+                {* Poznámky *}
+                <tr>
+                    <th>{label "elevatorHasNotes", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "elevatorHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+
+                {* Slovní popis úseku *}
+                <tr>
+                    <th>{label "elevatorHasDescription", attachement => $attachement, index => $index /}</th>
+                    <td colspan="3">{include inputText, _form => $_form, name => "elevatorHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+{/define}

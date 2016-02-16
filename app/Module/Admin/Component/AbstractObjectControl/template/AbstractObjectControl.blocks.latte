@@ -1,0 +1,156 @@
+{define tabHeader}
+    <div n:class="nwjs_tab, tab, $tab === $name ? active">
+        <a n:href="setTab!, tab => $name"
+           n:class="nwjs_tab_opener, ajax, tab_opener, isset($attachement) ? with_delete"
+           data-tab="nwjs_tab_{$name}"
+           data-ajax-pass
+        >
+            {ifset $title}
+                {$title}
+            {else}
+                {_backend.control.object.tab.{$name}}
+            {/ifset}
+        </a>
+
+        {ifset $attachement}
+        {include attachementControlDelete, _form => $_form, attachement => $attachement, index => $index}
+        {/ifset}
+    </div>
+{/define}
+
+{define tabContent}
+    <div id="nwjs_tab_{$name}" n:class="nwjs_tab_content, tab_content, $tab === $name ? opened">
+        {$content|noescape}
+    </div>
+{/define}
+
+{define formContent}
+    <div class="tabs">
+        {include tabHeader, name => 'object'}
+        {include tabHeader, name => 'entrance1', title => $translator->translate('backend.control.object.tab.mainEntrance')}
+        {include tabHeader, name => 'entrance2', title => $translator->translate('backend.control.object.tab.sideEntrance')}
+        {include tabHeader, name => 'interior'}
+
+        <div class="added_attachements">
+            {foreach $attachements as $attachement => $indexes}
+                {foreach $indexes as $index}
+                    {capture $title}
+                        {$iterator->counter}. {_backend.control.object.tab.$attachement}
+                    {/capture}
+
+                    {include tabHeader, name => "{$attachement}{$index}", title => $title, attachement => $attachement, index => $index}
+                {/foreach}
+            {/foreach}
+        </div>
+    </div>
+
+    {capture $content}
+        {include tabObject, _form => $_form}
+    {/capture}
+
+    {include tabContent, name => 'object', content => $content, active => true}
+
+    {foreach [1, 2] as $index}
+        {capture $content}
+            {include tabEntrance, _form => $_form, prefix => "entrance{$index}"}
+        {/capture}
+
+        {include tabContent, name => "entrance{$index}", content => $content}
+    {/foreach}
+
+    {capture $content}
+        {include tabInterior, _form => $_form}
+    {/capture}
+
+    {include tabContent, name => 'interior', content => $content}
+
+    {foreach $attachements as $attachement => $indexes}
+        {foreach $indexes as $index}
+            {capture $content}
+                {var $block = 'tab' . MP\Util\Strings::firstUpper($attachement)}
+
+                {include #$block, _form => $_form->getComponent($attachement)->getComponent($index), attachement => $attachement, index => $index}
+            {/capture}
+
+            {var $name = $attachement . $index}
+
+            <div id="nwjs_tab_{$name}" n:class="nwjs_tab_content, tab_content, $tab === $name ? opened">
+                {$content|noescape}
+            </div>
+        {/foreach}
+    {/foreach}
+{/define}
+
+{define attachementAddControls}
+    <div class="add_attachement nwjs_add_attachements">
+        <div class="aa_opener nwjs_aa_opener">{_backend.control.object.label.addAttachement}</div>
+        <div class="attachement_list">
+            {foreach [MP\Object\ObjectMetadata::RAMP_SKIDS, MP\Object\ObjectMetadata::PLATFORM, MP\Object\ObjectMetadata::ELEVATOR, MP\Object\ObjectMetadata::WC] as $attachement}
+                {include attachementControlAdd, _form => $_form, attachement => $attachement}
+            {/foreach}
+        </div>
+    </div>
+{/define}
+
+{define attachementControlAdd}{/define}
+{define attachementControlDelete}{/define}
+
+{define radioGroup}
+    <div n:class="form_pair, radiogroup, isset($class) ? $class">
+        {include radioGroupContent,
+            _form => $_form,
+            name => $name,
+            label => (isset($label) ? $label : null),
+            attachement => (isset($attachement) ? $attachement : null),
+            index => (isset($index) ? $index : null),
+        }
+    </div>
+{/define}
+
+{define radioGroupContent}
+    <div class="form_label">
+        {if true === $label}
+            {label $name /}
+        {else}
+            <label>{_$label}</label>
+        {/if}
+    </div>
+    <div class="form_item">
+        {input $name}
+    </div>
+{/define}
+
+{define radioGroupDisposition}
+    <div class="inside_label">
+        {label $name /}
+    </div>
+    <div class="disposition_map radiogroup">
+        {input $name}
+    </div>
+{/define}
+
+{define inputText}
+    <div n:class="form_pair, text, isset($class) ? $class">
+        {include inputTextContent,
+            _form => $_form,
+            name => $name,
+            label => (isset($label) ? $label : null),
+            placeholder => (isset($placeholder) ? $placeholder : null),
+            attachement => (isset($attachement) ? $attachement : null),
+            index => (isset($index) ? $index : null),
+        }
+    </div>
+{/define}
+
+{define inputTextContent}
+    {ifset $placeholder}
+        {var $placeholderText = is_bool($placeholder) ? 'backend.control.object.placeholder.' . MP\Util\Strings::toCamelCase($name) : $placeholder}
+        {? $_form[$name]->getControlPrototype()->addAttributes(['placeholder' => $placeholderText])}
+    {/ifset}
+    <div class="form_label">
+        {label $name /}
+    </div>
+    <div class="form_item">
+        {input $name}
+    </div>
+{/define}

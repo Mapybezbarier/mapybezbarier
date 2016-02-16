@@ -1,0 +1,34 @@
+{snippet list}
+    {if $items}
+        <div class="items table_responsive_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th class="created">{_backend.control.import.log.head.created}</th>
+                    <th class="user">{_backend.control.import.log.head.user}</th>
+                    <th class="source">{_backend.control.import.log.head.source}</th>
+                    <th class="errors_count">{_backend.control.import.log.head.errorsCount}</th>
+                    <th class="notices_count">{_backend.control.import.log.head.noticesCount}</th>
+                    <th class="count">{_backend.control.import.log.head.count}</th>
+                    <th class="detail tool" n:if="empty($isDetail)">{_backend.control.import.log.head.detail}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr n:foreach="$items as $item">
+                    <td class="created">{$item['created']|date:'j. n. Y H:i'}</td>
+                    <td class="user">{$item['user']}</td>
+                    <td class="source">{$item['source']}</td>
+                    <td class="errors_count">{$item['errors_count']}</td>
+                    <td class="notices_count">{$item['notices_count']}</td>
+                    <td class="count">{$item['count']}</td>
+                    <td class="detail tool" n:if="empty($isDetail)">
+                        <a href="{plink :Admin:Import:logs, id => $item['id']}" title="{$item['id']}">{$item['id']}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    {else}
+        <div class="error_notice">{_backend.control.nodata}</div>
+    {/if}
+{/snippet}

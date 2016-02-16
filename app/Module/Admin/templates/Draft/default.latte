@@ -1,0 +1,12 @@
+{includeblock APP_DIR . "/Module/Admin/templates/Object/blocks.latte"}
+
+{block body}
+    <section class="mapping_section nwjs_block_outter_links" data-confirm="{_backend.object.confirm.exit}">
+        <div class="ms_header">
+            <h2 class="ms_headline">{_backend.object.title.draft, ['title' => $draft['title']]}</h2>
+        </div>
+        <div class="ms_body">
+            {control object}
+        </div>
+    </section>
+{/block}

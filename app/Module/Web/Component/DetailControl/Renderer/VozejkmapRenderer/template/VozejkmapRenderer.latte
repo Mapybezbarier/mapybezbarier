@@ -1,0 +1,30 @@
+<div class="detail_descriptions">
+    <div class="detail_description">
+        {if $object['custom_data']['accessibility']}
+            <h3 class="dd_headline">{_messages.renderer.vozejkmap.accessibility}</h3>
+            <p>{$object['custom_data']['accessibility']|lower}</p>
+        {/if}
+    </div>
+    <div class="detail_description">
+        <h3 class="dd_headline">{_messages.renderer.vozejkmap.parkingAccessible}</h3>
+        <p>
+            {if $object['custom_data']['parking_accessible_bool']}
+                {_messages.renderer.vozejkmap.yes}
+            {else}
+                {_messages.renderer.vozejkmap.no}
+            {/if}
+        </p>
+    </div>
+    {foreach $object['descriptions'] as $title => $description}
+        {if $description}
+            <div class="detail_description">
+                <h3 class="dd_headline">{_messages.control.map.detail.title.description.$title}</h3>
+                {if is_array($description)}
+                    <p n:foreach="$description as $item">{$item|escape|nl2br|noescape}</p>
+                {else}
+                    <p>{$description|escape|nl2br|noescape}</p>
+                {/if}
+            </div>
+        {/if}
+    {/foreach}
+</div>

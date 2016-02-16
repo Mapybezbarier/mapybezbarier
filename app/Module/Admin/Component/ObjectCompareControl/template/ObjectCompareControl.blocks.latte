@@ -1,0 +1,35 @@
+{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.blocks.latte'}
+
+{define formContent}
+    <div class="compare_section">
+        {include parent}
+    </div>
+{/define}
+
+{define attachementAddControls}{/define}
+
+{define radioGroupContent}
+    {include parent}
+    {include currentValue, name => $name, attachement => $attachement, index => $index}
+{/define}
+
+{define inputTextContent}
+    {include parent}
+    {include currentValue, name => $name, attachement => $attachement, index => $index}
+{/define}
+
+{define currentValue}
+    {var $text = null}
+
+    {if isset($attachement) && isset($current[$attachement][$index]) && isset($current[$attachement][$index][$name])}
+        {? $text = $current[$attachement][$index][$name]}
+    {elseif isset($current[$name])}
+        {? $text = $current[$name]}
+    {/if}
+
+    <div class="compare_hint" n:if="$text">
+        <div class="ch_inner">
+            {$text}
+        </div>
+    </div>
+{/define}

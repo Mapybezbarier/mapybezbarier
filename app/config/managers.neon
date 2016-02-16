@@ -1,0 +1,56 @@
+services:
+    # resolvers
+    objectEnumValueResolver: MP\Manager\Resolver\ObjectEnumValueResolver(..., @enumValueResolverCache)
+    rampSkidsEnumValueResolver: MP\Manager\Resolver\RampSkidsEnumValueResolver(..., @enumValueResolverCache)
+    platformEnumValueResolver: MP\Manager\Resolver\PlatformEnumValueResolver(..., @enumValueResolverCache)
+    elevatorEnumValueResolver: MP\Manager\Resolver\ElevatorEnumValueResolver(..., @enumValueResolverCache)
+    wcEnumValueResolver: MP\Manager\Resolver\WcEnumValueResolver(..., @enumValueResolverCache)
+    importEnumValueResolver: MP\Manager\Resolver\ImportEnumValueResolver(..., @enumValueResolverCache)
+    userEnumValueResolver: MP\Manager\Resolver\UserEnumValueResolver(..., @enumValueResolverCache)
+
+    # managers
+    objectManager:
+        class: MP\Manager\ObjectManager(..., ..., @objectEnumValueResolver)
+        tags: [mp.manager = map_object]
+    rampSkidsManager:
+        class: MP\Manager\RampSkidsManager(..., ..., @rampSkidsEnumValueResolver)
+        tags: [mp.manager = rampskids]
+    platformManager:
+        class: MP\Manager\PlatformManager(..., ..., @platformEnumValueResolver)
+        tags: [mp.manager = platform]
+    elevatorManager:
+        class: MP\Manager\ElevatorManager(..., ..., @elevatorEnumValueResolver)
+        tags: [mp.manager = elevator]
+    wcManager:
+        class: MP\Manager\WcManager(..., ..., @wcEnumValueResolver)
+        tags: [mp.manager = wc]
+    accessibilityManager:
+        class: MP\Manager\AccessibilityManager
+        tags: [mp.manager = accessibility]
+    objectTypeManager:
+        class: MP\Manager\ObjectTypeManager
+        tags: [mp.manager = object_type]
+    exchangeSourceManager:
+        class: MP\Manager\ExchangeSourceManager
+        tags: [mp.manager = exchange_source]
+    geocodingManager:
+        class: MP\Manager\GeocodingManager
+        tags: [mp.manager = service.geocoding_request]
+    apiQuotaManager:
+        class: MP\Manager\ApiQuotaManager
+        tags: [mp.manager = service.api_quota]
+    userManager:
+        class: MP\Manager\UserManager(..., ..., @userEnumValueResolver)
+        tags: [mp.manager = user]
+    roleManager:
+        class: MP\Manager\RoleManager
+        tags: [mp.manager = role]
+    imageManager: MP\Manager\ImageManager
+
+    #mappers
+    geocodingMapper: MP\Mapper\GeocodingMapper
+    objectMapper: MP\Mapper\ObjectMapper
+    elevatorMapper: MP\Mapper\ElevatorMapper
+    platformMapper: MP\Mapper\PlatformMapper
+    rampSkidsMapper: MP\Mapper\RampSkidsMapper
+    wcMapper: MP\Mapper\WcMapper

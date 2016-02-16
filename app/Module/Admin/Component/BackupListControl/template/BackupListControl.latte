@@ -1,0 +1,15 @@
+<div class="dumps">
+    <ul>
+        {foreach $dailyItems as $filename => $file}
+            {include item, file => $file, order => $iterator->counter, type => 'daily'}
+        {/foreach}
+
+        {foreach $monthlyItems as $filename => $file}
+            {include item, file => $file, order => $iterator->counter, type => 'monthly'}
+        {/foreach}
+    </ul>
+</div>
+
+{define item}
+    <li n:if="$file"><a n:href="download, order => $order, 'type' => $type">{$file->getBasename()}</a></li>
+{/define}

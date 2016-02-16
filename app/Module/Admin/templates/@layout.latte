@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{_messages.seo.title}</title>
+    <meta name="robots" content="noindex,nofollow"/>
+    {control css}
+    {control js}
+</head>
+<body>
+    {block inner}
+        <header>
+            <div class="logo">
+                <a n:href=":Admin:Dashboard:default" title="{_messages.header.logo} - {_messages.header.motto}">
+                    <strong class="headline">{_messages.header.logo}</strong>
+                    <span class="motto">{_messages.header.motto}</span>
+                </a>
+            </div>
+
+            <nav class="user_aside">
+                {if $user->isLoggedIn()}
+                    <div class="username">
+                        <a n:href=":Admin:User:edit, id => $user->getId()" title="{_backend.user.action.editProfile}">{$username}</a>
+                    </div>
+                    <div class="logout">
+                        <a n:href="logout!" title="{_backend.user.action.logout}">{_backend.user.action.logout}</a>
+                    </div>
+                {else}
+                    <div class="login">
+                        <a n:href=":Admin:Access:login" title="{_backend.user.action.login}">{_backend.user.action.login}</a>
+                    </div>
+                {/if}
+            </nav>
+
+            {if empty($preventDashboard)}
+                <div class="dashboard_link nwjs_dashboard_opener">{_backend.control.dashboard.openButton}</div>
+                <div class="dashboard_wrapper nwjs_dashboard_wrapper">{control dashboard}</div>
+            {/if}
+
+        </header>
+
+        <div class="content{block contentClass}{/block}">
+            {block content}{/block}
+        </div>
+        <span class="dashboard_overlay nwjs_dashboard_overlay"></span>
+        <footer>
+            <a href="mailto:{_backend.footer.adminEmail}">{_backend.footer.adminEmail}</a>
+        </footer>
+    {/block}
+
+    {control flashMessage}
+</body>
+</html>

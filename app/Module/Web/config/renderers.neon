@@ -1,0 +1,25 @@
+parameters:
+    renderer:
+        infoBox:
+            mapping:
+                vozejkmap: vozejkmapInfoBoxRendererFactory
+
+        detail:
+            mapping:
+                vozejkmap: vozejkmapDetailRendererFactory
+
+services:
+    infoBoxRendererFactory:
+        class: MP\Module\Web\Component\RendererFactory(..., ..., @defaultInfoBoxRendererControlFactory, %renderer.infoBox.mapping%)
+        autowired: false
+    detailRendererFactory:
+        class: MP\Module\Web\Component\RendererFactory(..., ..., @defaultDetailRendererControlFactory, %renderer.detail.mapping%)
+        autowired: false
+
+    #info box
+    defaultInfoBoxRendererControlFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\DefaultRenderer\IDefaultRendererFactory
+    vozejkmapInfoBoxRendererFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
+
+    # detail
+    defaultDetailRendererControlFactory: MP\Module\Web\Component\DetailControl\Renderer\DefaultRenderer\IDefaultRendererFactory
+    vozejkmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory

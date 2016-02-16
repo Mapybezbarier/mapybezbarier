@@ -1,0 +1,440 @@
+router:
+    embeddedInfo: sdileni-mapy
+    exportInfo: export-dat
+    help: napoveda
+
+enum:
+    bool:
+        "true": Ano
+        "false": Ne
+
+    boolLower:
+        "true": ano
+        "false": ne
+
+    value:
+        category:
+            basilicaObjectCategory: bazilika
+            theatreObjectCategory: divadlo
+            galleryObjectCategory: galerie
+            defensivecastleObjectCategory: hrad
+            defensivecastleStatelyhomeObjectCategory: hrad a zámek
+            templeObjectCategory: chrám
+            chapelObjectCategory: kaple
+            cathedralObjectCategory: katedrála
+            monasteryObjectCategory: klášter
+            libraryObjectCategory: knihovna
+            churchObjectCategory: kostel
+            lorettaObjectCategory: loreta
+            museumObjectCategory: muzeum
+            museumGalleryObjectCategory: muzeum a galerie
+            museumLibraryObjectCategory: muzeum a knihovna
+            palaceObjectCategory: palác
+            monumentObjectCategory: památník
+            townhallObjectCategory: radnice
+            synagogueObjectCategory: synagoga
+            fortressObjectCategory: tvrz
+            towerObjectCategory: věž
+            statelyhomeObjectCategory: zámek
+            otherObjectCategory: jiné
+
+        accessibility:
+            accessibleObjectMKPO: přístupný
+            partlyAccessibleObjectMKPO: částečně přístupný
+            inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+            full:
+                accessibleObjectMKPO: Objekt přístupný
+                partlyAccessibleObjectMKPO: Objekt částečně přístupný
+                inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
+
+        type:
+            certified: profesionální
+            outdated: "profesionální, ale zastaralé"
+            community: komunitní
+
+        wcCategorization:
+            accessibleWCMKPO: Přístupná toaleta - WC I.
+            partlyAccessibleWCMKPO: Částečně přístupná toaleta - WC II.
+            inAccessibleWCMKPO: Obtížně přístupná nebo nepřístupná toaleta - běžné WC
+            none: "Toaleta: Ne"
+
+        wcCabinLocalization:
+            SelfcontainedWCCabinLocalization: samostatně
+            LadiesWCCabinLocalization: v oddělení WC ženy
+            GentsWCCabinLocalization: v oddělení WC muži
+            GentsLadiesWCCabinLocalization: v oddělení WC muži i WC ženy
+
+        wcCabinAccess:
+            FreelyaccessibleMappableEntityAccess: volně přístupná
+            LockedMappableEntityAccess: uzamčená
+
+        doorOpeningDirection:
+            OutwardsDoorOpeningDirection: z kabiny
+            InwardsDoorOpeningDirection: do kabiny
+            SidesDoorOpeningDirection: posuvné
+
+        handleType:
+            FoldingHandleType: pevné
+            FixedHandleType: sklopné
+
+        washbasinUnderpass:
+            SufficientWashbasinUnderpass: dostatečný
+            InsufficientWashbasinUnderpass: nedostatečný
+
+        wcChangingdesk:
+            FoldingWCChangingdesk: sklopný
+            MobileWCChangingdesk: mobilní
+
+popup:
+    loadingError: Obsah se nepodařilo načíst.
+    close: Zavřít
+    embedded:
+        title: Sdílení mapy
+        beforeInfo: "Mapu přístupnosti můžete použít na svých webových stránkách prostřednictvím HTML tagu iframe. Níže vygenerovaný HTML kód stačí zkopírovat a vložit do vaší stránky. Zobrazované objekty je možné omezit nastavením filtru, generovaný kód iframe navíc reflektuje i aktuální nastavení středu mapy a její přiblížení. Velikost vloženého iframe je možné upravit parametry width a height."
+        license:
+            link: http://web.mapybezbarier.cz/sdileni-mapy-podminky
+            title: Podmínky sdílení mapy
+
+    export:
+        title: Export dat
+        introText: "Jedním z hlavních cílů projektu Mapy bez bariér je poskytovat veškeré informace o přístupnosti objektů v otevřeném a strojově čitelném formátu. Proto vzniklo veřejné API, které umožňuje výběr exportovaných dat nejen podle kritérií odpovídajících filtru webové aplikace, ale také na základě regionu, obce či její části. Dále je možné omezit exportovaná data podle data jejich poslední modifikace pro možnost přírůstkových exportů. Bližší informace vč. popisu jednotlivých formátů najdete ve %startTag%specifikaci API%endTag%."
+        exampleText: "Jako ukázku si můžete vyexportovat informace o objektech odpovídajících aktuálně nastavenému filtru v těchto formátech:"
+        sparqlText: "V rámci exportního rozhraní je také zprovozněn veřejný SPARQL endpoint, který umožní externím službám dotazování nad RDF reprezentací databáze pomocí dotazovacího jazyka SPARQL. Endpoint je přístupný na: %link%."
+        turtleText: RDF reprezentaci aktuálních dat je možné také stáhnout ve formátu %startTag%Turtle%endTag%.
+
+stats:
+    title: Statistiky mapování
+    totalCount: "Celkem zmapováno objektů: %count%"
+    table:
+        title: Kraj
+        count: Počet
+
+form:
+    error:
+        equal: Prosím vložte hodnotu %s.
+        notQqual: Prosím vložte platnou hodnotu.
+        blank: Toto pole nesmí být prázdné.
+        required: Pole '%label' je povinné.
+        minLength: Pole '%label' musí obsahovat alespoň %d znaků.
+        maxLength: Pole '%label' může obsahovat maximálně %d znaků.
+        length: Pole '%label' musí být mít mezi %d a %d znaků.
+        email: Vyplněná e-mailová adresa je neplatná.
+        url: Prosím vložte platnou URL.
+        integer: Prosím vložte platné celé číslo.
+        float: Prosím vložte platné číslo.
+        min: Prosím vložte hodnotu větší nebo rovnu %d.
+        max: Prosím vložte hodnotu menší nebo rovnu %d.
+        range: "Prosím vložte hodnotu v rozsahu od: %d do: %d"
+        maxFileSize: Nahraný soubor přesáhl povolenou velikost %d bajtů.
+        maxPostSize: Zaslaná data přesahují povolený limit %d bajtů.
+        mimeType: Nahraný soubor není v podporovaném formátu.
+        image: "Nahraný soubor musí být obrázek ve formátu JPEG, GIF nebo PNG."
+        valid: Prosím vyberte jednu z platných hodnot.
+        csrf: "Platnost dat vypršela. Prosím, opakujte akci ještě jednou."
+        date: Zadané datum není v předepsaném formátu %d.
+
+control:
+    search:
+        placeholder: Lokalita
+
+    filter:
+        mapType:
+            headline: Typ mapy
+            items:
+                roadmap: Mapa
+                satellite: Satelit
+
+            seekPositionButton: Načíst pozici
+
+        label:
+            accessibility: Přístupnost objektu
+            category: Typ objektu
+            type: Podklady
+
+        values:
+            category:
+                churches: církevní budovy
+                theatres: divadla
+                muzeums: muzea a galerie
+                historical: historické budovy
+                libraries: knihovny
+                memorials: památníky
+                towers: rozhledny
+                other: jiné
+
+        tools:
+            insertedMap: Kód pro vnořenou mapu
+            export: Export
+            help: Nápověda
+
+    map:
+        infoBox:
+            loading: Načítám...
+            error: Údaje o objektu se nepodařilo načíst.
+            autocompleteError: Aktuální pozici se nepodařilo načíst!
+            close: Zavřít
+            detail: Detail
+            wc: WC
+            changingDesk: Přebalovací pult
+            entrance1Accessibility: Přístupný hlavním vchodem
+            entrance2Accessibility: Přístupný vedlejším vchodem
+            outdatedWarning: "Upozorňujeme, že tato data o objektu jsou %tagStart%více než 3 roky stará%tagEnd%."
+            address: Adresa
+            gps: GPS souřadnice
+            web: Webová stránka
+            source: Zdroj dat
+
+        detail:
+            pictogram:
+                parking: Vyhrazené parkovací stání
+                difficult_surface: Obtížný povrch
+                difficult_inclination: Obtížný sklon
+                stairs: Schody
+                spiral_stairs: Točité schodiště
+                elevator: Výtah
+                platform: Plošina
+                rampskids: Rampa/ližiny
+                narrowed_passage: Zúžený průchod
+                door_width: Omezená šířka dveří
+                AccessibleWCMKPO: Přístupná toaleta
+                PartlyAccessibleWCMKPO: Částečně přístupná toaleta
+                InAccessibleWCMKPO: Obtížně přístupná nebo nepřístupná toaleta
+
+            description:
+                elevator: "rozměry nejmenšího výtahu: %size% cm"
+                platform: "rozměry nejmenší plošiny: %size% cm"
+                rampskids1: "největší sklon rampy/ližin: %size% %"
+                rampskids2: "největší délka rampy/ližin: %size% cm"
+                entrance1: před hlavním vchodem
+                entrance2: před vedlejším vchodem
+                wc:
+                    location: "%localization% (%access%)"
+                    cabinSize: "rozměry: %size% cm"
+                    doorOpeningDirection: "směr otvírání dveří: %value%"
+                    wcBasinLeftDistance: "prostor vlevo od WC: %size% cm"
+                    wcBasinRightDistance: "prostor vpravo od WC: %size% cm"
+                    wcBasinSeatHeight: "výška sedátka: %size% cm"
+                    handleLeft: "levé madlo: %size% cm (%type%)"
+                    handleLeftMissing: "levé madlo: chybí"
+                    handleRight: "pravé madlo: %size% cm (%type%)"
+                    handleRightMissing: "pravé madlo: chybí"
+                    washbasinUnderpass: "podjezd umyvadla: %value%"
+                    wcChangingdeskTrue: "přebalovací pult: %bool% (%value%)"
+                    wcChangingdeskFalse: "přebalovací pult: %bool%"
+
+            title:
+                description:
+                    object: Popis objektu
+                    mainEntrance: Popis hlavního vchodu
+                    sideEntrance: Popis vedlejšího vchodu
+                    interior: Popis interiéru
+                    rampskids: Popis rampy/ližin
+                    platform: Popis plošiny
+                    elevator: Popis výtahu
+                    wc: Popis toalety
+
+    mailer:
+        subject: Nová zpráva z webu mapybezbarier.cz
+
+    navigation:
+        news: Novinky
+        about: O projektu
+        media: Pro média
+        mapping: Mapování
+        openData: Otevřená data
+        contact: Kontakty
+
+renderer:
+    vozejkmap:
+        objectAccessible: "Přístupný objekt (neověřená informace)"
+        accessibility: Bezbariérový přístup
+        wcAccessible: Bezbariérové WC
+        parkingAccessible: Parkoviště pro vozíčkáře
+        "yes": ano
+        "no": ne
+
+header:
+    h1: Mapy bez bariér - bezbariérový přístup - interaktivní mapa
+    logo: Mapy bez bariér
+    motto: Budujeme bezbariérovou mapu České republiky
+    mainMenuOpener: Otevřít hlavní menu
+
+seo:
+    title: Konto Bariéry - Mapy bez bariér
+    description: Budujeme bezbariérovou mapu České republiky
+    keywords: "bezbariérová mapa, přístupnost, cestování, památky, budovy, otevřená data"
+
+footer:
+    headline: Konto Bariéry
+    address:
+        headline: Adresa
+        line1: Nadace Charty 77
+        line2: Melantrichova 5
+        line3: "Praha 1, 110 00"
+        line4: Česká republika
+        line5: Nadace Charty 77
+        phoneLabel: Tel.
+        phone: +420 224 214 452
+        emailLabel: E-mail
+        email: info@mapybezbarier.cz
+
+    navigation:
+        headline: Navigace
+
+    share:
+        headline: Sdílejte s námi
+
+geocoding:
+    report:
+        subject: Report dohledání GPS souřadnic dle adresy
+        heading:
+            multiple: Nejednoznačné adresy
+            zero: "Adresy, pro které se nepodařilo dohledat"
+            error: "Adresy, pro které Geocoding API vrátilo chybu"
+
+semantics:
+    header: Záhlaví
+    footer: Zápatí
+    mainMenu: Hlavní menu
+    search: Vyhledávání
+    languages: Výběr jazyka
+    mainContent: Hlavní obsah
+    aside: Vedlejší obsah
+    bottomMenu: Spodní menu
+    quickContact: Rychlý kontakt
+    filter: Filtry
+
+help:
+    mainToolsButtons:
+        headline: Hlavní nástrojová tlačítka
+        search:
+            button: Tlačítko otevření vyhledávání
+            sentence1: "Po kliknutí na ikonku [Vyhledávání] se rozbalí editovatelné pole pro dohledání lokací na mapě. Je možné zadávat jak konkrétní místa (např. Divadlo Broadway), tak větší územní celky jako městské části, obce či kraje. Funguje zde tzv. „našeptávání“ pro napovídání existujících lokací. V nabízených možnostech lze pohodlně vybírat šipkami na klávesnici a volbu lze potvrdit Enterem. Po výběru jednoho z míst se mapa přesune a zacentruje na dané místo."
+            sentence2: Našeptávání je omezeno pouze pro Českou republiku. Vyhledávání slouží pouze k přiblížení daného místa na mapě a nijak neovlivňuje zobrazované objekty.
+            sentence3: Kliknutím na křížek lze vyhledávání zavřít. Vybraná poloha na mapě zůstává nezměněna.
+
+        filter:
+            button: Tlačítko otevření filtru
+            sentence1: "Po kliknutí na ikonku [Filtr] se ze strany vysune levý panel, obsahující nástrojová tlačítka a skupiny filtrů. Opětovným kliknutím na toto tlačítko lze levý panel opět skrýt. Vybrané filtry zůstanou v mapě zachovány."
+
+    leftPanel:
+        headline: Levý panel
+        sentence1: "Všechny akce v rámci filtrování, potažmo levého sloupce, jsou provedeny technologií AJAX. Nedochází tedy k opětovnému vykreslení stránky."
+        sentence2: Všechny filtry lze vzájemně kombinovat.
+        sentence3: "Pokud není v dané skupině filtru vybraná ani jedna položka, zobrazí se v mapě všechny objekty, stejně jako v případě všech vybraných položek."
+        topTools:
+            headline: Horní nástrojové menu
+            mapChanger:
+                headline: Přepínání typu mapy
+                sentence1: "Výchozí zobrazení mapy je KLASICKÉ [Mapa]. Lze přepnout na SATELITNÍ (HYBRIDNÍ) zobrazení mapy [Satelit]."
+
+            actualPositon:
+                headline: Určení aktuální polohy
+                sentence1: "Vpravo od nabídky Přepínání typu mapy se nachází tlačítko pro zjištění aktuální polohy. Po kliku se zobrazí dialog, po jehož potvrzení se mapa přesune a zacentruje na aktuální polohu."
+
+        filter:
+            headline: Filtr
+            methodicsLinkText: více informací naleznete zde
+            accessibility:
+                headline: Přístupnost objektu
+                sentence1: Kliknutím na filtrovací položku se v mapě vykreslí pouze objekty odpovídající typu vybrané přístupnosti. Položka se označí jako vybraná. Tímto způsobem lze vybrat i více položek najednou.
+                sentence2: "Přístupnost je v rámci celé aplikace určena barvou. Tato barva se pak projeví i v označení v mapě, plovoucím okně se stručnými informacemi i v detailu objektu."
+                accessibility1:
+                    headline: Objekt přístupný
+                    sentence1: Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem.
+
+                accessibility2:
+                    headline: Objekt částečně přístupný
+                    sentence1: Přístupná je jen část objektu nebo objekt nenaplňuje některé z požadavků uvedených u objektu přístupného.
+
+                accessibility3:
+                    headline: Objekt obtížně přístupný nebo nepřístupný
+                    sentence1: "Přístup nebo pohyb po objektu je zvlášť komplikovaný (kombinace různých důvodů)."
+
+            objectType:
+                headline: Typ objektu
+                sentence1: Kliknutím na filtrovací položku se v mapě vykreslí pouze objekty odpovídající vybranému typu objektu. Položka se označí jako vybraná. Tímto způsobem lze vybrat i více položek najednou.
+
+        bottomTools:
+            headline: Spodní nástrojové menu
+            sentence1: Dole pod filtrem jsou 3 nástrojová tlačítka. Po najetí nad ikonku se v nápovědě zobrazí funkce tlačítka. Po kliku na tlačítko se obsah zobrazí v plovoucím okně.
+            insertedMap:
+                headline: Sdílení mapy
+                sentence1: "Zde naleznete HTML kód pro sdílení aplikace na jiných webových stránkách, vč. nápovědy k použití."
+
+            export:
+                headline: Export dat
+                sentence1: "Zobrazení možností exportu informací z mapy. K dispozici jsou 3 nejpoužívanější formáty: XML, JSON a CSV (Excel)."
+
+            help:
+                headline: Nápověda
+                sentence1: Tato nápověda.
+
+    marker:
+        headline: Objekt v mapě
+        sentence1: "Objekt v mapě je graficky přizpůsoben přístupnosti (barva) a typu objektu (piktogram). Jeho spodní část přesně cílí na GPS souřadnice daného místa v mapě."
+        mergedObject:
+            headline: Sdružený objekt
+            sentence1: "Existuje i tzv. sdružený objekt, a to v případě, že se na jednom místě v mapě vyskytuje více než jeden objekt. Místo ikonky objektu je pak zobrazena číslovka udávající počet objektů v rámci sdružení."
+
+    infobox:
+        headline: Stručná informace
+        sentence1: V plovoucím boxu se zobrazí stručné shrnutí vlastností vybraného objektu a odkazu na detailní informace. V případě sdruženého objektu se na spodku plovoucího boxu objeví přepínač na další objekt v rámci sdružení.
+
+    detail:
+        headline: Detailní informace
+        sentence1: "Při kliknutí na odkaz [Detail] v plovoucím okně se ze strany vysune pravý panel, obsahující rozšířené informace o daném objektu, vč. detailního popisu a fotografie (je-li k dispozici)."
+
+    methodics:
+        headline: Metodika kategorizace přístupnosti objektů
+        accessibility:
+            headline: Kategorizace přístupnosti
+            accessibility1:
+                headline: Objekt přístupný
+                sentence1: Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem. Návštěva je možná bez předchozí domluvy.
+                sentence2: "Rampy (mobilní i pevné) před vstupem i uvnitř objektu mají sklon při délce do 3 metrů maximálně 12,5 %, při délce do 9 metrů maximálně 8 %. Šířka pevných ramp je minimálně 110 cm."
+                sentence3: "Dveře a průchody jsou široké minimálně 80 cm, platí i pro vstupní (hlavní) křídlo dvoukřídlých dveří. Výška prahů je maximálně 2 cm."
+                sentence4: "Pro překonání výškových rozdílů je k dispozici samoobslužný výtah a jeho rozměry jsou minimálně: šířka dveří 80 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 125 cm. Objekty s plošinou nevyhodnocujeme jako objekty přístupné."
+                sentence5: "Pokud se jedná o objekt s toaletami pro veřejnost, k dispozici je přístupná toaleta: WC I. nebo v případě, že jsou všechny ostatní požadavky na přístupnost naplněny, alespoň částečně přístupná toaleta WC II."
+                sentence6: Povrchy a sklon komunikací v objektu a jeho bezprostředním okolí výrazněji nekomplikují pohyb na vozíku.
+
+            accessibility2:
+                headline: Objekt částečně přístupný
+                sentence1: Přístupná je jen část objektu nebo objekt nenaplňuje některé z požadavků uvedených u objektu přístupného. Popis nesplněných požadavků je uveden v textu.
+                sentence2: "Rampy a ližiny (mobilní i pevné) před vstupem i uvnitř objektu mají sklon při délce do 3 metrů maximálně 16,5 %, při délce do 9 metrů maximálně 12,5 %. Šířka pevných ramp je minimálně 110 cm."
+                sentence3: Dveře a průchody jsou široké minimálně 70 cm. Výška prahů je maximálně 7 cm.
+                sentence4: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 110 cm."
+                sentence5: "Rozměry plošiny jsou minimálně: šířka dveří 70 cm, přepravní plocha: šířka 70 cm x hloubka 90 cm. Informace o nosnosti jsou uvedeny v doplňujícím textu."
+                sentence6: Přístupnost WC není rozhodujícím faktorem. Vzhledem ke stávající přístupnosti prostředí v ČR by požadavek na existenci alespoň WC II. u objektů částečně přístupných znamenal přeřazení velké části objektů k objektům nepřístupným.
+                sentence7: Před vstupem do objektu je maximálně jeden schod bez řešení k jeho překonání.
+
+            accessibility3:
+                headline: Objekt obtížně přístupný nebo nepřístupný
+                sentence1: "Přístup nebo pohyb po objektu je zvlášť komplikovaný (kombinace různých důvodů)."
+
+        wc:
+            headline: Kategorizace WC
+            wc1:
+                headline: Přístupná toaleta - WC I.
+                sentence1: "Nachází se v dámských toaletách (případně v dámských i pánských) nebo je umístěna samostatně."
+                sentence2: Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 80 cm. Dveře se otevírají směrem ven z kabiny.
+                sentence3: "Rozměry kabiny jsou minimálně: šířka 160 cm x hloubka 160 cm."
+                sentence4: "Přístup k míse z boku (boční přístup k míse) je minimálně 80 cm."
+                sentence5: "U mísy jsou madla, toaletní papír je v dosahu osoby sedící na míse."
+                sentence6: Pod umyvadlem je dostatečný prostor pro podjetí vozíku. Manipulační prostor v kabině není omezený dalším zařízením toalety.
+
+            wc2:
+                headline: Částečně přístupná toaleta - WC II.
+                sentence1: "Nachází se v dámských toaletách (případně pánských) nebo je umístěna samostatně."
+                sentence2: Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 70 cm. Dveře se otevírají směrem ven z kabiny.
+                sentence3: "Rozměry kabiny jsou minimálně: šířka 140 cm x hloubka 140 m. Manipulační prostor musí být umístěný proti dveřím."
+                sentence4: "Přístup k míse z boku (boční přístup k míse) je minimálně 70 cm."
+
+            wc3:
+                headline: Obtížně přístupná nebo nepřístupná toaleta - běžné WC
+                sentence1: "Jedná se o běžnou toaletu nebo toaletu upravenou, která má jeden nebo více nedostatků:"
+                sentence2: "Nedostatečný rozměr kabiny (šířka a/nebo hloubka méně než 140 cm)."
+                sentence3: "Dveře kabiny mají nevyhovující šířku (méně než 70 cm), nebo se otevírají směrem dovnitř."
+                sentence4: Nevyhovující dispozice kabiny.
+                sentence5: "Přístup k míse z boku (boční přístup k míse) je méně než 70 cm."
+                sentence6: Toaleta je umístěna v nepřístupné části objektu.
