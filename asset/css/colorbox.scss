@@ -34,6 +34,9 @@
 }
 
 // colorbox
+#colorbox, #cboxOverlay, #cboxWrapper {
+    overflow: visible;
+}
 #cboxOverlay {
     background-color: #000;
     height: 100%;

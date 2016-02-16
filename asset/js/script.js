@@ -76,7 +76,7 @@ function getDefaultSpinner() {
 function getDefaultColorbox() {
     return {
         maxWidth: '95%',
-        maxHeight: '95%',
+        maxHeight: '90%',
         closeButton: true
     };
 }

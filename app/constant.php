@@ -33,4 +33,4 @@ define('BUGREPORT_MAIL', '');
 define('ADMIN_MAIL', '');
 
 // backup dir
-define('BACKUP_DIR', 'C:\PostgreSQL\backup');
+define('BACKUP_DIR', '');

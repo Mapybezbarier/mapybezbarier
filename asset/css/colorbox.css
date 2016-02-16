@@ -90,6 +90,10 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);
 }
 
+#colorbox, #cboxOverlay, #cboxWrapper {
+  overflow: visible;
+}
+
 #cboxOverlay {
   background-color: #000;
   height: 100%;
