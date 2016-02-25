@@ -21,7 +21,7 @@ Příprava prostředí a nezbytné adresářové struktury aplikace
 ```
 Konfigurace prostředí
 * app/constant.php - IP adresa vývojového/produkčního serveru; adresář se zálohami DB; e-mailové adresy správce/supportu
-* app/config/credentials.php - přístupy k databázovému serveru; klíče Google služeb; SMTP server
+* app/config/credentials.neon - přístupy k databázovému serveru; klíče Google služeb; SMTP server
  
 Dokumentace
 -----------
