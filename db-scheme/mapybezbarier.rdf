@@ -1,0 +1,2980 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix jup: <http://w3id.org/charta77/jup/>.
+
+<#Mapper>
+    rr:logicalTable [ rr:tableName "v_user" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/mapper/{id}";
+        rr:class jup:Mapper;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:mapperNick;
+        rr:objectMap [ rr:column "login"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:mapperIsCertified;
+        rr:objectMap [ rr:template "{certified}"; rr:datatype xsd:boolean; ];
+    ];
+.
+  
+<#Object>
+    rr:logicalTable [ rr:tableName "v_object" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/object/{object_id}";
+        rr:class jup:Object;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:createdBy;
+        rr:objectMap [
+            rr:parentTriplesMap <#Mapper>;
+            rr:joinCondition [
+                rr:child "user_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPlace;
+        rr:objectMap [ rr:template "http://ruian.linked.opendata.cz/resource/adresni-mista/{ruian_address}" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:seeAlso;
+        rr:objectMap [ rr:template "{web_url}" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:isCertifiedRecord;
+        rr:objectMap [ rr:template "{certified}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:isUpToDateRecord;
+        rr:objectMap [ rr:template "{up_to_date}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:createdDate;
+        rr:objectMap [ rr:column "mapping_date" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:source;
+        rr:objectMap [ rr:column "source_title" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:license;
+        rr:objectMap [ rr:column "license_title" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectAccessibilityMKPO;
+        rr:objectMap [
+            rr:parentTriplesMap <#Accessibility>;
+            rr:joinCondition [
+                rr:child "accessibility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectCategory;
+        rr:objectMap [
+            rr:parentTriplesMap <#ObjectType>;
+            rr:joinCondition [
+                rr:child "object_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate jup:objectIsSteps;
+        rr:objectMap [ rr:template "{object_is_steps}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectIsStairs;
+        rr:objectMap [ rr:template "{object_is_stairs}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectStairsType;
+        rr:objectMap [
+            rr:parentTriplesMap <#StairsType>;
+            rr:joinCondition [
+                rr:child "object_stairs_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectStairsWidth;
+        rr:objectMap [ rr:column "object_stairs_width" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectStairsIsBannister;
+        rr:objectMap [ rr:template "{object_stairs_is_bannister}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectIsNarrowedPassage;
+        rr:objectMap [ rr:template "{object_is_narrowed_passage}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectNarrowedPassageWidth;
+        rr:objectMap [ rr:column "object_narrowed_passage_width" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectIsTourniquet;
+        rr:objectMap [ rr:template "{object_is_tourniquet}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectIsNavigationSystem;
+        rr:objectMap [ rr:template "{object_is_navigation_system}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectInteriorAccessibility;
+        rr:objectMap [
+            rr:parentTriplesMap <#InteriorAccessibility>;
+            rr:joinCondition [
+                rr:child "object_interior_accessibility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasName;
+        rr:objectMap [ rr:column "cs_title"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasName;
+        rr:objectMap [ rr:column "en_title"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasSummary;
+        rr:objectMap [ rr:column "cs_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasSummary;
+        rr:objectMap [ rr:column "en_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectNarrowedPassageLocalization;
+        rr:objectMap [ rr:column "cs_object_narrowed_passage_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectTourniquetLocalization;
+        rr:objectMap [ rr:column "cs_object_tourniquet_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectNavigationSystemDescription;
+        rr:objectMap [ rr:column "cs_object_navigation_system_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_object_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_object_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectNarrowedPassageLocalization;
+        rr:objectMap [ rr:column "en_object_narrowed_passage_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectTourniquetLocalization;
+        rr:objectMap [ rr:column "en_object_tourniquet_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectNavigationSystemDescription;
+        rr:objectMap [ rr:column "en_object_navigation_system_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_object_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_object_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#StepsInterior>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ContrastMarking>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Aob>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Platform>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Skids>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "pair_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+   
+<#Accessibility>
+    rr:logicalTable [ rr:tableName "accessibility" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#ObjectType>
+    rr:logicalTable [ rr:tableName "v_object_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#StairsType>
+    rr:logicalTable [ rr:tableName "v_object_stairs_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#InteriorAccessibility>
+    rr:logicalTable [ rr:tableName "object_interior_accessibility" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#StepsInterior>
+    rr:logicalTable [ rr:tableName "v_steps_interior" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/steps/{steps_id}";
+        rr:class jup:InteriorSteps;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsNumberOf;
+        rr:objectMap [ rr:column "steps_number_of"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsHeight;
+        rr:objectMap [ rr:column "steps_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsDepth;
+        rr:objectMap [ rr:column "steps_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsIsContrastMarked;
+        rr:objectMap [ rr:template "{steps_is_contrast_marked}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsLocalization;
+        rr:objectMap [ rr:column "cs_steps_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:stepsLocalization;
+        rr:objectMap [ rr:column "en_steps_localization"; rr:language "en"; ];
+    ];
+.
+
+<#ContrastMarking>
+    rr:logicalTable [ rr:tableName "v_cm" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/contrastmarking/{id}";
+        rr:class jup:ContrastMarking;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:contrastMarkingIsGlassSurfaces;
+        rr:objectMap [ rr:template "{contrast_marking_is_glass_surfaces}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:contrastMarkingLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#ContrastMarkingLocalization>;
+            rr:joinCondition [
+                rr:child "contrast_marking_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+
+<#ContrastMarkingLocalization>
+    rr:logicalTable [ rr:tableName "v_cml" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#Aob>
+    rr:logicalTable [ rr:tableName "v_aob" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/aob/{id}";
+        rr:class jup:AOB;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "elevator_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:aobIsAboveDoor;
+        rr:objectMap [ rr:template "{aob_is_above_door}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:aobAnnouncement;
+        rr:objectMap [
+            rr:parentTriplesMap <#AobAnnouncement>;
+            rr:joinCondition [
+                rr:child "aob_announcements_scheme_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:aobLocalization;
+        rr:objectMap [ rr:column "cs_aob_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:aobLocalization;
+        rr:objectMap [ rr:column "en_aob_localization"; rr:language "en"; ];
+    ];
+.
+
+<#AobAnnouncement>
+    rr:logicalTable [ rr:tableName "v_a_o_b_announcement" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#EntranceMain>
+    rr:logicalTable [ rr:tableName "v_entrance_main" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entrance/{entrance_id}";
+        rr:class jup:MainEntrance;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ContrastMarking>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Aob>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Bell>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorEntrance>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorLobby>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Platform>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsReservedParking;
+        rr:objectMap [ rr:template "{is_reserved_parking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceNumberOfReservedParking;
+        rr:objectMap [ rr:column "number_of_reserved_parking"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsLongitudinalInclination;
+        rr:objectMap [ rr:template "{is_longitudinal_inclination}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclination;
+        rr:objectMap [ rr:column "longitudinal_inclination"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsTransverseInclination;
+        rr:objectMap [ rr:template "{is_transverse_inclination}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclination;
+        rr:objectMap [ rr:column "transverse_inclination"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsDifficultSurface;
+        rr:objectMap [ rr:template "{is_difficult_surface}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAreaBeforeDoorWidth;
+        rr:objectMap [ rr:column "area_before_door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAreaBeforeDoorDepth;
+        rr:objectMap [ rr:column "area_before_door_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLobbyWidth;
+        rr:objectMap [ rr:column "lobby_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLobbyDepth;
+        rr:objectMap [ rr:column "lobby_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsAOB;
+        rr:objectMap [ rr:template "{is_a_o_b}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingLocalization;
+        rr:objectMap [ rr:column "cs_reserved_parking_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclinationLocalization;
+        rr:objectMap [ rr:column "cs_longitudinal_inclination_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclinationLocalization;
+        rr:objectMap [ rr:column "cs_transverse_inclination_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceDifficultSurfaceDescription;
+        rr:objectMap [ rr:column "cs_difficult_surface_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingAccessDescription;
+        rr:objectMap [ rr:column "cs_reserved_parking_access_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingLocalization;
+        rr:objectMap [ rr:column "en_reserved_parking_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclinationLocalization;
+        rr:objectMap [ rr:column "en_longitudinal_inclination_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclinationLocalization;
+        rr:objectMap [ rr:column "en_transverse_inclination_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceDifficultSurfaceDescription;
+        rr:objectMap [ rr:column "en_difficult_surface_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingAccessDescription;
+        rr:objectMap [ rr:column "en_reserved_parking_access_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAccessibility;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceAccessibility>;
+            rr:joinCondition [
+                rr:child "accessibility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceGuidingLine;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceGuidingLine>;
+            rr:joinCondition [
+                rr:child "guidingline_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#EntranceAccessibility>
+    rr:logicalTable [ rr:tableName "entrance_accessibility" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#EntranceGuidingLine>
+    rr:logicalTable [ rr:tableName "v_entrance_guidingline" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#EntranceSide>
+    rr:logicalTable [ rr:tableName "v_entrance_side" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entrance/{entrance_id}";
+        rr:class jup:SideEntrance;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ContrastMarking>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Aob>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Bell>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorEntrance>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorLobby>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Platform>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "entrance_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsSideEntranceMarked;
+        rr:objectMap [ rr:template "{is_side_entrance_marked}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsSideEntranceInformation;
+        rr:objectMap [ rr:template "{is_side_entrance_information}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAccess;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntityAccess>;
+            rr:joinCondition [
+                rr:child "access_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAccessProvidedBy;
+        rr:objectMap [ rr:column "cs_access_provided_by"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAccessProvidedBy;
+        rr:objectMap [ rr:column "en_access_provided_by"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsReservedParking;
+        rr:objectMap [ rr:template "{is_reserved_parking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceNumberOfReservedParking;
+        rr:objectMap [ rr:column "number_of_reserved_parking"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsLongitudinalInclination;
+        rr:objectMap [ rr:template "{is_longitudinal_inclination}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclination;
+        rr:objectMap [ rr:column "longitudinal_inclination"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsTransverseInclination;
+        rr:objectMap [ rr:template "{is_transverse_inclination}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclination;
+        rr:objectMap [ rr:column "transverse_inclination"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsDifficultSurface;
+        rr:objectMap [ rr:template "{is_difficult_surface}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAreaBeforeDoorWidth;
+        rr:objectMap [ rr:column "area_before_door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAreaBeforeDoorDepth;
+        rr:objectMap [ rr:column "area_before_door_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLobbyWidth;
+        rr:objectMap [ rr:column "lobby_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLobbyDepth;
+        rr:objectMap [ rr:column "lobby_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceIsAOB;
+        rr:objectMap [ rr:template "{is_a_o_b}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingLocalization;
+        rr:objectMap [ rr:column "cs_reserved_parking_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclinationLocalization;
+        rr:objectMap [ rr:column "cs_longitudinal_inclination_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclinationLocalization;
+        rr:objectMap [ rr:column "cs_transverse_inclination_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceDifficultSurfaceDescription;
+        rr:objectMap [ rr:column "cs_difficult_surface_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingAccessDescription;
+        rr:objectMap [ rr:column "cs_reserved_parking_access_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingLocalization;
+        rr:objectMap [ rr:column "en_reserved_parking_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceLongitudinalInclinationLocalization;
+        rr:objectMap [ rr:column "en_longitudinal_inclination_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceTransverseInclinationLocalization;
+        rr:objectMap [ rr:column "en_transverse_inclination_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceDifficultSurfaceDescription;
+        rr:objectMap [ rr:column "en_difficult_surface_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceReservedParkingAccessDescription;
+        rr:objectMap [ rr:column "en_reserved_parking_access_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceAccessibility;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceAccessibility>;
+            rr:joinCondition [
+                rr:child "accessibility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entranceGuidingLine;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceGuidingLine>;
+            rr:joinCondition [
+                rr:child "guidingline_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#EntityAccess>
+    rr:logicalTable [ rr:tableName "mappable_entity_access" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
+<#Platform>
+    rr:logicalTable [ rr:tableName "v_platform" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/platform/{platform_id}";
+        rr:class jup:Platform;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#PlatformEntryAreaBottom>;
+            rr:joinCondition [
+                rr:child "platform_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#PlatformEntryAreaTop>;
+            rr:joinCondition [
+                rr:child "platform_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformMaxLoad;
+        rr:objectMap [ rr:column "platform_max_load"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformWidth;
+        rr:objectMap [ rr:column "platform_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformDepth;
+        rr:objectMap [ rr:column "platform_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformIsMinParameters;
+        rr:objectMap [ rr:template "{platform_is_min_parameters}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformNumberOfSteps;
+        rr:objectMap [ rr:column "platform_number_of_steps"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformNumberOfFloors;
+        rr:objectMap [ rr:column "platform_number_of_floors"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformOutsideBottomControlHeight;
+        rr:objectMap [ rr:column "platform_outside_bottom_control_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformOutsideTopControlHeight;
+        rr:objectMap [ rr:column "platform_outside_top_control_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformInsideControlHeight;
+        rr:objectMap [ rr:column "platform_inside_control_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformLocalization;
+        rr:objectMap [ rr:column "cs_platform_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_platform_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_platform_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformLocalization;
+        rr:objectMap [ rr:column "en_platform_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_platform_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_platform_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectInteriorAccessibility;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntityAccess>;
+            rr:joinCondition [
+                rr:child "platform_access_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:objectInteriorAccessibility;
+        rr:objectMap [
+            rr:parentTriplesMap <#PlatformType>;
+            rr:joinCondition [
+                rr:child "platform_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#PlatformType>
+    rr:logicalTable [ rr:tableName "platform_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#PlatformEntryAreaBottom>
+    rr:logicalTable [ rr:tableName "v_platform_entryarea_bottom" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{platform_entryarea_id}";
+        rr:class jup:BottomEntryarea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Platform>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "platform_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Bell>;
+            rr:joinCondition [
+                rr:child "platform_entryarea_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaIsEntryClosing;
+        rr:objectMap [ rr:template "{is_entry_closing}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaEntryWidth;
+        rr:objectMap [ rr:column "entry_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaWidth;
+        rr:objectMap [ rr:column "width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaDepth;
+        rr:objectMap [ rr:column "depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaHeightElevation;
+        rr:objectMap [ rr:column "height_elevation"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaEntry;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntryAreaEntry>;
+            rr:joinCondition [
+                rr:child "entry_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#PlatformEntryAreaTop>
+    rr:logicalTable [ rr:tableName "v_platform_entryarea_top" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{platform_entryarea_id}";
+        rr:class jup:TopEntryarea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Platform>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "platform_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Bell>;
+            rr:joinCondition [
+                rr:child "platform_entryarea_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaIsEntryClosing;
+        rr:objectMap [ rr:template "{is_entry_closing}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaEntryWidth;
+        rr:objectMap [ rr:column "entry_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaWidth;
+        rr:objectMap [ rr:column "width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaDepth;
+        rr:objectMap [ rr:column "depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaHeightElevation;
+        rr:objectMap [ rr:column "height_elevation"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaEntry;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntryAreaEntry>;
+            rr:joinCondition [
+                rr:child "entry_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#EntryAreaEntry>
+    rr:logicalTable [ rr:tableName "entryarea_entry" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#Bell>
+    rr:logicalTable [ rr:tableName "v_bell" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/bell/{id}";
+        rr:class jup:Bell;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#PlatformEntryAreaBottom>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "platform_entryarea_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#PlatformEntryAreaTop>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "platform_entryarea_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:bellHeight;
+        rr:objectMap [ rr:column "bell_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:bellIndentation;
+        rr:objectMap [ rr:column "bell_indentation"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:bellType;
+        rr:objectMap [
+            rr:parentTriplesMap <#BellType>;
+            rr:joinCondition [
+                rr:child "bell_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#BellType>
+    rr:logicalTable [ rr:tableName "bell_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#DoorEntrance>
+    rr:logicalTable [ rr:tableName "v_door_entrance" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{door_id}";
+        rr:class jup:Door;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorMainpanelWidth;
+        rr:objectMap [ rr:column "mainpanel_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorSidepanelWidth;
+        rr:objectMap [ rr:column "sidepanel_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorStepHeight;
+        rr:objectMap [ rr:column "step_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorType;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorType>;
+            rr:joinCondition [
+                rr:child "type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpening;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorOpening>;
+            rr:joinCondition [
+                rr:child "opening_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpeningDirection;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorOpeningDirection>;
+            rr:joinCondition [
+                rr:child "opening_direction_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#DoorType>
+    rr:logicalTable [ rr:tableName "door_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#DoorOpening>
+    rr:logicalTable [ rr:tableName "door_opening" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#DoorOpeningDirection>
+    rr:logicalTable [ rr:tableName "door_opening_direction" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#DoorLobby>
+    rr:logicalTable [ rr:tableName "v_door_lobby" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{door_id}";
+        rr:class jup:LobbyDoor;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorMainpanelWidth;
+        rr:objectMap [ rr:column "mainpanel_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorSidepanelWidth;
+        rr:objectMap [ rr:column "sidepanel_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorStepHeight;
+        rr:objectMap [ rr:column "step_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorType;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorType>;
+            rr:joinCondition [
+                rr:child "type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpening;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorOpening>;
+            rr:joinCondition [
+                rr:child "opening_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpeningDirection;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorOpeningDirection>;
+            rr:joinCondition [
+                rr:child "opening_direction_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#Elevator>
+    rr:logicalTable [ rr:tableName "v_elevator" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/elevator/{elevator_id}";
+        rr:class jup:Elevator;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#Aob>;
+            rr:joinCondition [
+                rr:child "elevator_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorEntryArea>;
+            rr:joinCondition [
+                rr:child "elevator_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorCageHandle>;
+            rr:joinCondition [
+                rr:child "elevator_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorShaftDoor>;
+            rr:joinCondition [
+                rr:child "elevator_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorCageDoor>;
+            rr:joinCondition [
+                rr:child "elevator_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorControlMaxHeight;
+        rr:objectMap [ rr:column "elevator_control1_max_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsControlBrailleMarking;
+        rr:objectMap [ rr:template "{elevator_is_control1_braille_marking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsAOB;
+        rr:objectMap [ rr:template "{elevator_is_a_o_b}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCagePassthrough;
+        rr:objectMap [ rr:template "{elevator_is_cage_passthrough}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageWidth;
+        rr:objectMap [ rr:column "elevator_cage_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageDepth;
+        rr:objectMap [ rr:column "elevator_cage_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageControlDistance;
+        rr:objectMap [ rr:column "elevator_cage_control_distance"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageControlHeight;
+        rr:objectMap [ rr:column "elevator_cage_control_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsControlBrailleMarking;
+        rr:objectMap [ rr:template "{elevator_is_control2_braille_marking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageControlAnnouncementAcoustic;
+        rr:objectMap [ rr:template "{elevator_is_cage_control_announcement_acoustic}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageControlAnnouncementPhonetic;
+        rr:objectMap [ rr:template "{elevator_is_cage_control_announcement_phonetic}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageHandle;
+        rr:objectMap [ rr:template "{elevator_is_cage_handle}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageMirror;
+        rr:objectMap [ rr:template "{elevator_is_cage_mirror}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:platformMaxLoad;
+        rr:objectMap [ rr:column "elevator_cage_mirror_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageSeat;
+        rr:objectMap [ rr:template "{elevator_is_cage_seat}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageSeatWithinreach;
+        rr:objectMap [ rr:template "{elevator_is_cage_seat_withinreach}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorIsCageSeatFunctional;
+        rr:objectMap [ rr:template "{elevator_is_cage_seat_functional}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorLocalization;
+        rr:objectMap [ rr:column "cs_elevator_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorAccessProvidedBy;
+        rr:objectMap [ rr:column "cs_elevator_access_provided_by"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorConnectsFloors;
+        rr:objectMap [ rr:column "cs_elevator_connects_floors"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_elevator_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_elevator_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorLocalization;
+        rr:objectMap [ rr:column "en_elevator_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorAccessProvidedBy;
+        rr:objectMap [ rr:column "en_elevator_access_provided_by"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorConnectsFloors;
+        rr:objectMap [ rr:column "en_elevator_connects_floors"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_elevator_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_elevator_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorAccess;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntityAccess>;
+            rr:joinCondition [
+                rr:child "elevator_access_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorType;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorType>;
+            rr:joinCondition [
+                rr:child "elevator_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorDriveOff;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorDriveOff>;
+            rr:joinCondition [
+                rr:child "elevator_driveoff_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorControlReliefMarking;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorControlReliefMarking>;
+            rr:joinCondition [
+                rr:child "elevator_control1_relief_marking_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorControlFlatMarking;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorControlFlatMarking>;
+            rr:joinCondition [
+                rr:child "elevator_control1_flat_marking_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageSeconddoorLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorCageSeconddoorLocalization>;
+            rr:joinCondition [
+                rr:child "elevator_cage_seconddoor_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorControlReliefMarking;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorControlReliefMarking>;
+            rr:joinCondition [
+                rr:child "elevator_control2_relief_marking_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorControlFlatMarking;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorControlFlatMarking>;
+            rr:joinCondition [
+                rr:child "elevator_control2_flat_marking_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:elevatorCageMirrorLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorCageMirrorLocalization>;
+            rr:joinCondition [
+                rr:child "elevator_cage_mirror_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#ElevatorType>
+    rr:logicalTable [ rr:tableName "elevator_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorDriveOff>
+    rr:logicalTable [ rr:tableName "elevator_driveoff" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorControlReliefMarking>
+    rr:logicalTable [ rr:tableName "elevator_control_relief_marking" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorControlFlatMarking>
+    rr:logicalTable [ rr:tableName "elevator_control_flat_marking" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorCageSeconddoorLocalization>
+    rr:logicalTable [ rr:tableName "elevator_cage_seconddoor_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorCageMirrorLocalization>
+    rr:logicalTable [ rr:tableName "elevator_cage_mirror_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorEntryArea>
+    rr:logicalTable [ rr:tableName "v_elevator_entryarea" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{id}";
+        rr:class jup:EntryArea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "elevator_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryAreaWidth;
+        rr:objectMap [ rr:column "entryarea_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryAreaDepth;
+        rr:objectMap [ rr:column "entryarea_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryAreaHeightElevation;
+        rr:objectMap [ rr:column "entryarea_height_elevation"; ];
+    ];
+.
+<#ElevatorCageHandle>
+    rr:logicalTable [ rr:tableName "v_elevator_cage_handle" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{id}";
+        rr:class jup:ElevatorCageHandle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "elevator_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorHandleLocalization>;
+            rr:joinCondition [
+                rr:child "elevator_handle_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#ElevatorHandleLocalization>
+    rr:logicalTable [ rr:tableName "elevator_handle_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorShaftDoor>
+    rr:logicalTable [ rr:tableName "v_elevator_shaft_door" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{door_id}";
+        rr:class jup:ElevatorShaftDoor;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "elevator_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorWidth;
+        rr:objectMap [ rr:column "door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpening;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorDoorOpening>;
+            rr:joinCondition [
+                rr:child "door_opening_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#ElevatorDoorOpening>
+    rr:logicalTable [ rr:tableName "door_opening" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#ElevatorCageDoor>
+    rr:logicalTable [ rr:tableName "v_elevator_cage_door" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{door_id}";
+        rr:class jup:ElevatorCageDoor;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Elevator>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "elevator_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorWidth;
+        rr:objectMap [ rr:column "door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpening;
+        rr:objectMap [
+            rr:parentTriplesMap <#ElevatorDoorOpening>;
+            rr:joinCondition [
+                rr:child "door_opening_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#Wc>
+    rr:logicalTable [ rr:tableName "v_wc" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/wc/{wc_id}";
+        rr:class jup:WC;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcHallway>;
+            rr:joinCondition [
+                rr:child "wc_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcWashBasin>;
+            rr:joinCondition [
+                rr:child "wc_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcBasinLeftHandle>;
+            rr:joinCondition [
+                rr:child "wc_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcBasinRightHandle>;
+            rr:joinCondition [
+                rr:child "wc_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcSwitchHeight;
+        rr:objectMap [ rr:column "wc_switch_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinWidth;
+        rr:objectMap [ rr:column "wc_cabin_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinDepth;
+        rr:objectMap [ rr:column "wc_cabin_depth"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcFlushingBackHeight;
+        rr:objectMap [ rr:column "wc_flushing_back_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcFlushingSideHeight;
+        rr:objectMap [ rr:column "wc_flushing_side_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcFlushingSideDistance;
+        rr:objectMap [ rr:column "wc_flushing_side_distanc"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcHandlesDistance;
+        rr:objectMap [ rr:column "wc_handles_distance"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinLeftDistance;
+        rr:objectMap [ rr:column "wc_basin_left_distance"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinRightDistance;
+        rr:objectMap [ rr:column "wc_basin_right_distance"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinBackIndentation;
+        rr:objectMap [ rr:column "wc_basin_back_indentation"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinSeatHeight;
+        rr:objectMap [ rr:column "wc_basin_seat_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinIsPaperReach;
+        rr:objectMap [ rr:template "{wc_basin_is_paper_reach}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcIsChangingDesk;
+        rr:objectMap [ rr:template "{wc_is_changingdesk}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcIsChangingDeskObstructs;
+        rr:objectMap [ rr:template "{wc_is_changingdesk_obstructs}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcIsAlarmButton;
+        rr:objectMap [ rr:template "{wc_is_alarmbutton}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcAlarmbuttonTopHeight;
+        rr:objectMap [ rr:column "wc_alarmbutton_top_heigh"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcAlarmbuttonBottomHeight;
+        rr:objectMap [ rr:column "wc_alarmbutton_bottom_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcIsRegularWC;
+        rr:objectMap [ rr:template "{wc_is_regular_w_c}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcIsRegularWCBrailleMarking;
+        rr:objectMap [ rr:template "{wc_is_regular_w_c_braille_marking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcLocalization;
+        rr:objectMap [ rr:column "cs_wc_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_wc_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_wc_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcAccessProvidedBy;
+        rr:objectMap [ rr:column "cs_wc_access_provided_by"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcLocalization;
+        rr:objectMap [ rr:column "en_wc_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_wc_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_wc_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcAccessProvidedBy;
+        rr:objectMap [ rr:column "en_wc_access_provided_by"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcAccessibilityMKPO;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcAccessibility>;
+            rr:joinCondition [
+                rr:child "wc_accessibility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinAccess;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntityAccess>;
+            rr:joinCondition [
+                rr:child "wc_cabin_access_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcCabinLocalization>;
+            rr:joinCondition [
+                rr:child "wc_cabin_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcSwitch;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcSwitch>;
+            rr:joinCondition [
+                rr:child "wc_switch_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcFlushing;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcFlushing>;
+            rr:joinCondition [
+                rr:child "wc_flushing_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcFlushingDifficulty;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcFlushingDifficulty>;
+            rr:joinCondition [
+                rr:child "wc_flushing_difficulty_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcBasinSpace;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcBasinSpace>;
+            rr:joinCondition [
+                rr:child "wc_basin_space_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcChangingdesk;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcChangingdesk>;
+            rr:joinCondition [
+                rr:child "wc_changingdesk_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinDoorDisposition;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDisposition>;
+            rr:joinCondition [
+                rr:child "wc_cabin_door_disposition_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinWCBasinDisposition;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDisposition>;
+            rr:joinCondition [
+                rr:child "wc_cabin_w_c_basin_disposition_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:wcCabinWashBasinDisposition;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDisposition>;
+            rr:joinCondition [
+                rr:child "wc_cabin_wash_basin_disposition_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#WcAccessibility>
+    rr:logicalTable [ rr:tableName "w_c_categorization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcCabinLocalization>
+    rr:logicalTable [ rr:tableName "v_w_c_cabin_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcSwitch>
+    rr:logicalTable [ rr:tableName "w_c_switch" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcFlushing>
+    rr:logicalTable [ rr:tableName "w_c_flushing" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcFlushingDifficulty>
+    rr:logicalTable [ rr:tableName "w_c_flushing_difficulty" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcBasinSpace>
+    rr:logicalTable [ rr:tableName "v_w_c_bs" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcChangingdesk>
+    rr:logicalTable [ rr:tableName "w_c_changingdesk" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcDisposition>
+    rr:logicalTable [ rr:tableName "w_c_cabin_disposition" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcHallway>
+    rr:logicalTable [ rr:tableName "v_wc_hallway" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/hallway/{wc_hallway_id}";
+        rr:class jup:WCHallway;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#DoorHallway>;
+            rr:joinCondition [
+                rr:child "wc_hallway_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hallwayWidth;
+        rr:objectMap [ rr:column "hallway_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hallwayDepth;
+        rr:objectMap [ rr:column "hallway_depth"; ];
+    ];
+.
+<#DoorHallway>
+    rr:logicalTable [ rr:tableName "v_door_hallway" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{id}";
+        rr:class jup:Door;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcHallway>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_hallway_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorWidth;
+        rr:objectMap [ rr:column "hallway_door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorIsMarking;
+        rr:objectMap [ rr:template "{hallway_door_is_marking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorIsBrailleMarking;
+        rr:objectMap [ rr:template "{hallway_door_is_braille_marking}"; rr:datatype xsd:boolean; ];
+    ];
+.
+<#WcDoor>
+    rr:logicalTable [ rr:tableName "v_door_wc" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/door/{id}";
+        rr:class jup:Door;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDoorHandle>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorWidth;
+        rr:objectMap [ rr:column "door_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorIsMarking;
+        rr:objectMap [ rr:template "{door_is_marking}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:doorOpeningDirection;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDoorOpeningDirection>;
+            rr:joinCondition [
+                rr:child "door_opening_direction_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#WcDoorOpeningDirection>
+    rr:logicalTable [ rr:tableName "w_c_door_opening_direction" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcDoorHandle>
+    rr:logicalTable [ rr:tableName "v_wc_door_handle" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{id}";
+        rr:class jup:Handle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDoor>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcDoorHandlePosition>;
+            rr:joinCondition [
+                rr:child "door_handle_position_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#WcDoorHandlePosition>
+    rr:logicalTable [ rr:tableName "v_w_c_door_handle_position" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcWashBasin>
+    rr:logicalTable [ rr:tableName "v_wc_wb" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/washBasin/{id}";
+        rr:class jup:WashBasin;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WashBasinTap>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#WashBasinHandle>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:washBasinHeight;
+        rr:objectMap [ rr:column "washbasin_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:washBasinIsHandle;
+        rr:objectMap [ rr:template "{washbasin_is_handle}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:washBasinUnderpass;
+        rr:objectMap [
+            rr:parentTriplesMap <#WashBasinUnderpass>;
+            rr:joinCondition [
+                rr:child "washbasin_underpass_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#WashBasinUnderpass>
+    rr:logicalTable [ rr:tableName "v_wb_u" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WashBasinTap>
+    rr:logicalTable [ rr:tableName "v_wc_wb_t" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/tap/{id}";
+        rr:class jup:WashBasinTap;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcWashBasin>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:tapHeight;
+        rr:objectMap [ rr:column "tap_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:tapType;
+        rr:objectMap [
+            rr:parentTriplesMap <#TapType>;
+            rr:joinCondition [
+                rr:child "tap_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#TapType>
+    rr:logicalTable [ rr:tableName "tap_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WashBasinHandle>
+    rr:logicalTable [ rr:tableName "v_wc_wb_h" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{handle_id}";
+        rr:class jup:WashBasinHandle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#WcWashBasin>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleHeight;
+        rr:objectMap [ rr:column "handle_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleLength;
+        rr:objectMap [ rr:column "handle_length"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleOrientation;
+        rr:objectMap [
+            rr:parentTriplesMap <#WashBasinHandleType>;
+            rr:joinCondition [
+                rr:child "handle_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#WashBasinHandleType>
+    rr:logicalTable [ rr:tableName "v_wb_ht" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcBasinLeftHandle>
+    rr:logicalTable [ rr:tableName "v_wc_left_handle" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{handle_id}";
+        rr:class jup:WCBasinLeftHandle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleHeight;
+        rr:objectMap [ rr:column "handle_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleLength;
+        rr:objectMap [ rr:column "handle_length"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleType;
+        rr:objectMap [
+            rr:parentTriplesMap <#HanT>;
+            rr:joinCondition [
+                rr:child "handle_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#HanT>
+    rr:logicalTable [ rr:tableName "handle_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#WcBasinRightHandle>
+    rr:logicalTable [ rr:tableName "v_wc_right_handle" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{handle_id}";
+        rr:class jup:WCBasinRightHandle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Wc>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "wc_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleHeight;
+        rr:objectMap [ rr:column "handle_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleLength;
+        rr:objectMap [ rr:column "handle_length"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleType;
+        rr:objectMap [
+            rr:parentTriplesMap <#HanT>;
+            rr:joinCondition [
+                rr:child "handle_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#Ramp>
+    rr:logicalTable [ rr:tableName "v_ramp" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/rampskids/{ramp_id}";
+        rr:class jup:Ramp;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceMain>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#EntranceSide>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "entrance_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampLeg>;
+            rr:joinCondition [
+                rr:child "ramp_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampEntryAreaBottom>;
+            rr:joinCondition [
+                rr:child "ramp_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampEntryAreaTop>;
+            rr:joinCondition [
+                rr:child "ramp_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampEntryAreaLandings>;
+            rr:joinCondition [
+                rr:child "ramp_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasPart;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampHandle>;
+            rr:joinCondition [
+                rr:child "ramp_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampNumberOfLegs;
+        rr:objectMap [ rr:column "ramp_number_of_legs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampIsHandle;
+        rr:objectMap [ rr:template "{ramp_is_handle}"; rr:datatype xsd:boolean; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsInteriorLocalization;
+        rr:objectMap [ rr:column "cs_ramp_interior_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampAccessProvidedBy;
+        rr:objectMap [ rr:column "cs_ramp_access_provided_by"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_ramp_skids_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_ramp_skids_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsInteriorLocalization;
+        rr:objectMap [ rr:column "en_ramp_interior_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampAccessProvidedBy;
+        rr:objectMap [ rr:column "en_ramp_access_provided_by"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_ramp_skids_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_ramp_skids_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampSkidsLocalization>;
+            rr:joinCondition [
+                rr:child "ramp_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsMobility;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampSkidsMobility>;
+            rr:joinCondition [
+                rr:child "ramp_mobility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampType;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampType>;
+            rr:joinCondition [
+                rr:child "ramp_type_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSurface;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampSurface>;
+            rr:joinCondition [
+                rr:child "ramp_surface_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#RampType>
+    rr:logicalTable [ rr:tableName "ramp_type" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#RampSurface>
+    rr:logicalTable [ rr:tableName "ramp_surface" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#Skids>
+    rr:logicalTable [ rr:tableName "v_skids" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/rampskids/{skids_id}";
+        rr:class jup:Skids;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Object>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "pair_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:skidsInclination;
+        rr:objectMap [ rr:column "skids_inclination"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:skidsLength;
+        rr:objectMap [ rr:column "skids_length"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsInteriorLocalization;
+        rr:objectMap [ rr:column "cs_skids_interior_localization"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "cs_ramp_skids_has_notes"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "cs_ramp_skids_has_description"; rr:language "cs"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsInteriorLocalization;
+        rr:objectMap [ rr:column "en_skids_interior_localization"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasNotes;
+        rr:objectMap [ rr:column "en_ramp_skids_has_notes"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:hasDescription;
+        rr:objectMap [ rr:column "en_ramp_skids_has_description"; rr:language "en"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsLocalization;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampSkidsLocalization>;
+            rr:joinCondition [
+                rr:child "skids_localization_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampSkidsMobility;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampSkidsMobility>;
+            rr:joinCondition [
+                rr:child "skids_mobility_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#RampSkidsLocalization>
+    rr:logicalTable [ rr:tableName "ramp_skids_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#RampSkidsMobility>
+    rr:logicalTable [ rr:tableName "ramp_skids_mobility" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+<#RampLeg>
+    rr:logicalTable [ rr:tableName "v_rampleg" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/rampleg/{rampleg_id}";
+        rr:class jup:RampLeg;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "ramp_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampLegWidth;
+        rr:objectMap [ rr:column "rampleg_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampLegLength;
+        rr:objectMap [ rr:column "rampleg_length"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:rampLegInclination;
+        rr:objectMap [ rr:column "rampleg_inclination"; ];
+    ];
+.
+<#RampEntryAreaBottom>
+    rr:logicalTable [ rr:tableName "v_ramp_entryarea_bottom" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{ramp_entryarea_id}";
+        rr:class jup:BottomEntryarea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "ramp_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaWidth;
+        rr:objectMap [ rr:column "entry_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaDepth;
+        rr:objectMap [ rr:column "entry_depth"; ];
+    ];
+.
+<#RampEntryAreaTop>
+    rr:logicalTable [ rr:tableName "v_ramp_entryarea_top" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{ramp_entryarea_id}";
+        rr:class jup:TopEntryarea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "ramp_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaWidth;
+        rr:objectMap [ rr:column "entry_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaDepth;
+        rr:objectMap [ rr:column "entry_depth"; ];
+    ];
+.
+<#RampEntryAreaLandings>
+    rr:logicalTable [ rr:tableName "v_ramp_entryarea_landings" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/entryarea/{ramp_entryarea_id}";
+        rr:class jup:LandingsEntryarea;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "ramp_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaWidth;
+        rr:objectMap [ rr:column "entry_width"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:entryareaDepth;
+        rr:objectMap [ rr:column "entry_depth"; ];
+    ];
+.
+<#RampHandle>
+    rr:logicalTable [ rr:tableName "v_ramp_handle" ];
+    rr:subjectMap [
+        rr:template "http://lod.mapybezbarier.cz/resource/handle/{id}";
+        rr:class jup:RampHandle;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:partOf;
+        rr:objectMap [
+            rr:parentTriplesMap <#Ramp>;
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "ramp_id";
+            ];
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleBottomHeight;
+        rr:objectMap [ rr:column "ramp_handle1_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleTopHeight;
+        rr:objectMap [ rr:column "ramp_handle2_height"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate jup:handleType;
+        rr:objectMap [
+            rr:parentTriplesMap <#RampHandleType>;
+            rr:joinCondition [
+                rr:child "ramp_handle_orientation_id";
+                rr:parent "id";
+            ];
+        ];
+    ];
+.
+<#RampHandleType>
+    rr:logicalTable [ rr:tableName "ramp_handle_localization" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
