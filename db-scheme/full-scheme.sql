@@ -3522,8 +3522,12 @@ CREATE VIEW v_object AS
     en.object_tourniquet_localization AS en_object_tourniquet_localization,
     en.object_navigation_system_description AS en_object_navigation_system_description,
     en.object_has_description AS en_object_has_description,
-    en.object_has_notes AS en_object_has_notes
-   FROM ((map_object o
+    en.object_has_notes AS en_object_has_notes,
+    license.title AS license_title,
+    exchange_source.title AS source_title
+   FROM ((((map_object o
+     LEFT JOIN exchange_source ON ((o.source_id = exchange_source.id)))
+     LEFT JOIN license ON ((o.license_id = license.id)))
      LEFT JOIN map_object_lang cs ON (((o.id = cs.map_object_id) AND (cs.lang_id = 'cs'::bpchar))))
      LEFT JOIN map_object_lang en ON (((o.id = en.map_object_id) AND (en.lang_id = 'en'::bpchar))));
 
