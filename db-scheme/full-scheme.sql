@@ -555,6 +555,7 @@ BEGIN
     END IF;
   END IF;
 
+  DELETE FROM map_object_draft WHERE map_object_object_id = _old_object_id;
   PERFORM object_backup(_old_object_id);
 
   UPDATE map_object
