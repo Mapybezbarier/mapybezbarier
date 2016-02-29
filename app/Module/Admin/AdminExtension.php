@@ -40,17 +40,15 @@ class AdminExtension extends ModuleExtension implements IRouterProvider
             'action' => 'login'
         ]);
 
-        if ($this->runtimeMode->isDebugMode() || $this->runtimeMode->isStagingMode()) {
-            $routeList[] = new Route("{$prefix}/registration", [
-                'presenter' => 'Access',
-                'action' => 'registration'
-            ]);
+        $routeList[] = new Route("{$prefix}/registration", [
+            'presenter' => 'Access',
+            'action' => 'registration'
+        ]);
 
-            $routeList[] = new Route("{$prefix}/reset-password", [
-                'presenter' => 'Access',
-                'action' => 'reset'
-            ]);
-        }
+        $routeList[] = new Route("{$prefix}/reset-password", [
+            'presenter' => 'Access',
+            'action' => 'reset'
+        ]);
 
         $routeList[] = new Route("{$prefix}/change-password", [
             'presenter' => 'Access',

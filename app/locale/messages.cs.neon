@@ -186,7 +186,7 @@ control:
 
         detail:
             pictogram:
-                parking: Vyhrazené parkovací stání
+                parking: Vyhrazená parkovací stání
                 difficult_surface: Obtížný povrch
                 difficult_inclination: Obtížný sklon
                 stairs: Schody
