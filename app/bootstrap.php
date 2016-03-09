@@ -11,6 +11,7 @@ $configurator = new Nette\Configurator;
 $configurator->addParameters([
     'storageDir' => STORAGE_DIR,
     'backupDir' => BACKUP_DIR,
+    'databaseIp' => DATABASE_IP,
 ]);
 
 $configurator->setDebugMode(defined('DEBUG_EMAIL'));

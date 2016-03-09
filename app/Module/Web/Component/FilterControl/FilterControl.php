@@ -77,8 +77,7 @@ class FilterControl extends AbstractFormControl
         $form->onSuccess[] = [$this, 'setFilter'];
 
         $this->appendAccessibility($form);
-        // todo po spusteni komunitnich dat odkomentovat
-        //$this->appendTypes($form);
+        $this->appendTypes($form);
         $this->appendCategories($form);
 
         return $form;

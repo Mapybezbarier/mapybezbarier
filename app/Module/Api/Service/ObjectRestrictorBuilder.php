@@ -56,22 +56,6 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     }
 
     /**
-     * @todo po spusteni komunitnich dat metodu smazat a pouzit implementaci z rodice
-     *
-     * Pripravi restrikce pro typ mapoveho podkladu.
-     *
-     * @param array $types
-     *
-     * @return array
-     */
-    public function prepareTypeRestrictions(array $types)
-    {
-        $restrictions = ['%or', [$this->getCertifiedRestriction(), $this->getOutdatedRestriction()]];
-
-        return $restrictions;
-    }
-
-    /**
      * @param array $restrictor
      */
     protected function buildCategoryRestrictions(array &$restrictor)
@@ -104,8 +88,6 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
 
         if ($types) {
             $restrictions = $this->prepareTypeRestrictions($types);
-        } else { // todo po spusteni komunitnich dat else vetev smazat
-            $restrictions = $this->prepareTypeRestrictions([]);
         }
 
         $restrictor[] = $restrictions;

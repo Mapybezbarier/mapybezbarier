@@ -92,8 +92,6 @@ class LoginControl extends AbstractFormControl
         $form->addText(self::COMPONENT_LOGIN, 'backend.control.login.label.login')->setRequired(true)->setAttribute('autofocus');
         $form->addPassword(self::COMPONENT_PASSWORD, 'backend.control.login.label.password')->setRequired(true);
         $form->addCheckbox(self::COMPONENT_PERMANENT, 'backend.control.login.label.permanent');
-        // nutne volat getControl(), aby se inicializovala session
-        $form->addProtection('backend.control.login.error.protection')->getControl();
         $form->addHidden(AccessPresenter::PARAM_RESTORE, $this->request->getQuery(AccessPresenter::PARAM_RESTORE));
         $form->addSubmit('submit', 'backend.user.action.login');
 

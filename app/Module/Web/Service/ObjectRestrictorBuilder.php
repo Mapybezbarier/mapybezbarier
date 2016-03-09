@@ -161,22 +161,6 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     }
 
     /**
-     * @todo po spusteni komunitnich dat metodu smazat a pouzit implementaci z rodice
-     *
-     * Pripravi restrikce pro typ mapoveho podkladu.
-     *
-     * @param array $types
-     *
-     * @return array
-     */
-    public function prepareTypeRestrictions(array $types)
-    {
-        $restrictions = ['%or', [$this->getCertifiedRestriction(), $this->getOutdatedRestriction()]];
-
-        return $restrictions;
-    }
-
-    /**
      * Pripravi restrikce na zaklade hodnot.
      *
      * @param array $restrictions
