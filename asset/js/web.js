@@ -97,12 +97,23 @@ function bindClickTheMapInside() {
  * Otevreni footeru
  */
 function bindFooterOpener() {
+    // vyjeti paticky na click
     classToggler('.nwjs_footer_opener', '.nwjs_footer');
 
-    // po 10 s zajedou loga
+    // vyjeti paticky i na hover
+    $('.nwjs_footer').hover(
+        function() {
+            $(this).addClass('opened');
+        },
+        function() {
+            $(this).removeClass('opened');
+        }
+    );
+
+    // po 15 s zajedou loga
     setTimeout(function () {
         $('.nwjs_footer').removeClass('half_opened');
-    }, 10000);
+    }, 15000);
 }
 
 /**

@@ -649,20 +649,30 @@ footer {
 
         .footer_logo {
             @include grid_3;
-            padding: 20px 10px;
+            padding: 10px;
             text-align: center;
 
-            a {
+            .fl_cont {
+                background: transparent none no-repeat center center;
+                @include bs(contain);
                 display: block;
+                height: 56px;
+
+                @include mq($bp_430) {
+                    height: 26px;
+                }
             }
+
             img {
                 vertical-align: middle;
             }
-        }
 
-        @include mq($bp_960) {
-            .footer_logo {
-                @include grid_6;
+            &.down {
+                width: 20%;
+
+            }
+            &:nth-of-type(5) {
+                clear: left;
             }
         }
     }

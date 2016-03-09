@@ -7,7 +7,9 @@ parameters:
             mapping: "mapovani"
             openData: "otevrena-data"
             contact: "kontakty"
+            admin: "admin"
         en:
             news: "en/category/news"
             about: "en/about-project"
+            openData: "en/open-data"
             contact: "en/contact"

@@ -243,6 +243,7 @@ control:
         mapping: Mapování
         openData: Otevřená data
         contact: Kontakty
+        admin: Správa dat
 
 renderer:
     vozejkmap:

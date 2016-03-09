@@ -26,6 +26,9 @@ define('REMOTE_IP', '127.0.0.1');
 // IP adresa serveru
 define('SERVER_IP', '127.0.0.1');
 
+// IP adresa databazoveho serveru
+define('DATABASE_IP', '127.0.0.1');
+
 // BUGREPORT mail
 define('BUGREPORT_MAIL', '');
 
