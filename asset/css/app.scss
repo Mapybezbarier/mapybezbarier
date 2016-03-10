@@ -648,7 +648,7 @@ footer {
         @include clearfix;
 
         .footer_logo {
-            @include grid_3;
+            @include grid_4;
             padding: 10px;
             text-align: center;
 
@@ -659,7 +659,7 @@ footer {
                 height: 56px;
 
                 @include mq($bp_430) {
-                    height: 26px;
+                    height: 26px !important;
                 }
             }
 
@@ -670,8 +670,11 @@ footer {
             &.down {
                 width: 20%;
 
+                .fl_cont {
+                    height: 40px;
+                }
             }
-            &:nth-of-type(5) {
+            &:nth-of-type(4) {
                 clear: left;
             }
         }

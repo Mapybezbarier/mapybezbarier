@@ -1426,7 +1426,7 @@ footer .footer_logos:after {
 }
 footer .footer_logos .footer_logo {
   float: left;
-  width: 25%;
+  width: 33.33333%;
   padding: 10px;
   text-align: center;
 }
@@ -1441,7 +1441,7 @@ footer .footer_logos .footer_logo .fl_cont {
 }
 @media only screen and (max-width: 430px) {
   footer .footer_logos .footer_logo .fl_cont {
-    height: 26px;
+    height: 26px !important;
   }
 }
 footer .footer_logos .footer_logo img {
@@ -1450,7 +1450,10 @@ footer .footer_logos .footer_logo img {
 footer .footer_logos .footer_logo.down {
   width: 20%;
 }
-footer .footer_logos .footer_logo:nth-of-type(5) {
+footer .footer_logos .footer_logo.down .fl_cont {
+  height: 40px;
+}
+footer .footer_logos .footer_logo:nth-of-type(4) {
   clear: left;
 }
 footer .open_button {
