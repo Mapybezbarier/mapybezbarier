@@ -19,7 +19,8 @@ use Nette\Application\UI\Form;
 class RegistrationControl extends AbstractUserControl
 {
     /** @const Nazvy komponent */
-    const COMPONENT_ROLE = 'role_id',
+    const COMPONENT_FORM = 'form',
+        COMPONENT_ROLE = 'role_id',
         COMPONENT_FIRSTNAME = 'firstname',
         COMPONENT_SURNAME = 'surname';
 

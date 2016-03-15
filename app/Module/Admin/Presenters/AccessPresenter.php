@@ -21,12 +21,27 @@ class AccessPresenter extends AbstractAdminPresenter
     /** @const string */
     const PARAM_RESTORE = 'restore';
 
-    /** @const Nazev komponenty s prihlasovacim formularem */
-    const COMPONENT_LOGIN = 'login';
+    /** @const Nazvy komponent */
+    const COMPONENT_LOGIN = 'login',
+        COMPONENT_RESET = 'reset',
+        COMPONENT_REGISTRATION = 'registration';
 
     public function actionLogin()
     {
+        // inicializace formulare pred vykreslenim kvuli inicializaci session pro CSRF token
         $this[self::COMPONENT_LOGIN][LoginControl::COMPONENT_FORM];
+    }
+
+    public function actionReset()
+    {
+        // inicializace formulare pred vykreslenim kvuli inicializaci session pro CSRF token
+        $this[self::COMPONENT_RESET][PasswordResetControl::COMPONENT_FORM];
+    }
+
+    public function actionRegistration()
+    {
+        // inicializace formulare pred vykreslenim kvuli inicializaci session pro CSRF token
+        $this[self::COMPONENT_REGISTRATION][RegistrationControl::COMPONENT_FORM];
     }
 
     /**

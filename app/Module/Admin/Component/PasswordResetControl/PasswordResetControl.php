@@ -20,8 +20,9 @@ use Nette\Application\UI\Form;
  */
 class PasswordResetControl extends AbstractFormControl
 {
-    /** @const Nazev komponenty s e-mailem. */
-    const COMPONENT_EMAIL = 'email';
+    /** @const Nazvy komponent */
+    const COMPONENT_FORM = 'form',
+        COMPONENT_EMAIL = 'email';
 
     /** @var UserService */
     protected $userService;
