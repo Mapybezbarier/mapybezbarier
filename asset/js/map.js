@@ -1,3 +1,6 @@
+
+var google = {maps: {MapTypeId: {ROADMAP: SMap.DEF_BASE, HYBRID: SMap.DEF_OPHOTO}}};
+
 /**
  * @param {object} config
  * @constructor
@@ -22,11 +25,9 @@ var Map = function (config) {
         mapZoomSelector: '.nwjs_map_zoom',
         infoBoxCloseSelector: '.nwjs_infobox_closer',
         infoBoxClass: 'info_box',
-        infoBoxSelector: '.info_box',
         setGeolocationButtonSelector: '.nwjs_set_geolocation',
         autocompleteInputSelector: '#nwjs_search_place',
         autocompleteDefaultZoom: 17,
-        autocompleteComponentRestrictions: {country: 'cz'},
         openedInfoboxClass: 'infobox_opened'
     }, config);
 
@@ -34,6 +35,8 @@ var Map = function (config) {
     this.markers = {};
     this.infoBox = null;
     this.infoBoxes = {};
+    this._suggest = null;
+    this._layerMarkers = null;
 
     this.templates = {
         spinner: null,
@@ -59,42 +62,58 @@ Map.prototype.init = function () {
 /**
  * Inicializace mapy.
  */
-Map.prototype.initMap = function () {
-    this.map = new google.maps.Map(this.config.item.get(0), this.config.map);
+Map.prototype.initMap = function () {    
+    this.map = new SMap(
+        this.config.item.get(0),
+        SMap.Coords.fromWGS84(this.config.map.center.lng, this.config.map.center.lat), 
+        this.config.map.zoom, 
+        {minZoom:0, maxZoom:18});
+    window.layers = [];
+    window.layers[SMap.DEF_OPHOTO] = this.map.addDefaultLayer(SMap.DEF_OPHOTO);
+    window.layers[SMap.DEF_HYBRID] = this.map.addDefaultLayer(SMap.DEF_HYBRID);
+    window.layers[SMap.DEF_BASE] = this.map.addDefaultLayer(SMap.DEF_BASE);
+    window.layers[SMap.DEF_BASE].enable();
 
-    // @see http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
-    var styleDefaultOptions = {
-            textColor: 'white',
-            fontWeight: 'bold'
-        },
-        mcOptions = {
-            gridSize: 60,
-            maxZoom: 13,
-            styles: [$.extend({
-                url: '/asset/img/markers/cluster/original_cluster_1.png',
-                textSize: 18,
-                height: 60,
-                width: 60
-            }, styleDefaultOptions), $.extend({
-                url: '/asset/img/markers/cluster/original_cluster_2.png',
-                textSize: 20,
-                height: 70,
-                width: 70
-            }, styleDefaultOptions), $.extend({
-                url: '/asset/img/markers/cluster/original_cluster_3.png',
-                textSize: 20,
-                height: 85,
-                width: 85
-            }, styleDefaultOptions)]
-        };
+    /* vrstva pro poie */
+    var layer = new SMap.Layer.Marker();
+    this.map.addLayer(layer).enable();
 
-    this.clusters = new MarkerClusterer(this.map, [], mcOptions);
+    /* dataProvider zastiti komunikaci se servery */
+    var dataProvider = this.map.createDefaultDataProvider();
+    dataProvider.setOwner(this.map);
+    dataProvider.addLayer(layer);
+    dataProvider.setMapSet(SMap.MAPSET_BASE);
+    dataProvider.enable();
 
-    this.bindMapTypeChange();
+    this.map.setMapTypeId = function(layer) { 
+        var layers = window.layers;
+        if (layer == SMap.DEF_BASE) {
+            layers[SMap.DEF_BASE].enable();
+            layers[SMap.DEF_OPHOTO].disable();
+            layers[SMap.DEF_HYBRID].disable();
+        } else {
+            layers[SMap.DEF_OPHOTO].enable();
+            layers[SMap.DEF_HYBRID].enable();
+            layers[SMap.DEF_BASE].disable();
+        }
+    };
+
+    this.map.addControl(new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM, {minDriftSpeed:1/0}));
+    this.map.addControl(new SMap.Control.Keyboard(SMap.KB_PAN | SMap.KB_ZOOM, {focusedOnly:false}));
+    this.map.addControl(new SMap.Control.Selection(2));
+    this.map.setPadding("top", 10);
+    this.map.setPadding("left", 10);
+    this.map.setPadding("right", 10);
+
+    this._layerMarkers = new SMap.Layer.Marker();
+    this.clusters = new SMap.Marker.Clusterer(this.map);
+    this._layerMarkers.setClusterer(this.clusters);
+    this.map.addLayer(this._layerMarkers).enable();
+
     this.bindMapZoom();
+    this.bindMapTypeChange();
     this.bindSetGeolocation();
     this.bindAutocomplete();
-    this.fixInfoWindow();
     this.bindEmbeddedPopupOpen();
     this.bindNewsClose();
 };
@@ -111,8 +130,11 @@ Map.prototype.initMarkers = function () {
         }
     }
 
-    this.clusters.clearMarkers();
-    this.clusters.addMarkers($.map(this.markers, function(v) { return v; }));
+    this.clusters.clear();
+    //this.clusters.addMarkers($.map(this.markers, function(v) { return v; }));
+    for (i in this.markers) {
+        this._layerMarkers.addMarker(this.markers[i]);
+    }
 };
 
 /**
@@ -134,86 +156,25 @@ Map.prototype.initTemplates = function () {
  * @returns {google.maps.Marker}
  */
 Map.prototype.prepareMarker = function (marker) {
-    var context = this,
-        marker_image = new google.maps.MarkerImage(
-            marker['image'],
-            null, /* size is determined at runtime */
-            null, /* origin is 0,0 */
-            null, /* anchor is bottom center of the scaled image */
-            new google.maps.Size(50, 70)
-        );
-
-    var config = {
-        title: marker['title'],
-        icon: marker_image
-    };
-
-    if ('undefined' != typeof marker['latitude'] && 'undefined' != typeof marker['longitude']) {
-        config.position = new google.maps.LatLng(marker['latitude'], marker['longitude'])
+    if ('undefined' == typeof marker['latitude'] || 'undefined' == typeof marker['longitude']) {
+        return;
     }
 
-    var mapMarker = new google.maps.Marker(config);
+    var options = { 
+        title: marker['title'],
+        url: marker['image'],
+        size: [50, 70],
+        anchor: {left: 25, top: 70}
+    };
+    var mapMarker = new SMap.Marker(SMap.Coords.fromWGS84(marker['longitude'], marker['latitude']), marker['id'], options);
+    mapMarker.getContainer()[SMap.LAYER_MARKER].style.width = options.size[0] + "px";
 
-    mapMarker.addListener('click', function () {
-        context.handleClick(marker);
-    });
+    var card = new SMap.Card(300);
+    card.object_ids = marker['object_ids'];
+    this.infoBoxes[marker['id']] = card;
+    mapMarker.decorate(SMap.Marker.Feature.Card, card);
 
     return mapMarker;
-};
-
-/**
- * Priprava info boxu.
- */
-Map.prototype.prepareInfoBox = function (marker) {
-    var pixelYOffset = 'group' !== marker['type'] && 'community' === marker['type'][0] ? -85 : -100, // vertikalne o vysku markeru
-        clearanceYOffset = 'group' !== marker['type'] ? 380 : 400,
-        config = {
-            boxClass: this.config.infoBoxClass,
-            content: this.templates.spinner,
-            alignBottom: true,
-            infoBoxClearance: new google.maps.Size(10, clearanceYOffset),
-            pixelOffset: new google.maps.Size(-150, pixelYOffset), // horizontalne sirka / 2
-            noSupress: true, // HACK pro nezobrazovani infowindow po kliku na POI ikonky @see this.fixInfoWindow()
-            closeBoxURL: ""
-        };
-
-    return new InfoBox(config);
-};
-
-/**
- * Handler kliknuti na marker.
- * @param {object} marker
- */
-Map.prototype.handleClick = function (marker) {
-    var context = this;
-
-    if (undefined === this.infoBoxes[marker['id']]) {
-        this.infoBoxes[marker['id']] = this.prepareInfoBox(marker);
-    }
-
-    if (null === this.infoBox || this.infoBox !== this.infoBoxes[marker['id']]) {
-        this.closeInfoBoxes();
-
-        this.infoBox = this.infoBoxes[marker['id']];
-        this.infoBox.open(this.map, this.markers[marker['id']]);
-
-        $(this.config.contentSelector).addClass(this.config.openedInfoboxClass);
-
-        var config = {
-            url: this.config.item.data('info-box-load-url'),
-            data: {
-                'map-ids': marker['object_ids']
-            },
-            success: function (payload) {
-                context.loadContentSuccessHandler(payload);
-            },
-            error: function () {
-                context.loadContentErrorHandler()
-            }
-        };
-
-        $.nette.ajax(config);
-    }
 };
 
 /**
@@ -240,17 +201,6 @@ Map.prototype.closeNews = function () {
 };
 
 /**
- * Zavreni vsech info boxu.
- */
-Map.prototype.closeInfoBoxes = function () {
-    this.closeDetailBox();
-
-    for (var id in this.infoBoxes) {
-        this.infoBoxes[id].close();
-    }
-};
-
-/**
  * Zavreni aktualniho info boxu.
  */
 Map.prototype.closeInfoBox = function () {
@@ -259,7 +209,7 @@ Map.prototype.closeInfoBox = function () {
     $('body').removeClass(this.config.openedInfoboxClass);
 
     if (null !== this.infoBox) {
-        this.infoBox.close();
+        this.infoBox._closeClick();
         this.infoBox = null;
     }
 };
@@ -287,7 +237,7 @@ Map.prototype.loadContentErrorHandler = function () {
 Map.prototype.bindDetailActions = function () {
     var context = this;
 
-    $(this.config.infoBoxSelector).on('click', this.config.detailOpenerSelector, function (event) {
+    $("." + this.config.infoBoxClass).on('click', this.config.detailOpenerSelector, function (event) {
         event.preventDefault();
 
         // na mobilu otevreni detailu zavre filtr a vyhledavani
@@ -299,13 +249,13 @@ Map.prototype.bindDetailActions = function () {
         context.openDetailBox();
     });
 
-    $(this.config.infoBoxSelector).on('click', this.config.infoBoxCloseSelector, function (event) {
+    $("." + this.config.infoBoxClass).on('click', this.config.infoBoxCloseSelector, function (event) {
         event.preventDefault();
 
         context.closeInfoBox();
     });
 
-    $(this.config.infoBoxSelector).on('click', this.config.detailCloserSelector, function (event) {
+    $("." + this.config.infoBoxClass).on('click', this.config.detailCloserSelector, function (event) {
         event.preventDefault();
 
         context.closeDetailBox();
@@ -346,7 +296,6 @@ Map.prototype.bindMapTypeChange = function () {
     });
 };
 
-
 /**
  * Bind zoom mapy
  */
@@ -358,10 +307,10 @@ Map.prototype.bindMapZoom = function () {
 
         switch ($(this).attr('data-type')) {
             case "in":
-                context.map.setZoom(acutal_zoom + 1);
+                context.map.setZoom(acutal_zoom + 1, null, true);
                 break;
             case "out":
-                context.map.setZoom(acutal_zoom - 1);
+                context.map.setZoom(acutal_zoom - 1, null, true);
                 break;
         }
     });
@@ -380,8 +329,8 @@ Map.prototype.bindEmbeddedPopupOpen = function () {
 
         var data = {
             'zoom': context.map.getZoom(),
-            'center-lat': context.map.getCenter().lat(),
-            'center-lng': context.map.getCenter().lng()
+            'center-lat': context.map.getCenter().y,
+            'center-lng': context.map.getCenter().x
         };
 
         loadPopupContent(url, data);
@@ -401,19 +350,19 @@ Map.prototype.bindSetGeolocation = function () {
 
 /** init geolokace */
 Map.prototype.initializeGeolocation = function () {
-    var that = this;
+    var context = this;
 
     if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function (position) {
-                that.geolocationHandleSuccess(position);
+                context.geolocationHandleSuccess(position);
             },
             function (error) {
-                that.geolocationHandleError(error);
+                context.geolocationHandleError(error);
             }
         );
     } else {
-        that.geolocationHandleNotSupported();
+        context.geolocationHandleNotSupported();
     }
 };
 
@@ -441,15 +390,15 @@ Map.prototype.geolocationHandleSuccess = function (position) {
  * @return bool
  */
 Map.prototype.defaultGetCurrentPositionSuccessHandler = function (position) {
-    var map = this.map;
 
-    map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-    map.setZoom(10);
+    this.map.setCenterZoom(SMap.Coords.fromWGS84(position.coords.longitude, position.coords.latitude), 10, true);
 
     return true;
 };
 
-/** handle gelokace neni podporovana prohlizecem */
+/**
+ * handle gelokace neni podporovana prohlizecem
+ */
 Map.prototype.geolocationHandleNotSupported = function () {
     if (typeof window.gm_geolocation_not_supported_callbacks == 'undefined' || window.gm_geolocation_not_supported_callbacks == null) {
         window.gm_geolocation_not_supported_callbacks = [];
@@ -464,7 +413,9 @@ Map.prototype.geolocationHandleNotSupported = function () {
     }
 };
 
-/** chyba geolokace */
+/** 
+ *chyba geolokace 
+ */
 Map.prototype.geolocationHandleError = function (error) {
     if (typeof window.gm_geolocation_error_callbacks == 'undefined' || window.gm_geolocation_error_callbacks == null) {
         window.gm_geolocation_error_callbacks = [];
@@ -497,57 +448,11 @@ Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
 
 /** Handler pro naseptavac */
 Map.prototype.bindAutocomplete = function () {
-    var $input = $(this.config.autocompleteInputSelector);
-
-    if ($input.length) {
-        var context = this;
-
-        // napojeni naseptavace na input
-        var autocomplete = new google.maps.places.Autocomplete($input.get(0), {
-            componentRestrictions: this.config.autocompleteComponentRestrictions
-        });
-
-        autocomplete.bindTo('bounds', this.map);
-        autocomplete.addListener('place_changed', function () {
-            var place = autocomplete.getPlace();
-
-            context.closeInfoBoxes();
-
-            if (!place.geometry) {
-                throw("Autocomplete's returned place contains no geometry");
-            }
-
-            // If the place has a geometry, then present it on a map.
-            if (place.geometry.viewport) {
-                context.map.fitBounds(place.geometry.viewport);
-            } else {
-                context.map.setCenter(place.geometry.location);
-                context.map.setZoom(context.config.autocompleteDefaultZoom);
-            }
-        });
-    }
-};
-
-/**
- * HACK pro nezobrazovani infowindow po kliku na POI ikonky
- * http://jsfiddle.net/mrak/dHWVM/
- * http://stackoverflow.com/questions/7950030/can-i-remove-just-the-popup-bubbles-of-pois-in-google-maps-api-v3#answer-19710396
- */
-Map.prototype.fixInfoWindow = function () {
-    //Here we redefine set() method.
-    //If it is called for map option, we hide InfoWindow, if "noSupress" option isnt true.
-    //As Google doesn't know about this option, its InfoWindows will not be opened.
-    var set = google.maps.InfoWindow.prototype.set;
-
-    google.maps.InfoWindow.prototype.set = function (key, val) {
-        if (key === 'map') {
-            if (!this.get('noSupress')) {
-                return;
-            }
-        }
-
-        set.apply(this, arguments);
-    }
+    var input = $(this.config.autocompleteInputSelector);
+    this._suggest = Suggest.getInstance();
+    this._suggest.map = this;
+    this._suggest.setInput(input.get(0));
+    this._suggest.addListener("suggest-submit", "_suggestSubmit");
 };
 
 /**
@@ -578,7 +483,7 @@ Map.prototype.setMarkers = function (markers) {
         index = $.inArray(id, ids);
 
         if (-1 === index) {
-            this.markers[id].setMap(null);
+            this._layerMarkers.removeMarker(this.markers[id]);
 
             delete this.markers[id];
         }
@@ -588,3 +493,132 @@ Map.prototype.setMarkers = function (markers) {
 
     this.initMarkers();
 };
+
+/**
+ * udalost pri vyberu polozky z naseptavace
+ */
+Suggest.prototype._suggestSubmit = function(e) {
+    if (this._dom.button != e.target && this._dom.input != e.target.getInput()) { return; }
+    JAK.Events.cancelDef(e);
+    var item = null;
+    if (this._dom.button != e.target) { 
+        item = e.target.getActive(); 
+    }
+    if (!item) { return; }
+    var data = item.getData();
+
+    var zooms = {
+        "ward": 13,
+        "quar": 13,
+        "muni": 12,
+        "dist": 9,
+        "area": 8,
+        "regi": 8,
+    };
+    var zoom = zooms[data.source] || this.map.config.autocompleteDefaultZoom;
+    this.map.closeInfoBox();
+
+    this.map.map.setCenterZoom(SMap.Coords.fromWGS84(data.longitude, data.latitude), zoom, true);
+}
+
+/**
+ * vytvoreni velikosti clusteru dle vlastnich pravidel, nastaveni bile
+ * @param {function} [options.radius=25+10*(count-min+1)/(max-min+1)] Výpočet poloměru; vstupem je počet, minimum a maximum
+ */
+SMap.Marker.Cluster.prototype.$constructor = function(id, options) {
+    var markerOptions = {
+        url: JAK.mel("div", {className:"cluster"}),
+        anchor: {left:0, top:0}
+    };
+    this.$super(null, id, markerOptions);
+
+    this._clusterOptions = {
+        color: "#fff",
+        radius: function(count, min, max) { return (count < 10? 30 : (count < 100? 35 : 42.5)); }
+    }
+    for (var p in options) { this._clusterOptions[p] = options[p]; }
+
+    this._dom.content = JAK.mel("span");
+    this._dom.circle = JAK.mel("div", {}, {color:this._clusterOptions.color});
+
+    this._dom.container[SMap.LAYER_MARKER].appendChild(this._dom.circle);
+    this._dom.circle.appendChild(this._dom.content);
+    this._dom.circle.appendChild(JAK.mel("img", {src:SMap.CONFIG.img + "/marker/cluster.png"}, {backgroundColor:this._clusterOptions.color}));
+
+    this._markers = [];
+    this._markerCoords = [];
+}
+
+/**
+ * ruzne styly dle poctu markeru v clustru
+ */
+SMap.Marker.Cluster.prototype._update = function() {
+    var minX = Infinity;
+    var minY = Infinity;
+    var maxX = -Infinity;
+    var maxY = -Infinity;
+    var count = this._markers.length;
+    this._dom.content.innerHTML = count;
+    this._dom.circle.title = count;
+
+    var scale = 1000;
+    if (count < 10) {
+        scale = 10;
+    } else if (count < 100) {
+        scale = 100;
+    }
+    this._dom.circle.setAttribute("data-scale", scale);
+
+    for (var i=0;i<count;i++) {
+        var item = this._markerCoords[i];
+        minX = Math.min(minX, item.x);
+        minY = Math.min(minY, item.y);
+        maxX = Math.max(maxX, item.x);
+        maxY = Math.max(maxY, item.y);
+    }
+
+    var x = (minX+maxX)/2;
+    var y = (minY+maxY)/2;
+    this.setCoords(new SMap.Coords(x, y));
+}
+
+/**
+ * nastaveni obsahu infowindow
+ */
+SMap.Card.prototype.setContent = function(payload) {
+    this._dom.body.innerHTML = payload;
+    this.anchorTo(this._anchor);
+    this.makeVisible();
+}
+
+/**
+ * nacteni vizitky ajaxem az pri kliknuti, pokud jeste neni...
+ */
+SMap.Marker.Feature.Card.prototype.click = function(e, elm) {
+
+    var map = window.googleMap;
+
+    this._card.getContainer().classList.add(map.config.infoBoxClass);
+    this._card.getBody().innerHTML = map.templates.spinner;
+    map.infoBox = this._card;
+
+    var config = {
+        url: map.config.item.data('info-box-load-url'),
+        data: {
+            'map-ids': this._card.object_ids
+        },
+        success: function (payload) {
+            map.loadContentSuccessHandler(payload);
+        },
+        error: function () {
+            map.loadContentErrorHandler()
+        }
+    };
+
+    $(map.config.contentSelector).addClass(map.config.openedInfoboxClass);
+
+    $.nette.ajax(config);
+
+    this.$super(e, elm);
+    this.getMap().addCard(this._card, this._coords);
+}

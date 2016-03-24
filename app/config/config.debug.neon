@@ -1,10 +1,10 @@
 parameters:
     database:
         driver: postgre
-        host: %databaseIp%
+        host: 127.0.0.1
         port: 5432
         schema: public
-        dbname:
+        dbname: 
         profiler: false
         explain: false
         lazy: true
