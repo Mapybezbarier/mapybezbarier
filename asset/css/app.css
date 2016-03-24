@@ -974,6 +974,7 @@ header .languages li:last-of-type {
   margin-left: -280px;
   padding-bottom: 50px;
   left: 0;
+  z-index: 1;
 }
 .col_wrapper.left.opened {
   margin-left: 0;
