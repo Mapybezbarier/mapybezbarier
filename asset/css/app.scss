@@ -355,6 +355,7 @@ header {
         margin-left: -$cols_width;
         padding-bottom: $tools_height;
         left: 0;
+        z-index: 1;
 
         &.opened {
             margin-left: 0;
