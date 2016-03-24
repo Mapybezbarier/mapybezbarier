@@ -30,13 +30,7 @@
     <meta name="theme-color" content="#e31e25">
     {control css}
     <script type="text/javascript" src="//api.mapy.cz/loader.js"></script>
-    <script type="text/javascript" n:syntax="off">
-        try {
-            Loader.load(null, {poi:true});
-        } catch(e){
-            alert(e);
-        }
-    </script>
+    <script type="text/javascript" n:syntax="off">Loader.load();</script>
     {control js}
 </head>
 <body n:class="isset($popup) ? popup_opened">
