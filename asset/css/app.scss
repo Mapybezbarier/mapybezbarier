@@ -115,7 +115,39 @@ body {
 html, body { height: 100%; margin: 0; padding: 0; }
 #map {
     height: 100%;
-    padding-top: $header_height;
+    margin-top: $header_height;
+
+    img {
+        max-width: inherit;
+    }
+
+    .cluster {
+        div {
+            border: none;
+            background-image: url("/asset/img/markers/cluster/original_cluster_2.png");
+
+            img {
+                display: none;
+            }
+
+            span {
+                font-size: 20px;
+                font-family: Arial, sans-serif;
+            }
+        }
+
+        div[data-scale="10"] {
+            background-image: url("/asset/img/markers/cluster/original_cluster_1.png");
+
+            span {
+                font-size: 18px;
+            }
+        }
+
+        div[data-scale="1000"] {
+            background-image: url("/asset/img/markers/cluster/original_cluster_3.png");
+        }
+    }
 }
 
 header {
@@ -478,6 +510,7 @@ header {
     left: 0;
     position: absolute;
     width: 100%;
+    z-index: 1;
 
     li {
         background: $white_color none no-repeat center 17px;
@@ -579,6 +612,47 @@ header {
                 width: 100%;
             }
         }
+
+        .content {
+            .item{
+                padding: 0 4px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                line-height: 30px;
+                text-align: left;
+                border-top: 1px solid #e6e6e6;
+                font-size: 11px;
+                color: #999;
+
+                .image{
+                    width: 15px;
+                    height: 20px;
+                    margin-right: 7px;
+                    margin-top: 6px;
+                    display: inline-block;
+                    vertical-align: top;
+                    background: url("/asset/img/suggest.png") no-repeat -1px center;
+                }
+
+                br{
+                    display: none;
+                }
+
+                strong{
+                    font-size: 13px;
+                    font-weight: 700;
+                    padding-right: 5px;
+                }
+                &.active {
+                    background-color: #ebf2fe;
+
+                    .image {
+                        background-position: -18px center;
+                    }
+                }
+            }
+        }
     }
 
     &.opened {
@@ -670,34 +744,21 @@ footer {
         @include clearfix;
 
         .footer_logo {
-            @include grid_4;
-            padding: 10px;
+            @include grid_3;
+            padding: 20px 10px;
             text-align: center;
 
-            .fl_cont {
-                background: transparent none no-repeat center center;
-                @include bs(contain);
+            a {
                 display: block;
-                height: 56px;
-
-                @include mq($bp_430) {
-                    height: 26px !important;
-                }
             }
-
             img {
                 vertical-align: middle;
             }
+        }
 
-            &.down {
-                width: 20%;
-
-                .fl_cont {
-                    height: 40px;
-                }
-            }
-            &:nth-of-type(4) {
-                clear: left;
+        @include mq($bp_960) {
+            .footer_logo {
+                @include grid_6;
             }
         }
     }
@@ -740,6 +801,25 @@ footer {
     @include box_shadow_fix(1.5px 2.598px 7px 0 rgba(0, 0, 0, .35));
     position: relative;
     width: 300px;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+
+    .tail {
+        visibility: hidden;
+        left: 132px !important;
+        bottom: -100px !important;
+    }
+
+    .close,
+    .card-header,
+    .card-footer{
+        display: none;
+    }
+
+    .card-body {
+        overflow: visible !important;
+    }
 
     > img {
         position: absolute !important;
@@ -773,6 +853,7 @@ footer {
             padding: 10px 60px;
             position: relative;
             @include ico_circle;
+            margin: auto !important;
 
             > span {
                 text-align: left;
@@ -1055,7 +1136,7 @@ footer {
 // nizsi hlavicka na mobilech
 @include mq($bp_540) {
     #map {
-        padding-top: $header_height_mobile;
+        margin-top: $header_height_mobile;
     }
     header {
         height: $header_height_mobile;
