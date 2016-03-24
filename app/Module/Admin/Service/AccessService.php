@@ -3,6 +3,7 @@
 namespace MP\Module\Admin\Service;
 
 use Kdyby\Translation\Translator;
+use MP\Manager\UserManager;
 use Nette\Http\Request;
 use Nette\Security\IAuthenticator;
 use Nette\Security\User;
@@ -23,6 +24,9 @@ class AccessService
     /** @var LogService */
     protected $logService;
 
+    /** @var UserManager */
+    protected $userManager;
+
     /**  @var Translator */
     protected $translator;
 
@@ -30,13 +34,20 @@ class AccessService
      * @param User $user
      * @param Request $request
      * @param LogService $logService
+     * @param UserManager $userManager
      * @param Translator $translator
      */
-    public function __construct(User $user, Request $request, LogService $logService, Translator $translator)
-    {
+    public function __construct(
+        User $user,
+        Request $request,
+        LogService $logService,
+        UserManager $userManager,
+        Translator $translator
+    ) {
         $this->user = $user;
         $this->request = $request;
         $this->logService = $logService;
+        $this->userManager = $userManager;
         $this->translator = $translator;
 
         $this->bindEvents();
@@ -94,22 +105,26 @@ class AccessService
     protected function bindEvents()
     {
         $this->user->onLoggedIn[] = function(User $user) {
-            $loginData = [
-                'ip' => $this->request->getRemoteAddress(),
-                'ua' => $this->request->getHeader('User-Agent'),
-            ];
+            if ($this->userManager->findOneById($user->getId())) {
+                $loginData = [
+                    'ip' => $this->request->getRemoteAddress(),
+                    'ua' => $this->request->getHeader('User-Agent'),
+                ];
 
-            $this->logService->log(
-                Authorizator::RESOURCE_USER, LogService::ACTION_USER_LOGIN,
-                $user->getId(), null, Json::encode($loginData), $user->getId()
-            );
+                $this->logService->log(
+                    Authorizator::RESOURCE_USER, LogService::ACTION_USER_LOGIN,
+                    $user->getId(), null, Json::encode($loginData), $user->getId()
+                );
+            }
         };
 
         $this->user->onLoggedOut[] = function(User $user) {
-            $this->logService->log(
-                Authorizator::RESOURCE_USER, LogService::ACTION_USER_LOGOUT,
-                $user->getId(), null, null, $user->getId()
-            );
+            if ($this->userManager->findOneById($user->getId())) {
+                $this->logService->log(
+                    Authorizator::RESOURCE_USER, LogService::ACTION_USER_LOGOUT,
+                    $user->getId(), null, null, $user->getId()
+                );
+            }
         };
     }
 }

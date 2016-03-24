@@ -49,7 +49,11 @@ class AccessPresenter extends AbstractAdminPresenter
      */
     public function actionChange()
     {
+        $user = $this->getUser();
 
+        if ($user->isLoggedIn() && !$this->userService->getUser($user->getId())) {
+            $this->logout();
+        }
     }
 
     /**

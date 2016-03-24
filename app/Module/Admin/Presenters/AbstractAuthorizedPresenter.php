@@ -20,10 +20,16 @@ abstract class AbstractAuthorizedPresenter extends AbstractAdminPresenter
     {
         parent::startup();
 
-        if (!$this->getUser()->isLoggedIn()) {
+        $user = $this->getUser();
+
+        if (!$this->userService->getUser($user->getId())) {
+            $user->logout(true);
+        }
+
+        if (!$user->isLoggedIn()) {
             $this->redirect(':Admin:Access:login', [AccessPresenter::PARAM_RESTORE => $this->storeRequest()]);
         } else {
-            $this->getUser()->setAuthorizator($this->authorizator);
+            $user->setAuthorizator($this->authorizator);
         }
 
         $this->checkAccess();
