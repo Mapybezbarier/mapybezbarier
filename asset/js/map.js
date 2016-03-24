@@ -78,13 +78,6 @@ Map.prototype.initMap = function () {
     var layer = new SMap.Layer.Marker();
     this.map.addLayer(layer).enable();
 
-    /* dataProvider zastiti komunikaci se servery */
-    var dataProvider = this.map.createDefaultDataProvider();
-    dataProvider.setOwner(this.map);
-    dataProvider.addLayer(layer);
-    dataProvider.setMapSet(SMap.MAPSET_BASE);
-    dataProvider.enable();
-
     this.map.setMapTypeId = function(layer) { 
         var layers = window.layers;
         if (layer == SMap.DEF_BASE) {
