@@ -1,4 +1,92 @@
 /**
+ * udalost pri vyberu polozky z naseptavace
+ */
+Suggest.prototype._suggestSubmit = function(e) {
+    if (this._dom.button != e.target && this._dom.input != e.target.getInput()) { return; }
+    JAK.Events.cancelDef(e);
+    var item = null;
+    if (this._dom.button != e.target) { 
+        item = e.target.getActive(); 
+    }
+    if (!item) { return; }
+    var data = item.getData();
+
+    var zooms = {
+        "ward": 13,
+        "quar": 13,
+        "muni": 12,
+        "dist": 9,
+        "area": 8,
+        "regi": 8,
+    };
+    var zoom = zooms[data.source] || this.map.config.autocompleteDefaultZoom;
+    this.map.closeInfoBox();
+
+    this.map.map.setCenterZoom(SMap.Coords.fromWGS84(data.longitude, data.latitude), zoom, true);
+}
+
+/**
+ * vytvoreni velikosti clusteru dle vlastnich pravidel, nastaveni bile
+ * @param {function} [options.radius=25+10*(count-min+1)/(max-min+1)] Výpočet poloměru; vstupem je počet, minimum a maximum
+ */
+SMap.Marker.Cluster.prototype.$constructor = function(id, options) {
+    var markerOptions = {
+        url: JAK.mel("div", {className:"cluster"}),
+        anchor: {left:0, top:0}
+    };
+    this.$super(null, id, markerOptions);
+
+    this._clusterOptions = {
+        color: "#fff",
+        radius: function(count, min, max) { return (count < 10? 30 : (count < 100? 35 : 42.5)); }
+    }
+    for (var p in options) { this._clusterOptions[p] = options[p]; }
+
+    this._dom.content = JAK.mel("span");
+    this._dom.circle = JAK.mel("div", {}, {color:this._clusterOptions.color});
+
+    this._dom.container[SMap.LAYER_MARKER].appendChild(this._dom.circle);
+    this._dom.circle.appendChild(this._dom.content);
+    this._dom.circle.appendChild(JAK.mel("img", {src:SMap.CONFIG.img + "/marker/cluster.png"}, {backgroundColor:this._clusterOptions.color}));
+
+    this._markers = [];
+    this._markerCoords = [];
+}
+
+/**
+ * ruzne styly dle poctu markeru v clustru
+ */
+SMap.Marker.Cluster.prototype._update = function() {
+    var minX = Infinity;
+    var minY = Infinity;
+    var maxX = -Infinity;
+    var maxY = -Infinity;
+    var count = this._markers.length;
+    this._dom.content.innerHTML = count;
+    this._dom.circle.title = count;
+
+    var scale = 1000;
+    if (count < 10) {
+        scale = 10;
+    } else if (count < 100) {
+        scale = 100;
+    }
+    this._dom.circle.setAttribute("data-scale", scale);
+
+    for (var i=0;i<count;i++) {
+        var item = this._markerCoords[i];
+        minX = Math.min(minX, item.x);
+        minY = Math.min(minY, item.y);
+        maxX = Math.max(maxX, item.x);
+        maxY = Math.max(maxY, item.y);
+    }
+
+    var x = (minX+maxX)/2;
+    var y = (minY+maxY)/2;
+    this.setCoords(new SMap.Coords(x, y));
+}
+
+/**
  * @overview Suggest NG - naseptavac nove generace
  * @version 4.9
  * @author zara, mosner
@@ -824,7 +912,6 @@ Suggest.prototype._buildUrl = function(query) {
 	var arr = ["count=" + this._options.count];
 	this._setMapParams(arr);
 	arr.push("phrase="+encodeURIComponent("Česká republika " + query));
-	//arr.push("category=address_cz,area_cz,country_cz,district_cz,municipality_cz,quarter_cz,region_cz,street_cz,ward_cz");
 	url += "?"+arr.join("&");
 	return url;
 }

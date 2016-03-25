@@ -35,6 +35,8 @@ var Map = function (config) {
     this.markers = {};
     this.infoBox = null;
     this.infoBoxes = {};
+
+    /* mapy.cz */
     this._suggest = null;
     this._layerMarkers = null;
 
@@ -102,13 +104,49 @@ Map.prototype.initMap = function () {
     this.clusters = new SMap.Marker.Clusterer(this.map);
     this._layerMarkers.setClusterer(this.clusters);
     this.map.addLayer(this._layerMarkers).enable();
+    this.map.getSignals().addListener(this, "card-open", "_markerClick");
 
-    this.bindMapZoom();
     this.bindMapTypeChange();
+    this.bindMapZoom();
     this.bindSetGeolocation();
     this.bindAutocomplete();
     this.bindEmbeddedPopupOpen();
     this.bindNewsClose();
+};
+
+/**
+ * Inicializace markeru
+ */
+Map.prototype._markerClick = function (e) {
+    this.infoBox = e.target;
+    this.infoBox.getContainer().classList.add(this.config.infoBoxClass);
+    this.infoBox.getBody().innerHTML = this.templates.spinner;
+
+    var that = this;
+    var config = {
+        url: this.config.item.data('info-box-load-url'),
+        data: {
+            'map-ids': this.infoBox.object_ids
+        },
+        success: function (payload) {
+            that.loadContentSuccessHandler(payload);
+        },
+        error: function () {
+            that.loadContentErrorHandler()
+        }
+    };
+
+    $(this.config.contentSelector).addClass(this.config.openedInfoboxClass);
+    $.nette.ajax(config);
+};
+
+/**
+ * nastaveni obsahu infowindow
+ */
+Map.prototype.setContentInfoBox = function(payload) {
+    this.infoBox.getBody().innerHTML = payload;
+    this.infoBox.anchorTo(this.infoBox.getAnchor());
+    this.infoBox.makeVisible();
 };
 
 /**
@@ -162,7 +200,7 @@ Map.prototype.prepareMarker = function (marker) {
     var mapMarker = new SMap.Marker(SMap.Coords.fromWGS84(marker['longitude'], marker['latitude']), marker['id'], options);
     mapMarker.getContainer()[SMap.LAYER_MARKER].style.width = options.size[0] + "px";
 
-    var card = new SMap.Card(300);
+    var card = new SMap.Card(300, {close: false});
     card.object_ids = marker['object_ids'];
     this.infoBoxes[marker['id']] = card;
     mapMarker.decorate(SMap.Marker.Feature.Card, card);
@@ -212,7 +250,7 @@ Map.prototype.closeInfoBox = function () {
  * @param {string} payload
  */
 Map.prototype.loadContentSuccessHandler = function (payload) {
-    this.infoBox.setContent(payload);
+    this.setContentInfoBox(payload);
 
     this.bindDetailActions();
 };
@@ -221,7 +259,7 @@ Map.prototype.loadContentSuccessHandler = function (payload) {
  * Callback neuspesneho nacteni obsahu info boxu.
  */
 Map.prototype.loadContentErrorHandler = function () {
-    this.infoBox.setContent(this.templates.error);
+    this.setContentInfoBox(this.templates.error);
 };
 
 /**
@@ -486,132 +524,3 @@ Map.prototype.setMarkers = function (markers) {
 
     this.initMarkers();
 };
-
-/**
- * udalost pri vyberu polozky z naseptavace
- */
-Suggest.prototype._suggestSubmit = function(e) {
-    if (this._dom.button != e.target && this._dom.input != e.target.getInput()) { return; }
-    JAK.Events.cancelDef(e);
-    var item = null;
-    if (this._dom.button != e.target) { 
-        item = e.target.getActive(); 
-    }
-    if (!item) { return; }
-    var data = item.getData();
-
-    var zooms = {
-        "ward": 13,
-        "quar": 13,
-        "muni": 12,
-        "dist": 9,
-        "area": 8,
-        "regi": 8,
-    };
-    var zoom = zooms[data.source] || this.map.config.autocompleteDefaultZoom;
-    this.map.closeInfoBox();
-
-    this.map.map.setCenterZoom(SMap.Coords.fromWGS84(data.longitude, data.latitude), zoom, true);
-}
-
-/**
- * vytvoreni velikosti clusteru dle vlastnich pravidel, nastaveni bile
- * @param {function} [options.radius=25+10*(count-min+1)/(max-min+1)] Výpočet poloměru; vstupem je počet, minimum a maximum
- */
-SMap.Marker.Cluster.prototype.$constructor = function(id, options) {
-    var markerOptions = {
-        url: JAK.mel("div", {className:"cluster"}),
-        anchor: {left:0, top:0}
-    };
-    this.$super(null, id, markerOptions);
-
-    this._clusterOptions = {
-        color: "#fff",
-        radius: function(count, min, max) { return (count < 10? 30 : (count < 100? 35 : 42.5)); }
-    }
-    for (var p in options) { this._clusterOptions[p] = options[p]; }
-
-    this._dom.content = JAK.mel("span");
-    this._dom.circle = JAK.mel("div", {}, {color:this._clusterOptions.color});
-
-    this._dom.container[SMap.LAYER_MARKER].appendChild(this._dom.circle);
-    this._dom.circle.appendChild(this._dom.content);
-    this._dom.circle.appendChild(JAK.mel("img", {src:SMap.CONFIG.img + "/marker/cluster.png"}, {backgroundColor:this._clusterOptions.color}));
-
-    this._markers = [];
-    this._markerCoords = [];
-}
-
-/**
- * ruzne styly dle poctu markeru v clustru
- */
-SMap.Marker.Cluster.prototype._update = function() {
-    var minX = Infinity;
-    var minY = Infinity;
-    var maxX = -Infinity;
-    var maxY = -Infinity;
-    var count = this._markers.length;
-    this._dom.content.innerHTML = count;
-    this._dom.circle.title = count;
-
-    var scale = 1000;
-    if (count < 10) {
-        scale = 10;
-    } else if (count < 100) {
-        scale = 100;
-    }
-    this._dom.circle.setAttribute("data-scale", scale);
-
-    for (var i=0;i<count;i++) {
-        var item = this._markerCoords[i];
-        minX = Math.min(minX, item.x);
-        minY = Math.min(minY, item.y);
-        maxX = Math.max(maxX, item.x);
-        maxY = Math.max(maxY, item.y);
-    }
-
-    var x = (minX+maxX)/2;
-    var y = (minY+maxY)/2;
-    this.setCoords(new SMap.Coords(x, y));
-}
-
-/**
- * nastaveni obsahu infowindow
- */
-SMap.Card.prototype.setContent = function(payload) {
-    this._dom.body.innerHTML = payload;
-    this.anchorTo(this._anchor);
-    this.makeVisible();
-}
-
-/**
- * nacteni vizitky ajaxem az pri kliknuti, pokud jeste neni...
- */
-SMap.Marker.Feature.Card.prototype.click = function(e, elm) {
-
-    var map = window.googleMap;
-
-    this._card.getContainer().classList.add(map.config.infoBoxClass);
-    this._card.getBody().innerHTML = map.templates.spinner;
-    map.infoBox = this._card;
-
-    var config = {
-        url: map.config.item.data('info-box-load-url'),
-        data: {
-            'map-ids': this._card.object_ids
-        },
-        success: function (payload) {
-            map.loadContentSuccessHandler(payload);
-        },
-        error: function () {
-            map.loadContentErrorHandler()
-        }
-    };
-
-    $(map.config.contentSelector).addClass(map.config.openedInfoboxClass);
-
-    $.nette.ajax(config);
-
-    this.$super(e, elm);
-    this.getMap().addCard(this._card, this._coords);
-}
