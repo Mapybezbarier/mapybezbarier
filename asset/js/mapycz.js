@@ -1,28 +1,143 @@
+MapLayer = {};
+
+MapLayer.initMap = function (map) {
+	this._map = map;
+    this._map.map = new SMap(
+        this._map.config.item.get(0),
+        SMap.Coords.fromWGS84(this._map.config.map.center.lng, this._map.config.map.center.lat), 
+        this._map.config.map.zoom, 
+        {minZoom:7, maxZoom:18});
+    window.layers = [];
+    window.layers[SMap.DEF_OPHOTO] = this._map.map.addDefaultLayer(SMap.DEF_OPHOTO);
+    window.layers[SMap.DEF_HYBRID] = this._map.map.addDefaultLayer(SMap.DEF_HYBRID);
+    window.layers[SMap.DEF_BASE] = this._map.map.addDefaultLayer(SMap.DEF_BASE);
+    window.layers[SMap.DEF_BASE].enable();
+
+    /* vrstva pro poie */
+    var layer = new SMap.Layer.Marker();
+    this._map.map.addLayer(layer).enable();
+    this._map.map.addControl(new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM, {minDriftSpeed:1/0}));
+    this._map.map.addControl(new SMap.Control.Keyboard(SMap.KB_PAN | SMap.KB_ZOOM, {focusedOnly:false}));
+    this._map.map.addControl(new SMap.Control.Selection(2));
+    this._map.map.setPadding("top", 10);
+    this._map.map.setPadding("left", 10);
+    this._map.map.setPadding("right", 10);
+
+    this._layerMarkers = new SMap.Layer.Marker();
+    this.clusters = new SMap.Marker.Clusterer(this._map.map);
+    this._layerMarkers.setClusterer(this.clusters);
+    this._map.map.addLayer(this._layerMarkers).enable();
+    this._map.map.getSignals().addListener(this._map, "card-open", "markerClick");
+};
+
+MapLayer.setMarkers = function(marker) {
+	this._layerMarkers.removeMarker(marker);
+}
+
+/** Handler pro naseptavac */
+MapLayer.bindAutocomplete = function (input) {
+    var $input = $(input);
+    if ($input.length) {
+	    this._suggest = Suggest.getInstance();
+	    this._suggest.map = this._map;
+	    this._suggest.setInput($input.get(0));
+	    this._suggest.addListener("suggest-submit", "_suggestSubmit");
+	}
+};
+
 /**
- * udalost pri vyberu polozky z naseptavace
+ * vychozi handler pro uspesne zjisteni pozice geolokace
+ * @param {Position} position
+ * @return bool
  */
-Suggest.prototype._suggestSubmit = function(e) {
-    if (this._dom.button != e.target && this._dom.input != e.target.getInput()) { return; }
-    JAK.Events.cancelDef(e);
-    var item = null;
-    if (this._dom.button != e.target) { 
-        item = e.target.getActive(); 
+MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
+
+    this.map.setCenterZoom(SMap.Coords.fromWGS84(position.coords.longitude, position.coords.latitude), 10, true);
+
+    return true;
+};
+
+MapLayer.initMarkers = function() {
+	this.clusters.clear();
+    for (i in this._map.markers) {
+        this._layerMarkers.addMarker(this._map.markers[i]);
     }
-    if (!item) { return; }
-    var data = item.getData();
+}
 
-    var zooms = {
-        "ward": 13,
-        "quar": 13,
-        "muni": 12,
-        "dist": 9,
-        "area": 8,
-        "regi": 8,
+MapLayer.closeInfoBox = function () {
+    this._map.infoBox._closeClick();
+}
+
+MapLayer.getCenter = function() {
+	return this._map.map.getCenter();
+}
+
+MapLayer.markerClick = function(e) {
+	this._map.infoBox = e.target;
+    this._map.infoBox.getContainer().classList.add(this._map.config.infoBoxClass);
+    this._map.infoBox.getBody().innerHTML = this._map.templates.spinner;
+
+    return this._map.infoBox.object_ids;
+}
+
+/**
+ * Priprava markeru.
+ * @param {object} marker
+ * @returns {google.maps.Marker}
+ */
+MapLayer.prepareMarker = function (marker) {
+    if ('undefined' == typeof marker['latitude'] || 'undefined' == typeof marker['longitude']) {
+        return;
+    }
+
+    var options = { 
+        title: marker['title'],
+        url: marker['image'],
+        size: [50, 70],
+        anchor: {left: 25, top: 70}
     };
-    var zoom = zooms[data.source] || this.map.config.autocompleteDefaultZoom;
-    this.map.closeInfoBox();
+    var mapMarker = new SMap.Marker(SMap.Coords.fromWGS84(marker['longitude'], marker['latitude']), marker['id'], options);
+    mapMarker.getContainer()[SMap.LAYER_MARKER].style.width = options.size[0] + "px";
 
-    this.map.map.setCenterZoom(SMap.Coords.fromWGS84(data.longitude, data.latitude), zoom, true);
+    var card = new SMap.Card(300, {close: false});
+    card.object_ids = marker['object_ids'];
+    this._map.infoBoxes[marker['id']] = card;
+    mapMarker.decorate(SMap.Marker.Feature.Card, card);
+
+    return mapMarker;
+};
+
+MapLayer.setZoom = function(zoom) {
+	this._map.map.setZoom(zoom, null, true);
+};
+
+
+//zmena mapovych podkladu
+var google = {maps: {MapTypeId: {ROADMAP: SMap.DEF_BASE, HYBRID: SMap.DEF_OPHOTO}}};
+
+/**
+ * změna mapovych podkladu
+ */
+SMap.prototype.setMapTypeId = function(layer) { 
+    var layers = window.layers;
+    if (layer == SMap.DEF_BASE) {
+        layers[SMap.DEF_BASE].enable();
+        layers[SMap.DEF_OPHOTO].disable();
+        layers[SMap.DEF_HYBRID].disable();
+    } else {
+        layers[SMap.DEF_OPHOTO].enable();
+        layers[SMap.DEF_HYBRID].enable();
+        layers[SMap.DEF_BASE].disable();
+    }
+};
+
+/**
+* nastaveni obsahu vizitky
+*/
+SMap.Card.prototype.setContent = function(payload) {
+	this.getBody().innerHTML = payload;
+    this.anchorTo(this.getAnchor());
+    this.makeVisible();
 }
 
 /**
@@ -833,7 +948,7 @@ Suggest.prototype.$constructor = function() {
 	};
 
 	this._ecInput = [];
-	this.$super(null, "http://mapy.cz/suggest", suggestOptions);
+	this.$super(null, "https://mapy.cz/suggest", suggestOptions);
 };
 
 Suggest.prototype.$destructor = function() {
@@ -1018,4 +1133,31 @@ Suggest.Term.prototype._touchend = function(e, elm) {
 			}
 		}
 	}
+}
+
+/**
+ * udalost pri vyberu polozky z naseptavace
+ */
+Suggest.prototype._suggestSubmit = function(e) {
+    if (this._dom.button != e.target && this._dom.input != e.target.getInput()) { return; }
+    JAK.Events.cancelDef(e);
+    var item = null;
+    if (this._dom.button != e.target) { 
+        item = e.target.getActive(); 
+    }
+    if (!item) { return; }
+    var data = item.getData();
+
+    var zooms = {
+        "ward": 13,
+        "quar": 13,
+        "muni": 12,
+        "dist": 9,
+        "area": 8,
+        "regi": 8,
+    };
+    var zoom = zooms[data.source] || this.map.config.autocompleteDefaultZoom;
+    this.map.closeInfoBox();
+
+    this.map.map.setCenterZoom(SMap.Coords.fromWGS84(data.longitude, data.latitude), zoom, true);
 }

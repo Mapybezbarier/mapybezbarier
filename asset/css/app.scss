@@ -419,6 +419,26 @@ header {
                     }
                 }
 
+                &.maplayer {
+                    margin-left: 25px;
+                    padding: 0;
+                    border-radius: inherit;
+
+                    a {
+                        display: inline-block;
+                        width: 29px;
+                        height: 29px;
+
+                        .gmaps {
+                            background: url("/asset/img/gmaps.png");
+                        }
+
+                        .mapycz {
+                            background: url("/asset/img/mapycz.png");
+                        }
+                    }
+                }
+
                 &.active {
                     background-color: $yellow_color;
 
@@ -1691,7 +1711,7 @@ body.popup_opened {
     position: relative;
 
     #map {
-        padding-top: 0;
+        margin-top: 0;
     }
 }
 .news_iframe {

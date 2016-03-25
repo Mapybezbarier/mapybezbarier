@@ -5,6 +5,7 @@ namespace MP\Module\Web\Component\FilterControl;
 use MP\Component\Form\AbstractFormControl;
 use MP\Component\Form\FormFactory;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
+use MP\Module\Web\Presenters\HomepagePresenter;
 use MP\Service\FilterService;
 use MP\Util\Arrays;
 use MP\Util\Strings;
@@ -44,6 +45,7 @@ class FilterControl extends AbstractFormControl
     public function render()
     {
         $template = $this->getTemplate();
+        $template->maps = isset($_GET[HomepagePresenter::PARAM_MAPS])? TRUE : NULL;
         $template->render();
     }
 

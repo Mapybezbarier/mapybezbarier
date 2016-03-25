@@ -81,6 +81,7 @@ services:
     defaultImageStorage:
         class: MP\Service\ImageFileStorage
         arguments: [%storageDir%, %wwwDir%]
+    mapApiKey: MP\Module\Web\Service\MapApiKey(%google.mapApiKey%)
 
     # cache
     enumValueResolverCacheStorage:

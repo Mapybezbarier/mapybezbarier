@@ -1,6 +1,3 @@
-
-var google = {maps: {MapTypeId: {ROADMAP: SMap.DEF_BASE, HYBRID: SMap.DEF_OPHOTO}}};
-
 /**
  * @param {object} config
  * @constructor
@@ -9,7 +6,6 @@ var Map = function (config) {
     this.config = $.extend({
         item: null,
         map: {},
-        clusters: null,
         markers: [],
         contentSelector: ".content",
         filterContentSelector: ".filters",
@@ -36,10 +32,6 @@ var Map = function (config) {
     this.infoBox = null;
     this.infoBoxes = {};
 
-    /* mapy.cz */
-    this._suggest = null;
-    this._layerMarkers = null;
-
     this.templates = {
         spinner: null,
         error: null,
@@ -64,52 +56,14 @@ Map.prototype.init = function () {
 /**
  * Inicializace mapy.
  */
-Map.prototype.initMap = function () {    
-    this.map = new SMap(
-        this.config.item.get(0),
-        SMap.Coords.fromWGS84(this.config.map.center.lng, this.config.map.center.lat), 
-        this.config.map.zoom, 
-        {minZoom:0, maxZoom:18});
-    window.layers = [];
-    window.layers[SMap.DEF_OPHOTO] = this.map.addDefaultLayer(SMap.DEF_OPHOTO);
-    window.layers[SMap.DEF_HYBRID] = this.map.addDefaultLayer(SMap.DEF_HYBRID);
-    window.layers[SMap.DEF_BASE] = this.map.addDefaultLayer(SMap.DEF_BASE);
-    window.layers[SMap.DEF_BASE].enable();
-
-    /* vrstva pro poie */
-    var layer = new SMap.Layer.Marker();
-    this.map.addLayer(layer).enable();
-
-    this.map.setMapTypeId = function(layer) { 
-        var layers = window.layers;
-        if (layer == SMap.DEF_BASE) {
-            layers[SMap.DEF_BASE].enable();
-            layers[SMap.DEF_OPHOTO].disable();
-            layers[SMap.DEF_HYBRID].disable();
-        } else {
-            layers[SMap.DEF_OPHOTO].enable();
-            layers[SMap.DEF_HYBRID].enable();
-            layers[SMap.DEF_BASE].disable();
-        }
-    };
-
-    this.map.addControl(new SMap.Control.Mouse(SMap.MOUSE_PAN | SMap.MOUSE_WHEEL | SMap.MOUSE_ZOOM, {minDriftSpeed:1/0}));
-    this.map.addControl(new SMap.Control.Keyboard(SMap.KB_PAN | SMap.KB_ZOOM, {focusedOnly:false}));
-    this.map.addControl(new SMap.Control.Selection(2));
-    this.map.setPadding("top", 10);
-    this.map.setPadding("left", 10);
-    this.map.setPadding("right", 10);
-
-    this._layerMarkers = new SMap.Layer.Marker();
-    this.clusters = new SMap.Marker.Clusterer(this.map);
-    this._layerMarkers.setClusterer(this.clusters);
-    this.map.addLayer(this._layerMarkers).enable();
-    this.map.getSignals().addListener(this, "card-open", "_markerClick");
+Map.prototype.initMap = function () {
+    this._mapLayer = MapLayer;
+    MapLayer.initMap(this);
 
     this.bindMapTypeChange();
     this.bindMapZoom();
     this.bindSetGeolocation();
-    this.bindAutocomplete();
+    this._mapLayer.bindAutocomplete(this.config.autocompleteInputSelector);
     this.bindEmbeddedPopupOpen();
     this.bindNewsClose();
 };
@@ -117,36 +71,26 @@ Map.prototype.initMap = function () {
 /**
  * Inicializace markeru
  */
-Map.prototype._markerClick = function (e) {
-    this.infoBox = e.target;
-    this.infoBox.getContainer().classList.add(this.config.infoBoxClass);
-    this.infoBox.getBody().innerHTML = this.templates.spinner;
+Map.prototype.markerClick = function (e) {
+    var object_ids = this._mapLayer.markerClick(e);
+    if (object_ids) {
+        var context = this;
+        var config = {
+            url: this.config.item.data('info-box-load-url'),
+            data: {
+                'map-ids': object_ids
+            },
+            success: function (payload) {
+                context.loadContentSuccessHandler(payload);
+            },
+            error: function () {
+                context.loadContentErrorHandler()
+            }
+        };
 
-    var that = this;
-    var config = {
-        url: this.config.item.data('info-box-load-url'),
-        data: {
-            'map-ids': this.infoBox.object_ids
-        },
-        success: function (payload) {
-            that.loadContentSuccessHandler(payload);
-        },
-        error: function () {
-            that.loadContentErrorHandler()
-        }
-    };
-
-    $(this.config.contentSelector).addClass(this.config.openedInfoboxClass);
-    $.nette.ajax(config);
-};
-
-/**
- * nastaveni obsahu infowindow
- */
-Map.prototype.setContentInfoBox = function(payload) {
-    this.infoBox.getBody().innerHTML = payload;
-    this.infoBox.anchorTo(this.infoBox.getAnchor());
-    this.infoBox.makeVisible();
+        $(this.config.contentSelector).addClass(this.config.openedInfoboxClass);
+        $.nette.ajax(config);
+    }
 };
 
 /**
@@ -157,15 +101,11 @@ Map.prototype.initMarkers = function () {
         var marker = this.config.markers[i];
 
         if (undefined === this.markers[marker['id']]) {
-            this.markers[marker['id']] = this.prepareMarker(marker);
+            this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
         }
     }
 
-    this.clusters.clear();
-    //this.clusters.addMarkers($.map(this.markers, function(v) { return v; }));
-    for (i in this.markers) {
-        this._layerMarkers.addMarker(this.markers[i]);
-    }
+    this._mapLayer.initMarkers();
 };
 
 /**
@@ -179,33 +119,6 @@ Map.prototype.initTemplates = function () {
 
         $template.remove();
     }
-};
-
-/**
- * Priprava markeru.
- * @param {object} marker
- * @returns {google.maps.Marker}
- */
-Map.prototype.prepareMarker = function (marker) {
-    if ('undefined' == typeof marker['latitude'] || 'undefined' == typeof marker['longitude']) {
-        return;
-    }
-
-    var options = { 
-        title: marker['title'],
-        url: marker['image'],
-        size: [50, 70],
-        anchor: {left: 25, top: 70}
-    };
-    var mapMarker = new SMap.Marker(SMap.Coords.fromWGS84(marker['longitude'], marker['latitude']), marker['id'], options);
-    mapMarker.getContainer()[SMap.LAYER_MARKER].style.width = options.size[0] + "px";
-
-    var card = new SMap.Card(300, {close: false});
-    card.object_ids = marker['object_ids'];
-    this.infoBoxes[marker['id']] = card;
-    mapMarker.decorate(SMap.Marker.Feature.Card, card);
-
-    return mapMarker;
 };
 
 /**
@@ -240,7 +153,7 @@ Map.prototype.closeInfoBox = function () {
     $('body').removeClass(this.config.openedInfoboxClass);
 
     if (null !== this.infoBox) {
-        this.infoBox._closeClick();
+        this._mapLayer.closeInfoBox();
         this.infoBox = null;
     }
 };
@@ -250,7 +163,7 @@ Map.prototype.closeInfoBox = function () {
  * @param {string} payload
  */
 Map.prototype.loadContentSuccessHandler = function (payload) {
-    this.setContentInfoBox(payload);
+    this.infoBox.setContent(payload);
 
     this.bindDetailActions();
 };
@@ -259,7 +172,7 @@ Map.prototype.loadContentSuccessHandler = function (payload) {
  * Callback neuspesneho nacteni obsahu info boxu.
  */
 Map.prototype.loadContentErrorHandler = function () {
-    this.setContentInfoBox(this.templates.error);
+    this.infoBox.setContent(this.templates.error);
 };
 
 /**
@@ -338,10 +251,10 @@ Map.prototype.bindMapZoom = function () {
 
         switch ($(this).attr('data-type')) {
             case "in":
-                context.map.setZoom(acutal_zoom + 1, null, true);
+                context._mapLayer.setZoom(acutal_zoom + 1);
                 break;
             case "out":
-                context.map.setZoom(acutal_zoom - 1, null, true);
+                context._mapLayer.setZoom(acutal_zoom - 1);
                 break;
         }
     });
@@ -358,11 +271,16 @@ Map.prototype.bindEmbeddedPopupOpen = function () {
 
         var url = $(this).attr('href');
 
+        var center = context._mapLayer.getCenter();
         var data = {
             'zoom': context.map.getZoom(),
-            'center-lat': context.map.getCenter().y,
-            'center-lng': context.map.getCenter().x
+            'center-lat': center.y,
+            'center-lng': center.x
         };
+
+        if (typeof window.SMap == 'undefined') {
+            data.maps = 1;
+        }
 
         loadPopupContent(url, data);
     });
@@ -404,7 +322,7 @@ Map.prototype.geolocationHandleSuccess = function (position) {
     }
 
     //nakonec pridam vychozi handler
-    window.gm_geolocation_success_callbacks.push(this.defaultGetCurrentPositionSuccessHandler);
+    window.gm_geolocation_success_callbacks.push(this._mapLayer.defaultGetCurrentPositionSuccessHandler);
 
     for (var i = 0; i < window.gm_geolocation_success_callbacks.length; i++) {
         var callback = window.gm_geolocation_success_callbacks[i];
@@ -413,18 +331,6 @@ Map.prototype.geolocationHandleSuccess = function (position) {
             break;
         }
     }
-};
-
-/**
- * vychozi handler pro uspesne zjisteni pozice geolokace
- * @param {Position} position
- * @return bool
- */
-Map.prototype.defaultGetCurrentPositionSuccessHandler = function (position) {
-
-    this.map.setCenterZoom(SMap.Coords.fromWGS84(position.coords.longitude, position.coords.latitude), 10, true);
-
-    return true;
 };
 
 /**
@@ -477,15 +383,6 @@ Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
     return true;
 };
 
-/** Handler pro naseptavac */
-Map.prototype.bindAutocomplete = function () {
-    var input = $(this.config.autocompleteInputSelector);
-    this._suggest = Suggest.getInstance();
-    this._suggest.map = this;
-    this._suggest.setInput(input.get(0));
-    this._suggest.addListener("suggest-submit", "_suggestSubmit");
-};
-
 /**
  * Nastavi novou sadu markeru.
  *
@@ -514,7 +411,7 @@ Map.prototype.setMarkers = function (markers) {
         index = $.inArray(id, ids);
 
         if (-1 === index) {
-            this._layerMarkers.removeMarker(this.markers[id]);
+            this._mapLayer.setMarkers(this.markers[id]);
 
             delete this.markers[id];
         }

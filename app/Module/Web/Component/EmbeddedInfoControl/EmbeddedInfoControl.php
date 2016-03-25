@@ -4,6 +4,7 @@ namespace MP\Module\Web\Component;
 
 use MP\Component\AbstractControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
+use MP\Module\Web\Component\MapControl\MapControl;
 use Nette\Application\UI\ITemplate;
 
 /**
@@ -64,7 +65,7 @@ class EmbeddedInfoControl extends AbstractControl
             $this->mapParams
         );
 
-        $template->link = $this->getPresenter()->link('//Embedded:default', $query);
+        $template->link = str_replace(MapControl::GET_MAPS . "=1", MapControl::GET_MAPS, $this->getPresenter()->link('//Embedded:default', $query));
 
         return $template;
     }
