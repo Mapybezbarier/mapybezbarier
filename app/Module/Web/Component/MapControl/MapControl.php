@@ -208,6 +208,9 @@ class MapControl extends AbstractControl
                 'lat' => (float) $this->request->getQuery(self::GET_CENTER_LAT, 49.5),
                 'lng' => (float) $this->request->getQuery(self::GET_CENTER_LNG, 14.9),
             ],
+            'streetViewControl' => false, //pouze pro google maps
+            'zoomControl' => false, //pouze pro google maps
+            'mapTypeControl' => false, //pouze pro google maps
             'zoom' => (int) $this->request->getQuery(self::GET_ZOOM, 8)
         ];
 
