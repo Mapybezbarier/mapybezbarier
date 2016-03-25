@@ -1493,21 +1493,35 @@ footer .footer_logos:after {
 }
 footer .footer_logos .footer_logo {
   float: left;
-  width: 25%;
-  padding: 20px 10px;
+  width: 33.33333%;
+  padding: 10px;
   text-align: center;
 }
-footer .footer_logos .footer_logo a {
+footer .footer_logos .footer_logo .fl_cont {
+  background: transparent none no-repeat center center;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
   display: block;
+  height: 56px;
+}
+@media only screen and (max-width: 430px) {
+  footer .footer_logos .footer_logo .fl_cont {
+    height: 26px !important;
+  }
 }
 footer .footer_logos .footer_logo img {
   vertical-align: middle;
 }
-@media only screen and (max-width: 960px) {
-  footer .footer_logos .footer_logo {
-    float: left;
-    width: 50%;
-  }
+footer .footer_logos .footer_logo.down {
+  width: 20%;
+}
+footer .footer_logos .footer_logo.down .fl_cont {
+  height: 40px;
+}
+footer .footer_logos .footer_logo:nth-of-type(4) {
+  clear: left;
 }
 footer .open_button {
   background: #fff url("/asset/img/logo-bariery.png") no-repeat center center;
@@ -1617,7 +1631,6 @@ footer.half_opened .footer_logos {
   height: 50px;
   padding: 10px 60px;
   position: relative;
-  margin: auto !important;
 }
 .info_box_content_wrapper .ib_header .title > div,
 .info_box_content_wrapper .ib_header .title > span {
