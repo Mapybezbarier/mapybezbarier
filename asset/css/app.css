@@ -1108,6 +1108,23 @@ header .languages li:last-of-type {
 .filters .filter_group .filter_items li > label:before {
   border-width: 0;
 }
+
+.filters .filter_group .filter_items li.maplayer{
+  margin-left: 25px;
+  padding: 0 !important;
+  border-radius: inherit !important;
+}
+.filters .filter_group .filter_items li.maplayer a{
+  width: 29px;
+  height: 29px;
+  display: inline-block;
+}
+.filters .filter_group .filter_items li.maplayer a.gmaps{
+  background: url("/asset/img/gmaps.png");
+}
+.filters .filter_group .filter_items li.maplayer a.mapycz{
+  background: url("/asset/img/mapycz.png");
+}
 .filters .filter_group .filter_items li.active {
   background-color: #fffdcc;
 }
@@ -2809,7 +2826,7 @@ body.popup_opened .popup {
   position: relative;
 }
 .embedded_map #map {
-  padding-top: 0;
+  margin-top: 0;
 }
 
 .news_iframe .col_wrapper_inner {

@@ -22,7 +22,8 @@ class MapControl extends AbstractControl
     /** @const GET parametry pro konfiguraci mapy. */
     const GET_CENTER_LAT = 'center-lat',
         GET_CENTER_LNG = 'center-lng',
-        GET_ZOOM = 'zoom';
+        GET_ZOOM = 'zoom',
+        GET_MAPS = 'maps';
 
     /** @const Nazev komponent filtru objektu. */
     const COMPONENT_FILTER = 'filter';

@@ -95,6 +95,7 @@ class HomepagePresenter extends AbstractWebPresenter
         $this->template->filtered = (bool) $restrictor;
         $this->template->popup = $this->getParameter(self::PARAM_POPUP, null);
         $this->template->maps = $this->getParameter(self::PARAM_MAPS, null);
+        $this->template->apiKey = $this->context->getService('mapApiKey')->getId();
 
         if ($this->isAjax() && $this->getHttpRequest()->isMethod(IRequest::POST)) {
             $this->redrawControl('filter');
@@ -132,7 +133,7 @@ class HomepagePresenter extends AbstractWebPresenter
         if (!$this->isAjax()) {
             $this->forward('default', [self::PARAM_POPUP => self::COMPONENT_EMBEDDED_INFO]);
         } else {
-            $keys = [MapControl::GET_CENTER_LAT, MapControl::GET_CENTER_LNG, MapControl::GET_ZOOM];
+            $keys = [MapControl::GET_CENTER_LAT, MapControl::GET_CENTER_LNG, MapControl::GET_ZOOM, MapControl::GET_MAPS];
             $mapParams = [];
 
             foreach ($keys as $key) {
