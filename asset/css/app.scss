@@ -117,10 +117,12 @@ html, body { height: 100%; margin: 0; padding: 0; }
     height: 100%;
     margin-top: $header_height;
 
+    /* styly pro mapy.cz */
     img {
         max-width: inherit;
     }
 
+    /* styly pro mapy.cz */
     .cluster {
         div {
             border: none;
@@ -614,6 +616,7 @@ header {
             }
         }
 
+        /* styly pro naseptavac mapy.cz */
         .content {
             .item{
                 padding: 0 4px;
@@ -745,21 +748,34 @@ footer {
         @include clearfix;
 
         .footer_logo {
-            @include grid_3;
-            padding: 20px 10px;
+            @include grid_4;
+            padding: 10px;
             text-align: center;
 
-            a {
+            .fl_cont {
+                background: transparent none no-repeat center center;
+                @include bs(contain);
                 display: block;
+                height: 56px;
+
+                @include mq($bp_430) {
+                    height: 26px !important;
+                }
             }
+
             img {
                 vertical-align: middle;
             }
-        }
 
-        @include mq($bp_960) {
-            .footer_logo {
-                @include grid_6;
+            &.down {
+                width: 20%;
+
+                .fl_cont {
+                    height: 40px;
+                }
+            }
+            &:nth-of-type(4) {
+                clear: left;
             }
         }
     }
@@ -802,6 +818,8 @@ footer {
     @include box_shadow_fix(1.5px 2.598px 7px 0 rgba(0, 0, 0, .35));
     position: relative;
     width: 300px;
+
+    /* styly pro popup mapy.cz */
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
@@ -854,7 +872,6 @@ footer {
             padding: 10px 60px;
             position: relative;
             @include ico_circle;
-            margin: auto !important;
 
             > span {
                 text-align: left;
