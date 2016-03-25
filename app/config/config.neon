@@ -184,9 +184,7 @@ webloader:
                 - "//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js"
             files:
                 - "spin.js"
-                - "suggest.lib.js"
-                - "suggest.js"
-                - "suggest.term.js"
+                - "mapycz.js"
                 - "nette.forms.js"
                 - "nette.ajax.js"
                 - "colorbox.js"
