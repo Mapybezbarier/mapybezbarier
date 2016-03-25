@@ -982,6 +982,7 @@ header .languages li:last-of-type {
 .col_wrapper.right {
   margin-right: -280px;
   right: 0;
+  z-index: 1;
 }
 .col_wrapper.right.opened {
   margin-right: 0;
@@ -1591,11 +1592,11 @@ footer.half_opened .footer_logos {
 }
 .info_box .tail {
   visibility: hidden;
-  left: 132px !important;
-  bottom: -100px !important;
+  left: 148px !important;
+  bottom: -98px !important;
 }
 
-.info_box .close, .info_box .card-header, .info_box .card-footer{
+.info_box .card-header, .info_box .card-footer{
   display: none;
 }
 .info_box .card-body {
@@ -1649,6 +1650,7 @@ footer.half_opened .footer_logos {
   height: 50px;
   padding: 10px 60px;
   position: relative;
+  margin: auto !important;
 }
 .info_box_content_wrapper .ib_header .title > div,
 .info_box_content_wrapper .ib_header .title > span {

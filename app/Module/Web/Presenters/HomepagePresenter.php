@@ -45,6 +45,8 @@ class HomepagePresenter extends AbstractWebPresenter
 
     /** @const Nazev parametru s jmenem popupu */
     const PARAM_POPUP = 'popup';
+    /** @const Nazev parametru s volbou mapove sady */
+    const PARAM_MAPS = 'maps';
 
     /**
      * @persistent
@@ -92,6 +94,7 @@ class HomepagePresenter extends AbstractWebPresenter
 
         $this->template->filtered = (bool) $restrictor;
         $this->template->popup = $this->getParameter(self::PARAM_POPUP, null);
+        $this->template->maps = $this->getParameter(self::PARAM_MAPS, null);
 
         if ($this->isAjax() && $this->getHttpRequest()->isMethod(IRequest::POST)) {
             $this->redrawControl('filter');
