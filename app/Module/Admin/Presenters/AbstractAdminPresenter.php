@@ -26,6 +26,14 @@ abstract class AbstractAdminPresenter extends AbstractPresenter
     public $userService;
 
     /**
+     * Handler odhlaseni uzivatele.
+     */
+    public function handleLogout()
+    {
+        $this->logout();
+    }
+
+    /**
      * @override Nastaveni jmena prihlaseneho uzivatele.
      */
     protected function beforeRender()
@@ -40,9 +48,9 @@ abstract class AbstractAdminPresenter extends AbstractPresenter
     }
 
     /**
-     * Handler odhlaseni uzivatele.
+     * Odhlasi uzivatele
      */
-    public function handleLogout()
+    protected function logout()
     {
         $this->accessService->logout();
 

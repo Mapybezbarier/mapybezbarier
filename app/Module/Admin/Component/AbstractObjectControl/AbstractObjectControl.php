@@ -229,7 +229,7 @@ abstract class AbstractObjectControl extends AbstractFormControl
 
         $user = $this->getPresenter()->getUser();
 
-        if ($user->isInRole(Authorizator::ROLE_MASTER) || $user->isInRole(Authorizator::ROLE_MASTER)) {
+        if ($user->isInRole(Authorizator::ROLE_MASTER) || $user->isInRole(Authorizator::ROLE_ADMIN)) {
             $properties[] = 'certified';
         }
 

@@ -409,7 +409,7 @@ class ObjectControl extends AbstractObjectControl
 
         $user = $this->getPresenter()->getUser();
 
-        if ($user->isInRole(Authorizator::ROLE_MASTER) || $user->isInRole(Authorizator::ROLE_MASTER)) {
+        if ($user->isInRole(Authorizator::ROLE_MASTER) || $user->isInRole(Authorizator::ROLE_ADMIN)) {
             $form[self::COMPONENT_CERTIFIED]->setRequired(true);
         }
     }

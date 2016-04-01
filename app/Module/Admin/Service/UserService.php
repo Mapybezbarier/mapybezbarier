@@ -143,7 +143,7 @@ class UserService
     {
         $user = $this->userManager->findOneById($id);
 
-        if (false === $raw) {
+        if ($user && false === $raw) {
             $this->prepareUser($user);
         }
 
