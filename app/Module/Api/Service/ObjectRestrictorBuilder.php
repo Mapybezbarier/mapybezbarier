@@ -87,10 +87,8 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         $types = $this->extractArrayValues(self::RESTRICTION_TYPE, $this->filterService->getTypeValues());
 
         if ($types) {
-            $restrictions = $this->prepareTypeRestrictions($types);
+            $restrictor[] = $this->prepareTypeRestrictions($types);
         }
-
-        $restrictor[] = $restrictions;
     }
 
     /**
