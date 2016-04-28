@@ -150,7 +150,7 @@ class MapControl extends AbstractControl
                 $type = $this->getMarkerType($first);
 
                 // suffix
-                if (FilterService::TYPE_COMMUNITY === $type[0]) {
+                if ($type[0]) {
                     $markerSuffix = "_c";
                 } else {
                     $markerSuffix = null;

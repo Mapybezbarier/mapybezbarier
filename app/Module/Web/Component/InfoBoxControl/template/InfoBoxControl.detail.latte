@@ -12,6 +12,7 @@
     {include header}
     {include renderer}
     {include source}
+    {include owner}
 {/define}
 
 {define localLink}
@@ -33,5 +34,15 @@
             {$object['source']}
         </div>
     </div>
+    {/if}
+{/define}
+
+{define owner}
+    {if !empty($object['owner'])}
+        <div class="ib_owner">
+            <div class="addr_item owner" title="{_messages.control.map.infoBox.owner}">
+                <a href="{$object['owner']}">{$object['owner']}</a>
+            </div>
+        </div>
     {/if}
 {/define}

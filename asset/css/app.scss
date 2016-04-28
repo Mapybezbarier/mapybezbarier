@@ -386,7 +386,7 @@ header {
                 &.active {
                     background-color: $yellow_color;
 
-                    > label > span {
+                    > label .filter_label_title span {
                         background-color: $gray_d_color;
                         @include border-radius(4px);
                         display: block;
@@ -400,6 +400,34 @@ header {
             }
         }
 
+        &.category {
+            // count v cervenem kolecku pouze u kategorii
+            .filter_items li > label .filter_label_title {
+                display: inline-block;
+                position: relative;
+
+                > span {
+                    background-color: $red_color;
+                    @include border-radius(7px);
+                    color: $white_color;
+                    display: inline-block;
+                    font-size: 80%;
+                    height: 15px;
+                    line-height: 15px;
+                    margin-left: 5px;
+                    padding: 0 5px;
+                    position: relative;
+                    right: auto;
+                    text-align: center;
+                    top: -6px;
+                    width: auto;
+
+                    &:nth-of-type(2) {
+                        display: none;
+                    }
+                }
+            }
+        }
         &.map_type {
             position: relative;
 
@@ -779,7 +807,8 @@ footer {
     }
     .ib_params,
     .ib_address,
-    .ib_source,{
+    .ib_source,
+    .ib_owner {
         @include special_font(14, 18);
     }
     .ib_params,
@@ -873,7 +902,8 @@ footer {
         }
     }
     .ib_address,
-    .ib_source {
+    .ib_source,
+    .ib_owner {
         padding: 15px 0 5px;
 
         .addr_item {
@@ -917,6 +947,9 @@ footer {
         }
         .source:after {
             background-image: bg_image($icons_path + 'ico_zdroj.svg');
+        }
+        .owner:after {
+            background-image: bg_image($icons_path + 'ico_majitel.svg');
         }
     }
     .ib_detail {
@@ -1166,14 +1199,17 @@ footer {
 .detail {
     .info_box_content_wrapper {
         .ib_address,
-        .ib_source {
+        .ib_source,
+        .ib_owner {
             background-color: $gray_color;
         }
         .ib_address {
             padding-bottom: 15px;
             padding-top: 25px;
         }
-        .ib_address + .ib_source {
+        .ib_address + .ib_source,
+        .ib_address + .ib_owner,
+        .ib_source + .ib_owner {
             margin-top: -15px;
             padding-top: 0;
             padding-bottom: 15px;

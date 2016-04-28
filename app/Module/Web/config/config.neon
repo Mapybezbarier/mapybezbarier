@@ -1,14 +1,23 @@
 parameters:
     categories:
         mapping:
-            churches: [1, 6, 7, 10, 12, 13, 20]
-            theatres: [2]
-            muzeums: [3, 14, 15, 16]
-            historical: [4, 5, 9, 17, 21, 23]
-            libraries: [11]
-            memorials: [18]
-            towers: [22]
-            other: [8, 19]
+            accommodation: [39, 40, 46, 52, 78]
+            authority: [19, 37, 60, 62, 66, 73, 74, 82, 83, 85, 87, 92, 99]
+            church: [1, 6, 7, 10, 12, 13, 20, 63]
+            culture: [2, 3, 14, 15, 16, 47, 48]
+            education: [61, 88,  91, 97, 98]
+            garden: [33, 103]
+            health: [54, 55, 56, 57, 64, 65, 69, 101]
+            historical: [4, 5, 17, 21, 23]
+            hospitality: [32, 34, 41, 79, 80]
+            leisure: [29, 36, 43, 50, 59, 70, 95]
+            memorial: [18]
+            other: [8]
+            service: [11, 31, 35, 42, 44, 45, 53, 67, 68, 72, 75, 76, 81, 89, 90, 93, 94, 100]
+            social: [49, 71]
+            sport: [38, 51, 84, 102]
+            tower: [22]
+            transportation: [30, 58, 77, 86, 96]
 
     sourceDetail:
         mapping:
@@ -21,7 +30,7 @@ services:
     # components
     filterControlFactory:
         implement: MP\Module\Web\Component\FilterControl\IFilterControlFactory
-        arguments: [..., ..., ..., %categories.mapping%]
+        arguments: [..., ..., ..., ..., %categories.mapping%]
     infoBoxControlFactory:
         implement: MP\Module\Web\Component\InfoBoxControl\IInfoBoxControlFactory
         arguments: [..., ..., @infoBoxRendererFactory]

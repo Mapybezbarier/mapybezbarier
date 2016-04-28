@@ -25,10 +25,11 @@
             </div>
             <div class="form_block">
                 {include inputText, _form => $_form, name => 'webUrl'}
-
-                {if $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_MASTER) || $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_ADMIN)}
-                    {include inputText, _form => $_form, name => 'certified'}
-                {/if}
+                {include inputText, _form => $_form, name => 'dataOwnerUrl'}
+            </div>
+            <div n:if="$user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_MASTER) || $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_ADMIN)"
+                 class="form_block" >
+                {include inputText, _form => $_form, name => 'certified'}
             </div>
         </div>
     </div>

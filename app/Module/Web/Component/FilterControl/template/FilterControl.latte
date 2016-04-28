@@ -22,7 +22,12 @@
 
                         <li n:class="$active ? active, nwjs_filter_item">
                             {input $name:$key}
-                            {label $name:$key class => $name . '_' . $key}{_$label}<span n:if="$active"></span>{/label}
+                            {label $name:$key class => $name . '_' . $key}
+                                <span class="filter_label_title">
+                                    {$label}
+                                    <span n:if="$active"></span>
+                                </span>
+                            {/label}
                         </li>
                     {/foreach}
                 </ul>
