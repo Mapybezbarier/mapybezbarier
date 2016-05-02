@@ -10,6 +10,7 @@ use MP\Mapper\IMapper;
 use MP\Module\Admin\Component\ImportReportMailer\ImportReportMailer;
 use MP\Module\Admin\Manager\AutomaticImportManager;
 use MP\Module\Admin\Manager\ImportLogManager;
+use MP\Module\Admin\Manager\LicenseManager;
 use Nette\Application\LinkGenerator;
 use Nette\Utils\DateTime;
 use Nette\Utils\Json;
@@ -27,6 +28,9 @@ class AutomaticImportService
 
     /** @var ExchangeSourceManager */
     protected $sourceManager;
+
+    /** @var LicenseManager */
+    protected $licenseManager;
 
     /** @var ImportLogManager */
     protected $importLogManager;
@@ -48,6 +52,7 @@ class AutomaticImportService
      * @param AutomaticImportManager $manager
      * @param ImportService $importService
      * @param ExchangeSourceManager $sourceManager
+     * @param LicenseManager $licenseManager
      * @param ImportLogManager $importLogManager
      * @param UserManager $userManager
      * @param ImportReportMailer $mailer
@@ -58,6 +63,7 @@ class AutomaticImportService
         AutomaticImportManager $manager,
         ImportService $importService,
         ExchangeSourceManager $sourceManager,
+        LicenseManager $licenseManager,
         ImportLogManager $importLogManager,
         UserManager $userManager,
         ImportReportMailer $mailer,
@@ -67,6 +73,7 @@ class AutomaticImportService
         $this->manager = $manager;
         $this->importService = $importService;
         $this->sourceManager = $sourceManager;
+        $this->licenseManager = $licenseManager;
         $this->importLogManager = $importLogManager;
         $this->userManager = $userManager;
         $this->mailer = $mailer;
@@ -115,9 +122,10 @@ class AutomaticImportService
 
         if ($data) {
             $source = $this->sourceManager->findOneBy([['[id] = %i', $item['source_id']]]);
+            $license = $this->licenseManager->findOneBy([['[id] = %i', $item['license_id']]]);
             $logTitle = $source['title'];
             ImportLogger::reset();
-            $this->importService->import($data, $source, $item['certified'], $item['user_id'], $item['license_id']);
+            $this->importService->import($data, $source, $license, $item['certified'], $item['user_id']);
 
             if (!ImportLogger::getErrors()) {
                 $ret = true;

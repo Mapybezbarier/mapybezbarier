@@ -12,7 +12,7 @@
                             <xs:element name="objectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="parentObjectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="userId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
-                            <xs:element name="licenseId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="license" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="certified" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="photoUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="externalData" type="xs:string" minOccurs="0" maxOccurs="1"/>

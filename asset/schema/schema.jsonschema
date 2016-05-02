@@ -20,8 +20,8 @@
           "userId" : {
             "type" : "integer"
           },
-          "licenseId" : {
-            "type" : "integer"
+          "license" : {
+            "type" : "string"
           },
           "certified" : {
             "type" : "boolean"
