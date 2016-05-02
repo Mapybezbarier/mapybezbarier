@@ -389,7 +389,7 @@ header {
                     > label .filter_label_title span {
                         background-color: $gray_d_color;
                         @include border-radius(4px);
-                        display: block;
+                        display: inline-block;
                         height: 8px;
                         position: absolute;
                         right: 20px;
@@ -403,11 +403,9 @@ header {
         &.category {
             // count v cervenem kolecku pouze u kategorii
             .filter_items li > label .filter_label_title {
-                display: inline-block;
-                position: relative;
 
-                > span {
-                    background-color: $red_color;
+                > span:first-child {
+                    background-color: $purple_color;
                     @include border-radius(7px);
                     color: $white_color;
                     display: inline-block;
@@ -416,15 +414,11 @@ header {
                     line-height: 15px;
                     margin-left: 5px;
                     padding: 0 5px;
-                    position: relative;
+                    position: absolute;
                     right: auto;
                     text-align: center;
-                    top: -6px;
+                    top: 12px;
                     width: auto;
-
-                    &:nth-of-type(2) {
-                        display: none;
-                    }
                 }
             }
         }

@@ -1084,19 +1084,15 @@ header .languages li:last-of-type {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  display: block;
+  display: inline-block;
   height: 8px;
   position: absolute;
   right: 20px;
   top: 23px;
   width: 8px;
 }
-.filters .filter_group.category .filter_items li > label .filter_label_title {
-  display: inline-block;
-  position: relative;
-}
-.filters .filter_group.category .filter_items li > label .filter_label_title > span {
-  background-color: #e4002b;
+.filters .filter_group.category .filter_items li > label .filter_label_title > span:first-child {
+  background-color: #250e62;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 7px;
@@ -1107,14 +1103,11 @@ header .languages li:last-of-type {
   line-height: 15px;
   margin-left: 5px;
   padding: 0 5px;
-  position: relative;
+  position: absolute;
   right: auto;
   text-align: center;
-  top: -6px;
+  top: 12px;
   width: auto;
-}
-.filters .filter_group.category .filter_items li > label .filter_label_title > span:nth-of-type(2) {
-  display: none;
 }
 .filters .filter_group.map_type {
   position: relative;
