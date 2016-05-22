@@ -5,6 +5,7 @@ use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\ImportService;
 use MP\Manager\ExchangeSourceManager;
 use MP\Module\Admin\Manager\ImportLogManager;
+use MP\Module\Admin\Manager\LicenseManager;
 use Nette\Http\FileUpload;
 use Nette\Utils\Json;
 
@@ -19,6 +20,9 @@ class ManualImportService
     /** @var ExchangeSourceManager */
     protected $sourceManager;
 
+    /** @var LicenseManager */
+    protected $licenseManager;
+
     /** @var ImportLogManager */
     protected $importLogManager;
     /**
@@ -29,17 +33,20 @@ class ManualImportService
     /**
      * @param ImportService $importService
      * @param ExchangeSourceManager $sourceManager
+     * @param LicenseManager $licenseManager
      * @param ImportLogManager $importLogManager
      * @param LogService $logService
      */
     public function __construct(
         ImportService $importService,
         ExchangeSourceManager $sourceManager,
+        LicenseManager $licenseManager,
         ImportLogManager $importLogManager,
         LogService $logService
     ) {
         $this->importService = $importService;
         $this->sourceManager = $sourceManager;
+        $this->licenseManager = $licenseManager;
         $this->importLogManager = $importLogManager;
         $this->logService = $logService;
     }
@@ -71,7 +78,8 @@ class ManualImportService
 
         if ($data) {
             $source = $this->sourceManager->findOneBy([['[id] = %i', $formValues['source_id']]]);
-            $this->importService->import($data, $source, $formValues['certified'], $userId, $formValues['license_id'], true);
+            $license = $this->licenseManager->findOneBy([['[id] = %i', $formValues['license_id']]]);
+            $this->importService->import($data, $source, $license, $formValues['certified'], $userId, true);
         }
 
         if (ImportLogger::getErrors() || ImportLogger::getCount()) {

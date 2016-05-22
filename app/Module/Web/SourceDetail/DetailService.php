@@ -117,6 +117,7 @@ class DetailService
             'longitude' => $object['longitude'],
             'latitude' => $object['latitude'],
             'source' => $object['source'],
+            'owner' => $object['data_owner_url'],
             'accessibility' => [
                 'id' => $object['accessibility_id'],
                 'title' => $object['accessibility'],

@@ -66,13 +66,22 @@ $transparent_color: 'transparent';
 @include ico('type_outdated', $pict_blue_color, 'ico_y_profi_stare');
 @include ico('type_community', $pict_blue_color, 'ico_y_komunitni');
 
-@include ico('category_churches', $category_icons_color, '16_bazilika-15');
-@include ico('category_theatres', $category_icons_color, '16_divadlo');
-@include ico('category_muzeums', $category_icons_color, '16_muzeum_galerie');
+@include ico('category_accommodation', $category_icons_color, '16_ubytovani');
+@include ico('category_authority', $category_icons_color, '16_palac');
+@include ico('category_church', $category_icons_color, '16_bazilika-15');
+@include ico('category_culture', $category_icons_color, '16_divadlo');
+@include ico('category_education', $category_icons_color, '16_knihovna');
+@include ico('category_garden', $category_icons_color, '16_zahrady');
+@include ico('category_health', $category_icons_color, '16_pohotovost');
 @include ico('category_historical', $category_icons_color, '16_hrad_zamek');
-@include ico('category_libraries', $category_icons_color, '16_knihovna');
-@include ico('category_memorials', $category_icons_color, '16_pamatnik');
-@include ico('category_towers', $category_icons_color, '16_rozhledna');
+@include ico('category_hospitality', $category_icons_color, '16_pohostinstvi');
+@include ico('category_leisure', $category_icons_color, '16_volny_cas');
+@include ico('category_memorial', $category_icons_color, '16_pamatnik');
+@include ico('category_service', $category_icons_color, '16_sluzby');
+@include ico('category_social', $category_icons_color, '16_socialni_sluzby');
+@include ico('category_sport', $category_icons_color, '16_sportovni_aktivity');
+@include ico('category_tower', $category_icons_color, '16_rozhledna');
+@include ico('category_transportation', $category_icons_color, '16_doprava');
 @include ico('category_other', $category_icons_color);
 
 @include ico('wc', $transparent_color, '20_wc_gray');

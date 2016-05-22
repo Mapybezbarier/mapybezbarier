@@ -12,7 +12,7 @@
                             <xs:element name="objectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="parentObjectId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="userId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
-                            <xs:element name="licenseId" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="license" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="certified" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="photoUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="externalData" type="xs:string" minOccurs="0" maxOccurs="1"/>
@@ -39,6 +39,7 @@
                             <xs:element name="streetOrientNo" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="streetOrientSymbol" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="webUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="dataOwnerUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>
 
                             <!-- Main entrance -->
                             <xs:element name="entrance1IsReservedParking" type="xs:boolean" minOccurs="0"
@@ -874,6 +875,81 @@
             <xs:enumeration value="FortressObjectCategory"/>
             <xs:enumeration value="TowerObjectCategory"/>
             <xs:enumeration value="StatelyhomeObjectCategory"/>
+            <xs:enumeration value="WaterParkObjectCategory"/>
+            <xs:enumeration value="BusStationObjectCategory"/>
+            <xs:enumeration value="BankObjectCategory"/>
+            <xs:enumeration value="BarObjectCategory"/>
+            <xs:enumeration value="BotanicGardenObjectCategory"/>
+            <xs:enumeration value="PastryObjectCategory"/>
+            <xs:enumeration value="GasStationObjectCategory"/>
+            <xs:enumeration value="FarmObjectCategory"/>
+            <xs:enumeration value="TaxOfficeObjectCategory"/>
+            <xs:enumeration value="StadiumObjectCategory"/>
+            <xs:enumeration value="GuestHouseObjectCategory"/>
+            <xs:enumeration value="HotelObjectCategory"/>
+            <xs:enumeration value="PubObjectCategory"/>
+            <xs:enumeration value="FuneralHallObjectCategory"/>
+            <xs:enumeration value="ObservatoryObjectCategory"/>
+            <xs:enumeration value="HypermarketObjectCategory"/>
+            <xs:enumeration value="InformationCenterObjectCategory"/>
+            <xs:enumeration value="CampObjectCategory"/>
+            <xs:enumeration value="CinemaObjectCategory"/>
+            <xs:enumeration value="ConcertHallObjectCategory"/>
+            <xs:enumeration value="ContactSocialServiceObjectCategory"/>
+            <xs:enumeration value="SwimmingObjectCategory"/>
+            <xs:enumeration value="IndoorSwimmingPoolObjectCategory"/>
+            <xs:enumeration value="SpaHouseObjectCategory"/>
+            <xs:enumeration value="WellnessObjectCategory"/>
+            <xs:enumeration value="PharmacyObjectCategory"/>
+            <xs:enumeration value="DoctorObjectCategory"/>
+            <xs:enumeration value="MedicalEmergencyObjectCategory"/>
+            <xs:enumeration value="DentalEmergencyObjectCategory"/>
+            <xs:enumeration value="AirportObjectCategory"/>
+            <xs:enumeration value="FolkArchitectureObjectCategory"/>
+            <xs:enumeration value="CityHallObjectCategory"/>
+            <xs:enumeration value="KindergartenObjectCategory"/>
+            <xs:enumeration value="MunicipalityObjectCategory"/>
+            <xs:enumeration value="MosqueObjectCategory"/>
+            <xs:enumeration value="HospitalObjectCategory"/>
+            <xs:enumeration value="PolyclinicObjectCategory"/>
+            <xs:enumeration value="MunicipalOfficeObjectCategory"/>
+            <xs:enumeration value="StoreObjectCategory"/>
+            <xs:enumeration value="DepartmentStoreObjectCategory"/>
+            <xs:enumeration value="OpticianShopObjectCategory"/>
+            <xs:enumeration value="BreweryObjectCategory"/>
+            <xs:enumeration value="ResidentialSocialServiceObjectCategory"/>
+            <xs:enumeration value="InsuranceOfficeObjectCategory"/>
+            <xs:enumeration value="PoliceObjectCategory"/>
+            <xs:enumeration value="MetropolitanPoliceObjectCategory"/>
+            <xs:enumeration value="PostOfficeObjectCategory"/>
+            <xs:enumeration value="CarDealerObjectCategory"/>
+            <xs:enumeration value="HarborObjectCategory"/>
+            <xs:enumeration value="RecreationalFacilityObjectCategory"/>
+            <xs:enumeration value="RestaurantObjectCategory"/>
+            <xs:enumeration value="FastFoodObjectCategory"/>
+            <xs:enumeration value="ServiceObjectCategory"/>
+            <xs:enumeration value="SocialOfficeObjectCategory"/>
+            <xs:enumeration value="CourtObjectCategory"/>
+            <xs:enumeration value="SportsFacilityObjectCategory"/>
+            <xs:enumeration value="AdministrativeOfficeObjectCategory"/>
+            <xs:enumeration value="MetroStationObjectCategory"/>
+            <xs:enumeration value="PublicProsecutorObjectCategory"/>
+            <xs:enumeration value="HighSchoolObjectCategory"/>
+            <xs:enumeration value="SupermarketObjectCategory"/>
+            <xs:enumeration value="WeddingHallObjectCategory"/>
+            <xs:enumeration value="SchoolObjectCategory"/>
+            <xs:enumeration value="EmploymentOfficeObjectCategory"/>
+            <xs:enumeration value="PublicToiletObjectCategory"/>
+            <xs:enumeration value="VeterinarySurgeryObjectCategory"/>
+            <xs:enumeration value="ViticultureObjectCategory"/>
+            <xs:enumeration value="TrainStationObjectCategory"/>
+            <xs:enumeration value="CollegeObjectCategory"/>
+            <xs:enumeration value="BasicSchoolObjectCategory"/>
+            <xs:enumeration value="EmbassyObjectCategory"/>
+            <xs:enumeration value="HealthInsuranceCompanyObjectCategory"/>
+            <xs:enumeration value="MedicalSupplyObjectCategory"/>
+            <xs:enumeration value="WinterStadiumObjectCategory"/>
+            <xs:enumeration value="ZooObjectCategory"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

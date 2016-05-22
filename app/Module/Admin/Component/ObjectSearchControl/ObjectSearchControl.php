@@ -2,6 +2,7 @@
 
 namespace MP\Module\Admin\Component\ObjectSearchControl;
 
+use Kdyby\Translation\Translator;
 use MP\Component\Form\FormFactory;
 use MP\Module\Admin\Component\AbstractSearchControl;
 use MP\Module\Admin\Service\ObjectRestrictorBuilder;
@@ -54,17 +55,22 @@ class ObjectSearchControl extends AbstractSearchControl
     /** @var FilterService */
     protected $filterService;
 
+    /** @var Translator */
+    protected $translator;
+
     /**
      * @param FormFactory $factory
      * @param UserService $userService
      * @param FilterService $filterService
+     * @param Traslator $translator
      */
-    public function __construct(FormFactory $factory, UserService $userService, FilterService $filterService)
+    public function __construct(FormFactory $factory, UserService $userService, FilterService $filterService, Translator $translator)
     {
         parent::__construct($factory);
 
         $this->userService = $userService;
         $this->filterService = $filterService;
+        $this->translator = $translator;
     }
 
     /**
@@ -119,6 +125,19 @@ class ObjectSearchControl extends AbstractSearchControl
     protected function appendCategoryControls(Form $form)
     {
         $values = $this->prepareSelectValues($this->filterService->getCategoryValues(), "messages.enum.value." . ObjectRestrictorBuilder::RESTRICTION_CATEGORY . ".");
+
+        $locale = setlocale(LC_ALL, 0);
+
+        setlocale(LC_ALL, 'cs_CZ.UTF8');
+
+        uasort($values, function ($a, $b) {
+            $a = $this->translator->translate($a);
+            $b = $this->translator->translate($b);
+
+            return strcoll($a, $b);
+        });
+
+        setlocale(LC_ALL, $locale);
 
         $form->addMultiSelect(ObjectRestrictorBuilder::RESTRICTION_CATEGORY, 'backend.control.objectSearch.label.category', $values);
     }

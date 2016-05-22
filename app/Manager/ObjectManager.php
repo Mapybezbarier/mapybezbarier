@@ -127,6 +127,15 @@ class ObjectManager extends AbstractEnumManager implements ILangAwareManager
     }
 
     /**
+     * Vrati pocet objektu seskupenych podle typu objektu
+     * @return Row[]
+     */
+    public function getTypesStats()
+    {
+        return $this->mapper->selectTypesStats() ?: [];
+    }
+
+    /**
      * Slouci dva objekty.
      *
      * @param int $source

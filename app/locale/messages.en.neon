@@ -37,6 +37,81 @@ enum:
             towerObjectCategory: a tower
             statelyhomeObjectCategory: a chateau
             otherObjectCategory: other
+            waterParkObjectCategory: a water park
+            busStationObjectCategory: a bus station
+            bankObjectCategory: a bank
+            barObjectCategory: a bar
+            botanicGardenObjectCategory: a botanic garden
+            pastryObjectCategory: "a pastry shop, a cafe and a tearoom"
+            gasStationObjectCategory: a gas station
+            farmObjectCategory: a farm and a farmhouse
+            taxOfficeObjectCategory: a tax office
+            stadiumObjectCategory: a football ground and a stadium
+            guestHouseObjectCategory: a guesthouse
+            hotelObjectCategory: a hotel
+            pubObjectCategory: a pub
+            funeralHallObjectCategory: a funeral hall
+            observatoryObjectCategory: an observatory and an planetarium
+            hypermarketObjectCategory: a hypermarket
+            informationCenterObjectCategory: an information center
+            campObjectCategory: a camp
+            cinemaObjectCategory: a cinema
+            concertHallObjectCategory: a concert hall
+            contactSocialServiceObjectCategory: a contact social services
+            swimmingObjectCategory: a swimming
+            indoorSwimmingPoolObjectCategory: an indoor swimming pool
+            spaHouseObjectCategory: a spa house
+            wellnessObjectCategory: a wellness
+            pharmacyObjectCategory: a pharmacy
+            doctorObjectCategory: a doctor
+            medicalEmergencyObjectCategory: a medical emergency
+            dentalEmergencyObjectCategory: a dental emergency
+            airportObjectCategory: a airport
+            folkArchitectureObjectCategory: a folk architecture
+            cityHallObjectCategory: a city hall
+            kindergartenObjectCategory: a kindergarten
+            municipalityObjectCategory: a municipality
+            mosqueObjectCategory: a mosque
+            hospitalObjectCategory: a hospital
+            polyclinicObjectCategory: a health center
+            municipalOfficeObjectCategory: a municipal office
+            storeObjectCategory: a store
+            departmentStoreObjectCategory: a department store and a shopping center
+            opticianShopObjectCategory: an optician shop
+            breweryObjectCategory: a brewery
+            residentialSocialServiceObjectCategory: a residential social services
+            insuranceOfficeObjectCategory: an insurance company
+            policeObjectCategory: a police
+            metropolitanPoliceObjectCategory: a metropolitan police
+            postOfficeObjectCategory: a post office
+            carDealerObjectCategory: a car dealer
+            harborObjectCategory: a harbor
+            recreationalFacilityObjectCategory: a recreational facilities
+            restaurantObjectCategory: a restaurant
+            fastFoodObjectCategory: a fastfood
+            serviceObjectCategory: a service
+            socialOfficeObjectCategory: a social office
+            courtObjectCategory: a court
+            sportsFacilityObjectCategory: a sports facility
+            administrativeOfficeObjectCategory: an administrative office
+            metroStationObjectCategory: a subway station
+            publicProsecutorObjectCategory: a public prosecutor
+            highSchoolObjectCategory: a high school
+            supermarketObjectCategory: a supermarket
+            weddingHallObjectCategory: a wedding hall
+            schoolObjectCategory: a school
+            employmentOfficeObjectCategory: an employment office
+            publicToiletObjectCategory: a public toilet
+            veterinarySurgeryObjectCategory: a veterinary surgery
+            viticultureObjectCategory: a viticulture
+            trainStationObjectCategory: a train station
+            collegeObjectCategory: a college and an university
+            basicSchoolObjectCategory: an elementary school
+            embassyObjectCategory: an embassy
+            healthInsuranceCompanyObjectCategory: a health insurance company
+            medicalSupplyObjectCategory: a medical supply
+            winterStadiumObjectCategory: a winter stadium
+            zooObjectCategory: a zoo
 
         accessibility:
             accessibleObjectMKPO: accessible
@@ -155,14 +230,23 @@ control:
 
         values:
             category:
-                churches: church buildings
-                theatres: theaters
-                muzeums: museums and galleries
+                accommodation: accommodations
+                authority: authorities
+                church: church buildings
+                culture: culture
+                education: education
+                garden: gardens
+                health: health
                 historical: historical buildings
-                libraries: libraries
-                memorials: memorials
-                towers: observation towers
+                hospitality: hospitality
+                leisure: leisure
+                memorial: memorials
                 other: other
+                service: services
+                social: social services
+                sport: sport activities
+                tower: observation towers
+                transportation: transportation
 
         tools:
             insertedMap: A code for an inserted map
@@ -185,6 +269,7 @@ control:
             gps: GPS coordinates
             web: A webpage
             source: Data source
+            owner: Data owner
 
         detail:
             pictogram:
@@ -237,8 +322,6 @@ control:
 
     mailer:
         subject: A new message from the mapybezbarier.cz web
-        passwordReset:
-            headline: A password reset
 
     navigation:
         news: News

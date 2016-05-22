@@ -9,6 +9,7 @@ use MP\Module\Admin\Component\AbstractObjectControl\Service\FormGenerator;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Module\Admin\Service\ObjectService;
 use MP\Object\ObjectMetadata;
+use MP\Util\Arrays;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\ComponentModel\IContainer;
@@ -225,6 +226,7 @@ abstract class AbstractObjectControl extends AbstractFormControl
             'latitude',
             'longitude',
             'webUrl',
+            'dataOwnerUrl',
         ];
 
         $user = $this->getPresenter()->getUser();
@@ -288,12 +290,18 @@ abstract class AbstractObjectControl extends AbstractFormControl
 
         $types = $objectType->getItems();
 
+        $locale = setlocale(LC_ALL, 0);
+
+        setlocale(LC_ALL, 'cs_CZ.UTF8');
+
         uasort($types, function ($a, $b) {
             $a = $this->translator->translate($a);
             $b = $this->translator->translate($b);
 
-            return strcmp($a, $b);
+            return strcoll($a, $b);
         });
+
+        setlocale(LC_ALL, $locale);
 
         unset($types[ObjectMetadata::CATEGORY_OTHER]);
         $types += [ObjectMetadata::CATEGORY_OTHER => 'backend.control.object.value.objectType.otherObjectCategory'];

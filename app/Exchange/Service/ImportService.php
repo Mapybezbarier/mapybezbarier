@@ -69,14 +69,14 @@ class ImportService
     /**
      * @param mixed $data
      * @param array $source
+     * @param array $license
      * @param bool $certified
      * @param int $userId
-     * @param int $licenseId
      * @param bool $manual
      *
      * @return array
      */
-    public function import($data, $source, $certified, $userId, $licenseId, $manual = false)
+    public function import($data, $source, $license, $certified, $userId, $manual = false)
     {
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '2048M');
@@ -92,7 +92,7 @@ class ImportService
         }
 
         if ($objects) {
-            $this->prepareObjects($objects, $source, $certified, $userId, $licenseId);
+            $this->prepareObjects($objects, $source, $license, $certified, $userId);
             $this->validateObjects($objects, $source);
 
             if (!ImportLogger::hasErrors()) {
@@ -177,11 +177,11 @@ class ImportService
      *
      * @param array $objects
      * @param array $source
+     * @param array $license
      * @param bool $certified
      * @param int $userId
-     * @param int $licenseId
      */
-    protected function prepareObjects(array &$objects, $source, $certified, $userId, $licenseId)
+    protected function prepareObjects(array &$objects, $source, $license, $certified, $userId)
     {
         foreach ($objects as &$object) {
             $this->valuesNormalizer->normalize($object);
@@ -190,7 +190,7 @@ class ImportService
             $object['certified'] = $certified;
             $object['ruianAddress'] = $this->ruianFinder->find($object);
             $object['userId'] = $userId;
-            $object['licenseId'] = $licenseId;
+            $object['license'] = $license['title'];
 
             // nektere sloupce ze schematu nejsou urceny pro import
             unset($object['photoUrl']);

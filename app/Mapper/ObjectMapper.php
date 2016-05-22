@@ -206,6 +206,25 @@ class ObjectMapper extends AbstractLangAwareDatabaseMapper
     }
 
     /**
+     * Vrati pocet objektu seskupenych podle typu objektu
+     * @return \Dibi\Row[]
+     * @throws \Dibi\Exception
+     */
+    public function selectTypesStats()
+    {
+        $result = null;
+
+        $query = ["
+            SELECT [object_type_id], count(*) AS [count]
+            FROM %n", $this->table, "
+            GROUP BY [object_type_id]
+            ORDER BY [object_type_id]
+        "];
+
+        return $this->executeQuery($query)->fetchAll();
+    }
+
+    /**
      * @param int $id
      *
      * @return \Dibi\Result|int

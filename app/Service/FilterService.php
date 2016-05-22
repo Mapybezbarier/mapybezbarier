@@ -3,6 +3,7 @@
 namespace MP\Service;
 
 use MP\Manager\AccessibilityManager;
+use MP\Manager\ObjectManager;
 use MP\Manager\ObjectTypeManager;
 use MP\Util\Arrays;
 
@@ -20,6 +21,9 @@ class FilterService
         TYPE_OUTDATED = 'outdated',
         TYPE_COMMUNITY = 'community';
 
+    /** @var ObjectManager */
+    protected $objectManager;
+
     /** @var AccessibilityManager */
     protected $accessibilityManager;
 
@@ -27,11 +31,13 @@ class FilterService
     protected $objectTypeManager;
 
     /**
+     * @param ObjectManager $objectManager
      * @param AccessibilityManager $accessibilityManager
      * @param ObjectTypeManager $objectTypeManager
      */
-    public function __construct(AccessibilityManager $accessibilityManager, ObjectTypeManager $objectTypeManager)
+    public function __construct(ObjectManager $objectManager, AccessibilityManager $accessibilityManager, ObjectTypeManager $objectTypeManager)
     {
+        $this->objectManager = $objectManager;
         $this->accessibilityManager = $accessibilityManager;
         $this->objectTypeManager = $objectTypeManager;
     }
@@ -58,6 +64,18 @@ class FilterService
         $categories = $this->objectTypeManager->findAll() ?: [];
 
         return Arrays::pairs($categories, 'id', 'title');
+    }
+
+    /**
+     * Vrati pocty objektu v kategorii
+     *
+     * @return array
+     */
+    public function getCategoryCounts()
+    {
+        $statistics = $this->objectManager->getTypesStats() ?: [];
+
+        return Arrays::pairs($statistics, 'object_type_id', 'count');
     }
 
     /**

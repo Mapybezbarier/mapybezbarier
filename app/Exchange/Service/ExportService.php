@@ -77,8 +77,10 @@ class ExportService
         $preparedObject = [];
 
         foreach ($object as $key => $value) {
-            if (isset($value)) {
-                if (!Strings::endsWith($key, IEnumValueResolver::KEY_SUFFIX)) {
+            if (null !== $value) {
+                $keyBaseName = Strings::substring($key, 0, -Strings::length(IEnumValueResolver::KEY_SUFFIX));
+
+                if (!Strings::endsWith($key, IEnumValueResolver::KEY_SUFFIX) || !isset($object[$keyBaseName])) {
                     $preparedKey = Strings::toCamelCase($key);
 
                     if ($this->metadata->getRule($namespace, $preparedKey)) {
@@ -95,14 +97,10 @@ class ExportService
                         }
                     }
                 } else {
-                    $keyBaseName = Strings::substring($key, 0, Strings::length(-IEnumValueResolver::KEY_SUFFIX));
+                    $preparedKey = Strings::toCamelCase($keyBaseName);
 
-                    if (isset($object[$keyBaseName])) {
-                        $preparedKey = Strings::toCamelCase($keyBaseName);
-
-                        if ($this->metadata->getRule($namespace, $preparedKey)) {
-                            $preparedObject[$preparedKey] = $value;
-                        }
+                    if ($this->metadata->getRule($namespace, $preparedKey)) {
+                        $preparedObject[$preparedKey] = $value;
                     }
                 }
             }

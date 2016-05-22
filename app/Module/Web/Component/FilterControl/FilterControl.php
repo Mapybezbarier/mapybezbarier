@@ -10,6 +10,8 @@ use MP\Service\FilterService;
 use MP\Util\Arrays;
 use MP\Util\Strings;
 use Nette\Application\UI\Form;
+use Nette\Localization\ITranslator;
+use Nette\Utils\Html;
 
 /**
  * Komponenta pro filtrovani objektu.
@@ -24,6 +26,9 @@ class FilterControl extends AbstractFormControl
     /** @var FilterService */
     protected $filterService;
 
+    /** @var ITranslator */
+    protected $translator;
+
     /** @var array */
     protected $categories;
 
@@ -31,15 +36,22 @@ class FilterControl extends AbstractFormControl
      * @param FormFactory $formFactory
      * @param ObjectRestrictorBuilder $restrictorBuilder
      * @param FilterService $filterService
+     * @param ITranslator $translator
      * @param array $categories
      */
-    public function __construct(FormFactory $formFactory, ObjectRestrictorBuilder $restrictorBuilder, FilterService $filterService, array $categories)
-    {
+    public function __construct(
+        FormFactory $formFactory,
+        ObjectRestrictorBuilder $restrictorBuilder,
+        FilterService $filterService,
+        ITranslator $translator,
+        array $categories
+    ) {
         parent::__construct($formFactory);
 
         $this->restrictorBuilder = $restrictorBuilder;
         $this->filterService = $filterService;
         $this->categories = $categories;
+        $this->translator = $translator;
     }
 
     public function render()
@@ -105,11 +117,16 @@ class FilterControl extends AbstractFormControl
      */
     protected function appendCategories(Form $form)
     {
-        $categories = array_keys($this->categories);
-        $categories = array_combine($categories, $categories);
+        $groups = $this->prepareCategoryGroups();
 
-        if ($categories) {
-            $values = $this->prepareSelectValues($categories, "messages.control.filter.values." . ObjectRestrictorBuilder::RESTRICTION_CATEGORY . ".");
+        if ($groups) {
+            $values = [];
+
+            foreach ($groups as $group => $count) {
+                $value = $this->translator->translate("messages.control.filter.values." . ObjectRestrictorBuilder::RESTRICTION_CATEGORY . "." . Strings::firstLower($group));
+
+                $values[$group] = Html::el()->setHtml("{$value}<span>{$count}</span>");
+            }
 
             $defaults = [];
 
@@ -126,6 +143,43 @@ class FilterControl extends AbstractFormControl
             $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_CATEGORY, 'messages.control.filter.label.category', $values)
                 ->setDefaultValue($defaults);
         }
+    }
+
+    /**
+     * Pripravi skupiny typu objektu. Vystupem jsou pouze ty typy, ktere maji nejake objekty serazene sestupne. Typ jine
+     * je manualne razen na konec.
+     *
+     * @return array
+     */
+    protected function prepareCategoryGroups()
+    {
+        $counts = $this->filterService->getCategoryCounts();
+
+        $groups = [];
+
+        foreach ($this->categories as $group => $ids) {
+            $count = 0;
+
+            foreach ($ids as $id) {
+                $count += Arrays::get($counts, $id, 0);
+            }
+
+            if ($count > 0) {
+                $groups[$group] = $count;
+            }
+        }
+
+        $other = Arrays::get($groups, 'other', null);
+
+        unset($groups['other']);
+
+        arsort($groups);
+
+        if ($other) {
+            $groups['other'] = $other;
+        }
+
+        return $groups;
     }
 
     /**
@@ -155,7 +209,7 @@ class FilterControl extends AbstractFormControl
         $preparedValues = [];
 
         foreach ($values as $key => $value) {
-            $preparedValues[$key] = $namespace . Strings::firstLower($value);
+            $preparedValues[$key] = Html::el()->setText($this->translator->translate($namespace . Strings::firstLower($value)));
         }
 
         return $preparedValues;
