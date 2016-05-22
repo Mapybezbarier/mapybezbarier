@@ -74,8 +74,10 @@ MapLayer.getCenter = function() {
 
 MapLayer.markerClick = function(e) {
 	this._map.infoBox = e.target;
-    this._map.infoBox.getContainer().classList.add(this._map.config.infoBoxClass);
     this._map.infoBox.getBody().innerHTML = this._map.templates.spinner;
+    this._map.infoBox.getContainer().classList.add(this._map.config.infoBoxClass);
+    this._map.infoBox.anchorTo(this._map.infoBox.getAnchor());
+    this._map.infoBox.sync();
 
     return this._map.infoBox.object_ids;
 }
