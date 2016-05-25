@@ -14,14 +14,19 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     const RESTRICTION_TERM = 'term',
         RESTRICTION_USER = 'user';
 
+    /** @var UserService */
+    protected $userService;
+
     /** @var User */
     protected $user;
 
     /**
+     * @param UserService $userService
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(UserService $userService, User $user)
     {
+        $this->userService = $userService;
         $this->user = $user;
     }
 
@@ -75,16 +80,28 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
                     [
                         ["[user_id] = %i", $this->user->getId()],
                         ["EXISTS (
-                        SELECT 1
-                        FROM [user]
-                        WHERE
-                            [user].[parent_id] = %i", $this->user->getId(), "
-                            AND [user].[id] = [user_id]
-                    )"]
+                            SELECT 1
+                            FROM [user]
+                            WHERE
+                                [user].[parent_id] = %i", $this->user->getId(), "
+                                AND [user].[id] = [user_id]
+                        )"]
                     ]
                 ];
             } else if ($this->user->isInRole(Authorizator::ROLE_MAPPER)) {
-                $restrictions = ["[user_id] = %i", $this->user->getId()];
+                $user = $this->userService->getUser($this->user->getId(), true);
+
+                if ($agency = Arrays::get($user, 'parent_id', null)) {
+                    $restrictions = [
+                        '%or',
+                        [
+                            ["[user_id] = %i", $this->user->getId()],
+                            ["[user_id] = %i", $agency]
+                        ]
+                    ];
+                } else {
+                    $restrictions = ["[user_id] = %i", $this->user->getId()];
+                }
             }
         } else if ($user) {
             $restrictions = ["[user_id] = %i", $user];
