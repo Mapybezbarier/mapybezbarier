@@ -30,8 +30,9 @@ MapLayer.initMap = function (map) {
     this._map.map.getSignals().addListener(this._map, "card-open", "markerClick");
 };
 
-MapLayer.setMarkers = function(marker) {
-	this._layerMarkers.removeMarker(marker);
+MapLayer.setMarkers = function(markers) {
+	if (markers.length)
+		this._layerMarkers.removeMarker(markers);
 }
 
 /** Handler pro naseptavac */
@@ -51,27 +52,19 @@ MapLayer.bindAutocomplete = function (input) {
  * @return bool
  */
 MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
-
     this.map.setCenterZoom(SMap.Coords.fromWGS84(position.coords.longitude, position.coords.latitude), 10, true);
 
     return true;
 };
 
-MapLayer.setLayerMarkersVisible = function(visible) {
-	if (visible) {
-		this._layerMarkers.enable();
-	} else {
-		this._layerMarkers.disable();
-	}
-}
-
 MapLayer.initMarkers = function() {
-	this._layerMarkers.disable();
+	var markers = [];
 	this.clusters.clear();
     for (i in this._map.markers) {
-        this._layerMarkers.addMarker(this._map.markers[i]);
+        markers.push(this._map.markers[i]);
     }
-    this._layerMarkers.enable();
+    if (markers.length)
+    	this._layerMarkers.addMarker(markers);
 }
 
 MapLayer.closeInfoBox = function () {
