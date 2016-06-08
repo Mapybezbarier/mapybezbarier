@@ -407,6 +407,10 @@ Map.prototype.setMarkers = function (markers) {
         }
     }
 
+    if ("setLayerMarkersVisible" in this._mapLayer) {
+        this._mapLayer.setLayerMarkersVisible(false);
+    }
+
     for (id in this.markers) {
         index = $.inArray(id, ids);
 
@@ -415,6 +419,10 @@ Map.prototype.setMarkers = function (markers) {
 
             delete this.markers[id];
         }
+    }
+
+    if ("setLayerMarkersVisible" in this._mapLayer) {
+        this._mapLayer.setLayerMarkersVisible(true);
     }
 
     this.config.markers = markers;
