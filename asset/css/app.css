@@ -1110,7 +1110,7 @@ header .languages li:last-of-type {
 }
 
 .filters .filter_group .filter_items li.maplayer{
-  margin-left: 25px;
+  margin-left: 11px;
   padding: 0 !important;
   border-radius: inherit !important;
 }

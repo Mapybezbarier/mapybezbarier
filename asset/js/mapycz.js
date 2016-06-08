@@ -57,11 +57,21 @@ MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
     return true;
 };
 
+MapLayer.setLayerMarkersVisible = function(visible) {
+	if (visible) {
+		this._layerMarkers.enable();
+	} else {
+		this._layerMarkers.disable();
+	}
+}
+
 MapLayer.initMarkers = function() {
+	this._layerMarkers.disable();
 	this.clusters.clear();
     for (i in this._map.markers) {
         this._layerMarkers.addMarker(this._map.markers[i]);
     }
+    this._layerMarkers.enable();
 }
 
 MapLayer.closeInfoBox = function () {
