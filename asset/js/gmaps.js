@@ -65,8 +65,10 @@ MapLayer.prepareInfoBox = function (marker) {
     return new InfoBox(config);
 };
 
-MapLayer.setMarkers = function(marker) {
-	marker.setMap(null);
+MapLayer.setMarkers = function(markers) {
+    for (var j=0;j<markers.length;j++) {
+	   markers[j].setMap(null);
+    }
 }
 
 /**

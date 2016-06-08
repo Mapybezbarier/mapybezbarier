@@ -407,23 +407,18 @@ Map.prototype.setMarkers = function (markers) {
         }
     }
 
-    if ("setLayerMarkersVisible" in this._mapLayer) {
-        this._mapLayer.setLayerMarkersVisible(false);
-    }
-
+    var removeMarkers = [];
     for (id in this.markers) {
         index = $.inArray(id, ids);
 
         if (-1 === index) {
-            this._mapLayer.setMarkers(this.markers[id]);
+            removeMarkers.push(this.markers[id]);
 
             delete this.markers[id];
         }
     }
 
-    if ("setLayerMarkersVisible" in this._mapLayer) {
-        this._mapLayer.setLayerMarkersVisible(true);
-    }
+    this._mapLayer.setMarkers(removeMarkers);
 
     this.config.markers = markers;
 
