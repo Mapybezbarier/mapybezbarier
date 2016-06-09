@@ -950,6 +950,8 @@
             <xs:enumeration value="MedicalSupplyObjectCategory"/>
             <xs:enumeration value="WinterStadiumObjectCategory"/>
             <xs:enumeration value="ZooObjectCategory"/>
+            <xs:enumeration value="CultureHouseObjectCategory"/>
+            <xs:enumeration value="AtmObjectCategory"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

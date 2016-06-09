@@ -112,6 +112,8 @@ enum:
             medicalSupplyObjectCategory: a medical supply
             winterStadiumObjectCategory: a winter stadium
             zooObjectCategory: a zoo
+            atmObjectCategory: an ATM
+            cultureHouseObjectCategory: a house of culture
 
         accessibility:
             accessibleObjectMKPO: accessible

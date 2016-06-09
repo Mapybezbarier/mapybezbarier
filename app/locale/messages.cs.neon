@@ -112,6 +112,8 @@ enum:
             medicalSupplyObjectCategory: "zdravotnické potřeby"
             winterStadiumObjectCategory: "zimní stadion"
             zooObjectCategory: "zoologická zahrada"
+            atmObjectCategory: "bankomat"
+            cultureHouseObjectCategory: "kulturní dům"
 
         accessibility:
             accessibleObjectMKPO: přístupný
