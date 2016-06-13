@@ -494,7 +494,7 @@ header {
                 }
                 li {
                     @include border-radius(15px);
-                    @include font_sizes(14, 16);
+                    @include font_sizes(14, 14);
                     cursor: pointer;
                     float: left;
                     padding: 7px 16px;
