@@ -1187,7 +1187,7 @@ header .languages li:last-of-type {
   line-height: 114.28571%;
   cursor: pointer;
   float: left;
-  padding: 7px 16px;
+  padding: 7px 14px;
   text-transform: uppercase;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
