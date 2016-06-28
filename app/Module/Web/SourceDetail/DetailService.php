@@ -320,7 +320,10 @@ class DetailService
             'accessible' => true,
         ];
 
-        if (ObjectMetadata::STAIRS_SPIRAL_TYPE === $object['object_stairs_type']) {
+        if (
+            ObjectMetadata::STAIRS_SPIRAL_TYPE === $object['object_stairs_type'] 
+            || ObjectMetadata::STAIRS_DIRECT_SPIRAL_TYPE === $object['object_stairs_type']
+        ) {
             $ret = [
                 'value' => true,
                 'accessible' => false,
