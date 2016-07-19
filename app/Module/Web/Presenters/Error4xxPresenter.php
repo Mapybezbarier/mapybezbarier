@@ -19,17 +19,11 @@ class Error4xxPresenter extends Presenter
     /** @const Cislo portu, kde bezi WP aplikace */
     const PORT = 80;
 
-    /** @var \Nette\Http\IRequest @inject */
-    public $request;
-
     /**
      * @param \Exception $exception
      */
     public function actionDefault(\Exception $exception)
     {
-        \Tracy\Debugger::log(var_export($this->request->getPost(), true), 'post');
-        \Tracy\Debugger::log(var_export($this->request->getCookies(), true), 'cookies');
-
         if (IResponse::S404_NOT_FOUND == $exception->getCode()) {
             $url = $this->getHttpRequest()->getUrl();
 
