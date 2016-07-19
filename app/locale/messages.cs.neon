@@ -208,7 +208,7 @@ form:
         image: "Nahraný soubor musí být obrázek ve formátu JPEG, GIF nebo PNG."
         valid: Prosím vyberte jednu z platných hodnot.
         csrf: "Platnost dat vypršela. Prosím, opakujte akci ještě jednou."
-        date: Zadané datum není v předepsaném formátu %d.
+        date: "Zadané datum není platné. Předepsaný formát je YYYY-MM-DD, např. 2016-01-01."
 
 control:
     search:

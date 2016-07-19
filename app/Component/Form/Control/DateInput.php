@@ -3,9 +3,11 @@
 namespace MP\Component\Form\Control;
 
 use MP\Util\Arrays;
+use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
 use Nette\Forms\IControl;
 use Nette\Utils\DateTime;
+use Nette\Utils\Html;
 
 /**
  * Formularovy provek pro zadani data.
@@ -25,8 +27,6 @@ class DateInput extends TextInput
         parent::__construct($label);
 
         $this->control->type = 'date';
-
-        $this->addRule(__CLASS__ . '::validateDate', 'messages.form.error.date', DateTime::from(time())->format(self::FORMAT));
     }
 
     /**
@@ -34,7 +34,13 @@ class DateInput extends TextInput
      */
     public function getValue()
     {
-        return self::validateDate($this) ? DateTime::from(parent::getValue())->setTime(0, 0) : parent::getValue();
+        if (!empty($this->value)) {
+            $value = DateTime::from(parent::getValue())->setTime(0, 0);
+        } else {
+            $value = parent::getValue() ?: null;
+        }
+
+        return $value;
     }
 
     /**
@@ -57,20 +63,16 @@ class DateInput extends TextInput
     }
 
     /**
-     * @param IControl $control
+     * @override Pridani validace
      *
-     * @return bool
+     * @param null|string $caption
+     *
+     * @return Html|void
      */
-    public static function validateDate(IControl $control)
+    public function getControl($caption = null)
     {
-        $valid = true;
+        $this->addCondition(Form::FILLED)->addRule(Form::PATTERN, 'messages.form.error.date', '(19|20)\d{2}\-(0?[1-9]|1[0-2])\-(0?[1-9]|1\d|2\d|3[01])');
 
-        if ($control->rawValue) {
-            DateTime::createFromFormat(self::FORMAT, $control->rawValue);
-
-            $valid = (0 == DateTime::getLastErrors()["error_count"] && 0 == DateTime::getLastErrors()["warning_count"]);
-        }
-
-        return $valid;
+        return parent::getControl($caption);
     }
 }

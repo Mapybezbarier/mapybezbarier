@@ -208,7 +208,7 @@ form:
         image: "The uploaded image file must be in JPG, GIF or PNG format."
         valid: Please select one of the valid values.
         csrf: The data validity has expired. Please try again one more time.
-        date: The date entered is in the prescribed format %d.
+        date: "The date entered is not valid. The prescribed format is YYYY-MM-DD, e.g. 2016-01-01."
 
 control:
     search:
