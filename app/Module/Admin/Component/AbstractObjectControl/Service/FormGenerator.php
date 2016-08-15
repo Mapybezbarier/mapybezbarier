@@ -137,7 +137,7 @@ class FormGenerator
                     if ($values = Arrays::get($rule, ExchangeMetadata::RULE_ENUM, [])) {
                         $control = new RadioList($label, $this->prepareEnumValues($values, $property, $namespace));
                     } else {
-                        $control = new TextInput($label);
+                        $control = new TextInput($label, 255);
                     }
                 break;
 
