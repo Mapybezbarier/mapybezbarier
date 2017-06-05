@@ -83,6 +83,7 @@ services:
     defaultImageStorage:
         class: MP\Service\ImageFileStorage
         arguments: [%storageDir%, %wwwDir%]
+    mapApiKey: MP\Module\Web\Service\MapApiKey(%google.mapApiKey%)
 
     # cache
     enumValueResolverCacheStorage:
@@ -180,13 +181,10 @@ webloader:
             tempPath: "asset/temp"
             sourceDir: "%wwwDir%/asset/js"
             remoteFiles:
-                - "//maps.googleapis.com/maps/api/js?key=%google.mapApiKey%&libraries=places&language=cs"
                 - "//code.jquery.com/jquery-1.11.3.min.js"
                 - "//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js"
             files:
                 - "spin.js"
-                - "infobox.js"
-                - "markerclusterer.js"
                 - "nette.forms.js"
                 - "nette.ajax.js"
                 - "colorbox.js"

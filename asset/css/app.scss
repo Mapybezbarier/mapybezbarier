@@ -115,7 +115,41 @@ body {
 html, body { height: 100%; margin: 0; padding: 0; }
 #map {
     height: 100%;
-    padding-top: $header_height;
+    margin-top: $header_height;
+
+    /* styly pro mapy.cz */
+    img {
+        max-width: inherit;
+    }
+
+    /* styly pro mapy.cz */
+    .cluster {
+        div {
+            border: none;
+            background-image: url("/asset/img/markers/cluster/original_cluster_2.png");
+
+            img {
+                display: none;
+            }
+
+            span {
+                font-size: 20px;
+                font-family: Arial, sans-serif;
+            }
+        }
+
+        div[data-scale="10"] {
+            background-image: url("/asset/img/markers/cluster/original_cluster_1.png");
+
+            span {
+                font-size: 18px;
+            }
+        }
+
+        div[data-scale="1000"] {
+            background-image: url("/asset/img/markers/cluster/original_cluster_3.png");
+        }
+    }
 }
 
 header {
@@ -323,6 +357,7 @@ header {
         margin-left: -$cols_width;
         padding-bottom: $tools_height;
         left: 0;
+        z-index: 1;
 
         &.opened {
             margin-left: 0;
@@ -331,6 +366,7 @@ header {
     &.right {
         margin-right: -$cols_width;
         right: 0;
+        z-index: 1;
 
         &.opened {
             margin-right: 0;
@@ -380,6 +416,26 @@ header {
                     }
                     &:before {
                         border-width: 0;
+                    }
+                }
+
+                &.maplayer {
+                    margin-left: 25px;
+                    padding: 0;
+                    border-radius: inherit;
+
+                    a {
+                        display: inline-block;
+                        width: 29px;
+                        height: 29px;
+
+                        .gmaps {
+                            background: url("/asset/img/gmaps.png");
+                        }
+
+                        .mapycz {
+                            background: url("/asset/img/mapycz.png");
+                        }
                     }
                 }
 
@@ -478,6 +534,7 @@ header {
     left: 0;
     position: absolute;
     width: 100%;
+    z-index: 1;
 
     li {
         background: $white_color none no-repeat center 17px;
@@ -577,6 +634,48 @@ header {
 
             input {
                 width: 100%;
+            }
+        }
+
+        /* styly pro naseptavac mapy.cz */
+        .content {
+            .item{
+                padding: 0 4px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                line-height: 30px;
+                text-align: left;
+                border-top: 1px solid #e6e6e6;
+                font-size: 11px;
+                color: #999;
+
+                .image{
+                    width: 15px;
+                    height: 20px;
+                    margin-right: 7px;
+                    margin-top: 6px;
+                    display: inline-block;
+                    vertical-align: top;
+                    background: url("/asset/img/suggest.png") no-repeat -1px center;
+                }
+
+                br{
+                    display: none;
+                }
+
+                strong{
+                    font-size: 13px;
+                    font-weight: 700;
+                    padding-right: 5px;
+                }
+                &.active {
+                    background-color: #ebf2fe;
+
+                    .image {
+                        background-position: -18px center;
+                    }
+                }
             }
         }
     }
@@ -741,6 +840,26 @@ footer {
     position: relative;
     width: 300px;
 
+    /* styly pro popup mapy.cz */
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+
+    .tail {
+        visibility: hidden;
+        left: 148px !important;
+        bottom: -98px !important;
+    }
+
+    .card-header,
+    .card-footer{
+        display: none;
+    }
+
+    .card-body {
+        overflow: visible !important;
+    }
+
     > img {
         position: absolute !important;
         top: $position_out;
@@ -772,6 +891,7 @@ footer {
             height: 50px;
             padding: 10px 60px;
             position: relative;
+            margin: auto !important;
             @include ico_circle;
 
             > span {
@@ -1055,7 +1175,7 @@ footer {
 // nizsi hlavicka na mobilech
 @include mq($bp_540) {
     #map {
-        padding-top: $header_height_mobile;
+        margin-top: $header_height_mobile;
     }
     header {
         height: $header_height_mobile;
@@ -1621,7 +1741,7 @@ body.popup_opened {
     position: relative;
 
     #map {
-        padding-top: 0;
+        margin-top: 0;
     }
 }
 .news_iframe {

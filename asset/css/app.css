@@ -680,7 +680,37 @@ html, body {
 
 #map {
   height: 100%;
-  padding-top: 90px;
+  margin-top: 90px;
+}
+
+#map img {
+  max-width: inherit;
+}
+
+#map .cluster div {
+  border: none;
+  background: url("/asset/img/markers/cluster/original_cluster_2.png");
+}
+
+#map .cluster div img {
+  display: none;
+}
+
+#map .cluster div span {
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+}
+
+#map .cluster div[data-scale="10"] {
+  background-image: url("/asset/img/markers/cluster/original_cluster_1.png");
+}
+
+#map .cluster div[data-scale="10"] span {
+  font-size: 18px;
+}
+
+#map .cluster div[data-scale="1000"] {
+  background-image: url("/asset/img/markers/cluster/original_cluster_3.png");
 }
 
 header {
@@ -944,6 +974,7 @@ header .languages li:last-of-type {
   margin-left: -280px;
   padding-bottom: 50px;
   left: 0;
+  z-index: 1;
 }
 .col_wrapper.left.opened {
   margin-left: 0;
@@ -951,6 +982,7 @@ header .languages li:last-of-type {
 .col_wrapper.right {
   margin-right: -280px;
   right: 0;
+  z-index: 1;
 }
 .col_wrapper.right.opened {
   margin-right: 0;
@@ -1076,6 +1108,23 @@ header .languages li:last-of-type {
 .filters .filter_group .filter_items li > label:before {
   border-width: 0;
 }
+
+.filters .filter_group .filter_items li.maplayer{
+  margin-left: 25px;
+  padding: 0 !important;
+  border-radius: inherit !important;
+}
+.filters .filter_group .filter_items li.maplayer a{
+  width: 29px;
+  height: 29px;
+  display: inline-block;
+}
+.filters .filter_group .filter_items li.maplayer a.gmaps{
+  background: url("/asset/img/gmaps.png");
+}
+.filters .filter_group .filter_items li.maplayer a.mapycz{
+  background: url("/asset/img/mapycz.png");
+}
 .filters .filter_group .filter_items li.active {
   background-color: #fffdcc;
 }
@@ -1183,6 +1232,7 @@ header .languages li:last-of-type {
   left: 0;
   position: absolute;
   width: 100%;
+  z-index: 1;
 }
 .tools li {
   background: #fff none no-repeat center 17px;
@@ -1321,6 +1371,41 @@ header .languages li:last-of-type {
   .search .search_holder input {
     width: 100%;
   }
+}
+.search .search_holder .content .item{
+  padding: 0 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 30px;
+  text-align: left;
+  border-top: 1px solid #e6e6e6;
+  font-size: 11px;
+  color: #999;
+}
+.search .search_holder .content .item .image{
+  width: 15px;
+  height: 20px;
+  margin-right: 7px;
+  margin-top: 6px;
+  display: inline-block;
+  vertical-align: top;
+  background: url("/asset/img/suggest.png") no-repeat -1px center;
+}
+.search .search_holder .content .item br{
+  display: none;
+}
+.search .search_holder .content .item strong{
+  font-size: 13px;
+  font-weight: 700;
+  padding-right: 5px;
+}
+.search .search_holder .content .item.active {
+  background-color: #ebf2fe;
+  cursor: pointer;
+}
+.search .search_holder .content .item.active .image {
+  background-position: -18px center;
 }
 .search.opened .open_button:before {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -1518,6 +1603,21 @@ footer.half_opened .footer_logos {
   box-shadow: 1.5px 2.598px 7px 0 rgba(0, 0, 0, 0.35);
   position: relative;
   width: 300px;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+.info_box .tail {
+  visibility: hidden;
+  left: 148px !important;
+  bottom: -98px !important;
+}
+
+.info_box .card-header, .info_box .card-footer{
+  display: none;
+}
+.info_box .card-body {
+  overflow: visible !important;
 }
 .info_box > img {
   position: absolute !important;
@@ -1567,6 +1667,7 @@ footer.half_opened .footer_logos {
   height: 50px;
   padding: 10px 60px;
   position: relative;
+  margin: auto !important;
 }
 .info_box_content_wrapper .ib_header .title > div,
 .info_box_content_wrapper .ib_header .title > span {
@@ -1986,7 +2087,7 @@ footer.half_opened .footer_logos {
 }
 @media only screen and (max-width: 540px) {
   #map {
-    padding-top: 65px;
+    margin-top: 65px;
   }
 
   header {
@@ -2725,7 +2826,7 @@ body.popup_opened .popup {
   position: relative;
 }
 .embedded_map #map {
-  padding-top: 0;
+  margin-top: 0;
 }
 
 .news_iframe .col_wrapper_inner {

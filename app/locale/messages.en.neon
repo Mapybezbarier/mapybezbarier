@@ -220,6 +220,8 @@ control:
             items:
                 roadmap: A map
                 satellite: A satelite
+                mapycz: Mapy.cz
+                gmaps: Google.com Maps
 
             seekPositionButton: Load a position
 
