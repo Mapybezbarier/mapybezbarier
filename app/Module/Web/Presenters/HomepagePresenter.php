@@ -23,6 +23,7 @@ use MP\Module\Web\Component\NewsControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
 use MP\Module\Web\Service\ObjectService;
 use MP\Util\Arrays;
+use MP\Util\WebLoader\JavaScriptLoader;
 use Nette\Application\Responses\TextResponse;
 use Nette\Http\IRequest;
 use WebLoader\FileCollection;
@@ -189,6 +190,11 @@ class HomepagePresenter extends AbstractWebPresenter
         $this->sendResponse($response);
     }
 
+    /**
+     * @override Pridani JavaScriptovych souboru podle zvolenych mapovych podkladu
+     *
+     * @return JavaScriptLoader
+     */
     protected function createComponentJs()
     {
         $control = parent::createComponentJs();

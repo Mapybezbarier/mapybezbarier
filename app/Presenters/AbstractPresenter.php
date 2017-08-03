@@ -9,9 +9,9 @@ use MP\Component\FlashMessageControl;
 use MP\Component\IFlashMessageControlFactory;
 use MP\Util\RuntimeMode;
 use MP\Util\Strings;
+use MP\Util\WebLoader\JavaScriptLoader;
 use Nette\Application\UI\Presenter;
 use WebLoader\Nette\CssLoader;
-use WebLoader\Nette\JavaScriptLoader;
 use WebLoader\Nette\LoaderFactory;
 
 /**
