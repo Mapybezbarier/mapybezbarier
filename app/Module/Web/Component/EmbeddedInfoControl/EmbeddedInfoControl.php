@@ -65,7 +65,7 @@ class EmbeddedInfoControl extends AbstractControl
             $this->mapParams
         );
 
-        $template->link = str_replace(MapControl::GET_MAPS . "=1", MapControl::GET_MAPS, $this->getPresenter()->link('//Embedded:default', $query));
+        $template->link = $this->getPresenter()->link('//Embedded:default', $query);
 
         return $template;
     }

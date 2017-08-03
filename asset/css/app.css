@@ -1118,12 +1118,13 @@ header .languages li:last-of-type {
   width: 29px;
   height: 29px;
   display: inline-block;
+  background-size: cover;
 }
 .filters .filter_group .filter_items li.maplayer a.gmaps{
-  background: url("/asset/img/gmaps.png");
+  background-image: url("/asset/img/gmaps.png");
 }
 .filters .filter_group .filter_items li.maplayer a.mapycz{
-  background: url("/asset/img/mapycz.png");
+  background-image: url("/asset/img/mapycz.png");
 }
 .filters .filter_group .filter_items li.active {
   background-color: #fffdcc;

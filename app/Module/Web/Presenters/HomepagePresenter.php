@@ -22,8 +22,10 @@ use MP\Module\Web\Component\NavigationControl\NavigationControl;
 use MP\Module\Web\Component\NewsControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
 use MP\Module\Web\Service\ObjectService;
+use MP\Util\Arrays;
 use Nette\Application\Responses\TextResponse;
 use Nette\Http\IRequest;
+use WebLoader\FileCollection;
 
 /**
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
@@ -53,6 +55,12 @@ class HomepagePresenter extends AbstractWebPresenter
      * @var int
      */
     public $id;
+
+    /**
+     * @persistent
+     * @var bool
+     */
+    public $maps = false;
 
     /** @var ObjectService @inject */
     public $objectService;
@@ -95,7 +103,6 @@ class HomepagePresenter extends AbstractWebPresenter
         $this->template->filtered = (bool) $restrictor;
         $this->template->popup = $this->getParameter(self::PARAM_POPUP, null);
         $this->template->maps = $this->getParameter(self::PARAM_MAPS, null);
-        $this->template->apiKey = $this->context->getService('mapApiKey')->getId();
 
         if ($this->isAjax() && $this->getHttpRequest()->isMethod(IRequest::POST)) {
             $this->redrawControl('filter');
@@ -180,8 +187,27 @@ class HomepagePresenter extends AbstractWebPresenter
 
         $this->getHttpResponse()->setContentType("text/csv");
         $this->sendResponse($response);
+    }
 
-        $this->terminate();
+    protected function createComponentJs()
+    {
+        $control = parent::createComponentJs();
+
+        /** @var FileCollection $collection */
+        $collection = $control->getCompiler()->getFileCollection();
+
+        if ($this->maps) {
+            $apiKey = Arrays::get($this->context->getParameters(), ['google', 'mapApiKey']);
+
+            $collection->addRemoteFile("//maps.googleapis.com/maps/api/js?key=$apiKey&libraries=places&language=cs");
+            $collection->addFile('gmaps.js');
+        } else {
+            $collection->addRemoteFile('//api.mapy.cz/loader.js');
+            $collection->addRemoteFile('!Loader.load();');
+            $collection->addFile('mapycz.js');
+        }
+
+        return $control;
     }
 
     /**

@@ -428,13 +428,14 @@ header {
                         display: inline-block;
                         width: 29px;
                         height: 29px;
+                        background-size: cover;
 
                         .gmaps {
-                            background: url("/asset/img/gmaps.png");
+                            background-image: url("/asset/img/gmaps.png");
                         }
 
                         .mapycz {
-                            background: url("/asset/img/mapycz.png");
+                            background-image: url("/asset/img/mapycz.png");
                         }
                     }
                 }

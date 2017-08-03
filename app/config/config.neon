@@ -83,7 +83,6 @@ services:
     defaultImageStorage:
         class: MP\Service\ImageFileStorage
         arguments: [%storageDir%, %wwwDir%]
-    mapApiKey: MP\Module\Web\Service\MapApiKey(%google.mapApiKey%)
 
     # cache
     enumValueResolverCacheStorage:
@@ -217,7 +216,7 @@ webloader:
 extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
     translation: Kdyby\Translation\DI\TranslationExtension
-    webloader: WebLoader\Nette\Extension
+    webloader: MP\Util\WebLoader\Extension
     images: IPub\Images\DI\ImagesExtension
     ajaxHistory: VojtechDobes\NetteAjax\HistoryExtension
     managerExtension: MP\DI\ManagerExtension
