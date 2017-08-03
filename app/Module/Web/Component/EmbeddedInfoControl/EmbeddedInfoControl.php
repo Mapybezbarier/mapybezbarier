@@ -4,7 +4,6 @@ namespace MP\Module\Web\Component;
 
 use MP\Component\AbstractControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
-use MP\Module\Web\Component\MapControl\MapControl;
 use Nette\Application\UI\ITemplate;
 
 /**
