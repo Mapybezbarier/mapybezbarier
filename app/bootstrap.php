@@ -36,7 +36,9 @@ if (file_exists(APP_DIR . '/config/config.test.neon')) {
 }
 
 if ($configurator->isDebugMode()) {
-    $configurator->addConfig(APP_DIR . '/config/config.debug.neon');
+    if (file_exists(APP_DIR . '/config/config.debug.neon')) {
+        $configurator->addConfig(APP_DIR . '/config/config.debug.neon');
+    }
 
     Route::$defaultFlags = 0;
 
@@ -45,6 +47,4 @@ if ($configurator->isDebugMode()) {
     }
 }
 
-$container = $configurator->createContainer();
-
-return $container;
+return $configurator->createContainer();
