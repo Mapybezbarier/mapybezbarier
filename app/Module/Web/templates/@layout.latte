@@ -29,14 +29,6 @@
     <meta name="msapplication-TileColor" content="#e31e25">
     <meta name="theme-color" content="#e31e25">
     {control css}
-    {ifset $maps}
-    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={$apiKey}&libraries=places&language=cs"></script>
-    <script type="text/javascript" src="/asset/js/gmaps.js"></script>
-    {else}
-    <script type="text/javascript" src="//api.mapy.cz/loader.js"></script>
-    <script type="text/javascript" n:syntax="off">Loader.load();</script>
-    <script type="text/javascript" src="/asset/js/mapycz.js"></script>
-    {/ifset}
     {control js}
 </head>
 <body n:class="isset($popup) ? popup_opened">

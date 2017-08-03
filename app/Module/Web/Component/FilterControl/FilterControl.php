@@ -57,7 +57,6 @@ class FilterControl extends AbstractFormControl
     public function render()
     {
         $template = $this->getTemplate();
-        $template->maps = isset($_GET[HomepagePresenter::PARAM_MAPS])? TRUE : NULL;
         $template->render();
     }
 
