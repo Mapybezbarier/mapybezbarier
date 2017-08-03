@@ -57,7 +57,7 @@ class ObjectHelper
         }
 
         if ($ret && $item['city_part'] && ($item['city_part'] != $item['city'])) {
-            $ret .= "-{$item['city_part']}";
+            $ret .= ", {$item['city_part']}";
         }
 
         return $ret;

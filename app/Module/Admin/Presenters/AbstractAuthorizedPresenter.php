@@ -53,7 +53,7 @@ abstract class AbstractAuthorizedPresenter extends AbstractAdminPresenter
     }
 
     /**
-     * Overi, zda je uzivatel vlastnim zaznamu, jinak je mu odepren pristup.
+     * Overi, zda je uzivatel vlastnik zaznamu, jinak je mu odepren pristup.
      *
      * @param array $entry
      * @param string $column
@@ -68,13 +68,9 @@ abstract class AbstractAuthorizedPresenter extends AbstractAdminPresenter
             $user = $this->getUser();
 
             if ($user->isInRole(Authorizator::ROLE_AGENCY)) {
-                $isOwnedByMyself = ($id == $user->getId());
-                $agencyMappersIds = Arrays::pairs($this->userService->getMappers($user->getId()), 'id', 'id');
-                $isOwnedByMyMapper = in_array($id, $agencyMappersIds, true);
-
-                $owner = ($isOwnedByMyself || $isOwnedByMyMapper);
+                $owner = $this->checkAgencyOwnership($id);
             } else if ($user->isInRole(Authorizator::ROLE_MAPPER)) {
-                $owner = ($id == $user->getId());
+                $owner = $this->checkMapperOwnership($id);
             }
         }
 
@@ -93,5 +89,37 @@ abstract class AbstractAuthorizedPresenter extends AbstractAdminPresenter
         $control = $factory->create();
 
         return $control;
+    }
+
+    /**
+     * Overi, zda je uzivatel v roli agentury vlastnik zaznamu
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    protected function checkAgencyOwnership($id)
+    {
+        $isOwnedByMyself = ($id == $this->getUser()->getId());
+        $agencyMappersIds = Arrays::pairs($this->userService->getMappers($this->getUser()->getId()), 'id', 'id');
+        $isOwnedByMyMapper = in_array($id, $agencyMappersIds, true);
+
+        $owner = ($isOwnedByMyself || $isOwnedByMyMapper);
+
+        return $owner;
+    }
+
+    /**
+     * Overi, zda je uzivatel v roli mapare vlastnik zaznamu
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    protected function checkMapperOwnership($id)
+    {
+        $isOwnedByMyself = ($id == $this->getUser()->getId());
+
+        return $isOwnedByMyself;
     }
 }

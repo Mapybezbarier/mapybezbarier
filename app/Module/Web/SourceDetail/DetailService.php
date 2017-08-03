@@ -218,17 +218,17 @@ class DetailService
         $ret =
             $this->getWcPictograms($object) +
             [
-            'parking' => $this->getPictogramParking($object),
-            'difficult_surface' => $this->getPictogramDifficultSurface($object),
-            'difficult_inclination' => $this->getPictogramDifficultInclination($object),
-            'stairs' => $this->getPictogramStairs($object),
-            'spiral_stairs' => $this->getPictogramSpiralStairs($object),
-            'elevator' => $this->getPictogramElevator($object),
-            'platform' => $this->getPictogramPlatform($object),
-            'rampskids' => $this->getPictogramRampSkids($object),
-            'narrowed_passage' => $this->getPictogramNarrowedPassage($object),
-            'door_width' => $this->getPictogramDoorWidth($object),
-        ];
+                'parking' => $this->getPictogramParking($object),
+                'difficult_surface' => $this->getPictogramDifficultSurface($object),
+                'difficult_inclination' => $this->getPictogramDifficultInclination($object),
+                'stairs' => $this->getPictogramStairs($object),
+                'spiral_stairs' => $this->getPictogramSpiralStairs($object),
+                'elevator' => $this->getPictogramElevator($object),
+                'platform' => $this->getPictogramPlatform($object),
+                'rampskids' => $this->getPictogramRampSkids($object),
+                'narrowed_passage' => $this->getPictogramNarrowedPassage($object),
+                'door_width' => $this->getPictogramDoorWidth($object),
+            ];
 
         return $ret;
     }
@@ -243,8 +243,8 @@ class DetailService
     protected function getPictogramParking($object)
     {
         $ret = [
-         'value' => false,
-         'accessible' => false,
+            'value' => false,
+            'accessible' => false,
         ];
 
         if ($object['entrance1_is_reserved_parking'] || $object['entrance2_is_reserved_parking']) {
@@ -320,7 +320,10 @@ class DetailService
             'accessible' => true,
         ];
 
-        if (ObjectMetadata::STAIRS_SPIRAL_TYPE === $object['object_stairs_type']) {
+        if (
+            ObjectMetadata::STAIRS_SPIRAL_TYPE === $object['object_stairs_type'] 
+            || ObjectMetadata::STAIRS_DIRECT_SPIRAL_TYPE === $object['object_stairs_type']
+        ) {
             $ret = [
                 'value' => true,
                 'accessible' => false,
@@ -354,7 +357,7 @@ class DetailService
 
                 if ($area && (is_null($minArea) || $minArea > $area)) {
                     $ret['description'] = $this->translator->translate('messages.control.map.detail.description.elevator', [
-                        'size' => "{$elevator['elevator_cage_width']} × {$elevator['elevator_cage_depth']}"
+                        'size' => "{$elevator['elevator_cage_width']} × {$elevator['elevator_cage_depth']}",
                     ]);
                 }
             }
@@ -387,7 +390,7 @@ class DetailService
 
                 if ($area && (is_null($minArea) || $minArea > $area)) {
                     $ret['description'] = $this->translator->translate('messages.control.map.detail.description.platform', [
-                        'size' => "{$platform['platform_width']} × {$platform['platform_depth']}"
+                        'size' => "{$platform['platform_width']} × {$platform['platform_depth']}",
                     ]);
                 }
             }
@@ -443,14 +446,14 @@ class DetailService
 
             if ($totalMaxInclination) {
                 $ret['description'] = $this->translator->translate('messages.control.map.detail.description.rampskids1', [
-                    'size' => $totalMaxInclination
+                    'size' => $totalMaxInclination,
                 ]);
             }
 
             if ($totalMaxInclination && $totalMaxLenght && $idInclination != $idLength) {
                 $ret['description'] .= ', ' . $this->translator->translate('messages.control.map.detail.description.rampskids2', [
-                    'size' => $totalMaxLenght
-                ]);
+                        'size' => $totalMaxLenght,
+                    ]);
             }
         }
 
@@ -748,7 +751,9 @@ class DetailService
 
     /**
      * Pripravi piktogramy WC pro vsechny prilohy
+     *
      * @param array $object
+     *
      * @return array
      */
     protected function getWcPictograms($object)
@@ -757,7 +762,7 @@ class DetailService
 
         foreach (Arrays::get($object, ObjectMetadata::WC, []) as $wc) {
             if ($wc['wc_accessibility']) {
-                $ret['wc_'.$wc['id']] = [
+                $ret['wc_' . $wc['id']] = [
                     'key' => $wc['wc_accessibility'],
                     'value' => '',
                     'accessible' => null,
@@ -771,7 +776,9 @@ class DetailService
 
     /**
      * Sestavi detailni info o konkretnim WC
+     *
      * @param array $wc
+     *
      * @return string
      */
     protected function getWcDescription($wc)
@@ -780,20 +787,20 @@ class DetailService
 
         if ($wc['wc_cabin_localization_id'] && $wc['wc_cabin_access_id']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.location', [
-                'localization' => $this->translator->translate('messages.enum.value.wcCabinLocalization.'.$wc['wc_cabin_localization']),
-                'access' => $this->translator->translate('messages.enum.value.wcCabinAccess.'.$wc['wc_cabin_access']),
+                'localization' => $this->translator->translate('messages.enum.value.wcCabinLocalization.' . $wc['wc_cabin_localization']),
+                'access' => $this->translator->translate('messages.enum.value.wcCabinAccess.' . $wc['wc_cabin_access']),
             ]);
         }
 
         if ($wc['wc_cabin_width'] && $wc['wc_cabin_depth']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.cabinSize', [
-                'size' => "{$wc['wc_cabin_width']} × {$wc['wc_cabin_depth']}"
+                'size' => "{$wc['wc_cabin_width']} × {$wc['wc_cabin_depth']}",
             ]);
         }
 
         if ($wc['door_opening_direction_id']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.doorOpeningDirection', [
-                'value' => $this->translator->translate('messages.enum.value.doorOpeningDirection.'.$wc['door_opening_direction']),
+                'value' => $this->translator->translate('messages.enum.value.doorOpeningDirection.' . $wc['door_opening_direction']),
             ]);
         }
 
@@ -818,7 +825,7 @@ class DetailService
         if ($wc['handle1_type_id'] && $wc['handle1_length']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleLeft', [
                 'size' => $wc['handle1_length'],
-                'type' => $this->translator->translate('messages.enum.value.handleType.'.$wc['handle1_type']),
+                'type' => $this->translator->translate('messages.enum.value.handleType.' . $wc['handle1_type']),
             ]);
         } else {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleLeftMissing');
@@ -827,7 +834,7 @@ class DetailService
         if ($wc['handle2_type_id'] && $wc['handle2_length']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleRight', [
                 'size' => $wc['handle2_length'],
-                'type' => $this->translator->translate('messages.enum.value.handleType.'.$wc['handle2_type']),
+                'type' => $this->translator->translate('messages.enum.value.handleType.' . $wc['handle2_type']),
             ]);
         } else {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleRightMissing');
@@ -835,18 +842,18 @@ class DetailService
 
         if ($wc['washbasin_underpass_id']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.washbasinUnderpass', [
-                'value' => $this->translator->translate('messages.enum.value.washbasinUnderpass.'.$wc['washbasin_underpass']),
+                'value' => $this->translator->translate('messages.enum.value.washbasinUnderpass.' . $wc['washbasin_underpass']),
             ]);
         }
 
         if ($wc['wc_changingdesk_id']) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.wcChangingdeskTrue', [
-                'bool' => $this->translator->translate('messages.enum.boolLower.'.($wc['wc_is_changingdesk'] ? "true" : "false")),
-                'value' => $this->translator->translate('messages.enum.value.wcChangingdesk.'.$wc['wc_changingdesk']),
+                'bool' => $this->translator->translate('messages.enum.boolLower.' . ($wc['wc_is_changingdesk'] ? "true" : "false")),
+                'value' => $this->translator->translate('messages.enum.value.wcChangingdesk.' . $wc['wc_changingdesk']),
             ]);
         } else {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.wcChangingdeskFalse', [
-                'bool' => $this->translator->translate('messages.enum.boolLower.'.($wc['wc_is_changingdesk'] ? "true" : "false")),
+                'bool' => $this->translator->translate('messages.enum.boolLower.' . ($wc['wc_is_changingdesk'] ? "true" : "false")),
             ]);
         }
 
