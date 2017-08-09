@@ -366,6 +366,7 @@ INSERT INTO exchange_source VALUES (1, 'mapybezbarier.cz', 'mapybezbarier');
 INSERT INTO exchange_source VALUES (2, 'DPA s.r.o.', 'xml');
 INSERT INTO exchange_source VALUES (10, 'DPA s.r.o.', 'json');
 INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv');
+INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas');
 
 
 --
@@ -413,7 +414,7 @@ SELECT pg_catalog.setval('handle_type_id_seq', 2, true);
 -- Name: import_source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mapy_pristupnosti_db_01
 --
 
-SELECT pg_catalog.setval('import_source_id_seq', 12, true);
+SELECT pg_catalog.setval('import_source_id_seq', 13, true);
 
 
 --
@@ -523,6 +524,88 @@ INSERT INTO object_type VALUES (15, 'MuseumGalleryObjectCategory', 'muzeum a gal
 INSERT INTO object_type VALUES (16, 'MuseumLibraryObjectCategory', 'muzeum a knihovna', '[14,11]');
 INSERT INTO object_type VALUES (22, 'TowerObjectCategory', 'rozhledna (vyhlídková věž)', NULL);
 INSERT INTO object_type VALUES (7, 'ChapelObjectCategory', 'kaple', NULL);
+INSERT INTO object_type VALUES (29, 'WaterParkObjectCategory', 'aquapark', NULL);
+INSERT INTO object_type VALUES (30, 'BusStationObjectCategory', 'autobusové nádraží', NULL);
+INSERT INTO object_type VALUES (31, 'BankObjectCategory', 'banka', NULL);
+INSERT INTO object_type VALUES (32, 'BarObjectCategory', 'bar', NULL);
+INSERT INTO object_type VALUES (33, 'BotanicGardenObjectCategory', 'botanická zahrada', NULL);
+INSERT INTO object_type VALUES (34, 'PastryObjectCategory', 'cukrárna, kavárna a čajovna', NULL);
+INSERT INTO object_type VALUES (35, 'GasStationObjectCategory', 'čerpací stanice', NULL);
+INSERT INTO object_type VALUES (36, 'FarmObjectCategory', 'farma a statek', NULL);
+INSERT INTO object_type VALUES (37, 'TaxOfficeObjectCategory', 'finanční úřad', NULL);
+INSERT INTO object_type VALUES (38, 'StadiumObjectCategory', 'fotbalové hřiště a stadion', NULL);
+INSERT INTO object_type VALUES (39, 'GuestHouseObjectCategory', 'penzion', NULL);
+INSERT INTO object_type VALUES (40, 'HotelObjectCategory', 'hotel', NULL);
+INSERT INTO object_type VALUES (41, 'PubObjectCategory', 'hospoda', NULL);
+INSERT INTO object_type VALUES (42, 'FuneralHallObjectCategory', 'smuteční síň', NULL);
+INSERT INTO object_type VALUES (43, 'ObservatoryObjectCategory', 'hvězdárna a planetárium', NULL);
+INSERT INTO object_type VALUES (44, 'HypermarketObjectCategory', 'hypermarket', NULL);
+INSERT INTO object_type VALUES (45, 'InformationCenterObjectCategory', 'informační centrum', NULL);
+INSERT INTO object_type VALUES (46, 'CampObjectCategory', 'kemp', NULL);
+INSERT INTO object_type VALUES (47, 'CinemaObjectCategory', 'kino', NULL);
+INSERT INTO object_type VALUES (48, 'ConcertHallObjectCategory', 'koncertní síň', NULL);
+INSERT INTO object_type VALUES (49, 'ContactSocialServiceObjectCategory', 'sociální kontaktní služby', NULL);
+INSERT INTO object_type VALUES (50, 'SwimmingObjectCategory', 'koupaliště', NULL);
+INSERT INTO object_type VALUES (51, 'IndoorSwimmingPoolObjectCategory', 'krytý plavecký bazén', NULL);
+INSERT INTO object_type VALUES (52, 'SpaHouseObjectCategory', 'lázeňský dům', NULL);
+INSERT INTO object_type VALUES (53, 'WellnessObjectCategory', 'wellness', NULL);
+INSERT INTO object_type VALUES (54, 'PharmacyObjectCategory', 'lékárna', NULL);
+INSERT INTO object_type VALUES (55, 'DoctorObjectCategory', 'lékař', NULL);
+INSERT INTO object_type VALUES (56, 'MedicalEmergencyObjectCategory', 'lékařská pohotovost', NULL);
+INSERT INTO object_type VALUES (57, 'DentalEmergencyObjectCategory', 'zubní pohotovost', NULL);
+INSERT INTO object_type VALUES (58, 'AirportObjectCategory', 'letiště', NULL);
+INSERT INTO object_type VALUES (59, 'FolkArchitectureObjectCategory', 'lidová architektura', NULL);
+INSERT INTO object_type VALUES (60, 'CityHallObjectCategory', 'magistrát', NULL);
+INSERT INTO object_type VALUES (61, 'KindergartenObjectCategory', 'mateřská škola', NULL);
+INSERT INTO object_type VALUES (62, 'MunicipalityObjectCategory', 'městský úřad', NULL);
+INSERT INTO object_type VALUES (63, 'MosqueObjectCategory', 'mešita', NULL);
+INSERT INTO object_type VALUES (64, 'HospitalObjectCategory', 'nemocnice', NULL);
+INSERT INTO object_type VALUES (65, 'PolyclinicObjectCategory', 'poliklinika', NULL);
+INSERT INTO object_type VALUES (66, 'MunicipalOfficeObjectCategory', 'obecní úřad', NULL);
+INSERT INTO object_type VALUES (67, 'StoreObjectCategory', 'obchod', NULL);
+INSERT INTO object_type VALUES (68, 'DepartmentStoreObjectCategory', 'obchodní dům a nákupní centrum', NULL);
+INSERT INTO object_type VALUES (69, 'OpticianShopObjectCategory', 'optika', NULL);
+INSERT INTO object_type VALUES (70, 'BreweryObjectCategory', 'pivovar', NULL);
+INSERT INTO object_type VALUES (71, 'ResidentialSocialServiceObjectCategory', 'sociální pobytové služby', NULL);
+INSERT INTO object_type VALUES (72, 'InsuranceOfficeObjectCategory', 'pojišťovna', NULL);
+INSERT INTO object_type VALUES (73, 'PoliceObjectCategory', 'policie ČR', NULL);
+INSERT INTO object_type VALUES (74, 'MetropolitanPoliceObjectCategory', 'policie městská', NULL);
+INSERT INTO object_type VALUES (75, 'PostOfficeObjectCategory', 'pošta', NULL);
+INSERT INTO object_type VALUES (76, 'CarDealerObjectCategory', 'prodejce automobilů', NULL);
+INSERT INTO object_type VALUES (77, 'HarborObjectCategory', 'přístav', NULL);
+INSERT INTO object_type VALUES (78, 'RecreationalFacilityObjectCategory', 'rekreační zařízení', NULL);
+INSERT INTO object_type VALUES (79, 'RestaurantObjectCategory', 'restaurace a pohostinství', NULL);
+INSERT INTO object_type VALUES (80, 'FastFoodObjectCategory', 'rychlé občerstvení', NULL);
+INSERT INTO object_type VALUES (81, 'ServiceObjectCategory', 'služby', NULL);
+INSERT INTO object_type VALUES (82, 'SocialOfficeObjectCategory', 'sociální zabezpečení', NULL);
+INSERT INTO object_type VALUES (83, 'CourtObjectCategory', 'soud', NULL);
+INSERT INTO object_type VALUES (84, 'SportsFacilityObjectCategory', 'sportovní zařízení', NULL);
+INSERT INTO object_type VALUES (85, 'AdministrativeOfficeObjectCategory', 'správní úřad', NULL);
+INSERT INTO object_type VALUES (86, 'MetroStationObjectCategory', 'stanice metra', NULL);
+INSERT INTO object_type VALUES (87, 'PublicProsecutorObjectCategory', 'státní zastupitelství', NULL);
+INSERT INTO object_type VALUES (88, 'HighSchoolObjectCategory', 'střední škola', NULL);
+INSERT INTO object_type VALUES (89, 'SupermarketObjectCategory', 'supermarket', NULL);
+INSERT INTO object_type VALUES (90, 'WeddingHallObjectCategory', 'svatební síň', NULL);
+INSERT INTO object_type VALUES (91, 'SchoolObjectCategory', 'škola', NULL);
+INSERT INTO object_type VALUES (92, 'EmploymentOfficeObjectCategory', 'úřad práce', NULL);
+INSERT INTO object_type VALUES (93, 'PublicToiletObjectCategory', 'veřejné WC', NULL);
+INSERT INTO object_type VALUES (94, 'VeterinarySurgeryObjectCategory', 'veterinární ordinace', NULL);
+INSERT INTO object_type VALUES (95, 'ViticultureObjectCategory', 'vinařství', NULL);
+INSERT INTO object_type VALUES (96, 'TrainStationObjectCategory', 'vlaková stanice', NULL);
+INSERT INTO object_type VALUES (97, 'CollegeObjectCategory', 'vysoká škola a univerzita', NULL);
+INSERT INTO object_type VALUES (98, 'BasicSchoolObjectCategory', 'základní škola', NULL);
+INSERT INTO object_type VALUES (99, 'EmbassyObjectCategory', 'zastupitelský úřad a ambasáda', NULL);
+INSERT INTO object_type VALUES (100, 'HealthInsuranceCompanyObjectCategory', 'zdravotní pojišťovna', NULL);
+INSERT INTO object_type VALUES (101, 'MedicalSupplyObjectCategory', 'zdravotnické potřeby', NULL);
+INSERT INTO object_type VALUES (102, 'WinterStadiumObjectCategory', 'zimní stadion', NULL);
+INSERT INTO object_type VALUES (103, 'ZooObjectCategory', 'zoologická zahrada', NULL);
+INSERT INTO object_type VALUES (106, 'CulturalFacilityObjectCategory', 'kulturní zařízení', NULL);
+INSERT INTO object_type VALUES (107, 'InstitutionObjectCategory', 'instituce', NULL);
+INSERT INTO object_type VALUES (108, 'TransportObjectCategory', 'doprava', NULL);
+INSERT INTO object_type VALUES (109, 'ElementaryArtSchoolObjectCategory', 'základní umělecká škola', NULL);
+INSERT INTO object_type VALUES (104, 'CultureHouseObjectCategory', 'kulturní dům', NULL);
+INSERT INTO object_type VALUES (105, 'AtmObjectCategory', 'bankomat', NULL);
+INSERT INTO object_type VALUES (110, 'MedicalFacilityObjectCategory', 'zdravotnické zařízení', NULL);
 
 
 --
@@ -971,9 +1054,18 @@ INSERT INTO washbasin_underpass VALUES (2, 'InsufficientWashbasinUnderpass', 'ne
 SELECT pg_catalog.setval('washbasin_underpass_id_seq', 2, true);
 
 
+--
+-- TOC entry 2600 (class 0 OID 16585)
+-- Dependencies: 222
+-- Data for Name: lang; Type: TABLE DATA; Schema: public; Owner: mapy_pristupnosti_db_01
+--
+
+INSERT INTO lang VALUES ('cs', 'Česky', NULL);
+INSERT INTO lang VALUES ('en', 'English', NULL);
+
+
 -- Completed on 2016-02-23 09:08:29 CET
 
 --
 -- PostgreSQL database dump complete
 --
-

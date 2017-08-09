@@ -952,6 +952,11 @@
             <xs:enumeration value="ZooObjectCategory"/>
             <xs:enumeration value="CultureHouseObjectCategory"/>
             <xs:enumeration value="AtmObjectCategory"/>
+            <xs:enumeration value="CulturalFacilityObjectCategory"/>
+            <xs:enumeration value="InstitutionObjectCategory"/>
+            <xs:enumeration value="TransportObjectCategory"/>
+            <xs:enumeration value="ElementaryArtSchoolObjectCategory"/>
+            <xs:enumeration value="MedicalFacilityObjectCategory"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
