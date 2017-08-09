@@ -17,21 +17,21 @@ class VozejkmapParser implements IParser
 {
     /** @var array mapa ciselnikoveho atributu - typ objektu - pouze pro informativni vypis */
     protected $mapLocationType = [
-        1 => 'Kultura',
-        2 => 'Sport',
-        3 => 'Instituce',
-        4 => 'Jídlo a pití',
-        5 => 'Ubytování',
-        6 => 'Lékaři, lékárny',
-        7 => 'Jiné',
-        8 => 'Doprava',
-        9 => 'Veřejné WC',
-        10 => 'Benzínka',
-        11 => 'Obchod',
-        12 => 'Banka, bankomat',
-        13 => 'Parkoviště',
-        14 => 'Prodejní a servisní místa Škoda Auto',
-        15 => 'Škoda Handy',
+        1 => 'CulturalFacilityObjectCategory', // 'Kultura',
+        2 => 'SportsFacilityObjectCategory', // 'Sport'
+        3 => 'InstitutionObjectCategory', // 'Instituce',
+        4 => 'RestaurantObjectCategory', //'Jídlo a pití',
+        5 => 'HotelObjectCategory', // 'Ubytování',
+        6 => 'DoctorObjectCategory', // 'Lékaři, lékárny',
+        7 => 'ServiceObjectCategory', // 'Jiné',
+        8 => 'TransportObjectCategory', // 'Doprava',
+        9 => 'PublicToiletObjectCategory', // 'Veřejné WC',
+        10 => 'GasStationObjectCategory', // 'Benzínka',
+        11 => 'StoreObjectCategory', // 'Obchod',
+        12 => 'BankObjectCategory', // 'Banka, bankomat',
+        13 => 'ServiceObjectCategory', // 'Parkoviště',
+        14 => 'CarDealerObjectCategory', // 'Prodejní a servisní místa Škoda Auto',
+        15 => 'ServiceObjectCategory', // 'Škoda Handy',
     ];
 
     /** @var array mapa ciselnikoveho atributu - typ bezbarierovosti - pouze pro informativni vypis */
@@ -92,11 +92,15 @@ class VozejkmapParser implements IParser
             'description' => Arrays::get($row, 'description', null),
             'latitude' => Arrays::get($row, 'lat', null),
             'longitude' => Arrays::get($row, 'lng', null),
-            'entrance1IsReservedParking' => ('yes' === Arrays::get($row, 'lng', 'no')),
-            'objectType' => ObjectMetadata::CATEGORY_OTHER,
-            'objectTypeCustom' => ($locationTypeId ? Arrays::get($this->mapLocationType, $locationTypeId, null) : null),
-            'accessibility' => ObjectMetadata::ACCESSIBILITY_OK,
+            'entrance1IsReservedParking' => ('yes' === Arrays::get($row, 'attr3', 'no')),
+            'objectType' => ($locationTypeId ? Arrays::get($this->mapLocationType, $locationTypeId, ObjectMetadata::CATEGORY_OTHER) : ObjectMetadata::CATEGORY_OTHER),
+            'accessibility' => $this->getObjectAccessibility($row),
             'externalData' => $this->prepareExternalData($row),
+            'webUrl' => Arrays::get($row, 'link', null),
+            'zipcode' => Arrays::get($row, 'zip', null),
+            'street' => Arrays::get($row, 'street', null),
+            'streetDescNo' => Arrays::get($row, 'streetnumber', null),
+            'city' => Arrays::get($row, 'city', null),
             'mappingDate' => time(),
         ];
 
@@ -154,6 +158,22 @@ class VozejkmapParser implements IParser
             $ret = Json::encode($ret);
         } catch (JsonException $e) {
             throw new ParseException('Nepodarilo se externi data zakodovat jako JSON.');
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Detekce pristupnosti objektu
+     * @param array $row
+     * @return string kod pristupnosti
+     */
+    protected function getObjectAccessibility($row)
+    {
+        $ret = ObjectMetadata::ACCESSIBILITY_NO;
+
+        if (!empty($row['attr2'])) {
+            $ret = 'yes' === $row['attr2'] ? ObjectMetadata::ACCESSIBILITY_OK : ObjectMetadata::ACCESSIBILITY_PARTLY;
         }
 
         return $ret;

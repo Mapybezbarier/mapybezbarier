@@ -1,0 +1,18 @@
+<div class="detail_pictograms">
+    {foreach $object['custom_data']['custom_pictograms'] as $key => $pictogram}
+        {if !is_null($pictogram['value'])}
+            {? $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
+            {capture $keyClass}{$key|lower}{/capture}
+            <div n:class="detail_pictogram">
+                <strong class="title">{_'messages.renderer.wckompas.' . $key}</strong>
+                <span n:class="detail_pictogram_accessibility, null !== $pictogram['accessible'] ? ('accessibility_' . $pictogram['accessible'])">
+                {if is_bool($pictogram['value'])}
+                    {if $pictogram['value']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}
+                {else}
+                    {$pictogram['value']}
+                {/if}
+                </span>
+            </div>
+        {/if}    
+    {/foreach}
+</div>

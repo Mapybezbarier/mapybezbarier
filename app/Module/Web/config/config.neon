@@ -2,12 +2,12 @@ parameters:
     categories:
         mapping:
             accommodation: [39, 40, 46, 52, 78]
-            authority: [19, 37, 60, 62, 66, 73, 74, 82, 83, 85, 87, 92, 99]
+            authority: [19, 37, 60, 62, 66, 73, 74, 82, 83, 85, 87, 92, 99, 107]
             church: [1, 6, 7, 10, 12, 13, 20, 63]
-            culture: [2, 3, 14, 15, 16, 47, 48, 104]
-            education: [61, 88,  91, 97, 98]
+            culture: [2, 3, 14, 15, 16, 47, 48, 104, 106]
+            education: [61, 88,  91, 97, 98, 109]
             garden: [33, 103]
-            health: [54, 55, 56, 57, 64, 65, 69, 101]
+            health: [54, 55, 56, 57, 64, 65, 69, 101, 110]
             historical: [4, 5, 17, 21, 23]
             hospitality: [32, 34, 41, 79, 80]
             leisure: [29, 36, 43, 50, 59, 70, 95]
@@ -17,11 +17,12 @@ parameters:
             social: [49, 71]
             sport: [38, 51, 84, 102]
             tower: [22]
-            transportation: [30, 58, 77, 86, 96]
+            transportation: [30, 58, 77, 86, 96, 108]
 
     sourceDetail:
         mapping:
             vozejkmap: webVozejkmapSourceDetail
+            wckompas: webWcKompasSourceDetail
 
 services:
     #factories
@@ -62,6 +63,7 @@ services:
     webObjectRestrictorBuilder: MP\Module\Web\Service\ObjectRestrictorBuilder
     webDetailService: MP\Module\SourceDetail\DetailService(..., ..., ..., ..., %categories.mapping%)
     webVozejkmapSourceDetail: MP\Module\SourceDetail\VozejkmapSourceDetail
+    webWcKompasSourceDetail: MP\Module\SourceDetail\WcKompasSourceDetail
 
 includes:
     - navigation.neon

@@ -114,6 +114,12 @@ enum:
             zooObjectCategory: "zoologická zahrada"
             atmObjectCategory: "bankomat"
             cultureHouseObjectCategory: "kulturní dům"
+            culturalFacilityObjectCategory: "kulturní zařízení"
+            institutionObjectCategory: "instituce"
+            transportObjectCategory: "doprava"
+            elementaryArtSchoolObjectCategory: "základní umělecká škola"
+            medicalFacilityObjectCategory: "zdravotnické zařízení"
+
 
         accessibility:
             accessibleObjectMKPO: přístupný
@@ -288,6 +294,7 @@ control:
                 AccessibleWCMKPO: Přístupná toaleta
                 PartlyAccessibleWCMKPO: Částečně přístupná toaleta
                 InAccessibleWCMKPO: Obtížně přístupná nebo nepřístupná toaleta
+                wc: Bezbariérové WC
 
             description:
                 elevator: "rozměry nejmenšího výtahu: %size% cm"
@@ -342,6 +349,13 @@ renderer:
         parkingAccessible: Parkoviště pro vozíčkáře
         "yes": ano
         "no": ne
+    wckompas:
+        euro_key_access: Euroklíč
+        free: Zdarma
+        accessible: Bezbariérový přístup
+        card_priority: WC karta přednostně
+        card_free: S WC kartou zdarma
+        with_card_access: Vstup pouze s WC kartou
 
 header:
     h1: Mapy bez bariér - bezbariérový přístup - interaktivní mapa

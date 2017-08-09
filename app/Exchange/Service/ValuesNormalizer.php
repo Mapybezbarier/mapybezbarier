@@ -125,7 +125,7 @@ class ValuesNormalizer
     protected function normalizeTypes(array &$values, $namespace = null)
     {
         foreach ($values as $key => &$value) {
-            if (Validators::is($value, 'scalar')) {
+            if (is_null($value) || Validators::is($value, 'scalar')) {
                 switch ($this->metadata->getType($namespace, $key)) {
                     case ExchangeMetadata::TYPE_STRING:
                         $value = Strings::trim($value);

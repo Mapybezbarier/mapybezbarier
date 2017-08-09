@@ -20,6 +20,7 @@ import:
         ruianNotFound: "Dle adresy se nepodařilo dohledat žádné adresní místo RUIAN, adresu je třeba opravit."
         ruianDuplicity: "Dle adresy se nepodařilo dohledat žádné jedinečné adresní místo RUIAN, adresu je třeba upřesnit."
         invalidVozejkmapObjectEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
+        invalidWCKompasGPS: "Objekt nemá nastaveny GPS souřadnice, z importní dávky byl vynechán."
         currentObject: "Importovaný objekt byl spárován se stávajícím, data byla přepsána."
         consistency:
             object1: "Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem."

@@ -1,19 +1,31 @@
+<div class="detail_pictograms">
+    <div n:class="detail_pictogram, nwjs_description_opener, !empty($object['custom_data']['wc_accessible_bool']) ? 'accessiblewcmkpo' : 'inaccessiblewcmkpo'">
+        <strong class="title">{_'messages.control.map.detail.pictogram.wc'}</strong>
+        <span n:class="detail_pictogram_accessibility, $object['custom_data']['wc_accessible_bool'] ? 'accessibility_1'">
+            {if $object['custom_data']['wc_accessible_bool']}
+                {_messages.enum.bool.true}
+            {else}
+                {_messages.enum.bool.false}
+            {/if}
+        </span>
+    </div>
+    <div n:class="detail_pictogram, nwjs_description_opener, parking">
+        <strong class="title">{_'messages.control.map.detail.pictogram.parking'}</strong>
+        <span n:class="detail_pictogram_accessibility, $object['custom_data']['parking_accessible_bool'] ? 'accessibility_1'">
+            {if $object['custom_data']['parking_accessible_bool']}
+                {_messages.enum.bool.true}
+            {else}
+                {_messages.enum.bool.false}
+            {/if}
+        </span>
+    </div>
+</div>
 <div class="detail_descriptions">
     <div class="detail_description">
         {if $object['custom_data']['accessibility']}
             <h3 class="dd_headline">{_messages.renderer.vozejkmap.accessibility}</h3>
             <p>{$object['custom_data']['accessibility']|lower}</p>
         {/if}
-    </div>
-    <div class="detail_description">
-        <h3 class="dd_headline">{_messages.renderer.vozejkmap.parkingAccessible}</h3>
-        <p>
-            {if $object['custom_data']['parking_accessible_bool']}
-                {_messages.renderer.vozejkmap.yes}
-            {else}
-                {_messages.renderer.vozejkmap.no}
-            {/if}
-        </p>
     </div>
     {foreach $object['descriptions'] as $title => $description}
         {if $description}
