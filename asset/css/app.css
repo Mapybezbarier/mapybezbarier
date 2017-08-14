@@ -1607,6 +1607,7 @@ footer.half_opened .footer_logos {
   padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
+  overflow: visible !important;
 }
 .info_box .tail {
   visibility: hidden;
@@ -1642,7 +1643,7 @@ footer.half_opened .footer_logos {
   -o-background-size: 20px;
   -webkit-background-size: 20px;
   background-size: 20px;
-  bottom: -33px;
+  bottom: -32px;
   height: 33px;
   left: 50%;
   margin-left: -14px;
