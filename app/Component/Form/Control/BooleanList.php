@@ -23,7 +23,11 @@ class BooleanList extends RadioList
             throw new \Nette\InvalidArgumentException("Value '$value' is out of allowed set [$set] in field '{$this->name}'.");
         }
 
-        $this->value = $value === NULL ? NULL : key(array((int) $value => NULL));
+        if (null === $value) {
+            $this->value = null;
+        } else {
+            $this->value = (int) $value;
+        }
 
         return $this;
     }

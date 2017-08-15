@@ -94,8 +94,8 @@ class CsvExporter implements IExpoter
      */
     protected function exportRelation(&$ret, $key, $relation, $start)
     {
-        foreach (CsvResolver::getColsMap($key) as $col => $key) {
-            $ret[$start + $col - 2] = $this->getCsvValue($relation, $key);
+        foreach (CsvResolver::getColsMap($key) as $col => $index) {
+            $ret[$start + $col - 2] = $this->getCsvValue($relation, $index);
         }
     }
 
@@ -111,7 +111,7 @@ class CsvExporter implements IExpoter
         $ret = Arrays::get($row, $key, null);
 
         if (is_bool($ret)) {
-            $ret = intval($ret);
+            $ret = (int) $ret;
         }
 
         return $ret;

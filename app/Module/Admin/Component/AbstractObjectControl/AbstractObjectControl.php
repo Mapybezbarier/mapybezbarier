@@ -9,7 +9,6 @@ use MP\Module\Admin\Component\AbstractObjectControl\Service\FormGenerator;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Module\Admin\Service\ObjectService;
 use MP\Object\ObjectMetadata;
-use MP\Util\Arrays;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\ComponentModel\IContainer;

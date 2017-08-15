@@ -26,7 +26,7 @@ trait TTranslator
     /**
      * Zkratka pro volani $this->translator->translate()
      *
-     * @see Kdyby\Translation\Translator::translate
+     * @see \Kdyby\Translation\Translator::translate
      *
      * @return string transalted message
      */

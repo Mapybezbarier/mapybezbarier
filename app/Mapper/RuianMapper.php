@@ -75,7 +75,7 @@ class RuianMapper extends DatabaseMapper
         foreach ($criteria as $key => $value) {
             $key = Strings::toUnderscore($key);
 
-            if (in_array($key, ['id', 'street_desc_no', 'street_orient_no'])) {
+            if (in_array($key, ['id', 'street_desc_no', 'street_orient_no'], true)) {
                 $restrictor[] = ["[$key] = %iN", $value];
             } else {
                 $restrictor[] = ["[$key] = %sN", $value];
@@ -83,8 +83,8 @@ class RuianMapper extends DatabaseMapper
         }
 
         $query = ["SELECT [id] FROM %n", $this->table];
-        array_push($query, "WHERE %and");
-        array_push($query, $restrictor);
+        $query[] = "WHERE %and";
+        $query[] = $restrictor;
 
         return $this->executeQuery($query)->fetchAll();
     }
@@ -103,10 +103,10 @@ class RuianMapper extends DatabaseMapper
             ["[search_city_part] ILIKE '%' || remove_diacritics('{$term}') || '%'"],
         ];
 
-        $query = ["SELECT DISTINCT [zipcode], [city], [city_part] FROM ruian_city"];
-        array_push($query, "WHERE %or");
-        array_push($query, $restrictor);
-        array_push($query, "ORDER BY [zipcode]");
+        $query = ['SELECT DISTINCT [zipcode], [city], [city_part] FROM ruian_city'];
+        $query[] = 'WHERE %or';
+        $query[] = $restrictor;
+        $query[] = 'ORDER BY [zipcode]';
 
         return $this->executeQuery($query)->fetchAll();
     }
@@ -130,10 +130,10 @@ class RuianMapper extends DatabaseMapper
             ["remove_diacritics([street]) ILIKE '%' || remove_diacritics('{$term}') || '%'"],
         ];
 
-        $query = ["SELECT DISTINCT [street] FROM %n", $this->table];
-        array_push($query, "WHERE %and");
-        array_push($query, $restrictor);
-        array_push($query, "ORDER BY [street]");
+        $query = ['SELECT DISTINCT [street] FROM %n', $this->table];
+        $query[] = 'WHERE %and';
+        $query[] = $restrictor;
+        $query[] = 'ORDER BY [street]';
 
         return $this->executeQuery($query)->fetchAll();
     }
@@ -152,11 +152,11 @@ class RuianMapper extends DatabaseMapper
     public function findStreetNumber($term, $zipcode, $city, $cityPart, $street)
     {
         $restrictor = [
-            ["[zipcode] = %s", $zipcode],
-            ["[city] = %s", $city],
-            ["[city_part] = %s", $cityPart],
+            ['[zipcode] = %s', $zipcode],
+            ['[city] = %s', $city],
+            ['[city_part] = %s', $cityPart],
             [
-                "%or",
+                '%or',
                 [
                     ["[street_desc_no]::text LIKE '{$term}%'"],
                     ["[street_orient_no]::text LIKE '{$term}%'"]
@@ -165,13 +165,13 @@ class RuianMapper extends DatabaseMapper
         ];
 
         if ($street) {
-            $restrictor[] = ["[street] = %s", $street];
+            $restrictor[] = ['[street] = %s', $street];
         };
 
-        $query = ["SELECT [id], [street_desc_no], [street_orient_no], [street_orient_symbol] FROM %n", $this->table];
-        array_push($query, "WHERE %and");
-        array_push($query, $restrictor);
-        array_push($query, "ORDER BY [street_desc_no], [street_orient_no]");
+        $query = ['SELECT [id], [street_desc_no], [street_orient_no], [street_orient_symbol] FROM %n', $this->table];
+        $query[] = 'WHERE %and';
+        $query[] = $restrictor;
+        $query[] = 'ORDER BY [street_desc_no], [street_orient_no]';
 
         return $this->executeQuery($query)->fetchAll();
     }

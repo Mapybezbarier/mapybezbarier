@@ -4,7 +4,6 @@ namespace MP\Module\Web\Presenters;
 
 use Nette;
 use Nette\Application\Request;
-use Nette\Application\Responses;
 use Nette\Application\Responses\CallbackResponse;
 use Nette\Application\Responses\ForwardResponse;
 use Tracy\ILogger;

@@ -569,7 +569,7 @@ class DpaTransformator
     private function prepareValue(&$value, $internalKey, $relation)
     {
         // hodnoty typu boolean (s vyjimkou sloupcu hallway1DoorMarking a hallway2DoorMarking - tam se jedna o ciselnik)
-        if (ObjectMetadata::WC !== $relation || !in_array($internalKey, [38, 42])) {
+        if (ObjectMetadata::WC !== $relation || !in_array($internalKey, [38, 42], true)) {
             if ('ano' === $value) {
                 $value = 1;
             } else if ('ne' === $value) {

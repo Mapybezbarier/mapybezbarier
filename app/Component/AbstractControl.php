@@ -88,7 +88,7 @@ abstract class AbstractControl extends Control
      */
     protected function getTemplateDir($baseDir = null)
     {
-        $baseDir = null === $baseDir ? $this->getBaseDir() : $baseDir;
+        $baseDir = $baseDir ?? $this->getBaseDir();
 
         return "$baseDir/template";
     }

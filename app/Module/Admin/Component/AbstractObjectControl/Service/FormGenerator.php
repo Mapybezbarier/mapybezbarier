@@ -163,10 +163,10 @@ class FormGenerator
                 break;
 
                 default:
-                    continue;
+                    continue 2;
             }
 
-            if (in_array($property, $hiddenProperties)) {
+            if (in_array($property, $hiddenProperties, true)) {
                 $control->getControlPrototype()->class[] = 'hidden';
             }
 

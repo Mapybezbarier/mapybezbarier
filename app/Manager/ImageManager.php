@@ -23,7 +23,7 @@ class ImageManager
     protected $imageStorage;
 
     /** @var array */
-    protected static $types = [
+    private static $types = [
         'image/gif' => 'gif',
         'image/jpeg' => 'jpg',
         'image/pjpeg' => 'jpg',

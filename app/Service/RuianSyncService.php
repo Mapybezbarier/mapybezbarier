@@ -71,7 +71,7 @@ class RuianSyncService
         $tmpZip = $this->ruianTempDir . '/tmp.zip';
 
         if ($handle = @fopen($filename, 'rb')) {
-            $write = fopen($tmpZip, 'w');
+            $write = fopen($tmpZip, 'wb');
 
             while (!feof($handle)) {
                 $buffer = fread($handle, 5120);

@@ -476,7 +476,7 @@ class ObjectControl extends AbstractObjectControl
 
         $attachements = $this->prepareAttachements();
 
-        $indexKey = array_search($index, $attachements[$attachement]);
+        $indexKey = array_search($index, $attachements[$attachement], true);
 
         unset($attachements[$attachement][$indexKey]);
 

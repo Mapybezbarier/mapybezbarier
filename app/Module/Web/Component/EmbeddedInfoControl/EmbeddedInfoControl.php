@@ -60,7 +60,7 @@ class EmbeddedInfoControl extends AbstractControl
         $template = parent::getTemplate($file);
 
         $query = array_merge(
-            $this->restrictorBuilder->getActiveQueryData(false),
+            $this->restrictorBuilder->getActiveQueryData(),
             $this->mapParams
         );
 

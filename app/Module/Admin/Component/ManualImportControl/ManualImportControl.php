@@ -66,7 +66,7 @@ class ManualImportControl extends AbstractFormControl
 
             $this->getPresenter()->redirect(':Admin:Import:logs', ['id' => $res['logId']]);
         } else {
-            $this->flashMessage('backend.control.import.manual.null', FlashMessageControl::TYPE_INFO);
+            $this->flashMessage('backend.control.import.manual.null');
             $this->getPresenter()->redirect(':Admin:Import:default');
         }
     }

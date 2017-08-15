@@ -62,7 +62,7 @@ class ObjectSearchControl extends AbstractSearchControl
      * @param FormFactory $factory
      * @param UserService $userService
      * @param FilterService $filterService
-     * @param Traslator $translator
+     * @param Translator $translator
      */
     public function __construct(FormFactory $factory, UserService $userService, FilterService $filterService, Translator $translator)
     {

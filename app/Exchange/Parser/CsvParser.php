@@ -111,9 +111,9 @@ class CsvParser implements IParser
     {
         $ret = [];
 
-        foreach (CsvResolver::getColsMap($key) as $col => $key) {
-            if ("" !== $columns[$start + $col - 2]) {
-                $ret[$key] = $columns[$start + $col - 2];
+        foreach (CsvResolver::getColsMap($key) as $col => $index) {
+            if ('' !== $columns[$start + $col - 2]) {
+                $ret[$index] = $columns[$start + $col - 2];
             }
         }
 

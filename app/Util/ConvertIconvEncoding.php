@@ -90,8 +90,8 @@ class ConvertIconvEncoding extends php_user_filter
             return false;
         }
 
-        $this->fromCharset = isset($matches['from']) ? $matches['from'] : 'CP1250';
-        $this->toCharset   = isset($matches['to'])   ? $matches['to']   : 'UTF-8';
+        $this->fromCharset = $matches['from'] ?? 'CP1250';
+        $this->toCharset   = $matches['to'] ?? 'UTF-8';
 
         return true;
     }
