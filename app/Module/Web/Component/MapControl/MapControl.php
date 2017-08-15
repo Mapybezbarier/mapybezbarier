@@ -191,7 +191,7 @@ class MapControl extends AbstractControl
     protected function getMarkerType($object)
     {
         // zastarale profesionalni udaje se markerem nelisi od aktualnich
-        $certified_prefix = $object['type'] == (FilterService::TYPE_COMMUNITY ? FilterService::TYPE_COMMUNITY : FilterService::TYPE_CERTIFIED);
+        $certified_prefix = $object['type'] === FilterService::TYPE_COMMUNITY ?: FilterService::TYPE_CERTIFIED;
 
         return [$certified_prefix, $object['accessibility_id'], Arrays::get($this->categories, $object['object_type_id'], 'other')];
     }

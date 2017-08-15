@@ -181,8 +181,8 @@ class UserService
         $users = $this->userManager->findAll($restrictor, null, $paginator);
 
         if (false === $raw) {
-            foreach ($users as &$user) {
-                $this->prepareUser($user);
+            foreach ($users as &$item) {
+                $this->prepareUser($item);
             }
         }
 

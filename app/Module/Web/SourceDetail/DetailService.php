@@ -355,7 +355,7 @@ class DetailService
             foreach ($object['elevator'] as $elevator) {
                 $area = $elevator['elevator_cage_width'] * $elevator['elevator_cage_depth'];
 
-                if ($area && (is_null($minArea) || $minArea > $area)) {
+                if ($area && (null === $minArea || $minArea > $area)) {
                     $ret['description'] = $this->translator->translate('messages.control.map.detail.description.elevator', [
                         'size' => "{$elevator['elevator_cage_width']} × {$elevator['elevator_cage_depth']}",
                     ]);
@@ -388,7 +388,7 @@ class DetailService
             foreach ($object['platform'] as $platform) {
                 $area = $platform['platform_width'] * $platform['platform_depth'];
 
-                if ($area && (is_null($minArea) || $minArea > $area)) {
+                if ($area && (null === $minArea || $minArea > $area)) {
                     $ret['description'] = $this->translator->translate('messages.control.map.detail.description.platform', [
                         'size' => "{$platform['platform_width']} × {$platform['platform_depth']}",
                     ]);

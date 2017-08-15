@@ -131,7 +131,7 @@ class FilterControl extends AbstractFormControl
             if ($activeCategories = $this->restrictorBuilder->getCategories()) {
                 foreach ($activeCategories as $activeCategory) {
                     foreach ($this->categories as $key => $ids) {
-                        if (isset($values[$key]) && in_array($activeCategory, $ids)) {
+                        if (isset($values[$key]) && in_array($activeCategory, $ids, true)) {
                             $defaults[] = $key;
                         }
                     }

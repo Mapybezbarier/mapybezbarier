@@ -5,7 +5,6 @@ namespace MP\Component\Form\Control;
 use MP\Util\Arrays;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\TextInput;
-use Nette\Forms\IControl;
 use Nette\Utils\DateTime;
 use Nette\Utils\Html;
 

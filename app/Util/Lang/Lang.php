@@ -17,10 +17,10 @@ class Lang extends Object
     const PARAM_LANG = 'lang';
 
     /** @var string */
-    protected $locale = null;
+    protected $locale;
 
     /** @var string */
-    protected $lang = null;
+    protected $lang;
 
     /** @var string[] */
     protected $allowed = [];

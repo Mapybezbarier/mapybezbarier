@@ -43,7 +43,7 @@ class ObjectsResponse extends Object implements \Nette\Application\IResponse
      * @param IRequest $httpRequest
      * @param IResponse $httpResponse
      */
-    function send(IRequest $httpRequest, IResponse $httpResponse)
+    public function send(IRequest $httpRequest, IResponse $httpResponse)
     {
         switch ($this->source['format']) {
             case self::XML:

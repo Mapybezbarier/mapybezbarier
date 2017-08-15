@@ -26,7 +26,7 @@ class ImportLogService
     protected $userManager;
 
     /** @see ImportLogger::getPersistData */
-    protected $log = [
+    protected static $log = [
         'errors' => [],
         'notices' => [],
         'objects' => [],

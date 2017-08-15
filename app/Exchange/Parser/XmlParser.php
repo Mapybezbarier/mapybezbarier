@@ -5,6 +5,7 @@ namespace MP\Exchange\Parser;
 use MP\Util\Arrays;
 use Nette\Utils\Strings;
 use Sabre\Xml\Reader;
+use Sabre\Xml\Element\Base;
 
 /**
  * Parser XML importniho souboru podle XSD http://mapybezbarier.cz/XMLSchema.
@@ -62,7 +63,7 @@ class XmlParser implements IParser
     {
         $reader = new Reader();
         $reader->elementMap = [
-            "{$namespace}object" => 'Sabre\Xml\Element\Base',
+            "{$namespace}object" => Base::class,
         ];
         $reader->xml($data);
 
