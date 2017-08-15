@@ -329,7 +329,7 @@ header {
 }
 .error_notice {
     font-style: oblique;
-    padding: 0 $page_h_padding 40px;
+    padding: 40px $page_h_padding;
     text-align: center;
 }
 form {
