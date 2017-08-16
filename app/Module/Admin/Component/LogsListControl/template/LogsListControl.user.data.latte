@@ -3,5 +3,5 @@
 {block actionHeadlineContent}{_backend.control.system.log.user.title}{/block}
 {block actionBody}
     <h4 class="action_subheadline">{_backend.control.system.log.user.label}:</h4>
-    {!Tracy\Dumper::toHtml($data)}
+    {Tracy\Dumper::toHtml($data)|noescape}
 {/block}

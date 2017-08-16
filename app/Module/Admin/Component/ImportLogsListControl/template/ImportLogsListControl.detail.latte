@@ -13,7 +13,7 @@
         {foreach $log as $item}
             <div class="log_item_wrapper">
                 <h4 class="action_subheadline">{$item['data']['title']}</h4>
-                {!Tracy\Dumper::toHtml($item['data'])}
+                {Tracy\Dumper::toHtml($item['data'])|noescape}
                 <ol class="log_items">
                     {foreach $item['errors'] as $error}
                         {include logItem, 'item' => $error, 'type' => 'error', 'data' => $item['data']}

@@ -20,9 +20,9 @@
             <div class="detail_description">
                 <h3 class="dd_headline">{_messages.control.map.detail.title.description.$title}</h3>
                 {if is_array($description)}
-                    <p n:foreach="$description as $item">{$item|escape|nl2br|noescape}</p>
+                    <p n:foreach="$description as $item">{$item|escape|breaklines|noescape}</p>
                 {else}
-                    <p>{$description|escape|nl2br|noescape}</p>
+                    <p>{$description|escape|breaklines|noescape}</p>
                 {/if}
             </div>
         {/if}

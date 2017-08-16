@@ -11,8 +11,8 @@
         {/if}
 
         {foreach $steps as $step}
-            {? $firstClass = $iterator->first ? 'first'}
-            {? $lastClass  = $iterator->last  ? 'last'}
+            {php $firstClass = $iterator->first ? 'first'}
+            {php $lastClass  = $iterator->last  ? 'last'}
             {if $step == $paginator->page}
                 <span n:class="item, page_number, current, $firstClass, $lastClass">{$step}</span>
             {else}

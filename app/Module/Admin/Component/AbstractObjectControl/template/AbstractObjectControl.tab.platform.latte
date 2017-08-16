@@ -5,7 +5,7 @@
                 <tr>
                     <th><label>{_backend.control.object.label.platform.platformRelation}</label></th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformRelation"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "platformRelation"}
                     </td>
                 </tr>
 
@@ -13,7 +13,7 @@
                 <tr>
                     <th>{label "platformLocalization", attachement => $attachement, index => $index /}</th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformLocalization", class => 'no_label'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformLocalization", class => 'no_label'}
                     </td>
                 </tr>
 
@@ -24,12 +24,12 @@
                         <label>{_backend.control.object.label.platform.type}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformType"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "platformType"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformAccess"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "platformAccess"}
                     </td>
                 </tr>
 
@@ -40,17 +40,17 @@
                         <div class="th_help">({_backend.control.object.label.platform.paramsHelp})</div>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformDepth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformMaxLoad", class => 'short weight_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformMaxLoad", class => 'short weight_unit'}
                     </td>
                 </tr>
 
@@ -60,7 +60,7 @@
                         <label>{_backend.control.object.label.platform.minParams}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "platformIsMinParameters", label => TRUE}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "platformIsMinParameters", label => TRUE}
                     </td>
                 </tr>
 
@@ -70,7 +70,7 @@
                         <label>{_backend.control.object.label.platform.entryAreaBottom}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Entry"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea1Entry"}
                     </td>
                 </tr>
                 <tr>
@@ -78,12 +78,12 @@
                         <label>{_backend.control.object.label.platform.entryAreaSize}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1Depth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1Depth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -91,17 +91,17 @@
                         <label>{_backend.control.object.label.platform.entryAreaEntry}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1IsEntryClosing", label => TRUE}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea1IsEntryClosing", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1EntryWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1EntryWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1HeightElevation", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1HeightElevation", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -109,15 +109,15 @@
                         <label>{_backend.control.object.label.platform.entryAreaBell}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellType"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea1BellType"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellHeight", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1BellHeight", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea1BellIndentation", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea1BellIndentation", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -127,7 +127,7 @@
                         <label>{_backend.control.object.label.platform.entryAreaBottom}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Entry"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea2Entry"}
                     </td>
                 </tr>
                 <tr>
@@ -135,12 +135,12 @@
                         <label>{_backend.control.object.label.platform.entryAreaSize}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2Depth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2Depth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -148,17 +148,17 @@
                         <label>{_backend.control.object.label.platform.entryAreaEntry}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2IsEntryClosing", label => TRUE}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea2IsEntryClosing", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2EntryWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2EntryWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2HeightElevation", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2HeightElevation", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -166,15 +166,15 @@
                         <label>{_backend.control.object.label.platform.entryAreaBell}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellType"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "entryarea2BellType"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellHeight", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2BellHeight", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "entryarea2BellIndentation", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryarea2BellIndentation", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -187,7 +187,7 @@
                         <label>{_backend.control.object.label.platform.controlsBottom}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformOutsideBottomControlHeight", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformOutsideBottomControlHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -195,7 +195,7 @@
                         <label>{_backend.control.object.label.platform.controlsTop}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformOutsideTopControlHeight", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformOutsideTopControlHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -203,7 +203,7 @@
                         <label>{_backend.control.object.label.platform.controlsInside}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformInsideControlHeight", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformInsideControlHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -213,25 +213,25 @@
                         <label>{_backend.control.object.label.platform.elevation}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformNumberOfSteps", class => 'short'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformNumberOfSteps", class => 'short'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "platformNumberOfFloors", class => 'short'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "platformNumberOfFloors", class => 'short'}
                     </td>
                 </tr>
 
                 {* Poznámky *}
                 <tr>
                     <th>{label "platformHasNotes", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "platformHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <td colspan="3">{include inputText, form => $form, name => "platformHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
 
                 {* Slovní popis úseku *}
                 <tr>
                     <th>{label "platformHasDescription", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "platformHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <td colspan="3">{include inputText, form => $form, name => "platformHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
             </table>
         </fieldset>
