@@ -1,6 +1,8 @@
 <?php
 
 namespace MP\Module\Admin\Service;
+
+use MP\Exchange\Downloader\DownloaderFactory;
 use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\ImportService;
 use MP\Manager\ExchangeSourceManager;
@@ -30,25 +32,31 @@ class ManualImportService
      */
     protected $logService;
 
+    /** @var DownloaderFactory */
+    protected $downloaderFactory;
+
     /**
      * @param ImportService $importService
      * @param ExchangeSourceManager $sourceManager
      * @param LicenseManager $licenseManager
      * @param ImportLogManager $importLogManager
      * @param LogService $logService
+     * @param DownloaderFactory $downloaderFactory
      */
     public function __construct(
         ImportService $importService,
         ExchangeSourceManager $sourceManager,
         LicenseManager $licenseManager,
         ImportLogManager $importLogManager,
-        LogService $logService
+        LogService $logService,
+        DownloaderFactory $downloaderFactory
     ) {
         $this->importService = $importService;
         $this->sourceManager = $sourceManager;
         $this->licenseManager = $licenseManager;
         $this->importLogManager = $importLogManager;
         $this->logService = $logService;
+        $this->downloaderFactory = $downloaderFactory;
     }
 
     /**
@@ -67,17 +75,29 @@ class ManualImportService
 
         $logData = [];
 
+        $source = $this->sourceManager->findOneBy([['[id] = %i', $formValues['source_id']]]);
+
         /** @var FileUpload $file */
         $file = $formValues['file'];
 
         if ($file->getError() === UPLOAD_ERR_NO_FILE) {
-            $data = @file_get_contents($formValues['url']);
+            $downloader = $this->downloaderFactory->create($source);
+
+            if ($downloader) {
+                try {
+                    $data = $downloader->getData($formValues);
+                } catch (\MP\Exchange\Exception\DownloadException $e) {
+                    ImportLogger::addError([], $e->getMessage());
+                    $data = null;
+                }
+            } else {
+                $data = @file_get_contents($formValues['url']);
+            }
         } else {
             $data = $file->getContents();
         }
 
         if ($data) {
-            $source = $this->sourceManager->findOneBy([['[id] = %i', $formValues['source_id']]]);
             $license = $this->licenseManager->findOneBy([['[id] = %i', $formValues['license_id']]]);
             $this->importService->import($data, $source, $license, $formValues['certified'], $userId, true);
         }

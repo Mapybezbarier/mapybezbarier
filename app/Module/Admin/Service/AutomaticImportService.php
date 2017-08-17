@@ -1,7 +1,9 @@
 <?php
 
 namespace MP\Module\Admin\Service;
+
 use MP\Component\Mailer\IMessageFactory;
+use MP\Exchange\Downloader\DownloaderFactory;
 use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\ImportService;
 use MP\Manager\ExchangeSourceManager;
@@ -48,6 +50,9 @@ class AutomaticImportService
      */
     protected $logService;
 
+    /** @var DownloaderFactory */
+    protected $downloaderFactory;
+
     /**
      * @param AutomaticImportManager $manager
      * @param ImportService $importService
@@ -58,6 +63,7 @@ class AutomaticImportService
      * @param ImportReportMailer $mailer
      * @param LinkGenerator $linkGenerator
      * @param LogService $logService
+     * @param DownloaderFactory $downloaderFactory
      */
     public function __construct(
         AutomaticImportManager $manager,
@@ -68,7 +74,8 @@ class AutomaticImportService
         UserManager $userManager,
         ImportReportMailer $mailer,
         LinkGenerator $linkGenerator,
-        LogService $logService
+        LogService $logService,
+        DownloaderFactory $downloaderFactory
     ) {
         $this->manager = $manager;
         $this->importService = $importService;
@@ -79,6 +86,7 @@ class AutomaticImportService
         $this->mailer = $mailer;
         $this->linkGenerator = $linkGenerator;
         $this->logService = $logService;
+        $this->downloaderFactory = $downloaderFactory;
     }
 
     /**
@@ -118,10 +126,21 @@ class AutomaticImportService
         $logData = [];
         $logTitle = null;
 
-        $data = @file_get_contents($item['url']);
+        $source = $this->sourceManager->findOneBy([['[id] = %i', $item['source_id']]]);
+        $downloader = $this->downloaderFactory->create($source);
+
+        if ($downloader) {
+            try {
+                $data = $downloader->getData($item);
+            } catch (\MP\Exchange\Exception\DownloadException $e) {
+                ImportLogger::addError([], $e->getMessage());
+                $data = null;
+            }
+        } else {
+            $data = @file_get_contents($item['url']);
+        }
 
         if ($data) {
-            $source = $this->sourceManager->findOneBy([['[id] = %i', $item['source_id']]]);
             $license = $this->licenseManager->findOneBy([['[id] = %i', $item['license_id']]]);
             $logTitle = $source['title'];
             ImportLogger::reset();
