@@ -9,4 +9,5 @@ class ExchangeSourceManager extends AbstractManager
 {
     /** @const ID vychoziho zdroje */
     const DEFAULT_ID = 1;
+    const VOZEJKMAP_ID = 12;
 }

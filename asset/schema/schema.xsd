@@ -957,6 +957,8 @@
             <xs:enumeration value="TransportObjectCategory"/>
             <xs:enumeration value="ElementaryArtSchoolObjectCategory"/>
             <xs:enumeration value="MedicalFacilityObjectCategory"/>
+            <xs:enumeration value="EducationObjectCategory"/>
+            <xs:enumeration value="LeisureTimeObjectCategory"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

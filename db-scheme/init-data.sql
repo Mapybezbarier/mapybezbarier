@@ -367,6 +367,7 @@ INSERT INTO exchange_source VALUES (2, 'DPA s.r.o.', 'xml');
 INSERT INTO exchange_source VALUES (10, 'DPA s.r.o.', 'json');
 INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv');
 INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas');
+INSERT INTO exchange_source VALUES (14, 'Wheelmap', 'wheelmap');
 
 
 --
@@ -414,7 +415,7 @@ SELECT pg_catalog.setval('handle_type_id_seq', 2, true);
 -- Name: import_source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mapy_pristupnosti_db_01
 --
 
-SELECT pg_catalog.setval('import_source_id_seq', 13, true);
+SELECT pg_catalog.setval('import_source_id_seq', 14, true);
 
 
 --
@@ -606,6 +607,8 @@ INSERT INTO object_type VALUES (109, 'ElementaryArtSchoolObjectCategory', 'zákl
 INSERT INTO object_type VALUES (104, 'CultureHouseObjectCategory', 'kulturní dům', NULL);
 INSERT INTO object_type VALUES (105, 'AtmObjectCategory', 'bankomat', NULL);
 INSERT INTO object_type VALUES (110, 'MedicalFacilityObjectCategory', 'zdravotnické zařízení', NULL);
+INSERT INTO object_type VALUES (111, 'EducationObjectCategory', 'vzdělávání', NULL);
+INSERT INTO object_type VALUES (112, 'LeisureTimeObjectCategory', 'volný čas', NULL);
 
 
 --

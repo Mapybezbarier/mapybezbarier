@@ -6,6 +6,7 @@ parameters:
             csv: csvParser
             vozejkmap: vozejkmapParser
             wckompas: wcKompasParser
+            wheelmap: wheelmapParser
 
 services:
     xmlParser: MP\Exchange\Parser\XmlParser
@@ -13,3 +14,4 @@ services:
     csvParser: MP\Exchange\Parser\CsvParser
     vozejkmapParser: MP\Exchange\Parser\VozejkmapParser
     wcKompasParser: MP\Exchange\Parser\WcKompasParser
+    wheelmapParser: MP\Exchange\Parser\WheelmapParser
