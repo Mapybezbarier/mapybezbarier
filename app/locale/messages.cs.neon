@@ -7,6 +7,7 @@ enum:
     bool:
         "true": Ano
         "false": Ne
+        "unknown": nezjištěno
 
     boolLower:
         "true": ano
@@ -119,6 +120,8 @@ enum:
             transportObjectCategory: "doprava"
             elementaryArtSchoolObjectCategory: "základní umělecká škola"
             medicalFacilityObjectCategory: "zdravotnické zařízení"
+            educationObjectCategory: "vzdělávání"
+            leisureTimeObjectCategory: "volný čas"
 
 
         accessibility:
@@ -350,6 +353,7 @@ renderer:
         "yes": ano
         "no": ne
     wckompas:
+        headline: Detail WC
         euro_key_access: Euroklíč
         free: Zdarma
         accessible: Bezbariérový přístup
