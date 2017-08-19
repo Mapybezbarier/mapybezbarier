@@ -416,7 +416,7 @@ header .user_aside .logout a {
 
 .error_notice {
   font-style: oblique;
-  padding: 0 30px 40px;
+  padding: 40px 30px;
   text-align: center;
 }
 

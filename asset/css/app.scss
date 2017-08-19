@@ -845,6 +845,7 @@ footer {
     padding: 0 !important;
     border: none !important;
     border-radius: 0 !important;
+    overflow: visible !important;
 
     .tail {
         visibility: hidden;
@@ -871,7 +872,7 @@ footer {
         @include after_ico;
         background-image: bg_image('arrow-infowindow.png');
         @include bs(20px);
-        bottom: -33px;
+        bottom: -32px;
         height: 33px;
         left: 50%;
         margin-left: -14px;

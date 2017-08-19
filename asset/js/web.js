@@ -110,10 +110,10 @@ function bindFooterOpener() {
         }
     );
 
-    // po 15 s zajedou loga
+    // po 3 s zajedou loga
     setTimeout(function () {
         $('.nwjs_footer').removeClass('half_opened');
-    }, 15000);
+    }, 3000);
 }
 
 /**
