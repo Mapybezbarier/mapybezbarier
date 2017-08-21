@@ -93,7 +93,7 @@ class VozejkmapParser implements IParser
             'latitude' => Arrays::get($row, 'lat', null),
             'longitude' => Arrays::get($row, 'lng', null),
             'entrance1IsReservedParking' => ('yes' === Arrays::get($row, 'attr3', 'no')),
-            'objectType' => ($locationTypeId ? Arrays::get($this->mapLocationType, $locationTypeId, ObjectMetadata::CATEGORY_OTHER) : ObjectMetadata::CATEGORY_OTHER),
+            'objectType' => ($locationTypeId ? Arrays::get(self::$mapLocationType, $locationTypeId, ObjectMetadata::CATEGORY_OTHER) : ObjectMetadata::CATEGORY_OTHER),
             'accessibility' => $this->getObjectAccessibility($row),
             'externalData' => $this->prepareExternalData($row),
             'webUrl' => Arrays::get($row, 'link', null),
@@ -127,10 +127,10 @@ class VozejkmapParser implements IParser
         $locationTypeId = Arrays::get($row, 'location_type', null);
 
         if ($locationTypeId) {
-            $title = Arrays::get($this->mapLocationType, $locationTypeId, null);
+            $title = Arrays::get(self::$mapLocationType, $locationTypeId, null);
 
             if (null === $title) {
-                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $locationTypeId, 'key' => 'location_type', 'values' => implode(', ', $this->mapLocationType)]);
+                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $locationTypeId, 'key' => 'location_type', 'values' => implode(', ', self::$mapLocationType)]);
             }
 
             $ret['location_type'] = [
@@ -143,10 +143,10 @@ class VozejkmapParser implements IParser
         $attr1Id = Arrays::get($row, 'attr1', null);
 
         if ($attr1Id) {
-            $title = Arrays::get($this->mapAttr1, $attr1Id, null);
+            $title = Arrays::get(self::$mapAttr1, $attr1Id, null);
 
             if (null === $title) {
-                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $attr1Id, 'key' => 'attr1', 'values' => implode(', ', $this->mapAttr1)]);
+                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $attr1Id, 'key' => 'attr1', 'values' => implode(', ', self::$mapAttr1)]);
             }
 
             $ret['attr1'] = [
