@@ -1592,7 +1592,7 @@ footer.half_opened .footer_logos {
   font-style: normal;
   font-weight: normal;
   font-weight: 400;
-  font-size: 100%;
+  font-size: 100% !important;
   position: relative !important;
 }
 
