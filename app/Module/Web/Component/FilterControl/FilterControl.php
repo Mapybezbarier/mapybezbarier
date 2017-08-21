@@ -85,7 +85,7 @@ class FilterControl extends AbstractFormControl
     {
         $form = $this->factory->create($this, $name);
         $form->getElementPrototype()->class[] = 'ajax nwjs_auto_submit';
-        $form->getElementPrototype()->data('spinner', '#map');
+        $form->getElementPrototype()->data('spinner', '.nwjs_filter');
         $form->onSuccess[] = [$this, 'setFilter'];
 
         $this->appendAccessibility($form);
