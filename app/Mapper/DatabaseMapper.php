@@ -225,8 +225,8 @@ class DatabaseMapper implements IMapper
     protected function buildWhere($restrictor = null, &$query)
     {
         if (null !== $restrictor) {
-            array_push($query, "WHERE %and");
-            array_push($query, $restrictor);
+            $query[] = "WHERE %and";
+            $query[] = $restrictor;
         }
 
         return $query;

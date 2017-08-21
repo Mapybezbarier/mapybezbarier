@@ -514,7 +514,7 @@ class ConsistencyValidator implements IValidator
         foreach (Arrays::get($this->object, ObjectMetadata::WC, []) as $wc) {
             $wcAccessibility = Arrays::get($wc, "wcAccessibility", null);
 
-            if (in_array($wcAccessibility, [ObjectMetadata::WC_ACCESSIBILITY_OK, ObjectMetadata::WC_ACCESSIBILITY_PARTLY])) {
+            if (in_array($wcAccessibility, [ObjectMetadata::WC_ACCESSIBILITY_OK, ObjectMetadata::WC_ACCESSIBILITY_PARTLY], true)) {
                 $ret = true;
                 break;
             }

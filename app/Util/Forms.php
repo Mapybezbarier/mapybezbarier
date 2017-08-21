@@ -29,15 +29,15 @@ class Forms
 
             foreach ($array as $value) {
                 if (isset($value[$key])) {
-                    $values[$value[$key]] = call_user_func($valueKey, $value);
+                    $values[$value[$key]] = $valueKey($value);
                 }
             }
         } else {
             $values = Arrays::pairs($array, $key, $valueKey ?: $key);
         }
 
-        foreach ($values as $key => $value) {
-            $selectValues[$key] = Html::el()->setText($value);
+        foreach ($values as $index => $value) {
+            $selectValues[$index] = Html::el()->setText($value);
         }
 
         return $selectValues;

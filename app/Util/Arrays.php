@@ -23,7 +23,7 @@ class Arrays extends \Nette\Utils\Arrays
 
         foreach ($array as $value) {
             if (isset($value[$key])) {
-                $pairs[$value[$key]] = isset($value[$valueKey]) ? $value[$valueKey] : null;
+                $pairs[$value[$key]] = $value[$valueKey] ?? null;
             }
         }
 
@@ -91,7 +91,7 @@ class Arrays extends \Nette\Utils\Arrays
 
         foreach ($array as &$value) {
             if (is_array($value)) {
-                $value = call_user_func(static::class . '::filter', $value, $callback);
+                $value = self::filter($value, $callback);
             }
         }
 

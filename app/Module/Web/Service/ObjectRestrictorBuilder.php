@@ -136,7 +136,7 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
      */
     public function getCategories()
     {
-        return $categories = $this->session->getSection(self::SECTION)->{self::RESTRICTION_CATEGORY};
+        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_CATEGORY};
     }
 
     /**

@@ -105,7 +105,7 @@ class PasswordResetControl extends AbstractFormControl
             $this->getPresenter()->getUser()->login($this->authenticator->getIdentity($user));
             $this->getPresenter()->redirect(':Admin:Access:change');
         } else {
-            $this->flashMessage('backend.control.passwordReset.flash.error.validToken', FlashMessageControl::TYPE_INFO);
+            $this->flashMessage('backend.control.passwordReset.flash.error.validToken');
 
             $this->getPresenter()->redirect(':Admin:Access:reset');
         }

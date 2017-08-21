@@ -112,8 +112,8 @@ class Authorizator extends Permission
     {
         $parents = [];
 
-        foreach (parent::getRoleParents($role) as $role) {
-            $parents = array_merge([$role], $this->getRoleParents($role));
+        foreach (parent::getRoleParents($role) as $item) {
+            $parents = array_merge([$item], $this->getRoleParents($item));
         }
 
         return $parents;

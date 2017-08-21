@@ -16,7 +16,7 @@ use Nette\Utils\JsonException;
 class VozejkmapParser implements IParser
 {
     /** @var array mapa ciselnikoveho atributu - typ objektu - pouze pro informativni vypis */
-    protected $mapLocationType = [
+    protected static $mapLocationType = [
         1 => 'CulturalFacilityObjectCategory', // 'Kultura',
         2 => 'SportsFacilityObjectCategory', // 'Sport'
         3 => 'InstitutionObjectCategory', // 'Instituce',
@@ -35,7 +35,7 @@ class VozejkmapParser implements IParser
     ];
 
     /** @var array mapa ciselnikoveho atributu - typ bezbarierovosti - pouze pro informativni vypis */
-    protected $mapAttr1 = [
+    protected static $mapAttr1 = [
         1 => 'Bez schodů',
         2 => 'Nájezd či rampa',
         3 => 'Výtah',

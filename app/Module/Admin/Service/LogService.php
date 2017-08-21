@@ -135,7 +135,7 @@ class LogService
         $callback = [$this->detailService, $callbackMethod];
 
         if (is_callable($callback)) {
-            $ret = call_user_func($callback, $item);
+            $ret = $callback($item);
         }
 
         return $ret;
@@ -152,7 +152,7 @@ class LogService
         $ret = null;
 
         $restrictor = $this->restrictorBuilder->getRestrictor();
-        array_push($restrictor, ["[l].[id] = %i", $id]);
+        $restrictor[] = ['[l].[id] = %i', $id];
 
         $item = $this->manager->findOneBy($restrictor);
 
@@ -161,7 +161,7 @@ class LogService
             $callback = [$this->detailService, $callbackMethod];
 
             if (is_callable($callback)) {
-                $ret = call_user_func($callback, $item);
+                $ret = $callback($item);
             } else {
                 $ret = $this->detailService->getStandardDetail($item);
             }
