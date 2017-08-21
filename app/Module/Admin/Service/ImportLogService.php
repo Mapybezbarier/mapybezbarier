@@ -70,8 +70,8 @@ class ImportLogService
             }
 
             $this->parseLog($item['data']);
-            $item['errors_count'] = count($this->log['errors']);
-            $item['notices_count'] = count($this->log['notices']);
+            $item['errors_count'] = count(self::$log['errors']);
+            $item['notices_count'] = count(self::$log['notices']);
         }
 
         unset($item);
@@ -92,19 +92,19 @@ class ImportLogService
         if ($item) {
             $this->parseLog($item['data']);
 
-            foreach ($this->log['objects'] as $key => $object) {
+            foreach (self::$log['objects'] as $key => $object) {
                 $log[$key]['data'] = $object;
 
                 $log[$key]['errors'] = [];
                 $log[$key]['notices'] = [];
 
-                foreach ($this->log['errors'] as $error) {
+                foreach (self::$log['errors'] as $error) {
                     if ($error['object'] === $key) {
                         $log[$key]['errors'][] = $error;
                     }
                 }
 
-                foreach ($this->log['notices'] as $notice) {
+                foreach (self::$log['notices'] as $notice) {
                     if ($notice['object'] === $key) {
                         $log[$key]['notices'][] = $notice;
                     }
@@ -114,7 +114,7 @@ class ImportLogService
 
         return [
             'log' => $log,
-            'hasErrors' => (count($this->log['errors']) > 0),
+            'hasErrors' => (count(self::$log['errors']) > 0),
             'count' => $item['count'],
         ];
     }
@@ -125,6 +125,6 @@ class ImportLogService
      */
     protected function parseLog($data)
     {
-        $this->log = Json::decode($data, Json::FORCE_ARRAY);
+        self::$log = Json::decode($data, Json::FORCE_ARRAY);
     }
 }
