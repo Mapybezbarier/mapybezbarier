@@ -71,6 +71,8 @@ class SourceDetailFactory
         if ($source) {
             if (isset($this->mapping[$source['format']])) {
                 $service = $this->context->getService($this->mapping[$source['format']]);
+            } else {
+                $service = $this->context->getService('webDefaultSourceDetail');
             }
 
             return $service;

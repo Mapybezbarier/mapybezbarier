@@ -6,7 +6,7 @@ use Nette\DI\Container;
 
 /**
  * Tovarna na sluzby pro stahovani dat dle typu zdroje
- * Slouzi pro zdroje, pro ktere nejsou data prosutpna ciste pres HTTP request
+ * Slouzi pro zdroje, pro ktere nejsou data pristupna ciste pres HTTP request
  */
 class DownloaderFactory
 {

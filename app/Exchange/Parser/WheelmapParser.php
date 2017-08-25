@@ -4,8 +4,10 @@ namespace MP\Exchange\Parser;
 
 use MP\Exchange\Exception\ParseException;
 use MP\Exchange\Service\ImportLogger;
+use MP\Manager\ExchangeSourceManager;
 use MP\Manager\ObjectManager;
 use MP\Object\ObjectMetadata;
+use MP\Util\Address\Address;
 use Nette\Utils\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -87,6 +89,7 @@ class WheelmapParser implements IParser
         [18.8512452096,49.5173542465],
     ];
 
+    /** @var array mapa hashu identifikuji objekty z VozejkMap */
     protected $vozejkmapHashmap;
 
     /**
@@ -164,7 +167,7 @@ class WheelmapParser implements IParser
             'mappingDate' => time(),
         ];
 
-        $this->parseHouseNumber($ret, $row);
+        Address::parseHouseNumber($ret, $row, 'housenumber');
 
         return $ret;
     }
@@ -192,7 +195,7 @@ class WheelmapParser implements IParser
     }
 
     /**
-     * zajimaji me pouze vybrana data, u nekterych s nich si ulozim i hodnotu ze znameho ciselniku
+     * zajimaji me pouze vybrana data
      * @param array $row
      * @return string JSON
      */
@@ -201,9 +204,10 @@ class WheelmapParser implements IParser
         $ret = [];
 
         if (isset($row['wheelchair_toilet'])) {
-            $ret['wheelchair_toilet'] = Arrays::get($row, 'wheelchair_toilet', 'unknown');
-            $ret['id'] = Arrays::get($row, 'id', null);
+            $ret['wheelchair_toilet'] = $row['wheelchair_toilet'] ?: 'unknown';
         }
+
+        $ret['id'] = Arrays::get($row, 'id', null);
 
         try {
             $ret = Json::encode($ret);
@@ -222,12 +226,13 @@ class WheelmapParser implements IParser
     protected function getAndCheckObjectAccessibility($row)
     {
         $ret = ObjectMetadata::ACCESSIBILITY_NO;
+        $wheelChairAccessibility = Arrays::get($row, 'wheelchair', null);
 
-        if (!empty($row['wheelchair'])) {
-            if (!isset($this->mapWheelchair[$row['wheelchair']])) {
-                ImportLogger::addError($row, 'invalidEnumValue', ['value' => $row['wheelchair'], 'key' => 'wheelchair', 'values' => implode(', ', array_keys($this->mapWheelchair))]);
+        if ($wheelChairAccessibility) {
+            if (!isset($this->mapWheelchair[$wheelChairAccessibility])) {
+                ImportLogger::addError($row, 'invalidEnumValue', ['value' => $wheelChairAccessibility, 'key' => 'wheelchair', 'values' => implode(', ', array_keys($this->mapWheelchair))]);
             } else {
-                $ret = $this->mapWheelchair[$row['wheelchair']];
+                $ret = $this->mapWheelchair[$wheelChairAccessibility];
             }
         }
 
@@ -277,35 +282,12 @@ class WheelmapParser implements IParser
     {
         if (!isset($this->vozejkmapHashmap)) {
             $this->vozejkmapHashmap = $this->objectManager->findCompareHashes(
-                [['[source_id] = %i', \MP\Manager\ExchangeSourceManager::VOZEJKMAP_ID]]
+                [['[source_id] = %i', ExchangeSourceManager::VOZEJKMAP_ID]]
             );
         }
 
         $wheelmapHash = md5(Arrays::get($row, 'lon', 0) . Arrays::get($row, 'lat', 0) . Arrays::get($row, 'name', null));
 
-        return in_array($wheelmapHash, $this->vozejkmapHashmap);
-    }
-
-    /**
-     * Rozparsuje cislo popisne a orientacni
-     * @param array $ret
-     * @param array $row
-     */
-    protected function parseHouseNumber(&$ret, $row)
-    {
-        $housenumber = Arrays::get($row, 'housenumber', null);
-
-        if ($housenumber) {
-            if (preg_match('~(\d+)/?(\d*)(\D*)~', $housenumber, $matches)) {
-                if ($matches[1] && !$matches[2] && $matches[3]) {
-                    $ret['streetOrientNo'] = $matches[1];
-                    $ret['streetOrientSymbol'] = $matches[3];
-                } else {
-                    $ret['streetDescNo'] = $matches[1] ? $matches[1] : null;
-                    $ret['streetOrientNo'] = $matches[2] ? $matches[2] : null;
-                    $ret['streetOrientSymbol'] = $matches[3] ? $matches[3] : null;
-                }
-            }
-        }
+        return in_array($wheelmapHash, $this->vozejkmapHashmap, true);
     }
 }
