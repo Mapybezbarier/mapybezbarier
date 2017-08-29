@@ -46,7 +46,7 @@ class ValidatorsFactory
             }
         }
 
-        usort($validators, callback($this, 'sort'));
+        usort($validators, [$this, 'sort']);
 
         return $validators;
     }

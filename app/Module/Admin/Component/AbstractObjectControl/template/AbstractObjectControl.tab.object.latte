@@ -2,34 +2,34 @@
     <div class="form_wrapper common_info_form">
         <div class="form_inner">
             <div class="form_block accessibility">
-                {include radioGroup, _form => $_form, name => 'accessibility'}
+                {include radioGroup, form => $form, name => 'accessibility'}
             </div>
             <div class="form_block">
-                {include inputText, _form => $_form, name => 'title'}
-                {include tabObjectParent, _form => $_form}
+                {include inputText, form => $form, name => 'title'}
+                {include tabObjectParent, form => $form}
 
-                {include inputText, _form => $_form, name => 'organizationName'}
-                {include inputText, _form => $_form, name => 'mappingDate'}
+                {include inputText, form => $form, name => 'organizationName'}
+                {include inputText, form => $form, name => 'mappingDate'}
             </div>
             <div class="form_block">
-                {include inputText, _form => $_form, name => 'region'}
-                {include tabObjectAddress, _form => $_form}
+                {include inputText, form => $form, name => 'region'}
+                {include tabObjectAddress, form => $form}
             </div>
             <div class="form_block">
-                {include radioGroup, _form => $_form, name => 'objectType', label => true}
-                {include inputText, _form => $_form, name => 'objectTypeCustom', class => 'other'}
+                {include radioGroup, form => $form, name => 'objectType', label => true}
+                {include inputText, form => $form, name => 'objectTypeCustom', class => 'other'}
             </div>
             <div class="form_block">
-                {include tabObjectImage, _form => $_form}
-                {include inputText, _form => $_form, name => 'description', class => 'textarea description'}
+                {include tabObjectImage, form => $form}
+                {include inputText, form => $form, name => 'description', class => 'textarea description'}
             </div>
             <div class="form_block">
-                {include inputText, _form => $_form, name => 'webUrl'}
-                {include inputText, _form => $_form, name => 'dataOwnerUrl'}
+                {include inputText, form => $form, name => 'webUrl'}
+                {include inputText, form => $form, name => 'dataOwnerUrl'}
             </div>
             <div n:if="$user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_MASTER) || $user->isInRole(\MP\Module\Admin\Service\Authorizator::ROLE_ADMIN)"
                  class="form_block" >
-                {include inputText, _form => $_form, name => 'certified'}
+                {include inputText, form => $form, name => 'certified'}
             </div>
         </div>
     </div>
@@ -38,14 +38,14 @@
 {define tabObjectImage}{/define}
 
 {define tabObjectParent}
-    {include inputText, _form => $_form, name => 'parentObjectId'}
+    {include inputText, form => $form, name => 'parentObjectId'}
 {/define}
 
 {define tabObjectAddress}
-    {include tabCityBlock _form => $_form}
-    {include tabStreetBlock _form => $_form}
-    {include tabHouseNumberBlock _form => $_form}
-    {include tabGPSBlock _form => $_form}
+    {include tabCityBlock form => $form}
+    {include tabStreetBlock form => $form}
+    {include tabHouseNumberBlock form => $form}
+    {include tabGPSBlock form => $form}
 
     {if $hasAddress}
         {include objectAddressChange}
@@ -53,28 +53,28 @@
 
     {include objectAddressMap}
 
-    {include inputText, _form => $_form, name => 'ruianAddress', class => 'hidden'}
+    {include inputText, form => $form, name => 'ruianAddress', class => 'hidden'}
 {/define}
 
 {define tabCityBlock}
-    {include inputText, _form => $_form, name => 'zipcode'}
-    {include inputText, _form => $_form, name => 'city'}
-    {include inputText, _form => $_form, name => 'cityPart'}
+    {include inputText, form => $form, name => 'zipcode'}
+    {include inputText, form => $form, name => 'city'}
+    {include inputText, form => $form, name => 'cityPart'}
 {/define}
 
 {define tabStreetBlock}
-    {include inputText, _form => $_form, name => 'street'}
+    {include inputText, form => $form, name => 'street'}
 {/define}
 
 {define tabHouseNumberBlock}
-    {include inputText, _form => $_form, name => 'streetDescNo'}
-    {include inputText, _form => $_form, name => 'streetOrientNo'}
-    {include inputText, _form => $_form, name => 'streetOrientSymbol'}
+    {include inputText, form => $form, name => 'streetDescNo'}
+    {include inputText, form => $form, name => 'streetOrientNo'}
+    {include inputText, form => $form, name => 'streetOrientSymbol'}
 {/define}
 
 {define tabGPSBlock}
-    {include inputText, _form => $_form, name => 'latitude'}
-    {include inputText, _form => $_form, name => 'longitude'}
+    {include inputText, form => $form, name => 'latitude'}
+    {include inputText, form => $form, name => 'longitude'}
 {/define}
 
 {define objectAddressChange}{/define}

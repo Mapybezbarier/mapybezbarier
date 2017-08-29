@@ -13,7 +13,7 @@
         </a>
 
         {ifset $attachement}
-        {include attachementControlDelete, _form => $_form, attachement => $attachement, index => $index}
+        {include attachementControlDelete, form => $form, attachement => $attachement, index => $index}
         {/ifset}
     </div>
 {/define}
@@ -45,21 +45,21 @@
     </div>
 
     {capture $content}
-        {include tabObject, _form => $_form}
+        {include tabObject, form => $form}
     {/capture}
 
     {include tabContent, name => 'object', content => $content, active => true}
 
     {foreach [1, 2] as $index}
         {capture $content}
-            {include tabEntrance, _form => $_form, prefix => "entrance{$index}"}
+            {include tabEntrance, form => $form, prefix => "entrance{$index}"}
         {/capture}
 
         {include tabContent, name => "entrance{$index}", content => $content}
     {/foreach}
 
     {capture $content}
-        {include tabInterior, _form => $_form}
+        {include tabInterior, form => $form}
     {/capture}
 
     {include tabContent, name => 'interior', content => $content}
@@ -69,7 +69,7 @@
             {capture $content}
                 {var $block = 'tab' . MP\Util\Strings::firstUpper($attachement)}
 
-                {include #$block, _form => $_form->getComponent($attachement)->getComponent($index), attachement => $attachement, index => $index}
+                {include #$block, form => $form->getComponent($attachement)->getComponent($index), attachement => $attachement, index => $index}
             {/capture}
 
             {var $name = $attachement . $index}
@@ -86,7 +86,7 @@
         <div class="aa_opener nwjs_aa_opener">{_backend.control.object.label.addAttachement}</div>
         <div class="attachement_list">
             {foreach [MP\Object\ObjectMetadata::RAMP_SKIDS, MP\Object\ObjectMetadata::PLATFORM, MP\Object\ObjectMetadata::ELEVATOR, MP\Object\ObjectMetadata::WC] as $attachement}
-                {include attachementControlAdd, _form => $_form, attachement => $attachement}
+                {include attachementControlAdd, form => $form, attachement => $attachement}
             {/foreach}
         </div>
     </div>
@@ -98,7 +98,7 @@
 {define radioGroup}
     <div n:class="form_pair, radiogroup, isset($class) ? $class">
         {include radioGroupContent,
-            _form => $_form,
+            form => $form,
             name => $name,
             label => (isset($label) ? $label : null),
             attachement => (isset($attachement) ? $attachement : null),
@@ -132,7 +132,7 @@
 {define inputText}
     <div n:class="form_pair, text, isset($class) ? $class">
         {include inputTextContent,
-            _form => $_form,
+            form => $form,
             name => $name,
             label => (isset($label) ? $label : null),
             placeholder => (isset($placeholder) ? $placeholder : null),
@@ -145,7 +145,7 @@
 {define inputTextContent}
     {ifset $placeholder}
         {var $placeholderText = is_bool($placeholder) ? 'backend.control.object.placeholder.' . MP\Util\Strings::toCamelCase($name) : $placeholder}
-        {? $_form[$name]->getControlPrototype()->addAttributes(['placeholder' => $placeholderText])}
+        {php $form[$name]->getControlPrototype()->addAttributes(['placeholder' => $placeholderText])}
     {/ifset}
     <div class="form_label">
         {label $name /}

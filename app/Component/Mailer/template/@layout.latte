@@ -8,10 +8,10 @@
 </head>
 <body n:block="bodyContent">
     <div id="html_email">
-        <table{!$tableParam} width="100%">
+        <table{$tableParam|noescape} width="100%">
             <tr>
                 <td align="center">
-                    <table{!$tableParam} id="content" width="600">
+                    <table{$tableParam|noescape} id="content" width="600">
                         {block header}
                             <tr><td class="header_wrapper">
                                 <a class="image" href="{$baseUrl}" title="{_messages.header.logo} - {_messages.header.motto}">

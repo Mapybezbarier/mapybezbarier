@@ -1,5 +1,5 @@
-{includeblock 'ObjectControl.blocks.latte'}
-{includeblock 'ObjectControl.tabs.latte'}
+{import 'ObjectControl.blocks.latte'}
+{import 'ObjectControl.tabs.latte'}
 
 {form form}
     <div n:if="$form->hasErrors()" class="form_notification_wrapper nwjs_form_notification_wrapper">
@@ -18,10 +18,10 @@
         </div>
     </div>
 
-    {include attachementAddControls, _form => $_form}
+    {include attachementAddControls, form => $form}
 
     <div class="form_outer_wrapper">
-        {include formContent, _form => $_form}
+        {include formContent, form => $form}
 
         <div class="form_buttons">
             {input 'save', class => 'save'}

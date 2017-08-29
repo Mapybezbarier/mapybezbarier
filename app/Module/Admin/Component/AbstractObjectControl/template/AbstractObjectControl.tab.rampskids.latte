@@ -5,7 +5,7 @@
                 <tr>
                     <th><label>{_backend.control.object.label.rampskids.rampRelation}</label></th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampRelation"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampRelation"}
                     </td>
                 </tr>
 
@@ -15,31 +15,31 @@
                         <label>{_backend.control.object.label.rampskids.ramp}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampLocalization"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampLocalization"}
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampInteriorLocalization"}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampInteriorLocalization"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampMobility"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampMobility"}
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampAccessProvidedBy"}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampAccessProvidedBy"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampType"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampType"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampNumberOfLegs", class => 'short'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampNumberOfLegs", class => 'short'}
                     </td>
                 </tr>
                 <tr>
@@ -47,9 +47,9 @@
                         <label>{_backend.control.object.label.rampskids.leg1}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Inclination", class => 'short percent'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Width", class => 'short measure_unit'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg1Length", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg1Inclination", class => 'short percent'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg1Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg1Length", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -57,9 +57,9 @@
                         <label>{_backend.control.object.label.rampskids.leg2}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Inclination", class => 'short percent'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Width", class => 'short measure_unit'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg2Length", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg2Inclination", class => 'short percent'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg2Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg2Length", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -67,9 +67,9 @@
                         <label>{_backend.control.object.label.rampskids.leg3}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Inclination", class => 'short percent'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Width", class => 'short measure_unit'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg3Length", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg3Inclination", class => 'short percent'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg3Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg3Length", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -77,9 +77,9 @@
                         <label>{_backend.control.object.label.rampskids.leg4}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Inclination", class => 'short percent'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Width", class => 'short measure_unit'}
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampleg4Length", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg4Inclination", class => 'short percent'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg4Width", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampleg4Length", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -87,10 +87,10 @@
                         <label>{_backend.control.object.label.rampskids.bottomEntryArea}</label>
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampBottomEntryareaWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampBottomEntryareaWidth", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampBottomEntryareaDepth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampBottomEntryareaDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -98,10 +98,10 @@
                         <label>{_backend.control.object.label.rampskids.topEntryArea}</label>
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampTopEntryareaWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampTopEntryareaWidth", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampTopEntryareaDepth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampTopEntryareaDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -109,10 +109,10 @@
                         <label>{_backend.control.object.label.rampskids.landingsEntryArea}</label>
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaWidth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaWidth", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaDepth", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampLandingsEntryareaDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -120,20 +120,20 @@
                         <label>{_backend.control.object.label.rampskids.surface}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampSurface"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampSurface"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" rowspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampIsHandle", label => TRUE}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampIsHandle", label => TRUE}
                     </td>
                     <td>
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "rampHandleOrientation"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "rampHandleOrientation"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "rampHandle1Height", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "rampHandle1Height", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -143,39 +143,39 @@
                         <label>{_backend.control.object.label.rampskids.skids}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "skidsLocalization"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "skidsLocalization"}
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsInteriorLocalization"}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "skidsInteriorLocalization"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "skidsMobility"}
+                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "skidsMobility"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsInclination", class => 'short percent'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "skidsInclination", class => 'short percent'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "skidsLength", class => 'short measure_unit'}
+                        {include inputText form => $form, attachement => $attachement, index => $index, name => "skidsLength", class => 'short measure_unit'}
                     </td>
                 </tr>
 
                 {* Poznámky *}
                 <tr>
                     <th>{label "rampSkidsHasNotes", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "rampSkidsHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <td colspan="3">{include inputText, form => $form, name => "rampSkidsHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
 
                 {* Slovní popis úseku *}
                 <tr>
                     <th>{label "rampSkidsHasDescription", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "rampSkidsHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <td colspan="3">{include inputText, form => $form, name => "rampSkidsHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
             </table>
         </fieldset>

@@ -3,7 +3,6 @@
 namespace MP\DI;
 
 use Kdyby\Translation\Translator;
-use Nette\DI\CompilerExtension;
 
 /**
  * Extenze modulu
@@ -16,7 +15,7 @@ abstract class ModuleExtension extends CompilerExtension
     public $translator;
 
     /** @var string */
-    protected $locale = "/<locale cs|en>";
+    protected $locale = '/<locale cs|en>';
 
     /**
      * @return string
