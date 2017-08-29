@@ -25,6 +25,8 @@ class WheelmapDownloader implements IDownloader
      */
     public function getData($importItem)
     {
+        set_time_limit(120);
+
         $ret = [];
 
         $baseUrl = Arrays::get($importItem, 'url', null);
@@ -90,7 +92,7 @@ class WheelmapDownloader implements IDownloader
      * @return array
      * @throws DownloadException
      */
-    public function getContent($url)
+    protected function getContent($url)
     {
         $ret = [];
 
