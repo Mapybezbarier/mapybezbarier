@@ -1,13 +1,10 @@
-<div class="detail_descriptions">
-    <div class="detail_description">
+<div class="detail_pictograms">
+    <div class="detail_pictogram">
         <h3 class="dd_headline">{_messages.renderer.wckompas.headline}</h3>
     </div>
-</div>
-<div class="detail_pictograms">
     {foreach $object['custom_pictograms'] as $key => $pictogram}
         {if null !== $pictogram['value']}
             {php $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
-            {capture $keyClass}{$key|lower}{/capture}
             <div n:class="detail_pictogram">
                 <strong class="title">{_'messages.renderer.wckompas.' . $key}</strong>
                 <span n:class="detail_pictogram_accessibility, null !== $pictogram['accessible'] ? ('accessibility_' . $pictogram['accessible'])">
