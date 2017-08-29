@@ -10,7 +10,7 @@ interface IDownloader
      * Vrati data pro importni zdroj
      *
      * @param array $importItem
-     * @return string
+     * @return mixed Data ve formatu, ktery je podporovan prislusnym parserem
      */
     public function getData($importItem);
 }

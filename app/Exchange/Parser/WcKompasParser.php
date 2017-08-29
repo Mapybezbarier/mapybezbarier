@@ -56,7 +56,7 @@ class WcKompasParser implements IParser
         }
 
         if (!isset($rows['places'])) {
-            throw new ParseException('Data nejsou v očekávaném formátu.');
+            throw new ParseException('Data nejsou v ocekávanem formatu.');
         }
 
         foreach ($rows['places'] as $row) {
@@ -109,7 +109,7 @@ class WcKompasParser implements IParser
     }
 
     /**
-     * zajimaji me pouze vybrana data, u nekterych s nich si ulozim i hodnotu ze znameho ciselniku
+     * zajimaji me pouze vybrana data, ulozim i hodnotu ze znameho ciselniku
      * @param array $row
      * @return string JSON
      */
@@ -119,9 +119,11 @@ class WcKompasParser implements IParser
 
         if (!empty($row['attributes'])) {
             foreach($row['attributes'] as $attribute) {
-                if (array_key_exists(Arrays::get($attribute, 'attribute_id', null), $this->mapAttribute)) {
+                $attributeKey = Arrays::get($attribute, 'attribute_id', null);
+
+                if (array_key_exists($attributeKey, $this->mapAttribute)) {
                     $arrayValue = Arrays::get($attribute, 'value', []);
-                    $ret[$this->mapAttribute[$attribute['attribute_id']]] = array_pop($arrayValue);
+                    $ret[$this->mapAttribute[$attributeKey]] = array_pop($arrayValue);
                 }
             }
         }
@@ -142,9 +144,9 @@ class WcKompasParser implements IParser
      */
     protected function getObjectAccessibility($row)
     {
-        $accesibility_value = $this->getRowAttribute($row, self::ACCESSIBILITY_ATTRIBUTE_ID);
+        $accesibilityValue = $this->getRowAttribute($row, self::ACCESSIBILITY_ATTRIBUTE_ID);
 
-        return (1 == $accesibility_value) ? ObjectMetadata::ACCESSIBILITY_PARTLY : ObjectMetadata::ACCESSIBILITY_NO;
+        return (1 == $accesibilityValue) ? ObjectMetadata::ACCESSIBILITY_PARTLY : ObjectMetadata::ACCESSIBILITY_NO;
     }
 
     /**

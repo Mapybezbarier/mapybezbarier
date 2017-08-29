@@ -4,9 +4,9 @@
     </div>
 </div>
 <div class="detail_pictograms">
-    {foreach $object['custom_data']['custom_pictograms'] as $key => $pictogram}
-        {if !is_null($pictogram['value'])}
-            {? $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
+    {foreach $object['custom_pictograms'] as $key => $pictogram}
+        {if null !== $pictogram['value']}
+            {php $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
             {capture $keyClass}{$key|lower}{/capture}
             <div n:class="detail_pictogram">
                 <strong class="title">{_'messages.renderer.wckompas.' . $key}</strong>
