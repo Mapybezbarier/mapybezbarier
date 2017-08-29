@@ -4,9 +4,9 @@ Aplikace mapa přístupnosti Konta Bariéry Nadace Charty 77.
 
 Požadavky
 ---------
-* PHP 5.6
+* PHP 7.1
 * Apache 2.4
-* PostgresSQL 9.4
+* PostgresSQL 9.6
 
 Instalace
 ---------
