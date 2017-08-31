@@ -600,14 +600,12 @@ INSERT INTO object_type VALUES (100, 'HealthInsuranceCompanyObjectCategory', 'zd
 INSERT INTO object_type VALUES (101, 'MedicalSupplyObjectCategory', 'zdravotnické potřeby', NULL);
 INSERT INTO object_type VALUES (102, 'WinterStadiumObjectCategory', 'zimní stadion', NULL);
 INSERT INTO object_type VALUES (103, 'ZooObjectCategory', 'zoologická zahrada', NULL);
-INSERT INTO object_type VALUES (104, 'ZooObjectCategory', 'zoologická zahrada', NULL);
-INSERT INTO object_type VALUES (105, 'CultureHouseObjectCategory', 'kulturní dům', NULL);
-INSERT INTO object_type VALUES (106, 'AtmObjectCategory', 'bankomat', NULL);
+INSERT INTO object_type VALUES (104, 'CultureHouseObjectCategory', 'kulturní dům', NULL);
+INSERT INTO object_type VALUES (105, 'AtmObjectCategory', 'bankomat', NULL);
+INSERT INTO object_type VALUES (106, 'CulturalFacilityObjectCategory', 'kulturní zařízení', NULL);
 INSERT INTO object_type VALUES (107, 'InstitutionObjectCategory', 'instituce', NULL);
 INSERT INTO object_type VALUES (108, 'TransportObjectCategory', 'doprava', NULL);
 INSERT INTO object_type VALUES (109, 'ElementaryArtSchoolObjectCategory', 'základní umělecká škola', NULL);
-INSERT INTO object_type VALUES (104, 'CultureHouseObjectCategory', 'kulturní dům', NULL);
-INSERT INTO object_type VALUES (105, 'AtmObjectCategory', 'bankomat', NULL);
 INSERT INTO object_type VALUES (110, 'MedicalFacilityObjectCategory', 'zdravotnické zařízení', NULL);
 INSERT INTO object_type VALUES (111, 'EducationObjectCategory', 'vzdělávání', NULL);
 INSERT INTO object_type VALUES (112, 'LeisureTimeObjectCategory', 'volný čas', NULL);
