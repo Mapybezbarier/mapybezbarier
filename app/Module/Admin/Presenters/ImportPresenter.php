@@ -20,12 +20,25 @@ use MP\Module\Admin\Component\ManualImportControl\ManualImportControl;
  */
 class ImportPresenter extends AbstractAuthorizedPresenter
 {
+    /** @const Nazev komponenty licence. */
+    const COMPONENT_LICNSE = 'license';
+
     /**
      * @param int|null $id
      */
     public function renderLogs($id = null)
     {
         $this->template->id = $id;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @throws \Nette\Application\BadRequestException
+     */
+    public function actionLicenseEdit($id)
+    {
+        $this[self::COMPONENT_LICNSE]->setId($id);
     }
 
     /**

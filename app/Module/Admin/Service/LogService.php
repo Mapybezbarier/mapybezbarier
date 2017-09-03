@@ -19,6 +19,7 @@ class LogService
     const ACTION_IMPORT_AUTO_DELETE = 'automaticDelete';
     const ACTION_IMPORT_AUTO_RUN = 'automaticRun';
     const ACTION_IMPORT_LICENSE_CREATE = 'licenseCreate';
+    const ACTION_IMPORT_LICENSE_EDIT = 'licenseEdit';
     const ACTION_IMPORT_LICENSE_DELETE = 'licenseDelete';
 
     const ACTION_USER_LOGIN = 'login';

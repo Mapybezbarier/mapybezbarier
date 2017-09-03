@@ -1826,6 +1826,7 @@ ALTER TABLE lang OWNER TO mapy_pristupnosti_db_01;
 CREATE TABLE license (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
+    url text,
     pair_key character varying(255)
 );
 

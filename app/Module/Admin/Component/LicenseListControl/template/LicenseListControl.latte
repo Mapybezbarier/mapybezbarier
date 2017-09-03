@@ -5,14 +5,20 @@
                 <thead>
                     <tr>
                         <th class="title">{_backend.control.import.license.head.title}</th>
-                        <th class="delete tool">{_backend.control.import.action.delete}</th>
+                        <th class="url">{_backend.control.import.license.head.url}</th>
+                        <th class="edit tool">{_backend.control.list.edit}</th>
+                        <th class="delete tool">{_backend.control.list.delete}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr n:foreach="$items as $item">
                         <td class="title">{$item['title']}</td>
+                        <td class="url">{$item['url']}</td>
+                        <td class="edit tool">
+                            <a href="{plink :Admin:Import:licenseEdit id => $item['id']}" title="{_backend.control.list.edit}">{_backend.control.list.edit}</a>
+                        </td>
                         <td class="delete tool">
-                            <a class="nwjs_confirm" n:href="delete! id => $item['id']" data-confirm="{_backend.system.confirm.delete}" title="{$item['id']}">{_backend.control.import.action.delete}</a>
+                            <a class="nwjs_confirm" n:href="delete! id => $item['id']" data-confirm="{_backend.system.confirm.delete}" title="{$item['id']}">{_backend.control.list.delete}</a>
                         </td>
                     </tr>
                 </tbody>

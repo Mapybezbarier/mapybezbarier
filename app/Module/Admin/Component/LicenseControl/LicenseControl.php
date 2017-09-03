@@ -17,6 +17,12 @@ use Nette\Forms\Form;
 class LicenseControl extends AbstractFormControl
 {
     /**
+     * @persistent
+     * @var int
+     */
+    public $id;
+
+    /**
      * @var LicenseManager
      */
     protected $manager;
@@ -39,15 +45,28 @@ class LicenseControl extends AbstractFormControl
     }
 
     /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @param Form $form
      */
     public function processForm(Form $form)
     {
         $values = $form->getValues(true);
 
-        $values = $this->manager->persist($values);
-        $this->logService->log(Authorizator::RESOURCE_IMPORT, LogService::ACTION_IMPORT_LICENSE_CREATE, $values[IMapper::ID]);
+        if ($this->id) {
+            $values[IMapper::ID] = $this->id;
+            $this->logService->log(Authorizator::RESOURCE_IMPORT, LogService::ACTION_IMPORT_LICENSE_EDIT, $this->id);
+        } else {
+            $this->logService->log(Authorizator::RESOURCE_IMPORT, LogService::ACTION_IMPORT_LICENSE_CREATE);
+        }
 
+        $values = $this->manager->persist($values);
         $this->getPresenter()->redirect(':Admin:Import:license');
     }
 
@@ -72,7 +91,39 @@ class LicenseControl extends AbstractFormControl
     protected function appendControls(Form $form)
     {
         $form->addText('title', 'backend.control.license.label.title')->setRequired(true);
+        $form->addText('url', 'backend.control.license.label.url');
         $form->addSubmit('submit', 'backend.control.license.label.submit');
+
+        $form->setDefaults($this->prepareValues($form));
+    }
+
+    /**
+     * @param Form $form
+     *
+     * @return array
+     */
+    private function prepareValues(Form $form)
+    {
+        $values = [];
+
+        if ($this->id) {
+            $license = $this->manager->findOneById($this->id);
+
+            if ($license) {
+                /** @var \Nette\ComponentModel\IComponent $component */
+                foreach ($form->getComponents() as $component) {
+                    $name = $component->getName();
+
+                    if (isset($license[$name])) {
+                        $values[$name] = $license[$name];
+                    }
+                }
+            } else {
+                throw new \Nette\Application\BadRequestException("Unknow license with ID '{$this->id}'");
+            }
+        }
+
+        return $values;
     }
 
     /**
