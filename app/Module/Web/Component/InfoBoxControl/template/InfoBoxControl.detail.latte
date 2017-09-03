@@ -31,7 +31,7 @@
     {if !empty($object['source'])}
     <div class="ib_source">
         <div class="addr_item source" title="{_messages.control.map.infoBox.source}">
-            {$object['source']}
+            {$object['source']} (<a href="{$object['license_url']}" target="_blank" n:tag-if="$object['license_url']">{$object['license']}</a>)
         </div>
     </div>
     {/if}
