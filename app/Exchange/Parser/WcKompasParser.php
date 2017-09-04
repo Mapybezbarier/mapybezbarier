@@ -1,9 +1,11 @@
 <?php
 
 namespace MP\Exchange\Parser;
+
 use MP\Exchange\Exception\ParseException;
 use MP\Exchange\Service\ImportLogger;
 use MP\Object\ObjectMetadata;
+use MP\Util\Address\Address;
 use MP\Util\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -60,12 +62,16 @@ class WcKompasParser implements IParser
         }
 
         foreach ($rows['places'] as $row) {
-            $object = $this->prepareMapObject($row);
+            $latitude = Arrays::get($row, 'lat', 0.0);
+            $longitude = Arrays::get($row, 'lng', 0.0);
 
-            if ($object) {
-                $ret[] = $object;
+            if (Address::isInCr($latitude, $longitude)) {
+                $object = $this->prepareMapObject($row);
+
+                if ($object) {
+                    $ret[] = $object;
+                }
             }
-
         }
 
         return $ret;

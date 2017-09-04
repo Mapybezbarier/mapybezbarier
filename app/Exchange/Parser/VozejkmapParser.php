@@ -66,7 +66,12 @@ class VozejkmapParser implements IParser
         }
 
         foreach ($rows as $row) {
-            $ret[] = $this->prepareMapObject($row);
+            $latitude = Arrays::get($row, 'lat', 0.0);
+            $longitude = Arrays::get($row, 'lng', 0.0);
+
+            if (Address::isInCr($latitude, $longitude)) {
+                $ret[] = $this->prepareMapObject($row);
+            }
         }
 
         return $ret;

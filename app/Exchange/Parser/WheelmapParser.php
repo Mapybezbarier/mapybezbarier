@@ -53,42 +53,6 @@ class WheelmapParser implements IParser
         'no' => ObjectMetadata::ACCESSIBILITY_NO,
     ];
 
-    /** @var array polygon zjednodusenych hranic Ceske republiky */
-    protected $crPolygon = [
-        [18.8512452096,49.5173542465],
-        [18.5659002466,49.4936731907],
-        [17.7122181579,48.8561090883],
-        [17.1879091581,48.8694451992],
-        [16.9461822783,48.619064172],
-        [16.5405541546,48.8123542125],
-        [16.1033361464,48.7500000611],
-        [15.0286091888,49.0187451677],
-        [14.7002821615,48.5813821527],
-        [13.8336092964,48.7736090326],
-        [12.6744452253,49.4250002578],
-        [12.4555543378,49.6955451266],
-        [12.5459731127,49.9095822216],
-        [12.0937002006,50.3225361287],
-        [12.3230542179,50.206664196],
-        [12.5154180581,50.3924911575],
-        [12.985554147,50.4183272007],
-        [14.3113911898,50.8822181011],
-        [14.3062452041,51.0524911002],
-        [14.8283361848,50.8658271218],
-        [15.1769450708,51.0147180534],
-        [15.379718229,50.7794450715],
-        [16.3320092179,50.6640272702],
-        [16.447363149,50.5788180158],
-        [16.2190271977,50.4102731975],
-        [16.6400002392,50.1088911392],
-        [17.002218151,50.2169451031],
-        [16.8909731965,50.4386730972],
-        [17.7244451754,50.3190271287],
-        [17.6577731704,50.1080541223],
-        [18.578745178,49.9122181625],
-        [18.8512452096,49.5173542465],
-    ];
-
     /** @var array mapa hashu identifikuji objekty z VozejkMap */
     protected $vozejkmapHashmap;
 
@@ -107,7 +71,10 @@ class WheelmapParser implements IParser
         }
 
         foreach ($rows as $row) {
-            if ($this->isInCr($row)) {
+            $latitude = Arrays::get($row, 'lat', 0);
+            $longitude = Arrays::get($row, 'lon', 0);
+
+            if (Address::isInCr($latitude, $longitude)) {
                 if (!$this->isVozejkmapDuplicate($row)) {
                     $ret[] = $this->prepareMapObject($row);
                 }
@@ -237,40 +204,6 @@ class WheelmapParser implements IParser
         }
 
         return $ret;
-    }
-
-    /**
-     * Vyhodnoti, zda se GPS souradnice importovaneho objektu nachazi v polygonu hranic Ceske republiky
-     * Algoritmus inspirovan http://assemblysys.com/php-point-in-polygon-algorithm/ (Author: Michaël Niessen)
-     * 
-     * @param array $row
-     * @return boolean
-     */
-    protected function isInCr($row)
-    {
-        $longitude = Arrays::get($row, 'lon', 0);
-        $latitude = Arrays::get($row, 'lat', 0);
-
-        $intersections = 0;
-
-        for ($i = 1; $i < count($this->crPolygon); $i++) {
-            $vertex1 = $this->crPolygon[$i-1];
-            $vertex2 = $this->crPolygon[$i];
-
-            if (
-                $latitude > min($vertex1[1], $vertex2[1])
-                && $latitude <= max($vertex1[1], $vertex2[1])
-                && $longitude <= max($vertex1[0], $vertex2[0])
-            ) {
-                $xinters = ($latitude - $vertex1[1]) * ($vertex2[0] - $vertex1[0]) / ($vertex2[1] - $vertex1[1]) + $vertex1[0];
-
-                if ($longitude <= $xinters) {
-                    $intersections++;
-                }
-            }
-        }
-
-        return ($intersections % 2 != 0);
     }
 
     /**
