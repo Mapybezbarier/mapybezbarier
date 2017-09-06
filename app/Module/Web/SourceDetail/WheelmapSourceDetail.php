@@ -2,6 +2,7 @@
 
 namespace MP\Module\SourceDetail;
 
+use Nette\Utils\Arrays;
 use Nette\Utils\Json;
 
 /**
@@ -31,6 +32,17 @@ class WheelmapSourceDetail implements ISourceDetail
                 $ret = [
                     'wheelchair_toilet' => false,
                 ];
+            }
+        }
+
+        // pokud neni nastaven nazev, tak pouzij nazev typu
+        $nodeType = Arrays::get($externalData, 'node_type', null);
+
+        if (!empty($nodeType)) {
+            if (empty($object['title'])) {
+                $ret['alternative_title'] = $nodeType;
+            } else {
+                $ret['node_type'] = $nodeType;
             }
         }
 
