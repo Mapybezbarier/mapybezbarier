@@ -3,6 +3,7 @@
 namespace MP\Exchange\Downloader;
 
 use MP\Exchange\Exception\DownloadException;
+use MP\Util\Lang\Lang;
 use Nette\Http\Url;
 use Nette\Utils\Arrays;
 use Nette\Utils\Json;
@@ -15,19 +16,30 @@ use Nette\Utils\JsonException;
  */
 class WheelmapDownloader implements IDownloader
 {
+    /** @var Lang */
+    protected $lang;
+
+    /**
+     * @param Lang $lang
+     */
+    public function __construct(Lang $lang)
+    {
+        $this->lang = $lang;
+    }
+
     /**
      * Kazda stranka s daty ma meta informace o celkovem poctu a aktualni strane
      * Postupne je potreba spojit 3 zdroje: wheelchair=yes/limited/no, objekty bez udane pristupnosti nestahujeme
      *
      * @param array $importItem
-     * @return array
+     * @return array Krome dat o objektech ['nodes'] vraci interni typy ['node_types']
      * @throws DownloadException
      */
     public function getData($importItem)
     {
         set_time_limit(120);
 
-        $ret = [];
+        $nodes = [];
 
         $baseUrl = Arrays::get($importItem, 'url', null);
 
@@ -35,24 +47,20 @@ class WheelmapDownloader implements IDownloader
             foreach(['yes', 'limited', 'no'] as $wheelchairAccessibility) {
                 $accessibilityUrl = new Url($baseUrl);
                 $accessibilityUrl->setQueryParameter('wheelchair', $wheelchairAccessibility);
-                $data = $this->getContent($accessibilityUrl);
 
-                $actualPage = $this->getMetadataInfo($data, 'page', 1);
-                $totalPages = $this->getMetadataInfo($data, 'num_pages', 1);
-
-                for ($page = 1; $page <= $totalPages; $page++) {
-                    if ($page == $actualPage) {
-                        $ret = array_merge($ret, Arrays::get($data, 'nodes', []));
-                    } else {
-                        $ret = array_merge($ret, $this->getNodesData($accessibilityUrl, $page));
-                    }
-                }
+                $nodes = array_merge($nodes, $this->getWheelmapContent($accessibilityUrl, 'nodes'));
             }
+
+            $nodeTypesUrl = $this->prepareNodeTypesUrl($baseUrl);
+            $nodeTypes = $this->getWheelmapContent($nodeTypesUrl, 'node_types');
         } else {
             throw new DownloadException('invalidObjectExternalData');
         }
 
-        return $ret;
+        return [
+            'nodes' => $nodes,
+            'node_types' => $nodeTypes,
+        ];
     }
 
     /**
@@ -78,12 +86,12 @@ class WheelmapDownloader implements IDownloader
      * @param integer $page
      * @return array
      */
-    protected function getNodesData($url, $page)
+    protected function getPageData($url, $page, $contentKey)
     {
         $url->setQueryParameter('page', $page);
-        $data = $this->getContent($url);
+        $data = $this->getDataFromJson($url);
 
-        return Arrays::get($data, 'nodes', []);
+        return Arrays::get($data, $contentKey, []);
     }
 
     /**
@@ -92,7 +100,7 @@ class WheelmapDownloader implements IDownloader
      * @return array
      * @throws DownloadException
      */
-    protected function getContent($url)
+    protected function getDataFromJson($url)
     {
         $ret = [];
 
@@ -107,4 +115,45 @@ class WheelmapDownloader implements IDownloader
         return $ret;
     }
 
+    /**
+     * Stahne a rozparsuje strankovana data ke konkretnimu uzlu
+     * @param Url $contentUrl
+     * @param string $contentKey
+     * @return array
+     */
+    protected function getWheelmapContent($contentUrl, $contentKey)
+    {
+        $ret = [];
+
+        $data = $this->getDataFromJson($contentUrl);
+
+        $actualPage = $this->getMetadataInfo($data, 'page', 1);
+        $totalPages = $this->getMetadataInfo($data, 'num_pages', 1);
+
+        for ($page = 1; $page <= $totalPages; $page++) {
+            if ($page == $actualPage) {
+                $ret = array_merge($ret, Arrays::get($data, $contentKey, []));
+            } else {
+                $ret = array_merge($ret, $this->getPageData($contentUrl, $page, $contentKey));
+            }
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Z originalni URL si vezme zaklad (domenu a klic) a upravi pro dotaz na typy
+     * @param string $baseUrl
+     * @return Url
+     */
+    protected function prepareNodeTypesUrl($baseUrl)
+    {
+        $ret = new Url($baseUrl);
+        $path = $ret->getPath();
+        $ret->setPath(str_replace('nodes', 'node_types', $path));
+        $ret->setQueryParameter('bbox', null);
+        $ret->setQueryParameter('locale', $this->lang->getLang());
+
+        return $ret;
+    }
 }

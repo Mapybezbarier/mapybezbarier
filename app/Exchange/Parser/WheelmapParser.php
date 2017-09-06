@@ -8,7 +8,7 @@ use MP\Manager\ExchangeSourceManager;
 use MP\Manager\ObjectManager;
 use MP\Object\ObjectMetadata;
 use MP\Util\Address\Address;
-use Nette\Utils\Arrays;
+use MP\Util\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 
@@ -56,6 +56,9 @@ class WheelmapParser implements IParser
     /** @var array mapa hashu identifikuji objekty z VozejkMap */
     protected $vozejkmapHashmap;
 
+    /** @var array interni typy ibjektu dle OpenStreetMap */
+    protected $nodeTypes;
+    
     /**
      * @param mixed $data
      * @return array
@@ -65,9 +68,10 @@ class WheelmapParser implements IParser
         $ret = [];
 
         if (!is_array($data)) {
-            $rows = $this->prepareNodesData($data);
+            throw new ParseException('Wheelmap neumoznuje import ze souboru.');
         } else {
-            $rows = $data;
+            $rows = $data['nodes'];
+            $this->nodeTypes = Arrays::pairs($data['node_types'], 'id', 'localized_name');
         }
 
         foreach ($rows as $row) {
@@ -90,25 +94,6 @@ class WheelmapParser implements IParser
     public function getType()
     {
         return IParser::TYPE_EXTERNAL;
-    }
-
-    /**
-     * Prevede textovy JSON na pole
-     * @param string $data
-     * @return array
-     * @throws ParseException
-     */
-    protected function prepareNodesData($data)
-    {
-        $ret = [];
-
-        try {
-            $ret = Arrays::get(Json::decode($data, Json::FORCE_ARRAY), 'nodes', []);
-        } catch (JsonException $e) {
-            throw new ParseException('Data nejsou korektne zformatovany JSON.');
-        }
-
-        return $ret;
     }
 
     /**
@@ -172,6 +157,10 @@ class WheelmapParser implements IParser
 
         if (isset($row['wheelchair_toilet'])) {
             $ret['wheelchair_toilet'] = $row['wheelchair_toilet'] ?: 'unknown';
+        }
+
+        if (isset($row['node_type']['id'])) {
+            $ret['node_type'] = Arrays::get($this->nodeTypes, $row['node_type']['id'], null);
         }
 
         $ret['id'] = Arrays::get($row, 'id', null);
