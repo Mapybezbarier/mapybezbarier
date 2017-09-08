@@ -3,10 +3,14 @@ parameters:
         infoBox:
             mapping:
                 vozejkmap: vozejkmapInfoBoxRendererFactory
+                wckompas: wcKompasInfoBoxRendererFactory
+                wheelmap: wheelmapInfoBoxRendererFactory
 
         detail:
             mapping:
                 vozejkmap: vozejkmapDetailRendererFactory
+                wckompas: wcKompasDetailRendererFactory
+                wheelmap: wheelmapDetailRendererFactory
 
 services:
     infoBoxRendererFactory:
@@ -19,7 +23,11 @@ services:
     #info box
     defaultInfoBoxRendererControlFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\DefaultRenderer\IDefaultRendererFactory
     vozejkmapInfoBoxRendererFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
+    wcKompasInfoBoxRendererFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\WcKompasRenderer\IWcKompasRendererFactory
+    wheelmapInfoBoxRendererFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory
 
     # detail
     defaultDetailRendererControlFactory: MP\Module\Web\Component\DetailControl\Renderer\DefaultRenderer\IDefaultRendererFactory
     vozejkmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
+    wcKompasDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WcKompasRenderer\IWcKompasRendererFactory
+    wheelmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory

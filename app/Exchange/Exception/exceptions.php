@@ -27,3 +27,11 @@ class ValidationException extends LogicException
 {
 
 }
+
+/**
+ * Vyjimka pro zpracovnai chyb pri stahovani dat z externich zdroju
+ */
+class DownloadException extends LogicException
+{
+
+}

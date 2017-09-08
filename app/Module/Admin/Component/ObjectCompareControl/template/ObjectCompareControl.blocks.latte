@@ -1,4 +1,4 @@
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.blocks.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.blocks.latte'}
 
 {define formContent}
     <div class="compare_section">
@@ -22,9 +22,9 @@
     {var $text = null}
 
     {if isset($attachement) && isset($current[$attachement][$index]) && isset($current[$attachement][$index][$name])}
-        {? $text = $current[$attachement][$index][$name]}
+        {php $text = $current[$attachement][$index][$name]}
     {elseif isset($current[$name])}
-        {? $text = $current[$name]}
+        {php $text = $current[$name]}
     {/if}
 
     <div class="compare_hint" n:if="$text">

@@ -20,7 +20,7 @@ class VozejkmapSourceDetail implements ISourceDetail
 
         return [
             'custom_category' => (isset($externalData['location_type']) ? $externalData['location_type']['title'] : null),
-            'accessibility' => $externalData['attr1']['title'],
+            'vozejkmapAccessibility' => $externalData['attr1']['title'],
             'wc_accessible_bool' => ('yes' === $externalData['attr2']),
             'parking_accessible_bool' => ('yes' === $externalData['attr3']),
         ];

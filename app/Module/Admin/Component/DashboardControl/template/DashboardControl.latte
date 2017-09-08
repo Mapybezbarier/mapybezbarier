@@ -1,11 +1,11 @@
 <div class="dashboard">
-    {? $i = 0}
-    {? $modulesHtml = ''}
+    {php $i = 0}
+    {php $modulesHtml = ''}
     {foreach $modules as $resource => $data}
         {capture $modulesHtml}
             {$modulesHtml|noescape}
             {if $user->isAllowed($resource, $data['defaultAction'])}
-                {? $i++}
+                {php $i++}
                 {capture $resourceClass}{$resource|lower}{/capture}
                 <div n:class="module_wrapper, $resourceClass">
                     <div class="module">

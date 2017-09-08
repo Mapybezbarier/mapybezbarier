@@ -51,7 +51,7 @@
 {/define}
 
 {define objectTitle}
-    <span property="name">{$object['title']}</span>
+    <span property="name">{$object['alternative_title'] ?? $object['title']}</span>
 {/define}
 
 {define closer}
@@ -81,7 +81,7 @@
 {define warning}
 {if $object['outdated']}
     <div class="ib_warning">
-        {!_'messages.control.map.infoBox.outdatedWarning', ['tagStart' => '<strong>', 'tagEnd' => '</strong>']}
+        {_'messages.control.map.infoBox.outdatedWarning', ['tagStart' => '<strong>', 'tagEnd' => '</strong>']|noescape}
     </div>
 {/if}
 {/define}

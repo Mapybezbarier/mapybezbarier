@@ -1,9 +1,11 @@
 <?php
 
 namespace MP\Exchange\Parser;
+
 use MP\Exchange\Exception\ParseException;
 use MP\Exchange\Service\ImportLogger;
 use MP\Object\ObjectMetadata;
+use MP\Util\Address\Address;
 use MP\Util\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -64,7 +66,12 @@ class VozejkmapParser implements IParser
         }
 
         foreach ($rows as $row) {
-            $ret[] = $this->prepareMapObject($row);
+            $latitude = Arrays::get($row, 'lat', 0.0);
+            $longitude = Arrays::get($row, 'lng', 0.0);
+
+            if (Address::isInCr($latitude, $longitude)) {
+                $ret[] = $this->prepareMapObject($row);
+            }
         }
 
         return $ret;
@@ -103,7 +110,7 @@ class VozejkmapParser implements IParser
             'mappingDate' => time(),
         ];
 
-        $this->parseHouseNumber($ret, $row);
+        Address::parseHouseNumber($ret, $row, 'street_number');
 
         return $ret;
     }
@@ -178,28 +185,5 @@ class VozejkmapParser implements IParser
         }
 
         return $ret;
-    }
-
-    /**
-     * Rozparsuje cislo popisne a orientacni
-     * @param array $ret
-     * @param array $row
-     */
-    protected function parseHouseNumber(&$ret, $row)
-    {
-        $housenumber = Arrays::get($row, 'street_number', null);
-
-        if ($housenumber) {
-            if (preg_match('~(\d+)/?(\d*)(\D*)~', $housenumber, $matches)) {
-                if ($matches[1] && !$matches[2] && $matches[3]) {
-                    $ret['streetOrientNo'] = $matches[1];
-                    $ret['streetOrientSymbol'] = $matches[3];
-                } else {
-                    $ret['streetDescNo'] = $matches[1] ? $matches[1] : null;
-                    $ret['streetOrientNo'] = $matches[2] ? $matches[2] : null;
-                    $ret['streetOrientSymbol'] = $matches[3] ? $matches[3] : null;
-                }
-            }
-        }
     }
 }

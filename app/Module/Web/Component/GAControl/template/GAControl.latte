@@ -6,5 +6,5 @@
 
     var GA_DEFAULT_TRACKER = {$settings[1]};
     ga('create', {$settings[0]}, "auto", {'name':{$settings[1]}});
-    ga('{!$settings[1]}.send', 'pageview');
+    ga('{$settings[1]|noescape}.send', 'pageview');
 </script>

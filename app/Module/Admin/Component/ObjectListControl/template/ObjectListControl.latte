@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                         {foreach $objects as $object}
-                            {? $hasDraft = in_array($object['object_id'], $draftMapObjectIds)}
+                            {php $hasDraft = in_array($object['object_id'], $draftMapObjectIds)}
                             <tr n:class="$hasDraft ? has_draft">
                                 <td class="title" title="{$object['object_id']}"><span{if $hasDraft} title="{_backend.object.hasDraft}"{/if}>{$object['title']}</span></td>
                                 <td n:ifset="$actions['history']" class="history tool">

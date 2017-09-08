@@ -5,27 +5,27 @@
                 {* Schody v interiéru *}
                 <tr>
                     <th rowspan="4"><label>{_backend.control.object.label.interior.steps}</label></th>
-                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsSteps"}</td>
+                    <td colspan="3">{include radioGroup form => $form, name => "objectIsSteps"}</td>
                 </tr>
 
                 <tr>
                     <td><label>{_backend.control.object.label.interior.oneStep}</label></td>
                     <td>
-                        {include inputText, _form => $_form, name => "objectSteps1Height", class => 'short measure_unit'}
+                        {include inputText, form => $form, name => "objectSteps1Height", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText, _form => $_form, name => "objectSteps1Depth", class => 'short measure_unit'}
+                        {include inputText, form => $form, name => "objectSteps1Depth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td><label>{_backend.control.object.label.interior.moreSteps}</label></td>
                     <td colspan="2">
-                        {include inputText, _form => $_form, name => "objectSteps1NumberOf", class => 'short'}
+                        {include inputText, form => $form, name => "objectSteps1NumberOf", class => 'short'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectSteps1Localization"}
+                        {include inputText, form => $form, name => "objectSteps1Localization"}
                     </td>
                 </tr>
 
@@ -36,23 +36,23 @@
                         <div class="th_help">({_backend.control.object.label.interior.stairsHelp})</div>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectIsStairs"}
+                        {include radioGroup form => $form, name => "objectIsStairs"}
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectStairsType"}
+                        {include radioGroup form => $form, name => "objectStairsType"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectStairsWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, name => "objectStairsWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectStairsIsBannister", label => TRUE}
+                        {include radioGroup form => $form, name => "objectStairsIsBannister", label => TRUE}
                     </td>
                 </tr>
 
@@ -62,28 +62,28 @@
                         <label>{_backend.control.object.label.interior.narrowedPassage}</label>
                         <div class="th_help">({_backend.control.object.label.interior.narrowedPassageHelp})</div>
                     </th>
-                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsNarrowedPassage"}</td>
+                    <td colspan="3">{include radioGroup form => $form, name => "objectIsNarrowedPassage"}</td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectNarrowedPassageWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, name => "objectNarrowedPassageWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectNarrowedPassageLocalization"}
+                        {include inputText, form => $form, name => "objectNarrowedPassageLocalization"}
                     </td>
                 </tr>
 
                 {* Turnikety *}
                 <tr>
                     <th rowspan="2"><label>{_backend.control.object.label.interior.tourniquet}</label></th>
-                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsTourniquet"}</td>
+                    <td colspan="3">{include radioGroup form => $form, name => "objectIsTourniquet"}</td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectTourniquetLocalization"}
+                        {include inputText, form => $form, name => "objectTourniquetLocalization"}
                     </td>
                 </tr>
 
@@ -91,13 +91,13 @@
                 <tr>
                     <th rowspan="2"><label>{_backend.control.object.label.interior.contrastMarkingGlass}</label></th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectContrastMarkingIsGlassSurfaces", label => TRUE}
+                        {include radioGroup form => $form, name => "objectContrastMarkingIsGlassSurfaces", label => TRUE}
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectContrastMarkingLocalization"}
+                        {include radioGroup form => $form, name => "objectContrastMarkingLocalization"}
                     </td>
                 </tr>
 
@@ -105,7 +105,7 @@
                 <tr>
                     <th><label>{_backend.control.object.label.interior.contrastMarkingSteps}</label></th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, name => "objectStepsIsContrastMarked", label => TRUE}
+                        {include radioGroup form => $form, name => "objectStepsIsContrastMarked", label => TRUE}
                     </td>
                 </tr>
 
@@ -113,29 +113,29 @@
                 <tr>
                     <th rowspan="3"><label>{_backend.control.object.label.interior.aob}</label></th>
                     <td colspan="3">
-                        {include radioGroup, _form => $_form, name => "objectIsAOB"}
+                        {include radioGroup, form => $form, name => "objectIsAOB"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup, _form => $_form, name => "objectAobIsAboveDoor", label => TRUE}
+                        {include radioGroup, form => $form, name => "objectAobIsAboveDoor", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectAobLocalization"}
+                        {include inputText, form => $form, name => "objectAobLocalization"}
                     </td>
                 </tr>
 
                 {* Navigační systém pro osoby se zrakovým omezením *}
                 <tr>
                     <th rowspan="2"><label>{_backend.control.object.label.interior.navigationSystem}</label></th>
-                    <td colspan="3">{include radioGroup _form => $_form, name => "objectIsNavigationSystem"}</td>
+                    <td colspan="3">{include radioGroup form => $form, name => "objectIsNavigationSystem"}</td>
                 </tr>
 
                 <tr>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectNavigationSystemDescription", placeholder => TRUE}
+                        {include inputText, form => $form, name => "objectNavigationSystemDescription", placeholder => TRUE}
                     </td>
                 </tr>
 
@@ -143,7 +143,7 @@
                 <tr>
                     <th>{label "objectInteriorAccessibility"/}</th>
                     <td colspan="3">
-                        {include radioGroup, _form => $_form, name => "objectInteriorAccessibility"}
+                        {include radioGroup, form => $form, name => "objectInteriorAccessibility"}
                     </td>
                 </tr>
 
@@ -151,14 +151,14 @@
                 <tr>
                     <th>{label "objectHasNotes"/}</th>
                     <td colspan="3">
-                        {include inputText, _form => $_form, name => "objectHasNotes", class => 'no_label'}
+                        {include inputText, form => $form, name => "objectHasNotes", class => 'no_label'}
                     </td>
                 </tr>
 
                 {* Slovní popis úseku *}
                 <tr>
                     <th>{label "objectHasDescription" /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "objectHasDescription", class => 'no_label'}</td>
+                    <td colspan="3">{include inputText, form => $form, name => "objectHasDescription", class => 'no_label'}</td>
                 </tr>
             </table>
         </fieldset>

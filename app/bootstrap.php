@@ -27,20 +27,14 @@ Debugger::setLogger(new Logger(Debugger::$logDirectory, Debugger::$email, Debugg
 
 $configurator->addConfig(APP_DIR . '/config/config.neon');
 
-Route::$defaultFlags = Route::SECURED;
-
 if (file_exists(APP_DIR . '/config/config.test.neon')) {
     $configurator->addConfig(APP_DIR . '/config/config.test.neon');
-
-    Route::$defaultFlags = 0;
 }
 
 if ($configurator->isDebugMode()) {
     if (file_exists(APP_DIR . '/config/config.debug.neon')) {
         $configurator->addConfig(APP_DIR . '/config/config.debug.neon');
     }
-
-    Route::$defaultFlags = 0;
 
     if (class_exists(Panel::class)) {
         Panel::$maxLength = 10000;

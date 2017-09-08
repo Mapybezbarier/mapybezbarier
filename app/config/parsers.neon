@@ -5,9 +5,13 @@ parameters:
             json: jsonParser
             csv: csvParser
             vozejkmap: vozejkmapParser
+            wckompas: wcKompasParser
+            wheelmap: wheelmapParser
 
 services:
     xmlParser: MP\Exchange\Parser\XmlParser
     jsonParser: MP\Exchange\Parser\JsonParser
     csvParser: MP\Exchange\Parser\CsvParser
     vozejkmapParser: MP\Exchange\Parser\VozejkmapParser
+    wcKompasParser: MP\Exchange\Parser\WcKompasParser
+    wheelmapParser: MP\Exchange\Parser\WheelmapParser

@@ -5,52 +5,24 @@
 
 {define params}
     <div class="ib_params">
-        <div class="type category_{$object['category']['id']}">
-            {if $object['custom_data']['custom_category']}
-                {$object['custom_data']['custom_category']|lower}
-            {else}
-                {$object['category']['title']}
-            {/if}
-        </div>
+        <div class="type category_{$object['category']['id']}">{$object['category']['title']}</div>
     </div>
 {/define}
 
 {define address}
     <div class="ib_address">
-        {include addressContent}
-    </div>
-{/define}
-
-{define addressContent}
-    {include addressAccessibility}
-    {include addressGps}
-    {include addressWcAccessibility}
-{/define}
-
-{define addressAccessibility}
-    <div class="addr_item accessibility">
-        {_messages.renderer.vozejkmap.objectAccessible}
-    </div>
-{/define}
-
-{define addressGps}
-    <div class="addr_item gps" property="geo" typeof="GeoCoordinates" title="{_messages.control.map.infoBox.gps}">
-        {$object['latitude']}, {$object['longitude']}
-        <meta property="latitude" content="{$object['latitude']}" />
-        <meta property="longitude" content="{$object['longitude']}" />
-    </div>
-{/define}
-
-{define addressWcAccessibility}
-    <div class="addr_item wc_accessibility">
-        {_messages.renderer.vozejkmap.wcAccessible}:
-
-        <strong>
-            {if $object['custom_data']['wc_accessible_bool']}
-                {_messages.renderer.vozejkmap.yes}
-            {else}
-                {_messages.renderer.vozejkmap.no}
-            {/if}
-        </strong>
+        {if $object['address']}
+            <address property="address" class="addr_item address" title="{_messages.control.map.infoBox.address}">{$object['address']}</address>
+        {/if}
+        <div class="addr_item gps" property="geo" typeof="GeoCoordinates" title="{_messages.control.map.infoBox.gps}">
+            {$object['latitude']}, {$object['longitude']}
+            <meta property="latitude" content="{$object['latitude']}" />
+            <meta property="longitude" content="{$object['longitude']}" />
+        </div>
+        {if $object['string_url']}
+            <div class="addr_item web" title="{_messages.control.map.infoBox.web}">
+                <a href="{$object['link_url']}" target="_blank" itemprop="url" title="{$object['link_url']}">{$object['string_url']}</a>
+            </div>
+        {/if}
     </div>
 {/define}

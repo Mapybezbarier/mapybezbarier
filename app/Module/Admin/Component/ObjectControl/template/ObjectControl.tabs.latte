@@ -1,20 +1,20 @@
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.object.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.entrance.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.interior.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.rampskids.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.platform.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.elevator.latte'}
-{includeblock APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.wc.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.object.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.entrance.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.interior.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.rampskids.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.platform.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.elevator.latte'}
+{import APP_DIR . '/Module/Admin/Component/AbstractObjectControl/template/AbstractObjectControl.tab.wc.latte'}
 
 {define tabObject}
     {include parent}
 
-    {include inputText, _form => $_form, name => 'id'}
-    {include inputText, _form => $_form, name => 'objectId'}
+    {include inputText, form => $form, name => 'id'}
+    {include inputText, form => $form, name => 'objectId'}
 {/define}
 
 {define tabObjectImage}
-    {include inputText, _form => $_form, name => 'image'}
+    {include inputText, form => $form, name => 'image'}
 
     <div n:if="$image" class="object_photo_wrapper">
         <div class="object_photo">
@@ -31,7 +31,7 @@
 {define tabObjectParent}
     <div class="parent_block form_pair block">
         <div class="block_inner">
-            {include inputText, _form => $_form, name => 'parentObject'}
+            {include inputText, form => $form, name => 'parentObject'}
             {include parent}
         </div>
     </div>
@@ -40,7 +40,7 @@
 {define tabCityBlock}
     <div n:class="$hasAddress ? has_address, city_block, form_pair, block">
         <div class="block_inner">
-            {include inputText, _form => $_form, name => 'helpAddress1'}
+            {include inputText, form => $form, name => 'helpAddress1'}
             {include parent}
         </div>
     </div>
@@ -49,7 +49,7 @@
 {define tabStreetBlock}
     <div n:class="$hasAddress ? has_address, street_block, form_pair, block">
         <div class="block_inner">
-            {include inputText, _form => $_form, name => 'helpAddress2'}
+            {include inputText, form => $form, name => 'helpAddress2'}
             {include parent}
         </div>
     </div>
@@ -58,7 +58,7 @@
 {define tabHouseNumberBlock}
     <div n:class="$hasAddress ? has_address, house_number_block, form_pair, block">
         <div class="block_inner">
-            {include inputText, _form => $_form, name => 'helpAddress3'}
+            {include inputText, form => $form, name => 'helpAddress3'}
             {include parent}
         </div>
     </div>
