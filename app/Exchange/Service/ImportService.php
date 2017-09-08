@@ -92,7 +92,7 @@ class ImportService
         }
 
         if ($objects) {
-            $this->prepareObjects($objects, $source, $license, $certified, $userId);
+            $this->prepareObjects($objects, $source, $license, $certified, $userId, $parser);
             $this->validateObjects($objects, $source);
 
             if (!ImportLogger::hasErrors()) {
@@ -180,15 +180,20 @@ class ImportService
      * @param array $license
      * @param bool $certified
      * @param int $userId
+     * @param IParser $parser
      */
-    protected function prepareObjects(array &$objects, $source, $license, $certified, $userId)
+    protected function prepareObjects(array &$objects, $source, $license, $certified, $userId, $parser)
     {
         foreach ($objects as &$object) {
             $this->valuesNormalizer->normalize($object);
 
             $object['sourceId'] = $source['id'];
             $object['certified'] = $certified;
-            $object['ruianAddress'] = $this->ruianFinder->find($object);
+
+            if (IParser::TYPE_INTERNAL === $parser->getType()) {
+                $object['ruianAddress'] = $this->ruianFinder->find($object);
+            }
+
             $object['userId'] = $userId;
             $object['license'] = $license['title'];
 

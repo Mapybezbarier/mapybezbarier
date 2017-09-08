@@ -108,9 +108,9 @@ class ManualImportControl extends AbstractFormControl
         $form->addUpload('file', 'backend.control.import.label.file');
         $form->addCheckbox('certified', 'backend.control.import.label.certified');
 
-        $form['url']->addConditionOn($form['file'], ~Form::FILLED)
+        $form['url']->addConditionOn($form['file'], Form::BLANK)
             ->addRule(Form::FILLED, 'backend.control.import.requiredInfo');
-        $form['file']->addConditionOn($form['url'], ~Form::FILLED)
+        $form['file']->addConditionOn($form['url'], Form::BLANK)
             ->addRule(Form::FILLED, 'backend.control.import.requiredInfo');
 
         $form->addSubmit('submit', 'backend.control.import.label.process');

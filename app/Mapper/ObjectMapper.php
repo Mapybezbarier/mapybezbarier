@@ -87,6 +87,35 @@ class ObjectMapper extends AbstractLangAwareDatabaseMapper
     }
 
     /**
+     * Vrati hashe pro porovnani unikatnosti objektu.
+     *
+     * @param array|null $restrictor
+     *
+     * @return \Dibi\Row[]
+     * @throws \Dibi\Exception
+     */
+    public function selectCompareHashes($restrictor = null)
+    {
+        $query = ["
+            SELECT md5((
+                    SELECT [title]
+                    FROM [map_object_lang]
+                    WHERE
+                        [map_object_id] = main.[id]
+                        AND NULLIF([title], '') IS NOT NULL
+                    ORDER BY lang_id = %s DESC
+                    LIMIT 1
+            ) || [longitude]::text || [latitude]::text)
+            FROM %n main
+        ", $this->lang->getLang(), $this->table];
+        $this->buildWhere($restrictor, $query);
+
+        $result = $this->executeQuery($query)->fetchPairs();
+
+        return $result;
+    }
+
+    /**
      * Vrati napovedu pro vyber objektu.
      *
      * @param array|null $restrictor

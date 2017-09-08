@@ -1,9 +1,11 @@
 <?php
 
 namespace MP\Exchange\Parser;
+
 use MP\Exchange\Exception\ParseException;
 use MP\Exchange\Service\ImportLogger;
 use MP\Object\ObjectMetadata;
+use MP\Util\Address\Address;
 use MP\Util\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -17,21 +19,21 @@ class VozejkmapParser implements IParser
 {
     /** @var array mapa ciselnikoveho atributu - typ objektu - pouze pro informativni vypis */
     protected static $mapLocationType = [
-        1 => 'Kultura',
-        2 => 'Sport',
-        3 => 'Instituce',
-        4 => 'Jídlo a pití',
-        5 => 'Ubytování',
-        6 => 'Lékaři, lékárny',
-        7 => 'Jiné',
-        8 => 'Doprava',
-        9 => 'Veřejné WC',
-        10 => 'Benzínka',
-        11 => 'Obchod',
-        12 => 'Banka, bankomat',
-        13 => 'Parkoviště',
-        14 => 'Prodejní a servisní místa Škoda Auto',
-        15 => 'Škoda Handy',
+        1 => 'CulturalFacilityObjectCategory', // 'Kultura',
+        2 => 'SportsFacilityObjectCategory', // 'Sport'
+        3 => 'InstitutionObjectCategory', // 'Instituce',
+        4 => 'RestaurantObjectCategory', //'Jídlo a pití',
+        5 => 'HotelObjectCategory', // 'Ubytování',
+        6 => 'DoctorObjectCategory', // 'Lékaři, lékárny',
+        7 => 'ServiceObjectCategory', // 'Jiné',
+        8 => 'TransportObjectCategory', // 'Doprava',
+        9 => 'PublicToiletObjectCategory', // 'Veřejné WC',
+        10 => 'GasStationObjectCategory', // 'Benzínka',
+        11 => 'StoreObjectCategory', // 'Obchod',
+        12 => 'BankObjectCategory', // 'Banka, bankomat',
+        13 => 'ServiceObjectCategory', // 'Parkoviště',
+        14 => 'CarDealerObjectCategory', // 'Prodejní a servisní místa Škoda Auto',
+        15 => 'ServiceObjectCategory', // 'Škoda Handy',
     ];
 
     /** @var array mapa ciselnikoveho atributu - typ bezbarierovosti - pouze pro informativni vypis */
@@ -64,7 +66,12 @@ class VozejkmapParser implements IParser
         }
 
         foreach ($rows as $row) {
-            $ret[] = $this->prepareMapObject($row);
+            $latitude = Arrays::get($row, 'lat', 0.0);
+            $longitude = Arrays::get($row, 'lng', 0.0);
+
+            if (Address::isInCr($latitude, $longitude)) {
+                $ret[] = $this->prepareMapObject($row);
+            }
         }
 
         return $ret;
@@ -92,13 +99,18 @@ class VozejkmapParser implements IParser
             'description' => Arrays::get($row, 'description', null),
             'latitude' => Arrays::get($row, 'lat', null),
             'longitude' => Arrays::get($row, 'lng', null),
-            'entrance1IsReservedParking' => ('yes' === Arrays::get($row, 'lng', 'no')),
-            'objectType' => ObjectMetadata::CATEGORY_OTHER,
-            'objectTypeCustom' => ($locationTypeId ? Arrays::get($this->mapLocationType, $locationTypeId, null) : null),
-            'accessibility' => ObjectMetadata::ACCESSIBILITY_OK,
+            'entrance1IsReservedParking' => ('yes' === Arrays::get($row, 'attr3', 'no')),
+            'objectType' => ($locationTypeId ? Arrays::get(self::$mapLocationType, $locationTypeId, ObjectMetadata::CATEGORY_OTHER) : ObjectMetadata::CATEGORY_OTHER),
+            'accessibility' => $this->getObjectAccessibility($row),
             'externalData' => $this->prepareExternalData($row),
+            'webUrl' => Arrays::get($row, 'link', null),
+            'zipcode' => Arrays::get($row, 'zip', null),
+            'street' => Arrays::get($row, 'street', null),
+            'city' => Arrays::get($row, 'city', null),
             'mappingDate' => time(),
         ];
+
+        Address::parseHouseNumber($ret, $row, 'street_number');
 
         return $ret;
     }
@@ -122,10 +134,10 @@ class VozejkmapParser implements IParser
         $locationTypeId = Arrays::get($row, 'location_type', null);
 
         if ($locationTypeId) {
-            $title = Arrays::get($this->mapLocationType, $locationTypeId, null);
+            $title = Arrays::get(self::$mapLocationType, $locationTypeId, null);
 
             if (null === $title) {
-                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $locationTypeId, 'key' => 'location_type', 'values' => implode(', ', $this->mapLocationType)]);
+                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $locationTypeId, 'key' => 'location_type', 'values' => implode(', ', self::$mapLocationType)]);
             }
 
             $ret['location_type'] = [
@@ -138,10 +150,10 @@ class VozejkmapParser implements IParser
         $attr1Id = Arrays::get($row, 'attr1', null);
 
         if ($attr1Id) {
-            $title = Arrays::get($this->mapAttr1, $attr1Id, null);
+            $title = Arrays::get(self::$mapAttr1, $attr1Id, null);
 
             if (null === $title) {
-                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $attr1Id, 'key' => 'attr1', 'values' => implode(', ', $this->mapAttr1)]);
+                ImportLogger::addNotice($row, 'invalidVozejkmapObjectEnumValue', ['value' => $attr1Id, 'key' => 'attr1', 'values' => implode(', ', self::$mapAttr1)]);
             }
 
             $ret['attr1'] = [
@@ -154,6 +166,22 @@ class VozejkmapParser implements IParser
             $ret = Json::encode($ret);
         } catch (JsonException $e) {
             throw new ParseException('Nepodarilo se externi data zakodovat jako JSON.');
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Detekce pristupnosti objektu
+     * @param array $row
+     * @return string kod pristupnosti
+     */
+    protected function getObjectAccessibility($row)
+    {
+        $ret = ObjectMetadata::ACCESSIBILITY_NO;
+
+        if (!empty($row['attr2'])) {
+            $ret = 'yes' === $row['attr2'] ? ObjectMetadata::ACCESSIBILITY_OK : ObjectMetadata::ACCESSIBILITY_PARTLY;
         }
 
         return $ret;

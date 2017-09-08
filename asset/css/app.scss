@@ -832,7 +832,7 @@ footer {
 }
 .gm-style {
     @include special_font;
-    font-size: 100%;
+    font-size: 100% !important;
     position: relative !important;
 }
 .info_box {

@@ -51,7 +51,7 @@
 {/define}
 
 {define objectTitle}
-    <span property="name">{$object['title']}</span>
+    <span property="name">{$object['alternative_title'] ?? $object['title']}</span>
 {/define}
 
 {define closer}

@@ -1,0 +1,14 @@
+<div class="detail_pictograms">
+    <div n:class="detail_pictogram, nwjs_description_opener, !empty($object['wheelchair_toilet']) ? 'accessiblewcmkpo' : (false === $object['wheelchair_toilet'] ? 'inaccessiblewcmkpo' : 'wc')">
+        <strong class="title">{_'messages.control.map.detail.pictogram.wc'}</strong>
+        <span n:class="detail_pictogram_accessibility, $object['wheelchair_toilet'] ? 'accessibility_1'">
+            {if $object['wheelchair_toilet']}
+                {_messages.enum.bool.true}
+            {elseif false === $object['wheelchair_toilet']}
+                {_messages.enum.bool.false}
+            {else}
+                {_messages.enum.bool.unknown}
+            {/if}
+        </span>
+    </div>
+</div>

@@ -151,7 +151,7 @@ class MapControl extends AbstractControl
                 $type = $this->getMarkerType($first);
 
                 // suffix
-                if ($type[0]) {
+                if (true === $type[0]) {
                     $markerSuffix = "_c";
                 } else {
                     $markerSuffix = null;
@@ -191,9 +191,9 @@ class MapControl extends AbstractControl
     protected function getMarkerType($object)
     {
         // zastarale profesionalni udaje se markerem nelisi od aktualnich
-        $certified_prefix = $object['type'] === FilterService::TYPE_COMMUNITY ?: FilterService::TYPE_CERTIFIED;
+        $isCommunityMarker = $object['type'] === FilterService::TYPE_COMMUNITY;
 
-        return [$certified_prefix, $object['accessibility_id'], Arrays::get($this->categories, $object['object_type_id'], 'other')];
+        return [$isCommunityMarker, $object['accessibility_id'], Arrays::get($this->categories, $object['object_type_id'], 'other')];
     }
 
     /**

@@ -33,7 +33,13 @@ class ObjectHelper
         }
 
         if ($ret && $item['street_orient_no']) {
-            $ret .= "/{$item['street_orient_no']}{$item['street_orient_symbol']}";
+            if ($item['street_desc_no']) {
+                $ret .= "/";
+            } else {
+                $ret .= " ";
+            }
+
+            $ret .= "{$item['street_orient_no']}{$item['street_orient_symbol']}";
         }
 
         if ($ret) {
@@ -74,16 +80,16 @@ class ObjectHelper
     {
         $attachements = [];
 
-        $attachements[ObjectMetadata::RAMP_SKIDS] = Arrays::get($object, ObjectMetadata::RAMP_SKIDS, []);
+        $attachements[ObjectMetadata::RAMP_SKIDS] = (array) Arrays::get($object, ObjectMetadata::RAMP_SKIDS, []);
         unset($object[ObjectMetadata::RAMP_SKIDS]);
 
-        $attachements[ObjectMetadata::PLATFORM] = Arrays::get($object, ObjectMetadata::PLATFORM, []);
+        $attachements[ObjectMetadata::PLATFORM] = (array) Arrays::get($object, ObjectMetadata::PLATFORM, []);
         unset($object[ObjectMetadata::PLATFORM]);
 
-        $attachements[ObjectMetadata::ELEVATOR] = Arrays::get($object, ObjectMetadata::ELEVATOR, []);
+        $attachements[ObjectMetadata::ELEVATOR] = (array) Arrays::get($object, ObjectMetadata::ELEVATOR, []);
         unset($object[ObjectMetadata::ELEVATOR]);
 
-        $attachements[ObjectMetadata::WC] = Arrays::get($object, ObjectMetadata::WC, []);
+        $attachements[ObjectMetadata::WC] = (array) Arrays::get($object, ObjectMetadata::WC, []);
         unset($object[ObjectMetadata::WC]);
 
         return $attachements;

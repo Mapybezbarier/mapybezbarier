@@ -18,6 +18,7 @@ class ObjectMetadata
 
     const ACCESSIBILITY_OK = 'AccessibleObjectMKPO';
     const ACCESSIBILITY_PARTLY = 'PartlyAccessibleObjectMKPO';
+    const ACCESSIBILITY_NO = 'InAccessibleObjectMKPO';
 
     const STAIRS_SPIRAL_TYPE = 'SpiralObjectStairsType';
     const STAIRS_DIRECT_SPIRAL_TYPE = 'DirectSpiralObjectStairsType';

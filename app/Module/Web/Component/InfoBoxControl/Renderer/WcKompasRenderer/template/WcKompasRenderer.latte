@@ -1,0 +1,9 @@
+{import "../../DefaultRenderer/template/DefaultRenderer.blocks.latte"}
+
+{include content}
+
+{define params}
+    <div class="ib_params">
+        <div class="type category_{$object['category']['id']}">{$object['category']['title']}</div>
+    </div>
+{/define}

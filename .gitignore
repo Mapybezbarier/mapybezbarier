@@ -1,3 +1,5 @@
 /vendor/
 /temp/
 /asset/temp/
+/log/
+app/config/config.test.neon
