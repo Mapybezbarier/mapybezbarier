@@ -719,6 +719,13 @@ control:
                 zooObjectCategory: "zoologická zahrada"
                 atmObjectCategory: "bankomat"
                 cultureHouseObjectCategory: "kulturní dům"
+                culturalFacilityObjectCategory: "kulturní zařízení"
+                institutionObjectCategory: "instituce"
+                transportObjectCategory: "doprava"
+                elementaryArtSchoolObjectCategory: "základní umělecká škola"
+                medicalFacilityObjectCategory: "zdravotnické zařízení"
+                educationObjectCategory: "vzdělávání"
+                leisureTimeObjectCategory: "volný čas"
 
             entranceGuidingline:
                 naturalEntranceGuidingline: "Přirozená"
