@@ -4,9 +4,10 @@
             <table>
                 {* Lokalizace *}
                 <tr>
-                    <th>{label "elevatorLocalization", attachement => $attachement, index => $index /}</th>
+                    <th>{include label, form => $form, name =>  "elevatorLocalization", attachement => $attachement, index => $index}</th>
+                    <th>{include label, form => $form, name =>  "elevatorLocalization", attachement => $attachement, index => $index}</th>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorLocalization", class => 'no_label'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorLocalization", class => 'no_label'}
                     </td>
                 </tr>
 
@@ -17,23 +18,23 @@
                         <label>{_backend.control.object.label.elevator.type}</label>
                     </th>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorAccess"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorAccess"}
                     </td>
                     <td>
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorAccessProvidedBy"}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorAccessProvidedBy"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorType"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorType"}
                     </td>
                     <td>
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorConnectsFloors"}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorConnectsFloors"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorDriveoff"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorDriveoff"}
                     </td>
                 </tr>
 
@@ -43,15 +44,15 @@
                         <label>{_backend.control.object.label.elevator.entryArea}</label>
                     </th>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryareaWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "entryareaWidth", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryareaDepth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "entryareaDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "entryareaHeightElevation", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "entryareaHeightElevation", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -64,12 +65,12 @@
                         <label>{_backend.control.object.label.elevator.doorShaft}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "door1Width", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "door1Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "door1Opening", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "door1Opening", label => TRUE}
                     </td>
                 </tr>
                 <tr>
@@ -77,12 +78,12 @@
                         <label>{_backend.control.object.label.elevator.doorCage}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "door2Width", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "door2Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "door2Opening", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "door2Opening", label => TRUE}
                     </td>
                 </tr>
 
@@ -92,7 +93,7 @@
                         <label>{_backend.control.object.label.elevator.control}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorControl1MaxHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorControl1MaxHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -100,26 +101,26 @@
                         <label>{_backend.control.object.label.elevator.controlMarking}</label>
                     </td>
                     <td>
-                        {label "elevatorControl1ReliefMarking"/}
+                        {include label, form => $form, name => "elevatorControl1ReliefMarking", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorControl1ReliefMarking"}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {label "elevatorControl1FlatMarking"/}
-                    </td>
-                    <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorControl1FlatMarking"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorControl1ReliefMarking"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {label "elevatorIsControl1BrailleMarking"/}
+                        {include label, form => $form, name => "elevatorControl1FlatMarking", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsControl1BrailleMarking"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorControl1FlatMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include label, form => $form, name => "elevatorIsControl1BrailleMarking", attachement => $attachement, index => $index}
+                    </td>
+                    <td>
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsControl1BrailleMarking"}
                     </td>
                 </tr>
 
@@ -129,22 +130,22 @@
                         <label>{_backend.control.object.label.elevator.aob}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsAOB"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsAOB"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorAobIsAboveDoor", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorAobIsAboveDoor", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorAobLocalization"}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorAobLocalization"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorAOBAnnouncementsScheme", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorAOBAnnouncementsScheme", label => TRUE}
                     </td>
                 </tr>
 
@@ -157,12 +158,12 @@
                         <label>{_backend.control.object.label.elevator.cageSize}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorCageWidth"}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorCageWidth"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorCageDepth"}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorCageDepth"}
                     </td>
                 </tr>
                 <tr>
@@ -170,12 +171,12 @@
                         <label>{_backend.control.object.label.elevator.cageType}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCagePassthrough"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCagePassthrough"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorCageSeconddoorLocalization"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorCageSeconddoorLocalization"}
                     </td>
                 </tr>
 
@@ -185,12 +186,12 @@
                         <label>{_backend.control.object.label.elevator.controlCage}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorCageControlDistance", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorCageControlDistance", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorCageControlHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorCageControlHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -198,26 +199,26 @@
                         <label>{_backend.control.object.label.elevator.controlMarking}</label>
                     </td>
                     <td>
-                        {label "elevatorControl2ReliefMarking"/}
+                        {include label, form => $form, name => "elevatorControl2ReliefMarking", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorControl2ReliefMarking"}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {label "elevatorControl2FlatMarking"/}
-                    </td>
-                    <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorControl2FlatMarking"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorControl2ReliefMarking"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {label "elevatorIsControl2BrailleMarking"/}
+                        {include label, form => $form, name => "elevatorControl2FlatMarking", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsControl2BrailleMarking"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorControl2FlatMarking"}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {include label, form => $form, name => "elevatorIsControl2BrailleMarking", attachement => $attachement, index => $index}
+                    </td>
+                    <td>
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsControl2BrailleMarking"}
                     </td>
                 </tr>
                 <tr>
@@ -225,18 +226,18 @@
                         <label>{_backend.control.object.label.elevator.controlAnnouncement}</label>
                     </td>
                     <td>
-                        {label "elevatorIsCageControlAnnouncementAcoustic"/}
+                        {include label, form => $form, name => "elevatorIsCageControlAnnouncementAcoustic", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementAcoustic"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementAcoustic"}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {label "elevatorIsCageControlAnnouncementPhonetic"/}
+                        {include label, form => $form, name => "elevatorIsCageControlAnnouncementPhonetic", attachement => $attachement, index => $index}
                     </td>
                     <td>
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementPhonetic"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageControlAnnouncementPhonetic"}
                     </td>
                 </tr>
 
@@ -249,12 +250,12 @@
                         <label>{_backend.control.object.label.elevator.cageHandle}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageHandle"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageHandle"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorHandleLocalization"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorHandleLocalization"}
                     </td>
                 </tr>
                 <tr>
@@ -262,17 +263,17 @@
                         <label>{_backend.control.object.label.elevator.cageMirror}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageMirror"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageMirror"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorCageMirrorLocalization"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorCageMirrorLocalization"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText form => $form, attachement => $attachement, index => $index, name => "elevatorCageMirrorHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "elevatorCageMirrorHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -280,29 +281,29 @@
                         <label>{_backend.control.object.label.elevator.cageSeat}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeat"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeat"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatFunctional", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatFunctional", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatWithinreach", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "elevatorIsCageSeatWithinreach", label => TRUE}
                     </td>
                 </tr>
 
                 {* Poznámky *}
                 <tr>
-                    <th>{label "elevatorHasNotes", attachement => $attachement, index => $index /}</th>
+                    <th>{include label, form => $form, name => "elevatorHasNotes", attachement => $attachement, index => $index}</th>
                     <td colspan="3">{include inputText, form => $form, name => "elevatorHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
 
                 {* Slovní popis úseku *}
                 <tr>
-                    <th>{label "elevatorHasDescription", attachement => $attachement, index => $index /}</th>
+                    <th>{include label, form => $form, name => "elevatorHasDescription", attachement => $attachement, index => $index}</th>
                     <td colspan="3">{include inputText, form => $form, name => "elevatorHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
             </table>

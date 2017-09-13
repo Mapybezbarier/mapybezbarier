@@ -5,7 +5,7 @@
             {if 'entrance2' == $prefix}
                 {* LOKALIZACE *}
                 <tr>
-                    <th>{label "{$prefix}Localization" /}</th>
+                    <th>{include label, form => $form, name => "{$prefix}Localization"}</th>
                     <td colspan="3">{include inputText, form => $form, name => "{$prefix}Localization", class => 'no_label'}</td>
                 </tr>
 
@@ -26,7 +26,7 @@
                 {* VYHRAZENE PARKOVACI STANI *}
                 <tr>
                     <th rowspan="4"><label>{_backend.control.object.label.entrance.isReservedParking}</label></th>
-                    <td colspan="3">{include radioGroup form => $form, name => "{$prefix}IsReservedParking"}</td>
+                    <td colspan="3">{include radioGroup, form => $form, name => "{$prefix}IsReservedParking"}</td>
                 </tr>
 
                 <tr>
@@ -100,7 +100,7 @@
                 {* PRISTUPNOST VSTUPU *}
             {if 'entrance2' == $prefix}
                 <tr>
-                    <th rowspan="2">{label "{$prefix}Accessibility"/}</th>
+                    <th rowspan="2">{include label, form => $form, name => "{$prefix}Accessibility"}</th>
                     <td colspan="2">
                         {include radioGroup, form => $form, name => "{$prefix}Access"}
                     </td>
@@ -115,7 +115,7 @@
                 </tr>
             {else}
                 <tr>
-                    <th>{label "{$prefix}Accessibility"/}</th>
+                    <th>{include label, form => $form, name => "{$prefix}Accessibility"}</th>
                     <td colspan="3">
                         {include radioGroup, form => $form, name => "{$prefix}Accessibility"}
                     </td>
@@ -302,7 +302,7 @@
 
                 {* POZNAMKY *}
                 <tr>
-                    <th>{label "{$prefix}HasNotes"/}</th>
+                    <th>{include label, form => $form, name => "{$prefix}HasNotes"}</th>
                     <td colspan="3">
                         {include inputText, form => $form, name => "{$prefix}HasNotes", class => 'no_label'}
                     </td>
@@ -310,7 +310,7 @@
 
                 {* SLOVNI POPIS USEKU *}
                 <tr>
-                    <th>{label "{$prefix}HasDescription" /}</th>
+                    <th>{include label, form => $form, name => "{$prefix}HasDescription"}</th>
                     <td colspan="3">{include inputText, form => $form, name => "{$prefix}HasDescription", class => 'no_label'}</td>
                 </tr>
 

@@ -95,14 +95,27 @@
 {define attachementControlAdd}{/define}
 {define attachementControlDelete}{/define}
 
+{define label}
+    {include labelContent,
+        component => $form->getComponent($name),
+        name => $name,
+        attachement => $attachement ?? null,
+        index => $index ?? null,
+    }
+{/define}
+
+{define labelContent}
+    {label $component /}
+{/define}
+
 {define radioGroup}
     <div n:class="form_pair, radiogroup, isset($class) ? $class">
         {include radioGroupContent,
-            form => $form,
+            component => $form->getComponent($name),
             name => $name,
-            label => (isset($label) ? $label : null),
-            attachement => (isset($attachement) ? $attachement : null),
-            index => (isset($index) ? $index : null),
+            label => $label ?? null,
+            attachement => $attachement ?? null,
+            index => $index ?? null,
         }
     </div>
 {/define}
@@ -110,34 +123,44 @@
 {define radioGroupContent}
     <div class="form_label">
         {if true === $label}
-            {label $name /}
+            {label $component /}
         {else}
             <label>{_$label}</label>
         {/if}
     </div>
     <div class="form_item">
-        {input $name}
+        {input $component}
     </div>
 {/define}
 
 {define radioGroupDisposition}
+    {include radioGroupDispositionContent,
+        component => $form->getComponent($name),
+        name => $name,
+        label => $label ?? null,
+        attachement => $attachement ?? null,
+        index => $index ?? null,
+    }
+{/define}
+
+{define radioGroupDispositionContent}
     <div class="inside_label">
-        {label $name /}
+        {label $component /}
     </div>
     <div class="disposition_map radiogroup">
-        {input $name}
+        {input $component}
     </div>
 {/define}
 
 {define inputText}
     <div n:class="form_pair, text, isset($class) ? $class">
         {include inputTextContent,
-            form => $form,
+            component => $form->getComponent($name),
             name => $name,
-            label => (isset($label) ? $label : null),
-            placeholder => (isset($placeholder) ? $placeholder : null),
-            attachement => (isset($attachement) ? $attachement : null),
-            index => (isset($index) ? $index : null),
+            label => $label ?? null,
+            placeholder => $placeholder ?? null,
+            attachement => $attachement ?? null,
+            index => $index ?? null,
         }
     </div>
 {/define}
@@ -145,12 +168,12 @@
 {define inputTextContent}
     {ifset $placeholder}
         {var $placeholderText = is_bool($placeholder) ? 'backend.control.object.placeholder.' . MP\Util\Strings::toCamelCase($name) : $placeholder}
-        {php $form[$name]->getControlPrototype()->addAttributes(['placeholder' => $placeholderText])}
+        {php $component->getControlPrototype()->addAttributes(['placeholder' => $placeholderText])}
     {/ifset}
     <div class="form_label">
-        {label $name /}
+        {label $component /}
     </div>
     <div class="form_item">
-        {input $name}
+        {input $component}
     </div>
 {/define}
