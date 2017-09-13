@@ -33,7 +33,13 @@ class ObjectHelper
         }
 
         if ($ret && $item['street_orient_no']) {
-            $ret .= "/{$item['street_orient_no']}{$item['street_orient_symbol']}";
+            if ($item['street_desc_no']) {
+                $ret .= "/";
+            } else {
+                $ret .= " ";
+            }
+
+            $ret .= "{$item['street_orient_no']}{$item['street_orient_symbol']}";
         }
 
         if ($ret) {

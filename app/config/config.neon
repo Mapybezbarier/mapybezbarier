@@ -62,6 +62,7 @@ services:
     validatorsFactory: MP\Exchange\Validator\ValidatorsFactory
     flashMessageControlFactory: MP\Component\IFlashMessageControlFactory
     mapperContext: MP\Mapper\Context
+    downloaderFactory: MP\Exchange\Downloader\DownloaderFactory(..., %downloader.mapping%)
 
     # services
     exchangeMetadata: MP\Exchange\Service\ExchangeMetadata
@@ -231,6 +232,7 @@ includes:
     - managers.neon
     - parsers.neon
     - exporters.neon
+    - downloaders.neon
     - ../Module/Admin/config/config.neon
     - ../Module/Api/config/config.neon
     - ../Module/Web/config/config.neon

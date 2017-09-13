@@ -86,6 +86,16 @@ class ObjectManager extends AbstractEnumManager implements ILangAwareManager
      *
      * @return array
      */
+    public function findCompareHashes($restrictor)
+    {
+        return $this->mapper->selectCompareHashes($restrictor) ?: [];
+    }
+
+    /**
+     * @param array|null $restrictor
+     *
+     * @return array
+     */
     public function findSuggestions($restrictor)
     {
         return $this->mapper->selectSuggestions($restrictor) ?: [];

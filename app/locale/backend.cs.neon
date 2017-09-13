@@ -15,11 +15,14 @@ import:
         invalidObjectMaximalValue: "Hodnota '%value%' klíče '%key%' je mimo rozsah. Maximální možná hodnota je '%extreme%'."
         invalidObjectExternalData: "Externí data neobsahují validní JSON."
         unknownObjectLocation: "Není známá poloha objektu. Musí být zadána buď RUIAN adresa nebo GPS souřadnice."
+        getContentFailed: "Externí data se nepodařilo stáhnout nebo jsou v neočekávaném formátu."
 
     notice:
         ruianNotFound: "Dle adresy se nepodařilo dohledat žádné adresní místo RUIAN, adresu je třeba opravit."
         ruianDuplicity: "Dle adresy se nepodařilo dohledat žádné jedinečné adresní místo RUIAN, adresu je třeba upřesnit."
         invalidVozejkmapObjectEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
+        invalidEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
+        invalidWCKompasGPS: "Objekt nemá nastaveny GPS souřadnice, z importní dávky byl vynechán."
         currentObject: "Importovaný objekt byl spárován se stávajícím, data byla přepsána."
         consistency:
             object1: "Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem."
@@ -721,6 +724,13 @@ control:
                 zooObjectCategory: "zoologická zahrada"
                 atmObjectCategory: "bankomat"
                 cultureHouseObjectCategory: "kulturní dům"
+                culturalFacilityObjectCategory: "kulturní zařízení"
+                institutionObjectCategory: "instituce"
+                transportObjectCategory: "doprava"
+                elementaryArtSchoolObjectCategory: "základní umělecká škola"
+                medicalFacilityObjectCategory: "zdravotnické zařízení"
+                educationObjectCategory: "vzdělávání"
+                leisureTimeObjectCategory: "volný čas"
 
             entranceGuidingline:
                 naturalEntranceGuidingline: "Přirozená"

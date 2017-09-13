@@ -4,22 +4,22 @@
             <table>
                 {* Přístupnost WC *}
                 <tr>
-                    <th>{label "wcAccessibility", attachement => $attachement, index => $index /}</th>
+                    <th>{include label, form => $form, name => "wcAccessibility", attachement => $attachement, index => $index}</th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcAccessibility"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcAccessibility"}
                     </td>
                 </tr>
 
                {* Lokalizace *}
                 <tr>
-                    <th rowspan="2">{label "wcLocalization", attachement => $attachement, index => $index /}</th>
+                    <th rowspan="2">{include label, form => $form, name => "wcLocalization", attachement => $attachement, index => $index}</th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcLocalization", class => 'no_label'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcLocalization", class => 'no_label'}
                     </td>
                 </tr>
                <tr>
                    <td colspan="3">
-                       {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcAccessProvidedBy"}
+                       {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcAccessProvidedBy"}
                    </td>
                </tr>
 
@@ -33,13 +33,13 @@
                         <label>{_backend.control.object.label.wc.hallway.size}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway1Width", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway1Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway1Depth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway1Depth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -47,13 +47,13 @@
                         <label>{_backend.control.object.label.wc.hallway.door}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway1DoorWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway1DoorWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "hallway1DoorMarking", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "hallway1DoorMarking", label => TRUE}
                     </td>
                 </tr>
 
@@ -67,13 +67,13 @@
                         <label>{_backend.control.object.label.wc.hallway.size}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway2Width", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway2Width", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway2Depth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway2Depth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -81,13 +81,13 @@
                         <label>{_backend.control.object.label.wc.hallway.door}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "hallway2DoorWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "hallway2DoorWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "hallway2DoorMarking", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "hallway2DoorMarking", label => TRUE}
                     </td>
                 </tr>
 
@@ -97,12 +97,12 @@
                         <label>{_backend.control.object.label.wc.cabinType}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcCabinAccess"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcCabinAccess"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcCabinLocalization"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcCabinLocalization"}
                     </td>
                 </tr>
 
@@ -112,22 +112,22 @@
                         <label>{_backend.control.object.label.wc.door}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "doorWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "doorWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "doorOpeningDirection", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "doorOpeningDirection", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "doorHandlePosition", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "doorHandlePosition", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "doorIsMarking", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "doorIsMarking", label => TRUE}
                     </td>
                 </tr>
 
@@ -137,10 +137,10 @@
                         <label>{_backend.control.object.label.wc.switch}</label>
                     </th>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcSwitch"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcSwitch"}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcSwitchHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcSwitchHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -150,12 +150,12 @@
                         <label>{_backend.control.object.label.wc.cabin}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcCabinWidth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcCabinWidth", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcCabinDepth", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcCabinDepth", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -165,32 +165,32 @@
                         <label>{_backend.control.object.label.wc.basin}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcBasinLeftDistance", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcBasinLeftDistance", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcBasinRightDistance", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcBasinRightDistance", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcBasinSeatHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcBasinSeatHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcBasinBackIndentation", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcBasinBackIndentation", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcBasinSpace", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcBasinSpace", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcBasinIsPaperReach", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcBasinIsPaperReach", label => TRUE}
                     </td>
                 </tr>
 
@@ -203,7 +203,7 @@
                         <label>{_backend.control.object.label.wc.flushingBack}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcFlushingBackHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcFlushingBackHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
@@ -211,20 +211,20 @@
                         <label>{_backend.control.object.label.wc.flushingSide}</label>
                     </td>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcFlushingSideHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcFlushingSideHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcFlushingSideDistanc", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcFlushingSideDistanc", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcFlushing"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcFlushing"}
                     </td>
                     <td>
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcFlushingDifficulty"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcFlushingDifficulty"}
                     </td>
                 </tr>
 
@@ -234,29 +234,29 @@
                         <label>{_backend.control.object.label.wc.handle}</label>
                     </th>
                     <td>
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "handle1Type", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "handle1Type", label => TRUE}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "handle1Length", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "handle1Length", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "handle1Height", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "handle1Height", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "handle2Type", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "handle2Type", label => TRUE}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "handle2Length", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "handle2Length", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "handle2Height", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "handle2Height", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcHandlesDistance", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcHandlesDistance", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -269,13 +269,13 @@
                         <table>
                             <tr>
                                 <td width="33%">
-                                    {include radioGroupDisposition _form => $_form, attachement => $attachement, index => $index, name => "wcCabinDoorDisposition", label => TRUE}
+                                    {include radioGroupDisposition form => $form, attachement => $attachement, index => $index, name => "wcCabinDoorDisposition", label => TRUE}
                                 </td>
                                 <td>
-                                    {include radioGroupDisposition _form => $_form, attachement => $attachement, index => $index, name => "wcCabinWCBasinDisposition", label => TRUE}
+                                    {include radioGroupDisposition form => $form, attachement => $attachement, index => $index, name => "wcCabinWCBasinDisposition", label => TRUE}
                                 </td>
                                 <td width="33%">
-                                    {include radioGroupDisposition _form => $_form, attachement => $attachement, index => $index, name => "wcCabinWashBasinDisposition", label => TRUE}
+                                    {include radioGroupDisposition form => $form, attachement => $attachement, index => $index, name => "wcCabinWashBasinDisposition", label => TRUE}
                                 </td>
                             </tr>
                         </table>
@@ -288,12 +288,12 @@
                         <label>{_backend.control.object.label.wc.washbasin}</label>
                     </th>
                     <td colspan="3">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "washbasinHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "washbasinHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "washbasinUnderpass", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "washbasinUnderpass", label => TRUE}
                     </td>
                 </tr>
                 <tr>
@@ -301,28 +301,28 @@
                         <label>{_backend.control.object.label.wc.washbasinTap}</label>
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "tapType"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "tapType"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "tapHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "tapHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "washbasinIsHandle", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "washbasinIsHandle", label => TRUE}
                     </td>
                     <td colspan="2">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "washbasinHandleType", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "washbasinHandleType", label => TRUE}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "washbasinHandleHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "washbasinHandleHeight", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "washbasinHandleLength", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "washbasinHandleLength", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -332,15 +332,15 @@
                         <label>{_backend.control.object.label.wc.alarmButton}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcIsAlarmbutton"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcIsAlarmbutton"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcAlarmbuttonTopHeigh", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcAlarmbuttonTopHeigh", class => 'short measure_unit'}
                     </td>
                     <td>
-                        {include inputText _form => $_form, attachement => $attachement, index => $index, name => "wcAlarmbuttonBottomHeight", class => 'short measure_unit'}
+                        {include inputText, form => $form, attachement => $attachement, index => $index, name => "wcAlarmbuttonBottomHeight", class => 'short measure_unit'}
                     </td>
                 </tr>
 
@@ -350,17 +350,17 @@
                         <label>{_backend.control.object.label.wc.changingDesk}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcIsChangingdesk"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcIsChangingdesk"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcChangingdesk"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcChangingdesk"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcIsChangingdeskObstructs", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcIsChangingdeskObstructs", label => TRUE}
                     </td>
                 </tr>
 
@@ -370,25 +370,26 @@
                         <label>{_backend.control.object.label.wc.regularWc}</label>
                     </th>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcIsRegularWC"}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcIsRegularWC"}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        {include radioGroup _form => $_form, attachement => $attachement, index => $index, name => "wcIsRegularWCBrailleMarking", label => TRUE}
+                        {include radioGroup, form => $form, attachement => $attachement, index => $index, name => "wcIsRegularWCBrailleMarking", label => TRUE}
                     </td>
                 </tr>
 
                 {* Poznámky *}
                 <tr>
-                    <th>{label "wcHasNotes", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "wcHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <th>{include label, form => $form, name => "wcHasNotes", attachement => $attachement, index => $index}</th>
+                    <td colspan="3">
+                        {include inputText, form => $form, name => "wcHasNotes", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
 
                 {* Slovní popis úseku *}
                 <tr>
-                    <th>{label "wcHasDescription", attachement => $attachement, index => $index /}</th>
-                    <td colspan="3">{include inputText, _form => $_form, name => "wcHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
+                    <th>{include label, form => $form, name => "wcHasDescription", attachement => $attachement, index => $index}</th>
+                    <td colspan="3">{include inputText, form => $form, name => "wcHasDescription", attachement => $attachement, index => $index, class => 'no_label'}</td>
                 </tr>
             </table>
         </fieldset>

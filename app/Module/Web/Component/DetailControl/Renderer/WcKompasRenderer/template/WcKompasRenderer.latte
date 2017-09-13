@@ -1,0 +1,20 @@
+<div class="detail_pictograms">
+    <div class="detail_pictogram">
+        <h3 class="dd_headline">{_messages.renderer.wckompas.headline}</h3>
+    </div>
+    {foreach $object['custom_pictograms'] as $key => $pictogram}
+        {if null !== $pictogram['value']}
+            {php $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
+            <div n:class="detail_pictogram">
+                <strong class="title">{_'messages.renderer.wckompas.' . $key}</strong>
+                <span n:class="detail_pictogram_accessibility, null !== $pictogram['accessible'] ? ('accessibility_' . $pictogram['accessible'])">
+                {if is_bool($pictogram['value'])}
+                    {if $pictogram['value']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}
+                {else}
+                    {$pictogram['value']}
+                {/if}
+                </span>
+            </div>
+        {/if}    
+    {/foreach}
+</div>

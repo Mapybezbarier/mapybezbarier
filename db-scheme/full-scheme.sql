@@ -2045,7 +2045,8 @@ CREATE TABLE map_object (
     region character varying(255),
     entrance1_contrast_marking_localization_id integer,
     entrance2_contrast_marking_localization_id integer,
-    object_contrast_marking_localization_id integer
+    object_contrast_marking_localization_id integer,
+    data_owner_url character varying(255)
 );
 
 
@@ -4915,7 +4916,8 @@ CREATE TABLE map_object (
     region character varying(255),
     entrance1_contrast_marking_localization_id integer,
     entrance2_contrast_marking_localization_id integer,
-    object_contrast_marking_localization_id integer
+    object_contrast_marking_localization_id integer,
+    data_owner_url character varying(255)
 );
 
 

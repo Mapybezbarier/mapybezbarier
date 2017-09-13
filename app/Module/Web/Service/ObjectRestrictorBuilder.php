@@ -212,10 +212,10 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     }
 
     /**
-     * @return Callback
+     * @return callable
      */
-    protected function getDefaultValuesFilter()
+    protected function getDefaultValuesFilter(): callable
     {
-        return callback(Validators::class, 'isNumericInt');
+        return [Validators::class, 'isNumericInt'];
     }
 }

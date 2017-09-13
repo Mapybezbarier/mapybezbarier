@@ -68,7 +68,7 @@
             {control detail}
         {/capture}
 
-        {? $detail = MP\Util\Strings::trim($detail)}
+        {php $detail = MP\Util\Strings::trim($detail)}
 
         <div n:class="col_wrapper, right, nwjs_detail, $detail ? opened" role="complementary" aria-label="{_messages.semantics.aside}">
             <div n:if="$detail" class="nwjs_spinner detail col_wrapper_inner">
@@ -83,7 +83,7 @@
             {control news}
         {/capture}
 
-        {? $news = MP\Util\Strings::trim($news)}
+        {php $news = MP\Util\Strings::trim($news)}
 
         <div n:if="$news" n:class="col_wrapper, right, nwjs_news, news_iframe, opened" role="complementary" aria-label="{_messages.semantics.aside}">
             <div class="col_wrapper_inner">

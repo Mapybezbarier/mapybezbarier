@@ -1,0 +1,7 @@
+parameters:
+    downloader:
+        mapping:
+            wheelmap: wheelmapDownloader
+
+services:
+    wheelmapDownloader: MP\Exchange\Downloader\WheelmapDownloader

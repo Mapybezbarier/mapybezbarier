@@ -1,6 +1,6 @@
-{includeblock 'ObjectCompareControl.blocks.latte'}
-{includeblock 'ObjectCompareControl.tabs.latte'}
+{import 'ObjectCompareControl.blocks.latte'}
+{import 'ObjectCompareControl.tabs.latte'}
 
 {form form}
-    {include formContent, _form => $_form}
+    {include formContent, form => $form}
 {/form}

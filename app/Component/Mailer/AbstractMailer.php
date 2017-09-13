@@ -35,7 +35,8 @@ class AbstractMailer extends AbstractControl
      */
     public function __construct(ITemplateFactory $templateFactory, IMessageFactory $messageFactory, IMailer $mailer, Lang $lang)
     {
-        $this->templateFactory = $templateFactory;
+        $this->setTemplateFactory($templateFactory);
+
         $this->messageFactory = $messageFactory;
         $this->mailer = $mailer;
         $this->lang = $lang;
