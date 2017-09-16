@@ -62,8 +62,9 @@ services:
 
     # services
     webObjectService: MP\Module\Web\Service\ObjectService
+    webUserService: MP\Module\Web\Service\UserService
     webObjectRestrictorBuilder: MP\Module\Web\Service\ObjectRestrictorBuilder
-    webDetailService: MP\Module\SourceDetail\DetailService(..., ..., ..., %categories.mapping%)
+    webDetailService: MP\Module\SourceDetail\DetailService(..., ..., ..., ..., ..., %categories.mapping%)
     webVozejkmapSourceDetail: MP\Module\SourceDetail\VozejkmapSourceDetail
     webWcKompasSourceDetail: MP\Module\SourceDetail\WcKompasSourceDetail
     webWheelmapSourceDetail: MP\Module\SourceDetail\WheelmapSourceDetail

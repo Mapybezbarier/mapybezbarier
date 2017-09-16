@@ -4,7 +4,9 @@ namespace MP\Module\SourceDetail;
 
 use Dibi\DateTime;
 use Kdyby\Translation\Translator;
+use MP\Module\Admin\Manager\LicenseManager;
 use MP\Module\Web\Service\ObjectService;
+use MP\Module\Web\Service\UserService;
 use MP\Object\ObjectHelper;
 use MP\Object\ObjectMetadata;
 use MP\Util\Arrays;
@@ -29,17 +31,33 @@ class DetailService
     /** @var array */
     protected $categories;
 
+    /** @var LicenseManager */
+    protected $licenseManager;
+
+    /** @var UserService */
+    protected $userService;
+
     /**
      * @param ObjectService $objectService
      * @param SourceDetailFactory $sourceDetailFactory
      * @param Translator $translator
+     * @param LicenseManager $licenseManager
+     * @param UserService $userService
      * @param array $categories
      */
-    public function __construct(ObjectService $objectService, SourceDetailFactory $sourceDetailFactory, Translator $translator, array $categories)
-    {
+     public function __construct(
+            ObjectService $objectService,
+            SourceDetailFactory $sourceDetailFactory,
+            Translator $translator,
+            LicenseManager $licenseManager,
+            UserService $userService,
+            array $categories
+    ) {
         $this->objectService = $objectService;
         $this->sourceDetailFactory = $sourceDetailFactory;
         $this->translator = $translator;
+        $this->licenseManager = $licenseManager;
+        $this->userService = $userService;
         $this->categories = Arrays::flip($categories);
     }
 
@@ -102,7 +120,9 @@ class DetailService
             'link_url' => $linkUrl,
             'longitude' => $object['longitude'],
             'latitude' => $object['latitude'],
-            'source' => $object['source'],
+            'source' => $this->getSourceExtendedInfo($object),
+            'license' => $object['license'],
+            'license_url' => $this->getLicenseUrl($object['license_id']),
             'owner' => $object['data_owner_url'],
             'accessibility' => [
                 'id' => $object['accessibility_id'],
@@ -184,5 +204,29 @@ class DetailService
         ];
 
         return $category;
+    }
+
+    /**
+     * Dohleda URL s popisem licence
+     * @param int $licenseId
+     * @return string
+     */
+    protected function getLicenseUrl($licenseId)
+    {
+        $license = $this->licenseManager->findOneById($licenseId);
+
+        return $license['url'];
+    }
+
+    /**
+     * Sestavi info o zdroji dat
+     * - pokud je zadano agenturou nebo jejim maparem, tak jmeno agentury
+     * - pokud je zadano maparem bez agentury, tak jmeno mapare
+     * @param array $object
+     * @return string
+     */
+    protected function getSourceExtendedInfo($object)
+    {
+        return $this->userService->getSourceName($object['user_id']) ?: $object['source'];
     }
 }
