@@ -351,8 +351,8 @@ renderer:
         parkingAccessible: Parking for the disabled
         "yes": "yes"
         "no": "no"
-        headline: restroom details
     wckompas:
+        headline: restroom details
         euro_key_access: eurokey
         free: free of charge
         accessible: accessible
