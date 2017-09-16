@@ -121,7 +121,7 @@ class DefaultSourceDetail implements ISourceDetail
     /**
      * Urceni, ktere piktogramy se maji zobrazit a jejich textoveho upresneni
      * vsechny piktogramy vraci tvar: [
-     *     'value' => string|boolean
+     *     'value' => string|boolean|null (null = nezobrazovat)
      *     'description' => string|null // nepovinne
      *     'accessible' => boolean // true - zelene, false - cervene, null - bez zvyrazneni
      * ], klic pak urcuje ikonku a hlavni text
@@ -155,18 +155,20 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramParking($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => false,
         ];
 
         if ($object['entrance1_is_reserved_parking'] || $object['entrance2_is_reserved_parking']) {
             $ret['accessible'] = true;
             $ret['value'] = $object['entrance1_number_of_reserved_parking'] + $object['entrance2_number_of_reserved_parking'];
+        } else if ((null !== $object['entrance1_is_reserved_parking']) || (null !== $object['entrance2_is_reserved_parking'])) {
+            $ret['value'] = false;
         }
 
         return $ret;
@@ -177,12 +179,12 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramStairs($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
@@ -196,28 +198,26 @@ class DefaultSourceDetail implements ISourceDetail
             'entrance2_steps1_height', 'entrance2_steps2_height',
         ];
 
-        foreach (array_merge($countKeys, $heightKeys) as $key) {
-            if ($object[$key] > 0) {
-                $ret['value'] = true;
-                $ret['accessible'] = null;
-                break;
-            }
-        }
+        $booleanKeys = ['object_is_steps', 'object_is_stairs'];
 
-        if (!$ret['value'] && ($object['object_is_steps'] || $object['object_is_stairs'])) {
-            $ret['value'] = true;
-            $ret['accessible'] = null;
-        }
+        $maxSteps = 0;
 
-        if ($ret['value']) {
-            $ret['value'] = 1;
-            $ret['accessible'] = null;
-
-            foreach ($countKeys as $key) {
-                if ($object[$key] > $ret['value']) {
-                    $ret['value'] = $object[$key];
+        foreach (array_merge($countKeys, $heightKeys, $booleanKeys) as $key) {
+            if (null !== $object[$key]) {
+                if ($object[$key]) {
+                    if (in_array($key, $countKeys) && ($object[$key] > $maxSteps)) {
+                        $maxSteps = $object[$key];
+                    } else if (0 === $maxSteps) {
+                        $maxSteps = 1;
+                    }
+                } else {
+                    $ret['value'] = false;
                 }
             }
+        }
+
+        if ($maxSteps > 0) {
+            $ret['value'] = $maxSteps;
         }
 
         return $ret;
@@ -228,23 +228,27 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramSpiralStairs($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
-        if (
-            ObjectMetadata::STAIRS_SPIRAL_TYPE === $object['object_stairs_type']
-            || ObjectMetadata::STAIRS_DIRECT_SPIRAL_TYPE === $object['object_stairs_type']
-        ) {
-            $ret = [
-                'value' => true,
-                'accessible' => false,
-            ];
+        if (null !== $object['object_stairs_type']) {
+            if (ObjectMetadata::STAIRS_DIRECT_TYPE === $object['object_stairs_type']) {
+                $ret = [
+                    'value' => false,
+                    'accessible' => true,
+                ];
+            } else {
+                $ret = [
+                    'value' => true,
+                    'accessible' => false,
+                ];
+            }
         }
 
         return $ret;
@@ -255,7 +259,7 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramElevator($object)
     {
@@ -288,7 +292,7 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramPlatform($object)
     {
@@ -321,7 +325,7 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramRampSkids($object)
     {
@@ -382,20 +386,22 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramNarrowedPassage($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
-        if ($object['object_is_narrowed_passage']) {
+        if ($object['object_is_narrowed_passage'] || $object['object_narrowed_passage_width']) {
             $ret = [
-                'value' => $object['object_narrowed_passage_width'] . ' cm',
+                'value' => ($object['object_narrowed_passage_width'] ?: 0) . ' cm',
                 'accessible' => false,
             ];
+        } else if ((null !== $object['object_is_narrowed_passage']) || (null !== $object['object_narrowed_passage_width'])) {
+            $ret['value'] = false;
         }
 
         return $ret;
@@ -406,12 +412,12 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramDoorWidth($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
@@ -456,11 +462,18 @@ class DefaultSourceDetail implements ISourceDetail
             }
         }
 
-        if ($minWidth && $minWidth < self::MKPO_MIN_DOOR_WIDTH) {
-            $ret = [
-                'value' => $minWidth . ' cm',
-                'accessible' => false,
-            ];
+        if ($minWidth) {
+            if ($minWidth < self::MKPO_MIN_DOOR_WIDTH) {
+                $ret = [
+                    'value' => $minWidth . ' cm',
+                    'accessible' => false,
+                ];
+            } else {
+                $ret = [
+                    'value' => false,
+                    'accessible' => true,
+                ];
+            }
         }
 
         return $ret;
@@ -532,12 +545,12 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramDifficultSurface($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
@@ -557,6 +570,8 @@ class DefaultSourceDetail implements ISourceDetail
                 'accessible' => false,
                 'description' => implode(', ', $description),
             ];
+        } else if ((null !== $object['entrance1_is_difficult_surface']) || (null !== $object['entrance2_is_difficult_surface'])) {
+            $ret['value'] = false;
         }
 
         return $ret;
@@ -567,12 +582,12 @@ class DefaultSourceDetail implements ISourceDetail
      *
      * @param array $object
      *
-     * @return null|array
+     * @return array
      */
     protected function getPictogramDifficultInclination($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => true,
         ];
 
@@ -594,6 +609,11 @@ class DefaultSourceDetail implements ISourceDetail
                 'accessible' => false,
                 'description' => implode(', ', $description),
             ];
+        } else if (
+                (null !== $object['entrance1_is_longitudinal_inclination']) || (null !== $object['entrance1_is_transverse_inclination'])
+                || (null !== $object['entrance2_is_longitudinal_inclination']) || (null !== $object['entrance2_is_transverse_inclination'])
+         ) {
+            $ret['value'] = false;
         }
 
         return $ret;

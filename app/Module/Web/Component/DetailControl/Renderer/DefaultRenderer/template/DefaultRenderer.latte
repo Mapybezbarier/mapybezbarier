@@ -2,7 +2,7 @@
     {foreach $object['pictograms'] as $key => $pictogram}
         {php $key = !empty($pictogram['key']) ? $pictogram['key'] : $key;}
         {capture $keyClass}{$key|lower}{/capture}
-        <div n:class="detail_pictogram, nwjs_description_opener, !empty($pictogram['description']) ? 'with_description', $keyClass">
+        <div n:if="null !== $pictogram['value']" n:class="detail_pictogram, nwjs_description_opener, !empty($pictogram['description']) ? 'with_description', $keyClass">
             <strong class="title">{_'messages.control.map.detail.pictogram.' . $key}</strong>
             <span n:class="detail_pictogram_accessibility, null !== $pictogram['accessible'] ? ('accessibility_' . $pictogram['accessible'])">
             {if is_bool($pictogram['value'])}
