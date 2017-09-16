@@ -7,6 +7,7 @@ enum:
     bool:
         "true": "Yes"
         "false": "No"
+        "unknown": unknown
 
     boolLower:
         "true": "yes"
@@ -114,6 +115,13 @@ enum:
             zooObjectCategory: a zoo
             atmObjectCategory: an ATM
             cultureHouseObjectCategory: a house of culture
+            culturalFacilityObjectCategory: cultural facility
+            institutionObjectCategory: institution
+            transportObjectCategory: transport
+            elementaryArtSchoolObjectCategory: elementary art school
+            medicalFacilityObjectCategory: medical facility
+            educationObjectCategory: education
+            leisureTimeObjectCategory: leisure
 
         accessibility:
             accessibleObjectMKPO: accessible
@@ -288,6 +296,7 @@ control:
                 AccessibleWCMKPO: accessible toilet
                 PartlyAccessibleWCMKPO: partially accessible toilet
                 InAccessibleWCMKPO: Difficult to access or an inaccessible restroom
+                wc: Wheelchair accessible WC
 
             description:
                 elevator: "The dimensions of the smallest lift: %size% cm"
@@ -342,6 +351,14 @@ renderer:
         parkingAccessible: Parking for the disabled
         "yes": "yes"
         "no": "no"
+        headline: restroom details
+    wckompas:
+        euro_key_access: eurokey
+        free: free of charge
+        accessible: accessible
+        card_priority: priority with WC card
+        card_free: free of charge with WC card
+        with_card_access: entry with WC card only
 
 header:
     h1: Maps without barriers - wheelchair access - an interactive map
