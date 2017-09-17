@@ -1,3 +1,40 @@
+$(document).ready(function () {
+    // gmap
+    window.googleMap = bindMap();
+
+    // na mobilu kliknuti do mapy zavre filtr
+    bindClickTheMapInside();
+});
+
+$(window).resize(function () {
+    // na mobilu kliknuti do mapy zavre filtr
+    bindClickTheMapInside();
+});
+
+/**
+ * Obluha mapy
+ */
+function bindMap() {
+    var config = {
+        item: $('#map'),
+        map: mapConfig,
+        markers: mapMarkers
+    };
+
+    return new Map(config);
+}
+
+/**
+ * Na mobilu kliknuti do mapy zavre filtr
+ */
+function bindClickTheMapInside() {
+    $('#map').on('click', function () {
+        if (isMobile()) {
+            $('.nwjs_filter').removeClass('opened');
+        }
+    });
+}
+
 /**
  * @param {object} config
  * @constructor

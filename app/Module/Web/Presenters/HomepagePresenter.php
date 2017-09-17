@@ -33,6 +33,8 @@ use WebLoader\FileCollection;
  */
 class HomepagePresenter extends AbstractWebPresenter
 {
+    use TMapPresenter;
+
     /** @const Nazev komponenty popupu s exportem */
     const COMPONENT_EXPORT = 'export';
     /** @const Nazev komponenty popupu pro vlozeni mapy */
@@ -56,12 +58,6 @@ class HomepagePresenter extends AbstractWebPresenter
      * @var int
      */
     public $id;
-
-    /**
-     * @persistent
-     * @var bool
-     */
-    public $maps = false;
 
     /** @var ObjectService @inject */
     public $objectService;
@@ -188,44 +184,6 @@ class HomepagePresenter extends AbstractWebPresenter
 
         $this->getHttpResponse()->setContentType("text/csv");
         $this->sendResponse($response);
-    }
-
-    /**
-     * @override Pridani JavaScriptovych souboru podle zvolenych mapovych podkladu
-     *
-     * @return JavaScriptLoader
-     */
-    protected function createComponentJs()
-    {
-        $control = parent::createComponentJs();
-
-        /** @var FileCollection $collection */
-        $collection = $control->getCompiler()->getFileCollection();
-
-        if ($this->maps) {
-            $apiKey = Arrays::get($this->context->getParameters(), ['google', 'mapApiKey']);
-
-            $collection->addRemoteFile("//maps.googleapis.com/maps/api/js?key=$apiKey&libraries=places&language=cs");
-            $collection->addFile('gmaps.js');
-        } else {
-            $collection->addRemoteFile('//api.mapy.cz/loader.js');
-            $collection->addRemoteFile('!Loader.load();');
-            $collection->addFile('mapycz.js');
-        }
-
-        return $control;
-    }
-
-    /**
-     * @param IMapControlFactory $factory
-     *
-     * @return MapControl
-     */
-    protected function createComponentMap(IMapControlFactory $factory)
-    {
-        $control = $factory->create();
-
-        return $control;
     }
 
     /**

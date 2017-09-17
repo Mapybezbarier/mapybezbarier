@@ -13,6 +13,8 @@ use MP\Module\Web\Service\ObjectRestrictorBuilder;
  */
 class EmbeddedPresenter extends AbstractWebPresenter
 {
+    use TMapPresenter;
+
     /** @var ObjectRestrictorBuilder @inject */
     public $restrictorBuilder;
 
