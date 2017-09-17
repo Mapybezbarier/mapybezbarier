@@ -8,9 +8,6 @@ $(document).ready(function () {
     // automaticke otevirani a zavirani filtru na mobilu
     bindFilterOpenerMobile();
 
-    // na mobilu kliknuti do mapy zavre filtr
-    bindClickTheMapInside();
-
     // otevreni footeru
     bindFooterOpener();
 
@@ -22,9 +19,6 @@ $(document).ready(function () {
 
     // nastaveni odelsani hned po zmene
     bindFormAutoSubmit();
-
-    // gmap
-    window.googleMap = bindMap();
 
     // akce spojene s detailem
     bindDetail();
@@ -44,9 +38,6 @@ $(document).ready(function () {
 $(window).resize(function () {
     // pridani tridy "mobile" elementu "body"
     bindIsMobile();
-
-    // na mobilu kliknuti do mapy zavre filtr
-    bindClickTheMapInside();
 });
 
 /**
@@ -79,18 +70,6 @@ function bindFilterOpenerMobile() {
     } else {
         $filter.addClass('opened');
     }
-}
-
-
-/**
- * Na mobilu kliknuti do mapy zavre filtr
- */
-function bindClickTheMapInside() {
-    $('#map').on('click', function () {
-        if (isMobile()) {
-            $('.nwjs_filter').removeClass('opened');
-        }
-    });
 }
 
 /**
@@ -159,19 +138,6 @@ function bindFormAutoSubmit() {
     $('#snippet--filter').on('change', '.nwjs_auto_submit', function () {
         $(this).submit();
     });
-}
-
-/**
- * Obluha mapy
- */
-function bindMap() {
-    var config = {
-        item: $('#map'),
-        map: mapConfig,
-        markers: mapMarkers
-    };
-
-    return new Map(config);
 }
 
 /**
