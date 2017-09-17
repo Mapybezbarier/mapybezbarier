@@ -59,6 +59,8 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             $restrictor[] = $this->prepareTypeRestrictions($types);
         }
 
+        $restrictor[] = $this->prepareEditableRestrictions();
+
         $restrictor = array_filter($restrictor);
 
         return $restrictor ?: null;
@@ -134,4 +136,27 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
 
         return $restrictions;
     }
+
+    /**
+     * Zobrazovat pouze objekty z editovatelnych zdroju
+     * Ve sprave objektu v administraci se nepracuje s importovanymi daty z externich zdroju
+     * @return array
+     */
+    protected function prepareEditableRestrictions()
+    {
+        $restrictions[] = [
+            "
+                EXISTS (
+                    SELECT 1
+                    FROM [exchange_source]
+                    WHERE
+                        [exchange_source].[editable]
+                        AND [source_id] = [exchange_source].[id]
+                )
+            ",
+        ];
+
+        return $restrictions;
+    }
+
 }

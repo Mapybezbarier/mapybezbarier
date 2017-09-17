@@ -1612,7 +1612,8 @@ ALTER SEQUENCE entryarea_entry_id_seq OWNED BY entryarea_entry.id;
 CREATE TABLE exchange_source (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
-    format character varying(255) NOT NULL
+    format character varying(255) NOT NULL,
+    editable boolean DEFAULT false NOT NULL
 );
 
 
@@ -1827,7 +1828,8 @@ CREATE TABLE license (
     id integer NOT NULL,
     title character varying(255) NOT NULL,
     url text,
-    pair_key character varying(255)
+    pair_key character varying(255),
+    url text
 );
 
 
