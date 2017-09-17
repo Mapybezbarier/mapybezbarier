@@ -126,7 +126,7 @@ html, body { height: 100%; margin: 0; padding: 0; }
     .cluster {
         div {
             border: none;
-            background-image: url("/asset/img/markers/cluster/original_cluster_2.png");
+            background: url("/asset/img/markers/cluster/original_cluster_2.png");
 
             img {
                 display: none;
@@ -421,8 +421,8 @@ header {
 
                 &.maplayer {
                     margin-left: 11px;
-                    padding: 0;
-                    border-radius: inherit;
+                    padding: 0 !important;
+                    border-radius: inherit !important;
 
                     a {
                         display: inline-block;
@@ -430,11 +430,11 @@ header {
                         height: 29px;
                         background-size: cover;
 
-                        .gmaps {
+                        &.gmaps {
                             background-image: url("/asset/img/gmaps.png");
                         }
 
-                        .mapycz {
+                        &.mapycz {
                             background-image: url("/asset/img/mapycz.png");
                         }
                     }
@@ -498,7 +498,7 @@ header {
                     @include font_sizes(14, 14);
                     cursor: pointer;
                     float: left;
-                    padding: 7px 16px;
+                    padding: 7px 14px;
                     text-transform: uppercase;
                     @include trans;
 
@@ -1437,8 +1437,19 @@ footer {
             @include special_font_semibold(18, 24);
             margin-bottom: 5px;
         }
+
         p {
             @include special_font(14, 20);
+
+            a {
+                color: $red_color;
+                text-decoration: underline;
+                @include wordwrap(true);
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
 
         &:first-of-type {

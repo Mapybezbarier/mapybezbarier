@@ -681,34 +681,29 @@ html, body {
 #map {
   height: 100%;
   margin-top: 90px;
+  /* styly pro mapy.cz */
+  /* styly pro mapy.cz */
 }
-
 #map img {
   max-width: inherit;
 }
-
 #map .cluster div {
   border: none;
   background: url("/asset/img/markers/cluster/original_cluster_2.png");
 }
-
 #map .cluster div img {
   display: none;
 }
-
 #map .cluster div span {
   font-size: 20px;
   font-family: Arial, sans-serif;
 }
-
 #map .cluster div[data-scale="10"] {
   background-image: url("/asset/img/markers/cluster/original_cluster_1.png");
 }
-
 #map .cluster div[data-scale="10"] span {
   font-size: 18px;
 }
-
 #map .cluster div[data-scale="1000"] {
   background-image: url("/asset/img/markers/cluster/original_cluster_3.png");
 }
@@ -1108,22 +1103,21 @@ header .languages li:last-of-type {
 .filters .filter_group .filter_items li > label:before {
   border-width: 0;
 }
-
-.filters .filter_group .filter_items li.maplayer{
+.filters .filter_group .filter_items li.maplayer {
   margin-left: 11px;
   padding: 0 !important;
   border-radius: inherit !important;
 }
-.filters .filter_group .filter_items li.maplayer a{
+.filters .filter_group .filter_items li.maplayer a {
+  display: inline-block;
   width: 29px;
   height: 29px;
-  display: inline-block;
   background-size: cover;
 }
-.filters .filter_group .filter_items li.maplayer a.gmaps{
+.filters .filter_group .filter_items li.maplayer a.gmaps {
   background-image: url("/asset/img/gmaps.png");
 }
-.filters .filter_group .filter_items li.maplayer a.mapycz{
+.filters .filter_group .filter_items li.maplayer a.mapycz {
   background-image: url("/asset/img/mapycz.png");
 }
 .filters .filter_group .filter_items li.active {
@@ -1185,7 +1179,7 @@ header .languages li:last-of-type {
   -webkit-border-radius: 15px;
   border-radius: 15px;
   font-size: 100%;
-  line-height: 114.28571%;
+  line-height: 100%;
   cursor: pointer;
   float: left;
   padding: 7px 14px;
@@ -1344,6 +1338,7 @@ header .languages li:last-of-type {
   -o-transition: opacity 0.2s ease-in-out;
   -webkit-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
+  /* styly pro naseptavac mapy.cz */
 }
 .search .search_holder input {
   background-color: transparent;
@@ -1373,7 +1368,7 @@ header .languages li:last-of-type {
     width: 100%;
   }
 }
-.search .search_holder .content .item{
+.search .search_holder .content .item {
   padding: 0 4px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -1384,7 +1379,7 @@ header .languages li:last-of-type {
   font-size: 11px;
   color: #999;
 }
-.search .search_holder .content .item .image{
+.search .search_holder .content .item .image {
   width: 15px;
   height: 20px;
   margin-right: 7px;
@@ -1393,17 +1388,16 @@ header .languages li:last-of-type {
   vertical-align: top;
   background: url("/asset/img/suggest.png") no-repeat -1px center;
 }
-.search .search_holder .content .item br{
+.search .search_holder .content .item br {
   display: none;
 }
-.search .search_holder .content .item strong{
+.search .search_holder .content .item strong {
   font-size: 13px;
   font-weight: 700;
   padding-right: 5px;
 }
 .search .search_holder .content .item.active {
   background-color: #ebf2fe;
-  cursor: pointer;
 }
 .search .search_holder .content .item.active .image {
   background-position: -18px center;
@@ -1604,6 +1598,7 @@ footer.half_opened .footer_logos {
   box-shadow: 1.5px 2.598px 7px 0 rgba(0, 0, 0, 0.35);
   position: relative;
   width: 300px;
+  /* styly pro popup mapy.cz */
   padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
@@ -1614,8 +1609,8 @@ footer.half_opened .footer_logos {
   left: 148px !important;
   bottom: -98px !important;
 }
-
-.info_box .card-header, .info_box .card-footer{
+.info_box .card-header,
+.info_box .card-footer {
   display: none;
 }
 .info_box .card-body {
@@ -1943,7 +1938,7 @@ footer.half_opened .footer_logos {
 .info_box_content_wrapper .ib_address .source:after,
 .info_box_content_wrapper .ib_source .source:after,
 .info_box_content_wrapper .ib_owner .source:after {
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IlZyc3R2YV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDE2IDE2IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBmaWxsPSIjNDA0MDQwIiBkPSJNOSwwSDJ2OWgyVjJoNHY0aDR2OEg5bC0yLDJoN1Y1TDksMHogTTksNVYxLjRMMTIuNiw1SDl6Ii8+Cgk8cG9seWdvbiBmaWxsPSIjNDA0MDQwIiBwb2ludHM9IjEwLDExLjUgNSw4IDUsMTAgMCwxMCAwLDEzIDUsMTMgNSwxNSAJIi8+CjwvZz4KPC9zdmc+Cg==');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4yLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IlZyc3R2YV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDE2IDE2IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxNiAxNiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjNDA0MDQwIiBkPSJNOSwwSDJ2OWgyVjJoNHY0aDR2OEg5bC0yLDJoN1Y1TDksMHogTTksNVYxLjRMMTIuNiw1SDl6Ii8+DQoJPHBvbHlnb24gZmlsbD0iIzQwNDA0MCIgcG9pbnRzPSIxMCwxMS41IDUsOCA1LDEwIDAsMTAgMCwxMyA1LDEzIDUsMTUgCSIvPg0KPC9nPg0KPC9zdmc+DQo=');
 }
 .info_box_content_wrapper .ib_address .owner:after,
 .info_box_content_wrapper .ib_source .owner:after,
@@ -2411,6 +2406,14 @@ footer.half_opened .footer_logos {
   font-size: 100%;
   line-height: 142.85714%;
   font-weight: 400;
+}
+.detail .detail_description p a {
+  color: #e4002b;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+.detail .detail_description p a:hover {
+  text-decoration: none;
 }
 .detail .detail_description:first-of-type {
   padding-top: 30px;

@@ -14,7 +14,7 @@
 
             {if !empty($pictogram['description'])}
                 <div class="description">
-                    {$pictogram['description']|escape|breaklines|noescape}
+                    {$pictogram['description']|breaklines}
                 </div>
             {/if}
         </div>
@@ -32,9 +32,9 @@
         <div n:if="$description" class="detail_description">
             <h3 class="dd_headline">{_messages.control.map.detail.title.description.$title}</h3>
             {if is_array($description)}
-                <p n:foreach="$description as $item">{$item|escape|breaklines|noescape}</p>
+                <p n:foreach="$description as $item">{$item|breaklines|linkify:['target' => '_blank']}</p>
             {else}
-                <p>{$description|escape|breaklines|noescape}</p>
+                <p>{$description|breaklines|linkify:['target' => '_blank']}</p>
             {/if}
         </div>
     {/foreach}
