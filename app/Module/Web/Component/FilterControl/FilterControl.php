@@ -185,14 +185,12 @@ class FilterControl extends AbstractFormControl
      */
     protected function appendTypes(Form $form)
     {
-        $types = $this->filterService->getTypeValues();
+        $types = $this->restrictorBuilder->getDefaultTypes();
 
-        if ($types) {
-            $values = $this->prepareSelectValues($types, "messages.enum.value." . ObjectRestrictorBuilder::RESTRICTION_TYPE . ".");
+        $values = $this->prepareSelectValues(array_combine($types, $types), 'messages.enum.value.' . ObjectRestrictorBuilder::RESTRICTION_TYPE . '.');
 
-            $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_TYPE, 'messages.control.filter.label.type', $values)
-                ->setDefaultValue($this->restrictorBuilder->getTypes());
-        }
+        $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_TYPE, 'messages.control.filter.label.type', $values)
+            ->setDefaultValue($this->restrictorBuilder->getTypes());
     }
 
     /**

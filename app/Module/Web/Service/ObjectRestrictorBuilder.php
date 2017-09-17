@@ -67,9 +67,12 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         }
 
         if ($types = $this->getTypes()) {
+            // pokud je filtrovano podle profesionalnich dat, pak pridam i filtr na profesionalni, ale zastarala
+            if (isset($types[FilterService::TYPE_CERTIFIED])) {
+                $types += [FilterService::TYPE_OUTDATED => FilterService::TYPE_OUTDATED];
+            }
+
             $restrictor[] = $this->prepareTypeRestrictions($types);
-        } else {
-            $restrictor[] = ['%or', [$this->getCertifiedRestriction(), $this->getOutdatedRestriction()]];
         }
 
         $restrictor[] = ["[latitude] IS NOT NULL"];
@@ -149,15 +152,25 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         $types = $this->session->getSection(self::SECTION)->{self::RESTRICTION_TYPE};
 
         if (!$types) {
-            $types = [
-                FilterService::TYPE_CERTIFIED,
-                FilterService::TYPE_OUTDATED,
-            ];
+            $types = $this->getDefaultTypes();
         }
 
         $types = array_combine($types, $types);
 
         return $types;
+    }
+
+    /**
+     * Vrati vychozi typy mapovych podkladu pro filtr.
+     *
+     * @return string[]
+     */
+    public function getDefaultTypes(): array
+    {
+        return [
+            FilterService::TYPE_CERTIFIED,
+            FilterService::TYPE_COMMUNITY,
+        ];
     }
 
     /**
@@ -189,7 +202,7 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         if ($types) {
             $section->{self::RESTRICTION_TYPE} = $types;
         } else if ($override) {
-            $section->{self::RESTRICTION_TYPE} = [FilterService::TYPE_CERTIFIED, FilterService::TYPE_OUTDATED];
+            $section->{self::RESTRICTION_TYPE} = $this->getDefaultTypes();
         }
     }
 
