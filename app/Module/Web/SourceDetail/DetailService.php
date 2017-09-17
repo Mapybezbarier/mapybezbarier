@@ -148,7 +148,7 @@ class DetailService
      */
     protected function getDescriptions($object)
     {
-        $desriptions = [
+        $descriptions = [
             'object' => $object['description'],
             'mainEntrance' => $object['entrance1_has_description'],
             'sideEntrance' => $object['entrance2_has_description'],
@@ -166,15 +166,15 @@ class DetailService
             ObjectMetadata::WC => 'wc_has_description',
         ];
 
-        foreach ($mapping as $key => $description) {
+        foreach ($mapping as $key => $descriptionAttribute) {
             foreach ($object[$key] as $values) {
-                if ($description = Arrays::get($values, $description, null)) {
-                    $desriptions[$key][] = $description;
+                if ($description = Arrays::get($values, $descriptionAttribute, null)) {
+                    $descriptions[$key][] = $description;
                 }
             }
         }
 
-        return $desriptions;
+        return $descriptions;
     }
 
     /**
