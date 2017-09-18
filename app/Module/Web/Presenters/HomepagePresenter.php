@@ -47,6 +47,8 @@ class HomepagePresenter extends AbstractWebPresenter
     const COMPONENT_DETAIL = 'detail';
     /** @const Nazev komponenty s mapou */
     const COMPONENT_MAP = 'map';
+    /** @const Nazev komponenty s novinkami */
+    const COMPONENT_NEWS = 'news';
 
     /** @const Nazev parametru s jmenem popupu */
     const PARAM_POPUP = 'popup';
@@ -87,7 +89,9 @@ class HomepagePresenter extends AbstractWebPresenter
                 throw new \Nette\Application\BadRequestException("Unknown object with ID '{$this->id}'.");
             }
 
+            $this[self::COMPONENT_MAP]->setObject($object);
             $this[self::COMPONENT_DETAIL]->setObject($object);
+            $this[self::COMPONENT_NEWS]->setRenderable(false);
         }
     }
 

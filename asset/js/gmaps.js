@@ -1,5 +1,6 @@
-
-MapLayer = {};
+MapLayer = {
+    initMarkersCallbacks: []
+};
 
 /** Handler pro naseptavac */
 MapLayer.bindAutocomplete = function (input) {
@@ -36,12 +37,13 @@ MapLayer.bindAutocomplete = function (input) {
 /**
  * vychozi handler pro uspesne zjisteni pozice geolokace
  * @param {Position} position
- * @return bool
+ * @return boolean
  */
 MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
+    var context = this._map;
 
-    this.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-    this.map.setZoom(10);
+    this.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+    this.setZoom(context.config.infoBoxDefaultZoom);
 
     return true;
 };
@@ -67,9 +69,9 @@ MapLayer.prepareInfoBox = function (marker) {
 
 MapLayer.setMarkers = function(markers) {
     for (var j=0;j<markers.length;j++) {
-	   markers[j].setMap(null);
+        markers[j].setMap(null);
     }
-}
+};
 
 /**
  * HACK pro nezobrazovani infowindow po kliku na POI ikonky
@@ -105,27 +107,39 @@ MapLayer.closeInfoBoxes = function () {
 };
 
 MapLayer.initMarkers = function() {
-	this.clusters.clearMarkers();
+    this.clusters.clearMarkers();
     this.clusters.addMarkers($.map(this._map.markers, function(v) { return v; }));
-}
+
+    for (var i = 0, length = this.initMarkersCallbacks.length; i < length; i++) {
+        this.initMarkersCallbacks[i]();
+        this.initMarkersCallbacks.splice(i, 1);
+    }
+};
 
 MapLayer.closeInfoBox = function () {
     this._map.infoBox.close();
-}
+};
+
+/**
+ * @param {google.maps.LatLng} position
+ */
+MapLayer.setCenter = function(position) {
+    this._map.map.setCenter(position);
+};
 
 MapLayer.getCenter = function() {
-	return {x: this._map.map.getCenter().lng(), y: this._map.map.getCenter().lat()};
-}
+    return {x: this._map.map.getCenter().lng(), y: this._map.map.getCenter().lat()};
+};
 
 MapLayer.setZoom = function(zoom) {
-	this._map.map.setZoom(zoom);
-}
+    this._map.map.setZoom(zoom);
+};
 
 /**
  * Inicializace mapy.
  */
 MapLayer.initMap = function (map) {
-	this._map = map;
+    this._map = map;
     this._map.map = new google.maps.Map(this._map.config.item.get(0), this._map.config.map);
 
     // @see http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
@@ -169,7 +183,9 @@ MapLayer.markerClick = function (marker) {
     }
 
     if (null === this._map.infoBox || this._map.infoBox !== this._map.infoBoxes[marker['id']]) {
-        MapLayer.closeInfoBoxes();
+        if (null !== this._map.infoBox) {
+            MapLayer.closeInfoBoxes();
+        }
 
         this._map.infoBox = this._map.infoBoxes[marker['id']];
         this._map.infoBox.open(this._map.map, this._map.markers[marker['id']]);
@@ -186,7 +202,10 @@ MapLayer.markerClick = function (marker) {
  * @returns {google.maps.Marker}
  */
 MapLayer.prepareMarker = function (marker) {
-    var marker_image = new google.maps.MarkerImage(
+    if ('undefined' !== typeof marker['latitude'] && 'undefined' !== typeof marker['longitude']) {
+        var context = this._map;
+
+        var marker_image = new google.maps.MarkerImage(
             marker['image'],
             null, /* size is determined at runtime */
             null, /* origin is 0,0 */
@@ -194,23 +213,28 @@ MapLayer.prepareMarker = function (marker) {
             new google.maps.Size(50, 70)
         );
 
-    var config = {
-        title: marker['title'],
-        icon: marker_image
-    };
+        var config = {
+            title: marker['title'],
+            icon: marker_image,
+            position: new google.maps.LatLng(marker['latitude'], marker['longitude'])
+        };
 
-    if ('undefined' != typeof marker['latitude'] && 'undefined' != typeof marker['longitude']) {
-        config.position = new google.maps.LatLng(marker['latitude'], marker['longitude'])
+        var mapMarker = new google.maps.Marker(config);
+        mapMarker.addListener('click', function () {
+            context.markerClick(marker);
+        });
+
+        if (marker.active) {
+            this.initMarkersCallbacks.push(function() {
+                context.markerClick(marker);
+
+                MapLayer.setCenter(mapMarker.getPosition());
+                MapLayer.setZoom(context.config.infoBoxDefaultZoom);
+            });
+        }
+
+        return mapMarker;
     }
-
-    var mapMarker = new google.maps.Marker(config);
-
-    var context = this._map;
-    mapMarker.addListener('click', function () {
-        context.markerClick(marker);
-    });
-
-    return mapMarker;
 };
 
 /**

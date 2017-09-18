@@ -32,12 +32,20 @@ class NewsControl extends AbstractControl
     public function render()
     {
         if ($this->isRenderable()) {
+            $this->setRenderable(false);
+
             $template = $this->getTemplate();
             $template->locale = $this->lang->getLocale();
             $template->render();
-
-            $this->session->rendered = true;
         }
+    }
+
+    /**
+     * @param bool $isRenderable
+     */
+    public function setRenderable(bool $isRenderable)
+    {
+        $this->session->rendered = false === $isRenderable;
     }
 
     /**

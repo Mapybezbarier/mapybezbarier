@@ -50,6 +50,10 @@ images:
 
 
 services:
+    nette.templateFactory:
+        class: MP\Util\Latte\Factory\TemplateFactory
+        inject: true
+
     # factories
     formFactory: MP\Component\Form\FormFactory
     mailerMessageFactory: MP\Component\Mailer\MessageFactory
@@ -84,6 +88,7 @@ services:
     defaultImageStorage:
         class: MP\Service\ImageFileStorage
         arguments: [%storageDir%, %wwwDir%]
+    filterSet: MP\Util\Latte\Filter\FilterSet
 
     # cache
     enumValueResolverCacheStorage:
@@ -189,7 +194,6 @@ webloader:
                 - "nette.ajax.js"
                 - "colorbox.js"
                 - "script.js"
-                - "map.js"
                 - "web.js"
         admin:
              tempDir: "%wwwDir%/asset/temp"

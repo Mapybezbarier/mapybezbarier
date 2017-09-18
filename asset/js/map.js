@@ -58,6 +58,7 @@ var Map = function (config) {
         mapZoomSelector: '.nwjs_map_zoom',
         infoBoxCloseSelector: '.nwjs_infobox_closer',
         infoBoxClass: 'info_box',
+        infoBoxDefaultZoom: 10,
         setGeolocationButtonSelector: '.nwjs_set_geolocation',
         autocompleteInputSelector: '#nwjs_search_place',
         autocompleteDefaultZoom: 17,
@@ -84,7 +85,7 @@ var Map = function (config) {
 Map.prototype.init = function () {
     this.initTemplates();
 
-    if (undefined != this.config.item && this.config.item.length) {
+    if (this.config.item !== undefined && this.config.item.length) {
         this.initMap();
         this.initMarkers();
     }
@@ -95,7 +96,7 @@ Map.prototype.init = function () {
  */
 Map.prototype.initMap = function () {
     this._mapLayer = MapLayer;
-    MapLayer.initMap(this);
+    this._mapLayer.initMap(this);
 
     this.bindMapTypeChange();
     this.bindMapZoom();
@@ -126,6 +127,7 @@ Map.prototype.markerClick = function (e) {
         };
 
         $(this.config.contentSelector).addClass(this.config.openedInfoboxClass);
+
         $.nette.ajax(config);
     }
 };
@@ -217,8 +219,9 @@ Map.prototype.loadContentErrorHandler = function () {
  */
 Map.prototype.bindDetailActions = function () {
     var context = this;
+    var $infoBox = $("." + this.config.infoBoxClass);
 
-    $("." + this.config.infoBoxClass).on('click', this.config.detailOpenerSelector, function (event) {
+    $infoBox.on('click', this.config.detailOpenerSelector, function (event) {
         event.preventDefault();
 
         // na mobilu otevreni detailu zavre filtr a vyhledavani
@@ -230,13 +233,13 @@ Map.prototype.bindDetailActions = function () {
         context.openDetailBox();
     });
 
-    $("." + this.config.infoBoxClass).on('click', this.config.infoBoxCloseSelector, function (event) {
+    $infoBox.on('click', this.config.infoBoxCloseSelector, function (event) {
         event.preventDefault();
 
         context.closeInfoBox();
     });
 
-    $("." + this.config.infoBoxClass).on('click', this.config.detailCloserSelector, function (event) {
+    $infoBox.on('click', this.config.detailCloserSelector, function (event) {
         event.preventDefault();
 
         context.closeDetailBox();
@@ -315,7 +318,7 @@ Map.prototype.bindEmbeddedPopupOpen = function () {
             'center-lng': center.x
         };
 
-        if (typeof window.SMap == 'undefined') {
+        if (typeof window.SMap === 'undefined') {
             data.maps = 1;
         }
 
@@ -354,7 +357,7 @@ Map.prototype.initializeGeolocation = function () {
 
 /** zpracovani geolokace */
 Map.prototype.geolocationHandleSuccess = function (position) {
-    if (typeof window.gm_geolocation_success_callbacks == 'undefined' || window.gm_geolocation_success_callbacks == null) {
+    if (typeof window.gm_geolocation_success_callbacks === 'undefined' || window.gm_geolocation_success_callbacks == null) {
         window.gm_geolocation_success_callbacks = [];
     }
 
@@ -374,7 +377,7 @@ Map.prototype.geolocationHandleSuccess = function (position) {
  * handle gelokace neni podporovana prohlizecem
  */
 Map.prototype.geolocationHandleNotSupported = function () {
-    if (typeof window.gm_geolocation_not_supported_callbacks == 'undefined' || window.gm_geolocation_not_supported_callbacks == null) {
+    if (typeof window.gm_geolocation_not_supported_callbacks === 'undefined' || window.gm_geolocation_not_supported_callbacks == null) {
         window.gm_geolocation_not_supported_callbacks = [];
     }
 
@@ -391,7 +394,7 @@ Map.prototype.geolocationHandleNotSupported = function () {
  *chyba geolokace 
  */
 Map.prototype.geolocationHandleError = function (error) {
-    if (typeof window.gm_geolocation_error_callbacks == 'undefined' || window.gm_geolocation_error_callbacks == null) {
+    if (typeof window.gm_geolocation_error_callbacks === 'undefined' || window.gm_geolocation_error_callbacks == null) {
         window.gm_geolocation_error_callbacks = [];
     }
 

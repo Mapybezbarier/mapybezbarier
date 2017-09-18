@@ -34,7 +34,7 @@ class MapControl extends AbstractControl
     const MARKER_TYPE_GROUP = 'group';
 
     /** @const Cesta k obrazkum markeru */
-    const PATH_TO_MARKER_IMAGES = "/asset/img/markers/%s.png";
+    const PATH_TO_MARKER_IMAGES = '/asset/img/markers/%s.png';
 
     /**
      * @const
@@ -60,6 +60,9 @@ class MapControl extends AbstractControl
 
     /** @var bool vykreslovano jako embedded mapa? */
     protected $embedded = false;
+
+    /** @var array */
+    protected $object;
 
     /**
      * @param ObjectManager $objectManager
@@ -115,6 +118,14 @@ class MapControl extends AbstractControl
     }
 
     /**
+     * @param array $object
+     */
+    public function setObject(array $object)
+    {
+        $this->object = $object;
+    }
+
+    /**
      * @param array $restrictor
      */
     public function setRestrictor($restrictor)
@@ -141,6 +152,7 @@ class MapControl extends AbstractControl
             $count = count($group);
             $first = reset($group);
             $objectIds = array_keys($group);
+            $active = null !== $this->object && isset($group[$this->object['object_id']]);
 
             // group
             if ($count > 1) {
@@ -171,6 +183,7 @@ class MapControl extends AbstractControl
                 'longitude' => $first['longitude'],
                 'object_ids' => $objectIds,
                 'image' => sprintf(static::PATH_TO_MARKER_IMAGES, $markerPath),
+                'active' => $active,
             ];
         }
 
