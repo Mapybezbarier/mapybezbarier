@@ -5,7 +5,7 @@ namespace MP\Module\Admin\Component\RegistrationControl;
 use Kdyby\Translation\Translator;
 use MP\Component\Form\FormFactory;
 use MP\Module\Admin\Component\AbstractUserControl;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use MP\Module\Admin\Service\Authenticator;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Module\Admin\Service\UserService;

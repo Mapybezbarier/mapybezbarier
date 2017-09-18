@@ -5,7 +5,7 @@ namespace MP\Module\Admin\Component\LicenseListControl;
 use Dibi\ForeignKeyConstraintViolationException;
 use MP\Component\AbstractControl;
 use MP\Component\FlashMessageControl;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Module\Admin\Service\LogService;
 

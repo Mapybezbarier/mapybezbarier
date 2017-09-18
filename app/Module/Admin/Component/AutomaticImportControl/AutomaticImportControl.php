@@ -6,7 +6,7 @@ use MP\Component\Form\AbstractFormControl;
 use MP\Component\Form\FormFactory;
 use MP\Manager\ExchangeSourceManager;
 use MP\Mapper\IMapper;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use MP\Module\Admin\Service\AutomaticImportService;
 use MP\Util\Forms;
 use Nette\Forms\Form;

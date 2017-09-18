@@ -7,7 +7,7 @@ use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\ImportService;
 use MP\Manager\ExchangeSourceManager;
 use MP\Module\Admin\Manager\ImportLogManager;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use Nette\Http\FileUpload;
 use Nette\Utils\Json;
 

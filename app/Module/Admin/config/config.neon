@@ -57,9 +57,6 @@ services:
     objectDraftManager:
         class: MP\Module\Admin\Manager\ObjectDraftManager
         tags: [mp.manager = map_object_draft]
-    licenseManager:
-        class: MP\Module\Admin\Manager\LicenseManager
-        tags: [mp.manager = license]
     logManager:
         class: MP\Module\Admin\Manager\LogManager
         tags: [mp.manager = log]

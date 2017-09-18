@@ -4,7 +4,7 @@ namespace MP\Module\SourceDetail;
 
 use Dibi\DateTime;
 use Kdyby\Translation\Translator;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use MP\Module\Web\Service\ObjectService;
 use MP\Module\Web\Service\UserService;
 use MP\Object\ObjectHelper;

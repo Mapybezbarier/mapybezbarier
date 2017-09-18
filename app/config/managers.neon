@@ -45,6 +45,9 @@ services:
     roleManager:
         class: MP\Manager\RoleManager
         tags: [mp.manager = role]
+    licenseManager:
+        class: MP\Manager\LicenseManager
+        tags: [mp.manager = license]
     imageManager: MP\Manager\ImageManager
 
     #mappers
