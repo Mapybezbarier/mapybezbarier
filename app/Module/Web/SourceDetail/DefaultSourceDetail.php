@@ -216,8 +216,9 @@ class DefaultSourceDetail implements ISourceDetail
             }
         }
 
+        // pocet schodu vypisuji pouze pokud je znam pocet (> 1)
         if ($maxSteps > 0) {
-            $ret['value'] = $maxSteps;
+            $ret['value'] = $maxSteps > 1 ? $maxSteps : true;
         }
 
         return $ret;
@@ -264,7 +265,7 @@ class DefaultSourceDetail implements ISourceDetail
     protected function getPictogramElevator($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => null,
         ];
 
@@ -297,7 +298,7 @@ class DefaultSourceDetail implements ISourceDetail
     protected function getPictogramPlatform($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => null,
         ];
 
@@ -330,7 +331,7 @@ class DefaultSourceDetail implements ISourceDetail
     protected function getPictogramRampSkids($object)
     {
         $ret = [
-            'value' => false,
+            'value' => null,
             'accessible' => null,
         ];
 
