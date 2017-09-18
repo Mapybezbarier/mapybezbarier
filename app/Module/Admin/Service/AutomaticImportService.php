@@ -12,7 +12,7 @@ use MP\Mapper\IMapper;
 use MP\Module\Admin\Component\ImportReportMailer\ImportReportMailer;
 use MP\Module\Admin\Manager\AutomaticImportManager;
 use MP\Module\Admin\Manager\ImportLogManager;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use Nette\Application\LinkGenerator;
 use Nette\Utils\DateTime;
 use Nette\Utils\Json;

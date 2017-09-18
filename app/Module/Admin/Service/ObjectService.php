@@ -12,7 +12,7 @@ use MP\Manager\RampSkidsManager;
 use MP\Manager\WcManager;
 use MP\Mapper\Context;
 use MP\Mapper\IMapper;
-use MP\Module\Admin\Manager\LicenseManager;
+use MP\Manager\LicenseManager;
 use MP\Object\ObjectMetadata;
 use MP\Service\GeocodingService;
 use MP\Util\Arrays;

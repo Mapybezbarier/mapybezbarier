@@ -1,6 +1,6 @@
 <?php
 
-namespace MP\Module\Admin\Manager;
+namespace MP\Manager;
 use MP\Manager\AbstractManager;
 
 /**
