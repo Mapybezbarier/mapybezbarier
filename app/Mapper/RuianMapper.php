@@ -112,28 +112,55 @@ class RuianMapper extends DatabaseMapper
     }
 
     /**
+     * Vrati, zda ma dana cast obce ulice
+     *
+     * @param string $zipcode
+     * @param string|string[] $city
+     * @param string|string[] $cityPart
+     *
+     * @return bool
+     */
+    public function hasStreet($zipcode, $city, $cityPart): bool
+    {
+        $restrictor = [
+            ['[street] IS NOT NULL'],
+            ['[zipcode] = %s', $zipcode],
+        ];
+
+        $restrictor[] = is_array($city) ? ['[city] IN %in', $city] : ['[city] = %s', $city];
+        $restrictor[] = is_array($cityPart) ? ['[city_part] IN %in', $cityPart] : ['[city_part] = %s', $cityPart];
+
+        $query = ['SELECT COUNT(*) > 0 FROM %n', $this->table];
+        $query[] = 'WHERE %and';
+        $query[] = $restrictor;
+
+        return (bool) $this->executeQuery($query)->fetchSingle();
+    }
+
+    /**
      * Dohleda mozne ulice pro danou cast obce
      *
      * @param string $term
      * @param string $zipcode
-     * @param string $city
-     * @param string $cityPart
+     * @param string|string[] $city
+     * @param string|string[] $cityPart
      *
      * @return \Dibi\Row[]|null
      */
     public function findStreet($term, $zipcode, $city, $cityPart)
     {
         $restrictor = [
-            ["[zipcode] = %s", $zipcode],
-            ["[city] = %s", $city],
-            ["[city_part] = %s", $cityPart],
             ["remove_diacritics([street]) ILIKE '%' || remove_diacritics('{$term}') || '%'"],
+            ['[zipcode] = %s', $zipcode],
         ];
 
-        $query = ['SELECT DISTINCT [street] FROM %n', $this->table];
+        $restrictor[] = is_array($city) ? ['[city] IN %in', $city] : ['[city] = %s', $city];
+        $restrictor[] = is_array($cityPart) ? ['[city_part] IN %in', $cityPart] : ['[city_part] = %s', $cityPart];
+
+        $query = ['SELECT DISTINCT [street], [zipcode], [city], [city_part] FROM %n', $this->table];
         $query[] = 'WHERE %and';
         $query[] = $restrictor;
-        $query[] = 'ORDER BY [street]';
+        $query[] = 'ORDER BY [street], [zipcode], [city], [city_part]';
 
         return $this->executeQuery($query)->fetchAll();
     }

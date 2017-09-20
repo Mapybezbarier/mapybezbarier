@@ -1,3 +1,6 @@
+var isCheckingAddress2 = false;
+var isCheckingAddress3 = false;
+
 $(document).ready(function () {
     monkeyPatchAutocomplete();
 
@@ -137,10 +140,23 @@ function bindAddress1Autocomplete() {
         source: $this.data('source'),
         minLength: 3,
         select: function(event, ui) {
-            if (undefined != ui.item) {
-                $zipcode.val(ui.item.zipcode);
-                $city.val(ui.item.city);
-                $cityPart.val(ui.item.city_part);
+            if (undefined !== ui.item) {
+                if (typeof ui.item.zipcode !== 'object') {
+                    $zipcode.val(ui.item.zipcode);
+                }
+
+                if (typeof ui.item.city !== 'object') {
+                    $city.val(ui.item.city);
+                }
+
+                if (typeof ui.item.city_part !== 'object') {
+                    $cityPart.val(ui.item.city_part);
+                }
+
+                $zipcode.data('autocomplete', ui.item.zipcode);
+                $city.data('autocomplete', ui.item.city);
+                $cityPart.data('autocomplete', ui.item.city_part);
+
                 bindAddress2Autocomplete();
                 bindAddress3Autocomplete();
             }
@@ -154,21 +170,45 @@ function bindAddress1Autocomplete() {
 }
 
 function checkAddress2Readonly($zipcode, $city, $cityPart) {
-    var address2 = $('#frm-object-form-helpAddress2');
+    if (false === isCheckingAddress2) {
+        isCheckingAddress2 = true;
 
-    if (!$zipcode.val() || !$city.val() || !$cityPart.val()) {
-        address2.attr('readonly', 'readonly');
-    } else {
-        address2.attr('readonly', false);
+        var $this = $('#frm-object-form-helpAddress2');
+
+        if (
+            $zipcode.data('autocomplete')
+            && $city.data('autocomplete')
+            && $cityPart.data('autocomplete')
+        ) {
+            $.ajax({
+                url: $this.data('check'),
+                data: {
+                    zipcode: $zipcode.data('autocomplete'),
+                    city: $city.data('autocomplete'),
+                    cityPart: $cityPart.data('autocomplete')
+                },
+                success: function (payload) {
+                    $this.val(payload.message);
+                    $this.attr('readonly', payload.hasStreet ? null : 'readonly');
+                },
+                complete: function() {
+                    isCheckingAddress2 = false;
+                }
+            });
+        } else {
+            isCheckingAddress2 = false;
+
+            $this.attr('readonly', 'readonly');
+        }
     }
 
-    var $street = $('#frm-object-form-street');
-    checkAddress3Readonly($zipcode, $city, $cityPart, $street);
+    checkAddress3Readonly($zipcode, $city, $cityPart);
 }
 
 function bindAddress2Autocomplete() {
     var $form = $('.nwjs_object_form');
     var $this = $('#frm-object-form-helpAddress2');
+    var $previous = $('#frm-object-form-helpAddress1');
     var $street = $('#frm-object-form-street');
     var $zipcode = $('#frm-object-form-zipcode');
     var $city = $('#frm-object-form-city');
@@ -189,14 +229,18 @@ function bindAddress2Autocomplete() {
 
     $this.autocomplete({
         source: $this.data('source') + '&' + $.param({
-            zipcode: $zipcode.val(),
-            city: $city.val(),
-            cityPart: $cityPart.val()
+            zipcode: $zipcode.data('autocomplete'),
+            city: $city.data('autocomplete'),
+            cityPart: $cityPart.data('autocomplete')
         }),
         minLength: 3,
         select: function(event, ui) {
-            if (undefined != ui.item) {
-                $street.val(ui.item.value);
+            if (undefined !== ui.item) {
+                $previous.val(ui.item.zipcode);
+                $city.val(ui.item.city);
+                $cityPart.val(ui.item.city_part);
+                $street.val(ui.item.street);
+
                 bindAddress3Autocomplete();
             }
 
@@ -206,16 +250,22 @@ function bindAddress2Autocomplete() {
             $(".ui-autocomplete").width($this.outerWidth());
         }
     });
+
+    checkAddress2Readonly($zipcode, $city, $cityPart);
 }
 
-function checkAddress3Readonly($zipcode, $city, $cityPart, $street) {
+function checkAddress3Readonly($zipcode, $city, $cityPart) {
     var address3 = $('#frm-object-form-helpAddress3');
 
     // $street nekontroluji, nektere obce nemaji ulice
-    if (!$zipcode.val() || !$city.val() || !$cityPart.val()) {
-        address3.attr('readonly', 'readonly');
+    if (
+        $zipcode.data('autocomplete')
+        && $city.data('autocomplete')
+        && $cityPart.data('autocomplete')
+    ) {
+        address3.attr('readonly', null);
     } else {
-        address3.attr('readonly', false);
+        address3.attr('readonly', 'readonly');
     }
 }
 
@@ -235,7 +285,7 @@ function bindAddress3Autocomplete() {
 
     $this.on('focus', function() {
         resetAddress3();
-        checkAddress3Readonly($zipcode, $city, $cityPart, $street);
+        checkAddress3Readonly($zipcode, $city, $cityPart);
     });
 
     $this.on('blur', function() {
@@ -254,7 +304,7 @@ function bindAddress3Autocomplete() {
             street: $street.val()
         }),
         select: function(event, ui) {
-            if (undefined != ui.item) {
+            if (undefined !== ui.item) {
                 $streetDescNo.val(ui.item.street_desc_no);
                 $streetOrientNo.val(ui.item.street_orient_no);
                 $streetOrientSymbol.val(ui.item.street_orient_symbol);
@@ -267,13 +317,15 @@ function bindAddress3Autocomplete() {
             $(".ui-autocomplete").width($this.outerWidth());
         }
     });
+
+    checkAddress3Readonly($zipcode, $city, $cityPart);
 }
 
 function resetAddress1() {
     $('#frm-object-form-helpAddress1').val(null);
-    $('#frm-object-form-zipcode').val(null);
-    $('#frm-object-form-city').val(null);
-    $('#frm-object-form-cityPart').val(null);
+    $('#frm-object-form-zipcode').val(null).data('autocomplete', null);
+    $('#frm-object-form-city').val(null).data('autocomplete', null);
+    $('#frm-object-form-cityPart').val(null).data('autocomplete', null);
     resetAddress2();
 }
 

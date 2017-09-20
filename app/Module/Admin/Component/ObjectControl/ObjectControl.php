@@ -43,7 +43,7 @@ class ObjectControl extends AbstractObjectControl
     /** @const Nazev parametru s hodnotou pro query naseptavani ulice - PSC, obec, cast obce */
     const PARAM_ZIPCODE = 'zipcode';
     const PARAM_CITY = 'city';
-    const PARAM_CITYPART = 'cityPart';
+    const PARAM_CITY_PART = 'cityPart';
     const PARAM_STREET = 'street';
 
     /** @const Nazvy komponent */
@@ -213,20 +213,58 @@ class ObjectControl extends AbstractObjectControl
         $term = $this->request->getQuery(self::PARAM_TERM, null);
 
         if ($term) {
+            $term = Strings::replace($term, '~\s+~', '');
+
             $items = $this->ruianFinder->findZipcodeCityCitypart($term);
 
-            $payload = [];
+            $payload = $groups = [];
 
             foreach ($items as $item) {
-                $title = ($item['city'] != $item['city_part']) ?
+                $title = (
+                    $item['city'] !== $item['city_part'] ?
                     "{$item['zipcode']} {$item['city']}, {$item['city_part']}" :
-                    "{$item['zipcode']} {$item['city']}";
+                    "{$item['zipcode']} {$item['city']}"
+                );
+
                 $payload[] = [
                     'zipcode' => $item['zipcode'],
                     'city' => $item['city'],
                     'city_part' => $item['city_part'],
                     'label' => $title,
                 ];
+
+                $groups[$item['zipcode']][] = [
+                    'city' => $item['city'],
+                    'city_part' => $item['city_part'],
+                ];
+            }
+
+            foreach ($groups as $zipcode => $addresses) {
+                $count = count($addresses);
+
+                if ($count > 1) {
+                    array_unshift($payload, [
+                        'zipcode' => $zipcode,
+                        'city' => array_unique(
+                            array_reduce($addresses, function($carry, $address) {
+                                $carry[] = $address['city'];
+
+                                return $carry;
+                            }, [])
+                        ),
+                        'city_part' => array_unique(
+                            array_reduce($addresses, function($carry, $address) {
+                                $carry[] = $address['city_part'];
+
+                                return $carry;
+                            }, [])
+                        ),
+                        'label' => $this->translator->translate('backend.control.object.label.object.zipcodeAmbiguous', [
+                            'zipcode' =>$zipcode,
+                            'count' => $count,
+                        ]),
+                    ]);
+                }
             }
 
             $response = new JsonResponse($payload);
@@ -238,15 +276,43 @@ class ObjectControl extends AbstractObjectControl
     }
 
     /**
+     * Overeni dostupnosti ulice dle vystupu Address1
+     * @throws \Nette\Application\BadRequestException
+     */
+    public function handleCheckAddress2()
+    {
+        $zipcode = $this->request->getQuery(self::PARAM_ZIPCODE);
+        $city = $this->request->getQuery(self::PARAM_CITY);
+        $cityPart = $this->request->getQuery(self::PARAM_CITY_PART);
+
+        if ($zipcode && $city && $cityPart) {
+            $hasStreet = $this->ruianFinder->hasStreet($zipcode, $city, $cityPart);
+            
+            $payload = [
+                'hasStreet' => $hasStreet,
+                'message' => $hasStreet ? null : $this->translator->translate('backend.control.object.text.noStreet'),
+            ];
+
+            bdump($payload);
+
+            $response = new JsonResponse($payload);
+
+            $this->getPresenter()->sendResponse($response);
+        } else {
+            throw new \Nette\Application\BadRequestException('Missing parameters');
+        }
+    }
+
+    /**
      * Dohledani ulice dle vystupu Address1
      * @throws \Nette\Application\BadRequestException
      */
     public function handleAutocompleteAddress2()
     {
-        $term = $this->request->getQuery(self::PARAM_TERM, null);
-        $zipcode = $this->request->getQuery(self::PARAM_ZIPCODE, null);
-        $city = $this->request->getQuery(self::PARAM_CITY, null);
-        $cityPart = $this->request->getQuery(self::PARAM_CITYPART, null);
+        $term = $this->request->getQuery(self::PARAM_TERM);
+        $zipcode = $this->request->getQuery(self::PARAM_ZIPCODE);
+        $city = $this->request->getQuery(self::PARAM_CITY);
+        $cityPart = $this->request->getQuery(self::PARAM_CITY_PART);
 
         if ($term && $zipcode && $city && $cityPart) {
             $items = $this->ruianFinder->findStreet($term, $zipcode, $city, $cityPart);
@@ -254,9 +320,25 @@ class ObjectControl extends AbstractObjectControl
             $payload = [];
 
             foreach ($items as $item) {
+                $title = $item['street'];
+                $zipcode = $item['zipcode'];
+
+                if (is_array($city)) {
+                    $title .= ", {$item['city']}";
+                    $zipcode .= " {$item['city']}";
+                }
+
+                if (is_array($cityPart)) {
+                    $title .= " - {$item['city_part']}";
+                    $zipcode .= ", {$item['city_part']}";
+                }
+
                 $payload[] = [
-                    'label' => $item['street'],
-                    'value' => $item['street'],
+                    'zipcode' => $zipcode,
+                    'city' => $item['city'],
+                    'city_part' => $item['city_part'],
+                    'street' => $item['street'],
+                    'label' => $title,
                 ];
             }
 
@@ -264,7 +346,7 @@ class ObjectControl extends AbstractObjectControl
 
             $this->getPresenter()->sendResponse($response);
         } else {
-            throw new \Nette\Application\BadRequestException("Missing parameters");
+            throw new \Nette\Application\BadRequestException('Missing parameters');
         }
     }
 
@@ -274,11 +356,11 @@ class ObjectControl extends AbstractObjectControl
      */
     public function handleAutocompleteAddress3()
     {
-        $term = $this->request->getQuery(self::PARAM_TERM, null);
-        $zipcode = $this->request->getQuery(self::PARAM_ZIPCODE, null);
-        $city = $this->request->getQuery(self::PARAM_CITY, null);
-        $cityPart = $this->request->getQuery(self::PARAM_CITYPART, null);
-        $street = $this->request->getQuery(self::PARAM_STREET, null);
+        $term = $this->request->getQuery(self::PARAM_TERM);
+        $zipcode = $this->request->getQuery(self::PARAM_ZIPCODE);
+        $city = $this->request->getQuery(self::PARAM_CITY);
+        $cityPart = $this->request->getQuery(self::PARAM_CITY_PART);
+        $street = $this->request->getQuery(self::PARAM_STREET);
 
         // $street nekontroluji, nektere obce nemaji ulice
         if ($term && $zipcode && $city && $cityPart) {
@@ -524,7 +606,10 @@ class ObjectControl extends AbstractObjectControl
 
         // ulice
         $helpAddress2 = $form->addText(self::COMPONENT_HELP_ADDRESS_2, 'backend.control.object.label.object.helpAddress2');
-        $helpAddress2->getControlPrototype()->addAttributes(['data-source' => $this->link('autocompleteAddress2!')]);
+        $helpAddress2->getControlPrototype()->addAttributes([
+            'data-check' => $this->link('checkAddress2!'),
+            'data-source' => $this->link('autocompleteAddress2!'),
+        ]);
         $form[self::COMPONENT_STREET]->addConditionOn($helpAddress2, Form::FILLED, true)->addRule(Form::REQUIRED, 'backend.control.object.error.address2NotFound');
 
         // cislo domu

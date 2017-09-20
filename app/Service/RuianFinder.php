@@ -167,12 +167,26 @@ class RuianFinder
     }
 
     /**
+     * Vrati, zda ma dana cast obce ulice
+     *
+     * @param string $zipcode
+     * @param string|string[] $city
+     * @param string|string[] $cityPart
+     *
+     * @return bool
+     */
+    public function hasStreet($zipcode, $city, $cityPart): bool
+    {
+        return $this->mapper->hasStreet($zipcode, $city, $cityPart);
+    }
+
+    /**
      * Dohleda mozne ulice pro danou cast obce
      *
      * @param string $term
      * @param string $zipcode
-     * @param string $city
-     * @param string $cityPart
+     * @param string|string[] $city
+     * @param string|string[] $cityPart
      *
      * @return \Dibi\Row[]|null
      */

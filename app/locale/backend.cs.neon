@@ -320,6 +320,7 @@ control:
                 webUrl: "URL adresa webových stránek"
                 dataOwnerUrl: "Webové stránky majitele dat"
                 certified: "Certifikovaný"
+                zipcodeAmbiguous: "%zipcode% více částí (%count%)"
 
             entrance:
                 localization: "Lokalizace"
@@ -944,6 +945,7 @@ control:
             validation: "Odeslaný formulář obsahuje chyby kvality nebo konzistence"
 
         text:
+            noStreet: "Objekt nemá ulice"
             noAddress: "Objekt nemá adresu"
             changeAddress: "Změnit adresu"
 
