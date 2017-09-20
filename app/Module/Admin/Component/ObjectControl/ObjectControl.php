@@ -293,8 +293,6 @@ class ObjectControl extends AbstractObjectControl
                 'message' => $hasStreet ? null : $this->translator->translate('backend.control.object.text.noStreet'),
             ];
 
-            bdump($payload);
-
             $response = new JsonResponse($payload);
 
             $this->getPresenter()->sendResponse($response);
