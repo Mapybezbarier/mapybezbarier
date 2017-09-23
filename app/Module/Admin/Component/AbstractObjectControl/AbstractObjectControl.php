@@ -217,6 +217,7 @@ abstract class AbstractObjectControl extends AbstractFormControl
             'cityPart',
             'street',
             'streetDescNo',
+            'streetNoIsAlternative',
             'streetOrientNo',
             'streetOrientSymbol',
             'objectType',

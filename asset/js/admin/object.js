@@ -274,6 +274,7 @@ function bindAddress3Autocomplete() {
     var $this = $('#frm-object-form-helpAddress3');
 
     var $streetDescNo = $('#frm-object-form-streetDescNo');
+    var $streetNoIsAlternative = $("input[name='streetNoIsAlternative']");
     var $streetOrientNo = $('#frm-object-form-streetOrientNo');
     var $streetOrientSymbol = $('#frm-object-form-streetOrientSymbol');
     var $ruianAddress = $('#frm-object-form-ruianAddress');
@@ -289,7 +290,7 @@ function bindAddress3Autocomplete() {
     });
 
     $this.on('blur', function() {
-        $.each([$street, $zipcode, $city, $cityPart, $streetDescNo, $streetOrientNo, $streetOrientSymbol], function() {
+        $.each([$street, $zipcode, $city, $cityPart, $streetDescNo, $streetNoIsAlternative, $streetOrientNo, $streetOrientSymbol], function() {
             $(this).blur();
         });
 
@@ -306,6 +307,11 @@ function bindAddress3Autocomplete() {
         select: function(event, ui) {
             if (undefined !== ui.item) {
                 $streetDescNo.val(ui.item.street_desc_no);
+
+                if (ui.item.street_no_is_alternative) {
+                    $('input[name=streetNoIsAlternative][value=1]').prop('checked', true);
+                }
+
                 $streetOrientNo.val(ui.item.street_orient_no);
                 $streetOrientSymbol.val(ui.item.street_orient_symbol);
                 $ruianAddress.val(ui.item.id);
@@ -338,6 +344,8 @@ function resetAddress2() {
 function resetAddress3() {
     $('#frm-object-form-helpAddress3').val(null);
     $('#frm-object-form-streetDescNo').val(null);
+    $('input[name=streetNoIsAlternative][value=0]').prop('checked', true);
+    $('#frm-object-form-streetNoIsAlternative').val(null);
     $('#frm-object-form-streetOrientNo').val(null);
     $('#frm-object-form-streetOrientSymbol').val(null);
     $('#frm-object-form-ruianAddress').val(null);

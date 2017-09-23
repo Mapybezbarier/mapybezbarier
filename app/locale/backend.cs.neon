@@ -309,6 +309,7 @@ control:
                 cityPart: "Část obce"
                 street: "Ulice"
                 streetDescNo: "Číslo popisné"
+                streetNoIsAlternative: "Číslo evidenční"
                 streetOrientNo: "Číslo orientační"
                 streetOrientSymbol: "Číslo orientační - symbol"
                 objectTypeCustom: "jiné"
@@ -321,6 +322,7 @@ control:
                 dataOwnerUrl: "Webové stránky majitele dat"
                 certified: "Certifikovaný"
                 zipcodeAmbiguous: "%zipcode% více částí (%count%)"
+                streetEvidenceNo: "č. ev. %streetNo%"
 
             entrance:
                 localization: "Lokalizace"

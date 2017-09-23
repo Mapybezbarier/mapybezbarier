@@ -195,7 +195,7 @@ class RuianMapper extends DatabaseMapper
             $restrictor[] = ['[street] = %s', $street];
         };
 
-        $query = ['SELECT [id], [street_desc_no], [street_orient_no], [street_orient_symbol] FROM %n', $this->table];
+        $query = ['SELECT [id], [street_desc_no], [street_orient_no], [street_orient_symbol], [street_no_is_alternative] FROM %n', $this->table];
         $query[] = 'WHERE %and';
         $query[] = $restrictor;
         $query[] = 'ORDER BY [street_desc_no], [street_orient_no]';

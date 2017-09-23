@@ -260,7 +260,7 @@ class ObjectControl extends AbstractObjectControl
                             }, [])
                         ),
                         'label' => $this->translator->translate('backend.control.object.label.object.zipcodeAmbiguous', [
-                            'zipcode' =>$zipcode,
+                            'zipcode' => $zipcode,
                             'count' => $count,
                         ]),
                     ]);
@@ -371,11 +371,18 @@ class ObjectControl extends AbstractObjectControl
                     "{$item['street_desc_no']}/{$item['street_orient_no']}{$item['street_orient_symbol']}" :
                     $item['street_desc_no'];
 
+                if ($item['street_no_is_alternative']) {
+                    $title = $this->translator->translate('backend.control.object.label.object.streetEvidenceNo',
+                            ['streetNo' => $title]
+                    );
+                }
+
                 $payload[] = [
                     'id' => $item['id'],
                     'street_desc_no' => $item['street_desc_no'],
                     'street_orient_no' => $item['street_orient_no'],
                     'street_orient_symbol' => $item['street_orient_symbol'],
+                    'street_no_is_alternative' => $item['street_no_is_alternative'],
                     'label' => $title
                 ];
             }
@@ -629,6 +636,7 @@ class ObjectControl extends AbstractObjectControl
             'cityPart',
             'street',
             'streetDescNo',
+            'streetNoIsAlternative',
             'streetOrientNo',
             'streetOrientSymbol',
             'latitude',
@@ -832,6 +840,7 @@ class ObjectControl extends AbstractObjectControl
             'cityPart',
             'street',
             'streetDescNo',
+            'streetNoIsAlternative',
             'streetOrientNo',
             'streetOrientSymbol',
             'latitude',
