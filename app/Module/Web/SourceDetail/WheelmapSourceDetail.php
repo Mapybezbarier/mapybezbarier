@@ -2,6 +2,7 @@
 
 namespace MP\Module\SourceDetail;
 
+use MP\Object\ObjectMetadata;
 use Nette\Utils\Arrays;
 use Nette\Utils\Json;
 
@@ -17,23 +18,12 @@ class WheelmapSourceDetail implements ISourceDetail
      */
     public function prepareSourceData($object)
     {
-        $ret = [
-            'wheelchair_toilet' => null,
-        ];
+        $ret = [];
 
         $externalData = Json::decode($object['external_data'], true);
 
-        if (isset($externalData['wheelchair_toilet'])) {
-            if ('yes' == $externalData['wheelchair_toilet']) {
-                $ret = [
-                    'wheelchair_toilet' => true,
-                ];
-            } else if ('no' == $externalData['wheelchair_toilet']) {
-                $ret = [
-                    'wheelchair_toilet' => false,
-                ];
-            }
-        }
+        $toiletBoolAsString = Arrays::get($externalData, 'wheelchair_toilet', null);
+        $ret = array_merge($ret, $this->getWcAccessibility($toiletBoolAsString));
 
         // pokud neni nastaven nazev, tak pouzij nazev typu
         $nodeType = Arrays::get($externalData, 'node_type', null);
@@ -43,6 +33,44 @@ class WheelmapSourceDetail implements ISourceDetail
                 $ret['alternative_title'] = $nodeType;
             } else {
                 $ret['node_type'] = $nodeType;
+            }
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Pristupnost WC - dle wheelchair_toilet
+     * 2 ruzne parametry pro 2 mirne odlisne vypisy
+     *
+     * @param string $boolAsSting
+     *
+     * @return array
+     */
+    protected function getWcAccessibility($boolAsSting)
+    {
+        $ret = [
+            'wc_accessibility' => false,
+            'wheelchair_toilet' => null,
+        ];
+
+        if ($boolAsSting) {
+            if ('yes' === $boolAsSting) {
+                $ret = [
+                    'wc_accessibility' => [
+                        'id' => 1,
+                        'title' => ObjectMetadata::WC_ACCESSIBILITY_OK,
+                    ],
+                    'wheelchair_toilet' => true,
+                ];
+            } else if ('no' === $boolAsSting) {
+                $ret = [
+                    'wc_accessibility' => [
+                        'id' => 3,
+                        'title' => ObjectMetadata::WC_ACCESSIBILITY_NO,
+                    ],
+                    'wheelchair_toilet' => false,
+                ];
             }
         }
 

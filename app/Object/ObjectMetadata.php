@@ -30,6 +30,7 @@ class ObjectMetadata
 
     const WC_ACCESSIBILITY_OK = 'AccessibleWCMKPO';
     const WC_ACCESSIBILITY_PARTLY = 'PartlyAccessibleWCMKPO';
+    const WC_ACCESSIBILITY_NO = 'InAccessibleWCMKPO';
 
     const WC_LOCALIZATION_SELF = 'SelfcontainedWCCabinLocalization';
     const WC_LOCALIZATION_LADIES = 'LadiesWCCabinLocalization';

@@ -6,26 +6,30 @@
 {define params}
     <div class="ib_params">
         <div class="type category_{$object['category']['id']}">{$object['category']['title']}</div>
-        <div class="accessibility">
-            <ul>
-                <li n:class="wc, $object['wc_accessibility'] ? 'wc_' . $object['wc_accessibility']['id']"><span
-                    {if $object['wc_accessibility']}
-                        data-title="{_'messages.enum.value.wcCategorization.'.MP\Util\Strings::firstLower($object['wc_accessibility']['title'])}"
-                    {else}
-                        data-title="{_'messages.enum.value.wcCategorization.none'}"
-                    {/if}
-                ></span></li>
-                <li n:class="changing_desk, $object['wc_is_changing_desk'] ? yes"><span
-                    data-title="{_messages.control.map.infoBox.changingDesk}: {if $object['wc_is_changing_desk']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
-                ></span></li>
-                <li n:class="door_type, $object['entrance1_accessibility'] ? yes"><span
-                    data-title="{_messages.control.map.infoBox.entrance1Accessibility}: {if $object['entrance1_accessibility']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
-                ></span></li>
-                <li n:class="entrance, $object['entrance2_accessibility'] ? yes"><span
-                    data-title="{_messages.control.map.infoBox.entrance2Accessibility}: {if $object['entrance2_accessibility']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
-                ></span></li>
-            </ul>
-        </div>
+        {include paramsAccessibility}
+    </div>
+{/define}
+
+{define paramsAccessibility}
+    <div class="accessibility">
+        <ul>
+            <li n:ifset="$object['wc_accessibility']" n:class="wc, $object['wc_accessibility'] ? 'wc_' . $object['wc_accessibility']['id']"><span
+                {if $object['wc_accessibility']}
+                    data-title="{_'messages.enum.value.wcCategorization.'.MP\Util\Strings::firstLower($object['wc_accessibility']['title'])}"
+                {else}
+                    data-title="{_'messages.enum.value.wcCategorization.none'}"
+                {/if}
+            ></span></li>
+            <li n:ifset="$object['wc_is_changing_desk']" n:class="changing_desk, $object['wc_is_changing_desk'] ? yes"><span
+                data-title="{_messages.control.map.infoBox.changingDesk}: {if $object['wc_is_changing_desk']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
+            ></span></li>
+            <li n:ifset="$object['entrance1_accessibility']" n:class="door_type, $object['entrance1_accessibility'] ? yes"><span
+                data-title="{_messages.control.map.infoBox.entrance1Accessibility}: {if $object['entrance1_accessibility']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
+            ></span></li>
+            <li n:ifset="$object['entrance2_accessibility']" n:class="entrance, $object['entrance2_accessibility'] ? yes"><span
+                data-title="{_messages.control.map.infoBox.entrance2Accessibility}: {if $object['entrance2_accessibility']}{_messages.enum.bool.true}{else}{_messages.enum.bool.false}{/if}"
+            ></span></li>
+        </ul>
     </div>
 {/define}
 

@@ -2,6 +2,7 @@
 
 namespace MP\Module\SourceDetail;
 
+use MP\Object\ObjectMetadata;
 use Nette\Utils\Json;
 
 /**
@@ -19,7 +20,8 @@ class WcKompasSourceDetail implements ISourceDetail
         $externalData = Json::decode($object['external_data'], true);
 
         return [
-            'custom_pictograms' => $this->getCustomPictogramsData($object, $externalData)
+            'custom_pictograms' => $this->getCustomPictogramsData($object, $externalData),
+            'wc_accessibility' => $this->getWcAccessibility($object['accessibility_id']),
         ];
     }
 
@@ -179,6 +181,35 @@ class WcKompasSourceDetail implements ISourceDetail
 
         if (isset($externalData['without_card_access'])) {
             $ret['value'] = (2 == $externalData['without_card_access']);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Pristupnost WC - dle attr2
+     *
+     * @param integer $accessibilityId ciselnik pristupnosti objektu odpovida ciselniku pristupnosti WC
+     *
+     * @return bool|array
+     */
+    protected function getWcAccessibility($accessibilityId)
+    {
+        if (1 === $accessibilityId) {
+            $ret = [
+                'id' => 1,
+                'title' => ObjectMetadata::WC_ACCESSIBILITY_OK,
+            ];
+        } else if (2 === $accessibilityId) {
+            $ret = [
+                'id' => 2,
+                'title' => ObjectMetadata::WC_ACCESSIBILITY_PARTLY,
+            ];
+        } else {
+            $ret = [
+                'id' => 3,
+                'title' => ObjectMetadata::WC_ACCESSIBILITY_NO,
+            ];
         }
 
         return $ret;
