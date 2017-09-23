@@ -118,21 +118,20 @@ class RuianSyncService
         list($lexer, $interpreter) = $this->getCsvInterpreterLexer();
 
         $interpreter->addObserver(function(array $columns) use(&$ret, &$csvValues) {
-            if ('č.p.' == $columns[8]) { // pokud se nejedna o adresni misto s cislem popisnym, tak neimportuji
-                $csvValues[] = [
-                    'id' => $columns[0],
-                    'city%sN' => $columns[2],
-                    'city_momc%sN' => $columns[3],
-                    'city_part%sN' => $columns[6],
-                    'street%sN' => $columns[7],
-                    'street_desc_no%iN' => $columns[9],
-                    'street_orient_no%iN' => $columns[10],
-                    'street_orient_symbol%sN' => $columns[11],
-                    'zipcode%sN' => $columns[12],
-                ];
+            $csvValues[] = [
+                'id' => $columns[0],
+                'city%sN' => $columns[2],
+                'city_momc%sN' => $columns[3],
+                'city_part%sN' => $columns[6],
+                'street%sN' => $columns[7],
+                'street_no_is_alternative%b' => ('č.p.' !== $columns[8]), // pokud neni cislo popisne, tak oznacim
+                'street_desc_no%iN' => $columns[9],
+                'street_orient_no%iN' => $columns[10],
+                'street_orient_symbol%sN' => $columns[11],
+                'zipcode%sN' => $columns[12],
+            ];
 
-                $ret++;
-            }
+            $ret++;
         });
 
         $csvDir = $this->ruianTempDir . '/CSV';

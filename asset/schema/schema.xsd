@@ -36,6 +36,7 @@
                             <xs:element name="cityPart" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="street" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="streetDescNo" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="streetNoIsAlternative" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="streetOrientNo" type="xs:integer" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="streetOrientSymbol" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="webUrl" type="xs:string" minOccurs="0" maxOccurs="1"/>

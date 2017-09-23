@@ -94,6 +94,9 @@
           "streetDescNo" : {
             "type" : "integer"
           },
+          "streetNoIsAlternative" : {
+            "type" : "boolean"
+          },
           "streetOrientNo" : {
             "type" : "integer"
           },

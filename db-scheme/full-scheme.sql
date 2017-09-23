@@ -1943,6 +1943,7 @@ CREATE TABLE map_object (
     city_part character varying(255),
     street character varying(255),
     street_desc_no integer,
+    street_no_is_alternative boolean NOT NULL DEFAULT FALSE,
     street_orient_no integer,
     street_orient_symbol character varying(255),
     entrance1_is_reserved_parking boolean,
@@ -2801,6 +2802,7 @@ CREATE TABLE ruian (
     city_part character varying(255),
     street character varying(255),
     street_desc_no integer,
+    street_no_is_alternative boolean NOT NULL DEFAULT FALSE,
     street_orient_no integer,
     street_orient_symbol character varying(255)
 );
@@ -4814,6 +4816,7 @@ CREATE TABLE map_object (
     city_part character varying(255),
     street character varying(255),
     street_desc_no integer,
+    street_no_is_alternative boolean NOT NULL DEFAULT FALSE,
     street_orient_no integer,
     street_orient_symbol character varying(255),
     entrance1_is_reserved_parking boolean,
