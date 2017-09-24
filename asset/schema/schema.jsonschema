@@ -825,7 +825,7 @@
                 },
                 "elevatorControl1FlatMarking" : {
                   "type" : "string",
-                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking" ]
+                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking", "GraphicDigitalElevatorControlFlatMarking" ]
                 },
                 "elevatorIsControl1BrailleMarking" : {
                   "type" : "boolean"
@@ -870,7 +870,7 @@
                 },
                 "elevatorControl2FlatMarking" : {
                   "type" : "string",
-                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking" ]
+                  "enum" : [ "GraphicElevatorControlFlatMarking", "DigitalElevatorControlFlatMarking", "GraphicDigitalElevatorControlFlatMarking" ]
                 },
                 "elevatorIsControl2BrailleMarking" : {
                   "type" : "boolean"

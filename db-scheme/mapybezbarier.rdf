@@ -1740,7 +1740,7 @@
     ];
 .
 <#ElevatorControlFlatMarking>
-    rr:logicalTable [ rr:tableName "elevator_control_flat_marking" ];
+    rr:logicalTable [ rr:tableName "v_elevator_control_flat_marking" ];
     rr:subjectMap [
         rr:template "http://w3id.org/charta77/jup/{title}";
     ];

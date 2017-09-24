@@ -1264,7 +1264,8 @@ ALTER SEQUENCE elevator_cage_seconddoor_localization_id_seq OWNED BY elevator_ca
 CREATE TABLE elevator_control_flat_marking (
     id integer NOT NULL,
     title character varying(255),
-    pair_key character varying(255)
+    pair_key character varying(255),
+    combine_key json
 );
 
 
@@ -3259,6 +3260,21 @@ CREATE VIEW v_door_wc AS
 
 
 ALTER TABLE v_door_wc OWNER TO mapy_pristupnosti_db_01;
+
+--
+-- Name: v_elevator_control_flat_marking; Type: VIEW; Schema: public; Owner: mapy_pristupnosti_db_01
+--
+
+CREATE VIEW v_elevator_control_flat_marking AS
+ SELECT i.id,
+    o.title
+   FROM (elevator_control_flat_marking o
+     JOIN ( SELECT elevator_control_flat_marking.id,
+            (json_array_elements_text(COALESCE(elevator_control_flat_marking.combine_key, to_json(ARRAY[elevator_control_flat_marking.id]))))::integer AS single_id
+           FROM elevator_control_flat_marking) i ON ((o.id = i.single_id)));
+
+
+ALTER TABLE v_elevator_control_flat_marking OWNER TO mapy_pristupnosti_db_01;
 
 --
 -- TOC entry 342 (class 1259 OID 992860)

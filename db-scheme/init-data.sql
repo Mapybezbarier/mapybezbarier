@@ -203,8 +203,9 @@ SELECT pg_catalog.setval('elevator_cage_seconddoor_localization_id_seq', 2, true
 -- Data for Name: elevator_control_flat_marking; Type: TABLE DATA; Schema: public; Owner: mapy_pristupnosti_db_01
 --
 
-INSERT INTO elevator_control_flat_marking VALUES (1, 'GraphicElevatorControlFlatMarking', 'grafické');
-INSERT INTO elevator_control_flat_marking VALUES (2, 'DigitalElevatorControlFlatMarking', 'digitální');
+INSERT INTO elevator_control_flat_marking VALUES (1, 'GraphicElevatorControlFlatMarking', 'grafické', NULL);
+INSERT INTO elevator_control_flat_marking VALUES (2, 'DigitalElevatorControlFlatMarking', 'digitální', NULL);
+INSERT INTO elevator_control_flat_marking VALUES (3, 'GraphicDigitalElevatorControlFlatMarking', 'grafické a digitální', '[1,2]');
 
 
 --

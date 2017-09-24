@@ -681,6 +681,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="GraphicElevatorControlFlatMarking"/>
             <xs:enumeration value="DigitalElevatorControlFlatMarking"/>
+            <xs:enumeration value="GraphicDigitalElevatorControlFlatMarking"/>
         </xs:restriction>
     </xs:simpleType>
 
