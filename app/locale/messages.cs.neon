@@ -160,8 +160,8 @@ enum:
             SidesDoorOpeningDirection: posuvné
 
         handleType:
-            FoldingHandleType: pevné
-            FixedHandleType: sklopné
+            FoldingHandleType: sklopné
+            FixedHandleType: pevné
 
         washbasinUnderpass:
             SufficientWashbasinUnderpass: dostatečný

@@ -871,8 +871,8 @@ control:
                 mobileWCChangingdesk: "mobilní"
 
             platformType:
-                verticalPlatformType: "volně přístupná"
-                inclinedPlatformType: "uzamčená (přístup zajištěn obsluhou)"
+                verticalPlatformType: "svislá"
+                inclinedPlatformType: "šikmá"
 
             entryareaEntry:
                 sideEntryareaEntry: "nástup z boku"
@@ -893,6 +893,7 @@ control:
             elevatorControlFlatMarking:
                 graphicElevatorControlFlatMarking: "grafické"
                 digitalElevatorControlFlatMarking: "digitální (dotyk)"
+                graphicDigitalElevatorControlFlatMarking: "grafické a digitální (dotyk)"
 
             aOBAnnouncement:
                 phraseAOBAnnouncement: "fráze"
@@ -905,7 +906,7 @@ control:
 
             elevatorHandleLocalization:
                 frontwallHandleLocalization: "čelní stěna"
-                sidewallHandleLocalization: "boční stěny"
+                sidewallHandleLocalization: "boční stěna"
                 sidewallsHandleLocalization: "boční stěny"
 
             elevatorCageMirrorLocalization:

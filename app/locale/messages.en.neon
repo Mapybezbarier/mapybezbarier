@@ -159,8 +159,8 @@ enum:
             SidesDoorOpeningDirection: movable
 
         handleType:
-            FoldingHandleType: steady
-            FixedHandleType: folding
+            FoldingHandleType: folding
+            FixedHandleType: fixed
 
         washbasinUnderpass:
             SufficientWashbasinUnderpass: sufficient
