@@ -233,10 +233,14 @@ function bindAddress2Autocomplete() {
             city: $city.data('autocomplete'),
             cityPart: $cityPart.data('autocomplete')
         }),
-        minLength: 3,
+        minLength: 2,
         select: function(event, ui) {
             if (undefined !== ui.item) {
-                $previous.val(ui.item.zipcode);
+                if (ui.item.previous) {
+                    $previous.val(ui.item.previous);
+                }
+
+                $zipcode.val(ui.item.zipcode);
                 $city.val(ui.item.city);
                 $cityPart.val(ui.item.city_part);
                 $street.val(ui.item.street);

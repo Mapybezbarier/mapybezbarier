@@ -29,6 +29,7 @@ use Nette\Forms\Controls\SubmitButton;
 use Nette\Http\Request;
 use Nette\Localization\ITranslator;
 use Nette\Utils\Json;
+use Nette\Utils\Validators;
 
 /**
  * Komponenta pro zadani udaju mapoveho objektu.
@@ -213,7 +214,11 @@ class ObjectControl extends AbstractObjectControl
         $term = $this->request->getQuery(self::PARAM_TERM, null);
 
         if ($term) {
-            $term = Strings::replace($term, '~\s+~', '');
+            $normalizedTerm = Strings::replace($term, '~\s+~', '');
+
+            if ($shouldUseGroups = Validators::is($normalizedTerm, 'numericint')) {
+                $term = $normalizedTerm;
+            }
 
             $items = $this->ruianFinder->findZipcodeCityCitypart($term);
 
@@ -239,31 +244,33 @@ class ObjectControl extends AbstractObjectControl
                 ];
             }
 
-            foreach ($groups as $zipcode => $addresses) {
-                $count = count($addresses);
+            if ($shouldUseGroups) {
+                foreach ($groups as $zipcode => $addresses) {
+                    $count = count($addresses);
 
-                if ($count > 1) {
-                    array_unshift($payload, [
-                        'zipcode' => $zipcode,
-                        'city' => array_unique(
-                            array_reduce($addresses, function($carry, $address) {
-                                $carry[] = $address['city'];
-
-                                return $carry;
-                            }, [])
-                        ),
-                        'city_part' => array_unique(
-                            array_reduce($addresses, function($carry, $address) {
-                                $carry[] = $address['city_part'];
-
-                                return $carry;
-                            }, [])
-                        ),
-                        'label' => $this->translator->translate('backend.control.object.label.object.zipcodeAmbiguous', [
+                    if ($count > 1) {
+                        array_unshift($payload, [
                             'zipcode' => $zipcode,
-                            'count' => $count,
-                        ]),
-                    ]);
+                            'city' => array_unique(
+                                array_reduce($addresses, function($carry, $address) {
+                                    $carry[] = $address['city'];
+
+                                    return $carry;
+                                }, [])
+                            ),
+                            'city_part' => array_unique(
+                                array_reduce($addresses, function($carry, $address) {
+                                    $carry[] = $address['city_part'];
+
+                                    return $carry;
+                                }, [])
+                            ),
+                            'label' => $this->translator->translate('backend.control.object.label.object.zipcodeAmbiguous', [
+                                'zipcode' => $zipcode,
+                                'count' => $count,
+                            ]),
+                        ]);
+                    }
                 }
             }
 
@@ -319,24 +326,32 @@ class ObjectControl extends AbstractObjectControl
 
             foreach ($items as $item) {
                 $title = $item['street'];
-                $zipcode = $item['zipcode'];
+                $previous = null;
 
-                if (is_array($city)) {
-                    $title .= ", {$item['city']}";
-                    $zipcode .= " {$item['city']}";
-                }
+                $usesCityGroups = is_array($city);
+                $usesCityPartGroups = is_array($cityPart);
 
-                if (is_array($cityPart)) {
-                    $title .= " - {$item['city_part']}";
-                    $zipcode .= ", {$item['city_part']}";
+                if ($usesCityGroups || $usesCityPartGroups) {
+                    $previous = $item['zipcode'];
+
+                    if ($usesCityGroups) {
+                        $title .= ", {$item['city']}";
+                        $previous .= " {$item['city']}";
+                    }
+
+                    if ($usesCityPartGroups) {
+                        $title .= " - {$item['city_part']}";
+                        $previous .= ", {$item['city_part']}";
+                    }
                 }
 
                 $payload[] = [
-                    'zipcode' => $zipcode,
+                    'zipcode' => $item['zipcode'],
                     'city' => $item['city'],
                     'city_part' => $item['city_part'],
                     'street' => $item['street'],
                     'label' => $title,
+                    'previous' => $previous,
                 ];
             }
 
