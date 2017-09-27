@@ -317,6 +317,23 @@ class ObjectService extends \MP\Service\ObjectService
     }
 
     /**
+     * Nastaveni noveho majitele objektu
+     * @param array $object
+     * @param int $ownerId
+     */
+    public function setObjectOwner(array $object, $ownerId)
+    {
+        $persistObject = [
+            IMapper::ID => $object[IMapper::ID],
+            'user_id' => $ownerId,
+        ];
+
+        $this->objectManager->persist($persistObject);
+
+        $this->log($object, LogService::ACTION_OBJECT_OWNER);
+    }
+
+    /**
      * Vraci seznam regionu pouzitych u vsech dosavadnich objektu
      *
      * @return array

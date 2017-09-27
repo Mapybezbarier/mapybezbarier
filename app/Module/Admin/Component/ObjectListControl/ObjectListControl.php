@@ -151,7 +151,10 @@ class ObjectListControl extends AbstractControl
      */
     protected function prepareActions()
     {
-        $actions = [Authorizator::ACTION_EDIT, Authorizator::ACTION_JOIN, Authorizator::ACTION_DELETE, Authorizator::ACTION_HISTORY];
+        $actions = [
+            Authorizator::ACTION_EDIT, Authorizator::ACTION_JOIN, Authorizator::ACTION_DELETE,
+            Authorizator::ACTION_HISTORY, Authorizator::ACTION_OWNER
+        ];
 
         $user = $this->getPresenter()->getUser();
 

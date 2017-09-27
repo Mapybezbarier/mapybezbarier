@@ -36,6 +36,7 @@ class LogService
     const ACTION_OBJECT_SPLIT = 'split';
     const ACTION_OBJECT_JOIN = 'join';
     const ACTION_OBJECT_REVERT = 'revert';
+    const ACTION_OBJECT_OWNER = 'owner';
 
     /** @var LogManager */
     protected $manager;

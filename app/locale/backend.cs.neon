@@ -76,6 +76,10 @@ control:
         error:
             objectNotFound: "Objekt nebyl nalezen"
         hint: "Pro nové mapování stávajícího objektu začněte psát jeho název a vyberte jej z našeptávače. Pro mapování nového objektu zadejte jeho název."
+    ownerSelect:
+        label:
+            owner: "Nový majitel objektu"
+            submit: "Změnit majitele"
     login:
         title: "Přihlášení"
         label:
@@ -984,6 +988,7 @@ object:
         draft: "Koncept objektu %title%"
 
     hasDraft: "Objekt má svoji rozpracovanou verzi!"
+    ownerChange: "Změnit majitele"
     action:
         mapping: "Nové mapování"
         history: "Historie"
@@ -993,6 +998,7 @@ object:
         join: "Sloučit"
         revert: "Obnovit"
         compare: "Porovnat"
+        owner: "Majitel"
 
     confirm:
         delete: "Opravdu chcete objekt smazat?"
@@ -1011,6 +1017,8 @@ object:
             success: "Koncept byl uložen"
         publish:
             success: "Objekt byl publikován"
+        owner:
+            success: "Majitel objektu byl změněn"
 
     compare:
         help: "Formulář je naplněn hodnotami mapového objektu ve verzi, kterou jste zvolili pro porovnávání. Pod formulářovými poli jsou vypsány hodnoty téhož objektu v aktuální verzi."

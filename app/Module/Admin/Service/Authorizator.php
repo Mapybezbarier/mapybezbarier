@@ -51,6 +51,7 @@ class Authorizator extends Permission
         ACTION_SELECT = 'select',
         ACTION_HISTORY = 'history',
         ACTION_BACKUP = 'backup',
+        ACTION_OWNER = 'owner',
         ACTION_MAPPING = 'mapping',
         ACTION_LOGS = 'logs';
 

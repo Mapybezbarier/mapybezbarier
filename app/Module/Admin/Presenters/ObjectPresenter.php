@@ -10,6 +10,8 @@ use MP\Module\Admin\Component\ObjectHistoryControl\IObjectHistoryControlFactory;
 use MP\Module\Admin\Component\ObjectHistoryControl\ObjectHistoryControl;
 use MP\Module\Admin\Component\ObjectListControl\IObjectListControlFactory;
 use MP\Module\Admin\Component\ObjectListControl\ObjectListControl;
+use MP\Module\Admin\Component\ObjectOwnerControl\IObjectOwnerControlFactory;
+use MP\Module\Admin\Component\ObjectOwnerControl\ObjectOwnerControl;
 use MP\Module\Admin\Component\ObjectSelectControl\IObjectSelectControlFactory;
 use MP\Module\Admin\Component\ObjectSelectControl\ObjectSelectControl;
 use MP\Module\Admin\Service\Authorizator;
@@ -28,6 +30,9 @@ class ObjectPresenter extends AbstractObjectPresenter
 
     /** @const Nazev komponenty s vyberem objektu. */
     const COMPONENT_OBJECT_SELECT = 'objectSelect';
+
+    /** @const Nazev komponenty s vyberem majitele objektu. */
+    const COMPONENT_OBJECT_OWNER = 'objectOwner';
 
     /** @const Nazev parametru nesouci ID objektu. */
     const PARAM_ID = 'id';
@@ -157,6 +162,27 @@ class ObjectPresenter extends AbstractObjectPresenter
 
     /**
      * @param int $id
+     */
+    public function actionOwner($id)
+    {
+        $this->object = $this->prepareObject($id);
+
+        $this[self::COMPONENT_OBJECT_OWNER]->setId($id);
+        $this[self::COMPONENT_OBJECT_OWNER]->onOwnerSelected[] = function($values) {
+            if ($ownerId = $values[ObjectOwnerControl::COMPONENT_ID]) {
+                $this->objectService->setObjectOwner($this->object, $ownerId);
+
+                $this->flashMessage('backend.object.flash.owner.success', FlashMessageControl::TYPE_SUCCESS);
+
+                $this->redirect('default');
+            } else {
+                throw new \Nette\Application\BadRequestException("Object ID is missing");
+            }
+        };
+    }
+
+    /**
+     * @param int $id
      *
      * @return array
      * @throws \Nette\Application\BadRequestException
@@ -192,6 +218,18 @@ class ObjectPresenter extends AbstractObjectPresenter
      * @return ObjectSelectControl
      */
     protected function createComponentObjectSelect(IObjectSelectControlFactory $factory)
+    {
+        $control = $factory->create();
+
+        return $control;
+    }
+
+    /**
+     * @param IObjectOwnerControlFactory $factory
+     *
+     * @return ObjectOwnerControl
+     */
+    protected function createComponentObjectOwner(IObjectOwnerControlFactory $factory)
     {
         $control = $factory->create();
 
