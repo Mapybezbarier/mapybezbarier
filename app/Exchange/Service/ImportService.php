@@ -190,7 +190,10 @@ class ImportService
             $object['sourceId'] = $source['id'];
             $object['certified'] = $certified;
 
-            if (IParser::TYPE_INTERNAL === $parser->getType()) {
+            if (
+                IParser::TYPE_INTERNAL === $parser->getType()
+                || (empty($object['latitude']) && empty($object['longitude']))
+            ) {
                 $object['ruianAddress'] = $this->ruianFinder->find($object);
             }
 

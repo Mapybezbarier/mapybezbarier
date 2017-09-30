@@ -7,6 +7,7 @@ parameters:
             vozejkmap: vozejkmapParser
             wckompas: wcKompasParser
             wheelmap: wheelmapParser
+            cb: cBParser
 
 services:
     xmlParser: MP\Exchange\Parser\XmlParser
@@ -15,3 +16,4 @@ services:
     vozejkmapParser: MP\Exchange\Parser\VozejkmapParser
     wcKompasParser: MP\Exchange\Parser\WcKompasParser
     wheelmapParser: MP\Exchange\Parser\WheelmapParser
+    cBParser: MP\Exchange\Parser\CBParser

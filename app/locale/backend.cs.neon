@@ -738,6 +738,8 @@ control:
                 medicalFacilityObjectCategory: "zdravotnické zařízení"
                 educationObjectCategory: "vzdělávání"
                 leisureTimeObjectCategory: "volný čas"
+                regionalOfficeObjectCategory: "krajský úřad"
+                exhibitionCentreObjectCategory: "výstaviště"
 
             entranceGuidingline:
                 naturalEntranceGuidingline: "Přirozená"

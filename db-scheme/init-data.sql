@@ -369,6 +369,7 @@ INSERT INTO exchange_source VALUES (10, 'DPA s.r.o.', 'json');
 INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv');
 INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas');
 INSERT INTO exchange_source VALUES (14, 'Wheelmap', 'wheelmap');
+INSERT INTO exchange_source VALUES (15, 'Atlas přístupnosti objektů v Českých Budějovicích', 'cb');
 
 
 --
@@ -610,6 +611,8 @@ INSERT INTO object_type VALUES (109, 'ElementaryArtSchoolObjectCategory', 'zákl
 INSERT INTO object_type VALUES (110, 'MedicalFacilityObjectCategory', 'zdravotnické zařízení', NULL);
 INSERT INTO object_type VALUES (111, 'EducationObjectCategory', 'vzdělávání', NULL);
 INSERT INTO object_type VALUES (112, 'LeisureTimeObjectCategory', 'volný čas', NULL);
+INSERT INTO object_type VALUES (113, 'RegionalOfficeObjectCategory', 'krajský úřad', NULL);
+INSERT INTO object_type VALUES (114, 'ExhibitionCentreObjectCategory', 'výstaviště', NULL);
 
 
 --

@@ -103,4 +103,24 @@ class Address
 
         return ($intersections % 2 != 0);
     }
+
+    /**
+     * Rozparsuje GPS souradnice ve tvaru 48.9757850N, 14.4717033E
+     * @param array $ret
+     * @param array $row
+     */
+    public static function parseDecimalGps(&$ret, $row, $key)
+    {
+        $coordinates = Arrays::get($row, $key, null);
+
+        if ($coordinates) {
+            $matches = Strings::match($coordinates, '~(\d+.\d+)\w?,\s?(\d+.\d+)\w?~');
+
+            if ($matches) {
+                $ret['latitude'] = $matches[1];
+                $ret['longitude'] = $matches[2];
+            }
+        }
+    }
+
 }

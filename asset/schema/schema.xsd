@@ -961,6 +961,8 @@
             <xs:enumeration value="MedicalFacilityObjectCategory"/>
             <xs:enumeration value="EducationObjectCategory"/>
             <xs:enumeration value="LeisureTimeObjectCategory"/>
+            <xs:enumeration value="RegionalOfficeObjectCategory"/>
+            <xs:enumeration value="ExhibitionCentreObjectCategory"/>
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

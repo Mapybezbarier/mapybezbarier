@@ -122,6 +122,8 @@ enum:
             medicalFacilityObjectCategory: medical facility
             educationObjectCategory: education
             leisureTimeObjectCategory: leisure
+            regionalOfficeObjectCategory: regional office
+            exhibitionCentreObjectCategory: exhibitiom centre
 
         accessibility:
             accessibleObjectMKPO: accessible

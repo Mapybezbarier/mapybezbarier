@@ -122,6 +122,8 @@ enum:
             medicalFacilityObjectCategory: "zdravotnické zařízení"
             educationObjectCategory: "vzdělávání"
             leisureTimeObjectCategory: "volný čas"
+            regionalOfficeObjectCategory: "krajský úřad"
+            exhibitionCentreObjectCategory: "výstaviště"
 
 
         accessibility:
