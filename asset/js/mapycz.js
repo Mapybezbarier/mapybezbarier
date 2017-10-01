@@ -8,7 +8,12 @@ MapLayer.initMap = function (map) {
         this._map.config.item.get(0),
         SMap.Coords.fromWGS84(this._map.config.map.center.lng, this._map.config.map.center.lat), 
         this._map.config.map.zoom, 
-        {minZoom:7, maxZoom:18});
+        {
+            minZoom: 7,
+            maxZoom: 18
+        }
+    );
+
     window.layers = [];
     window.layers[SMap.DEF_OPHOTO] = this._map.map.addDefaultLayer(SMap.DEF_OPHOTO);
     window.layers[SMap.DEF_HYBRID] = this._map.map.addDefaultLayer(SMap.DEF_HYBRID);
@@ -25,11 +30,30 @@ MapLayer.initMap = function (map) {
     this._map.map.setPadding("left", 10);
     this._map.map.setPadding("right", 10);
 
+    this._lastZoom = this._map.map.getZoom();
+
+    this._clusters = new SMap.Marker.Clusterer(this._map.map);
+
     this._layerMarkers = new SMap.Layer.Marker();
-    this.clusters = new SMap.Marker.Clusterer(this._map.map);
-    this._layerMarkers.setClusterer(this.clusters);
+    this._layerMarkers.setClusterer(this._clusters);
+
     this._map.map.addLayer(this._layerMarkers).enable();
+
     this._map.map.getSignals().addListener(this._map, "card-open", "markerClick");
+    this._map.map.getSignals().addListener(this, 'map-redraw', "mapRedraw");
+};
+
+MapLayer.isCloseView = function(zoom) {
+    return zoom >= 17
+};
+
+MapLayer.setClustering = function setClustering(closeView) {
+    if (closeView) {
+        this._layerMarkers.setClusterer(null);
+    } else {
+        this.initMarkers();
+        this._layerMarkers.setClusterer(this._clusters);
+    }
 };
 
 MapLayer.setMarkers = function(markers) {
@@ -64,7 +88,7 @@ MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
 };
 
 MapLayer.initMarkers = function() {
-    this.clusters.clear();
+    this._clusters.clear();
 
     var markers = [];
 
@@ -88,6 +112,19 @@ MapLayer.closeInfoBox = function () {
 
 MapLayer.getCenter = function() {
     return this._map.map.getCenter();
+};
+
+MapLayer.mapRedraw = function(e) {
+    var zoom = e.target.getZoom();
+
+    if (
+        zoom !== this._lastZoom
+        && this.isCloseView(zoom) !== this.isCloseView(this._lastZoom)
+    ) {
+        this.setClustering(this.isCloseView(zoom))
+    }
+
+    this._lastZoom = zoom
 };
 
 MapLayer.markerClick = function(e) {
