@@ -188,7 +188,8 @@ function checkAddress2Readonly($zipcode, $city, $cityPart) {
                     cityPart: $cityPart.data('autocomplete')
                 },
                 success: function (payload) {
-                    $this.val(payload.message);
+                    // kvuli validaci musi byt pres placeholder
+                    $this.attr('placeholder', payload.hasStreet ? null : payload.message);
                     $this.attr('readonly', payload.hasStreet ? null : 'readonly');
                 },
                 complete: function() {
@@ -333,14 +334,22 @@ function bindAddress3Autocomplete() {
 
 function resetAddress1() {
     $('#frm-object-form-helpAddress1').val(null);
-    $('#frm-object-form-zipcode').val(null).data('autocomplete', null);
-    $('#frm-object-form-city').val(null).data('autocomplete', null);
-    $('#frm-object-form-cityPart').val(null).data('autocomplete', null);
+    $('#frm-object-form-zipcode')
+        .val(null)
+        .data('autocomplete', null);
+    $('#frm-object-form-city')
+        .val(null)
+        .data('autocomplete', null);
+    $('#frm-object-form-cityPart')
+        .val(null)
+        .data('autocomplete', null);
     resetAddress2();
 }
 
 function resetAddress2() {
-    $('#frm-object-form-helpAddress2').val(null);
+    $('#frm-object-form-helpAddress2')
+        .val(null)
+        .attr('placeholder', null); // placeholder se pouziva pro obce bez ulic
     $('#frm-object-form-street').val(null);
     resetAddress3();
 }

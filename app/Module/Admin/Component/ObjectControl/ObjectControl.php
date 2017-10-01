@@ -294,7 +294,7 @@ class ObjectControl extends AbstractObjectControl
 
         if ($zipcode && $city && $cityPart) {
             $hasStreet = $this->ruianFinder->hasStreet($zipcode, $city, $cityPart);
-            
+
             $payload = [
                 'hasStreet' => $hasStreet,
                 'message' => $hasStreet ? null : $this->translator->translate('backend.control.object.text.noStreet'),
