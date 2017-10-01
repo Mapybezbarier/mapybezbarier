@@ -49,13 +49,17 @@ function getDefaultFlashMessage() {
 
 /**
  * Vrati konfiguraci vychozi instance spinneru.
+ *
+ * @param {object} settings
+ *
  * @returns {object}
  */
-function getDefaultSpinner() {
-    return {
+function getDefaultSpinner(settings) {
+    return $.extend({
+        color: ["#250e62", "#e4002b"],
         lines: 13,
         length: 0,
-        width: 15,
+        width: 16,
         radius: 52,
         scale: 0.25,
         corners: 1.0,
@@ -66,7 +70,7 @@ function getDefaultSpinner() {
         trail: 60,
         top: "50%",
         left: "50%"
-    };
+    }, settings);
 }
 
 /**

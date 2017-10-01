@@ -225,19 +225,20 @@ function bindAjax() {
                 var $element = settings.nette.el;
 
                 var spinnerSelector = $element.data('spinner');
+                var spinnerSettings = $element.data('spinner-settings');
 
                 if (spinnerSelector) {
                     var $spinner = $(spinnerSelector);
 
                     if ($spinner.length) {
-                        $($spinner).spin(getDefaultSpinner()).addClass('nwjs_spinner');
+                        $($spinner).spin(getDefaultSpinner(spinnerSettings)).addClass('nwjs_spinner');
                     }
                 }
             }
         },
         complete: function () {
             $('.nwjs_spinner').each(function () {
-                $(this).spin(false).removeClass('nwjs_spinner');
+               $(this).spin(false).removeClass('nwjs_spinner');
             });
         }
     });

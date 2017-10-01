@@ -18,6 +18,7 @@
 </div>
 
 {form form}
+<div class="nwjs_filter_spinner"></div>
 {foreach $form->controls as $name => $field}
     {ifset $form[$name]->items}
         <div class="filter_group {$name}">

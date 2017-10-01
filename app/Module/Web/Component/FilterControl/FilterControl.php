@@ -84,7 +84,7 @@ class FilterControl extends AbstractFormControl
     protected function createComponentForm($name)
     {
         $form = $this->factory->create($this, $name);
-        $form->getElementPrototype()->class[] = 'ajax nwjs_auto_submit';
+        $form->getElementPrototype()->class[] = 'ajax nwjs_auto_submit nwjs_filter_form';
         $form->getElementPrototype()->data('spinner', '.nwjs_filter');
         $form->onSuccess[] = [$this, 'setFilter'];
 

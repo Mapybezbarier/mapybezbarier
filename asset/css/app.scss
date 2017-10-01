@@ -387,6 +387,29 @@ header {
     text-indent: $position_out;
     width: 40px;
 }
+.nwjs_filter {
+    .nwjs_filter_form {
+        position: relative;
+
+        .nwjs_filter_spinner {
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: $gray_l_color;
+            opacity: .7;
+            z-index: 1000000000;
+        }
+    }
+
+    &.nwjs_spinner {
+        .nwjs_filter_form {
+            .nwjs_filter_spinner {
+                display: block;
+            }
+        }
+    }
+}
 .filters {
     .filter_group {
         .filter_headline {
