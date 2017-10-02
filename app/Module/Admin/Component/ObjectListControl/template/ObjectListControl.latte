@@ -38,7 +38,7 @@
                     <thead>
                         <tr>
                             <th class="title">{_backend.control.object.objects.head.title}</th>
-                            <th n:ifset="$actions['owner']" class="history tool">{_backend.object.action.owner}</th>
+                            <th n:ifset="$actions['owner']" class="owner tool">{_backend.object.action.owner}</th>
                             <th n:ifset="$actions['history']" class="history tool">{_backend.object.action.history}</th>
                             <th n:ifset="$actions['join']" class="join tool">{_backend.object.action.join}</th>
                             <th n:ifset="$actions['edit']" class="edit tool">{_backend.object.action.edit}</th>
@@ -50,7 +50,7 @@
                             {php $hasDraft = in_array($object['object_id'], $draftMapObjectIds)}
                             <tr n:class="$hasDraft ? has_draft">
                                 <td class="title" title="{$object['object_id']}"><span{if $hasDraft} title="{_backend.object.hasDraft}"{/if}>{$object['title']}</span></td>
-                                <td n:ifset="$actions['owner']" class="user tool">
+                                <td n:ifset="$actions['owner']" class="owner tool">
                                     <a href="{plink :Admin:Object:owner, id => $object['object_id']}" title="{_backend.object.ownerChange}">{_backend.object.ownerChange}</a>
                                 </td>
                                 <td n:ifset="$actions['history']" class="history tool">

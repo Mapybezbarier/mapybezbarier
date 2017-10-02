@@ -278,6 +278,9 @@ header {
             &.delete a {
                 background-image: bg_image($icons_path + 'ico_zavrit_black.svg');
             }
+            &.owner a {
+                background-image: bg_image($rs_icons_path + 'ico_admin_majitel.svg');
+            }
             &.history a {
                 background-image: bg_image($rs_icons_path + 'ico_admin_historie.svg');
             }
