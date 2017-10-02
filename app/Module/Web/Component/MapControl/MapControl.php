@@ -197,7 +197,7 @@ class MapControl extends AbstractControl
      *  typ podkladu (2)
      * celkem tedy cca 126 typu ikonky
      *
-     * @param $object
+     * @param array $object
      *
      * @return array
      */
@@ -206,7 +206,7 @@ class MapControl extends AbstractControl
         // zastarale profesionalni udaje se markerem nelisi od aktualnich
         $isCommunityMarker = $object['type'] === FilterService::TYPE_COMMUNITY;
 
-        return [$isCommunityMarker, $object['accessibility_id'], Arrays::get($this->categories, $object['object_type_id'], 'other')];
+        return [$isCommunityMarker, $object['accessibility_id'], $this->categories[$object['object_type_id']] ?? 'other'];
     }
 
     /**
