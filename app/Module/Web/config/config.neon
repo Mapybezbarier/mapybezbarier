@@ -24,6 +24,7 @@ parameters:
             vozejkmap: webVozejkmapSourceDetail
             wckompas: webWcKompasSourceDetail
             wheelmap: webWheelmapSourceDetail
+            cb: webCBSourceDetail
             default: webDefaultSourceDetail
 
 services:
@@ -68,6 +69,7 @@ services:
     webVozejkmapSourceDetail: MP\Module\SourceDetail\VozejkmapSourceDetail
     webWcKompasSourceDetail: MP\Module\SourceDetail\WcKompasSourceDetail
     webWheelmapSourceDetail: MP\Module\SourceDetail\WheelmapSourceDetail
+    webCBSourceDetail: MP\Module\SourceDetail\CBSourceDetail
     webDefaultSourceDetail: MP\Module\SourceDetail\DefaultSourceDetail
 
 includes:
