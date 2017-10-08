@@ -61,7 +61,7 @@ class DefaultSourceDetail implements ISourceDetail
      */
     protected function getWcAccessibility($object)
     {
-        $ret = null;
+        $ret = false;
 
         foreach (Arrays::get($object, ObjectMetadata::WC, []) as $wc) {
             if ($wc['wc_accessibility_id'] && (!$ret || ($ret['id'] > $wc['wc_accessibility_id']))) {

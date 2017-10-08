@@ -43,9 +43,9 @@
             <meta property="latitude" content="{$object['latitude']}" />
             <meta property="longitude" content="{$object['longitude']}" />
         </div>
-        {if $object['string_url']}
+        {if $object['web_url']}
             <div class="addr_item web" title="{_messages.control.map.infoBox.web}">
-                <a href="{$object['link_url']}" target="_blank" itemprop="url" title="{$object['link_url']}">{$object['string_url']}</a>
+                <a href="{$object['web_url']|urlWithProtocol}" target="_blank" itemprop="url" title="{$object['web_url']|urlWithProtocol}">{$object['web_url']}</a>
             </div>
         {/if}
     </div>

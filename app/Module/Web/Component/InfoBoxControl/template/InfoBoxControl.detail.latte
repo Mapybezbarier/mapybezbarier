@@ -41,7 +41,7 @@
     {if !empty($object['owner'])}
         <div class="ib_owner">
             <div class="addr_item owner" title="{_messages.control.map.infoBox.owner}">
-                <a href="{$object['owner']}">{$object['owner']}</a>
+                <a href="{$object['owner']|urlWithProtocol}" target="_blank">{$object['owner']}</a>
             </div>
         </div>
     {/if}
