@@ -100,7 +100,7 @@ class CBParser implements IParser
     protected function prepareMapObject($row)
     {
         // kontrola formatu dat
-        if (count($row) < 29) {
+        if (count($row) < 30) {
             throw new ParseException('CSV neni v predpokladanem formatu.');
         }
 
@@ -108,19 +108,20 @@ class CBParser implements IParser
 
         $ret = [
             'title' => $row[1],
-            'description' => $this->parseDescription($row[28]),
+            'description' => $this->parseDescription($row[29]),
             'street' => $row[2],
-            'city' => $row[5],
-            'zipcode' => Strings::replace($row[6], '/\s/', ''),
-            'webUrl' => $row[9],
-            'accessibility' => Arrays::get($this->mapAccessibility, $row[10], ObjectMetadata::ACCESSIBILITY_NO),
-            'objectType' => $this->parseObjectType($row[11]),
+            'city' => $row[4],
+            'zipcode' => Strings::replace($row[5], '/\s/', ''),
+            'longitude' => $row[6],
+            'latitude' => $row[7],
+            'webUrl' => $row[10],
+            'accessibility' => Arrays::get($this->mapAccessibility, $row[11], ObjectMetadata::ACCESSIBILITY_NO),
+            'objectType' => $this->parseObjectType($row[12]),
             'externalData' => $this->prepareExternalData($row),
             'mappingDate' => time(),
         ];
 
         Address::parseHouseNumber($ret, $row, 3);
-        Address::parseDecimalGps($ret, $row, 4);
 
         return $ret;
     }
@@ -132,7 +133,9 @@ class CBParser implements IParser
      */
     protected function parseDescription($rawDescription)
     {
-        return html_entity_decode(strip_tags($rawDescription), ENT_QUOTES, 'UTF-8');
+        // nejprve pridam odradkovani pro nadpisy
+        $ret = str_replace("\n<h3>", "\n\n<h3>", $rawDescription);
+        return html_entity_decode(strip_tags($ret), ENT_QUOTES, 'UTF-8');
     }
 
     /**
@@ -160,8 +163,8 @@ class CBParser implements IParser
             'standard_pictograms' => [],
         ];
 
-        for ($i = 10; $i <= 23; $i++) {
-            $ret['standard_pictograms'][$i-10] = (bool)$row[$i];
+        for ($i = 13; $i <= 26; $i++) {
+            $ret['standard_pictograms'][$i-13] = (bool)$row[$i];
         }
 
         try {

@@ -362,14 +362,14 @@ SELECT pg_catalog.setval('entryarea_entry_id_seq', 2, true);
 -- Data for Name: exchange_source; Type: TABLE DATA; Schema: public; Owner: mapy_pristupnosti_db_01
 --
 
-INSERT INTO exchange_source VALUES (12, 'vozejkmap.cz', 'vozejkmap');
-INSERT INTO exchange_source VALUES (1, 'mapybezbarier.cz', 'mapybezbarier');
-INSERT INTO exchange_source VALUES (2, 'DPA s.r.o.', 'xml');
-INSERT INTO exchange_source VALUES (10, 'DPA s.r.o.', 'json');
-INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv');
-INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas');
-INSERT INTO exchange_source VALUES (14, 'Wheelmap', 'wheelmap');
-INSERT INTO exchange_source VALUES (15, 'Atlas přístupnosti objektů v Českých Budějovicích', 'cb');
+INSERT INTO exchange_source VALUES (12, 'vozejkmap.cz', 'vozejkmap', FALSE);
+INSERT INTO exchange_source VALUES (1, 'mapybezbarier.cz', 'mapybezbarier', TRUE);
+INSERT INTO exchange_source VALUES (2, 'DPA s.r.o.', 'xml', TRUE);
+INSERT INTO exchange_source VALUES (10, 'DPA s.r.o.', 'json', TRUE);
+INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv', TRUE);
+INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas', FALSE);
+INSERT INTO exchange_source VALUES (14, 'Wheelmap', 'wheelmap', FALSE);
+INSERT INTO exchange_source VALUES (15, 'Atlas přístupnosti objektů v Českých Budějovicích', 'cb', TRUE);
 
 
 --
