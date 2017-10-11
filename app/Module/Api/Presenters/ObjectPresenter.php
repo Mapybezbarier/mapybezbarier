@@ -39,6 +39,7 @@ class ObjectPresenter extends ApiPresenter
         $source = $this->sourceManager->findOneBy([["[format] = %s", $format]]);
 
         if ($source) {
+            ini_set('memory_limit', '2048M');
             $restrictor = $this->restrictorBuilder->getRestrictor();
 
             $objects = $this->objectService->getObjects($restrictor);
