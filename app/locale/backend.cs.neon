@@ -80,6 +80,8 @@ control:
         label:
             owner: "Nový majitel objektu"
             submit: "Změnit majitele"
+    objectOwner:
+        currentOwner: "Stávající majitel objektu"
     login:
         title: "Přihlášení"
         label:

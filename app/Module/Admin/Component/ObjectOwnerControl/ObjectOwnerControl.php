@@ -4,6 +4,7 @@ namespace MP\Module\Admin\Component\ObjectOwnerControl;
 
 use MP\Component\Form\AbstractFormControl;
 use MP\Component\Form\FormFactory;
+use MP\Module\Admin\Service\ObjectService;
 use MP\Module\Admin\Service\UserService;
 use MP\Util\Forms;
 use Nette\Application\UI\Form;
@@ -28,22 +29,28 @@ class ObjectOwnerControl extends AbstractFormControl
     /** @var UserService */
     protected $userService;
 
+    /** @var ObjectService */
+    protected $objectService;
+
     /**
      * @param FormFactory $factory
      * @param UserService $userService
+     * @param ObjectService $objectService
      *
      * @internal param Request $request
      */
-    public function __construct(FormFactory $factory, UserService $userService)
+    public function __construct(FormFactory $factory, UserService $userService, ObjectService $objectService)
     {
         parent::__construct($factory);
 
         $this->userService = $userService;
+        $this->objectService = $objectService;
     }
 
     public function render()
     {
         $template = $this->getTemplate();
+        $template->currentOwnerName = $this->getCurrenctOwnerName($this->id);
         $template->render();
     }
 
@@ -75,10 +82,10 @@ class ObjectOwnerControl extends AbstractFormControl
         $form = $this->factory->create($this, $name);
         $form->onSuccess[] = [$this, 'processForm'];
 
-        $values = $this->userService->getUsers($this->getPresenter()->getUser());
+        $values = $this->userService->getUsers($this->getPresenter()->getUser(), [], false);
 
         if (1 < count($values)) {
-            $values = [null => ''] + Forms::toSelect($values, 'id', 'login');
+            $values = [null => ''] + Forms::toSelect($values, 'id', 'fullname');
 
             $form->addSelect(self::COMPONENT_ID, 'backend.control.ownerSelect.label.owner', $values);
         }
@@ -86,5 +93,23 @@ class ObjectOwnerControl extends AbstractFormControl
         $form->addSubmit('submit', 'backend.control.ownerSelect.label.submit');
 
         return $form;
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    protected function getCurrenctOwnerName($id)
+    {
+        $ret = '';
+        $object = $this->objectService->getObjectValuesByObjectId($id);
+
+        if ($object) {
+            $userId = $object['user_id'];
+            $user = $this->userService->getUser($userId);
+            $ret = $user['fullname'];
+        }
+
+        return $ret;
     }
 }
