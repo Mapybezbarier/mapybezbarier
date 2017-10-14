@@ -5,9 +5,10 @@
 {define params}
     <div class="ib_params">
         <div class="type category_{$object['category']['id']}">
-            {$object['category']['title']}
             {ifset $object['node_type']}
-                <span class="node_type">({$object['node_type']|lower})</span>
+                <span class="node_type">{$object['node_type']|lower}</span>
+            {else}
+                {$object['category']['title']}
             {/ifset}
         </div>
         {include paramsAccessibility}
