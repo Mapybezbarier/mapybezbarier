@@ -699,8 +699,6 @@ class DefaultSourceDetail implements ISourceDetail
                 'size' => $wc['handle1_length'],
                 'type' => $this->translator->translate('messages.enum.value.handleType.' . $wc['handle1_type']),
             ]);
-        } else {
-            $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleLeftMissing');
         }
 
         if ($wc['handle2_type_id'] && $wc['handle2_length']) {
@@ -708,8 +706,6 @@ class DefaultSourceDetail implements ISourceDetail
                 'size' => $wc['handle2_length'],
                 'type' => $this->translator->translate('messages.enum.value.handleType.' . $wc['handle2_type']),
             ]);
-        } else {
-            $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.handleRightMissing');
         }
 
         if ($wc['washbasin_underpass_id']) {
@@ -723,7 +719,7 @@ class DefaultSourceDetail implements ISourceDetail
                 'bool' => $this->translator->translate('messages.enum.boolLower.' . ($wc['wc_is_changingdesk'] ? "true" : "false")),
                 'value' => $this->translator->translate('messages.enum.value.wcChangingdesk.' . $wc['wc_changingdesk']),
             ]);
-        } else {
+        } else if (isset($wc['wc_is_changingdesk'])) {
             $parts[] = $this->translator->translate('messages.control.map.detail.description.wc.wcChangingdeskFalse', [
                 'bool' => $this->translator->translate('messages.enum.boolLower.' . ($wc['wc_is_changingdesk'] ? "true" : "false")),
             ]);
