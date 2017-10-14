@@ -85,7 +85,7 @@ class ObjectOwnerControl extends AbstractFormControl
         $values = $this->userService->getUsers($this->getPresenter()->getUser(), [], false);
 
         if (1 < count($values)) {
-            $values = [null => ''] + Forms::toSelect($values, 'id', 'fullname');
+            $values = [null => ''] + Forms::toSelect($values, 'id', 'login');
 
             $form->addSelect(self::COMPONENT_ID, 'backend.control.ownerSelect.label.owner', $values);
         }
