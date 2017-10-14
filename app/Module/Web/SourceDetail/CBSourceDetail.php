@@ -13,6 +13,7 @@ class CBSourceDetail implements ISourceDetail
 {
     /** @var array mapa ciselnikoveho atributu - pristupnost */
     protected $standardPictogramsMap = [
+        13 => 'parking',
         0 => 'difficult_surface',
         1 => 'difficult_inclination',
         // 2 = přístupný hlavním vchodem
@@ -26,7 +27,6 @@ class CBSourceDetail implements ISourceDetail
         // 10 = WC I.
         // 11 = WC II.
         // 12 = WC NOK
-        13 => 'parking',
     ];
 
     /**
