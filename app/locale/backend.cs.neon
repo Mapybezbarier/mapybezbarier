@@ -16,6 +16,7 @@ import:
         invalidObjectExternalData: "Externí data neobsahují validní JSON."
         unknownObjectLocation: "Není známá poloha objektu. Musí být zadána buď RUIAN adresa nebo GPS souřadnice."
         getContentFailed: "Externí data se nepodařilo stáhnout nebo jsou v neočekávaném formátu."
+        invalidInputUrl: "URL externího zdroje není v očekávanm formátu"
 
     notice:
         ruianNotFound: "Dle adresy se nepodařilo dohledat žádné adresní místo RUIAN, adresu je třeba opravit."
@@ -23,6 +24,7 @@ import:
         invalidVozejkmapObjectEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
         invalidEnumValue: "Hodnota '%value%' klíče '%key%' má nepovolenou hodnotu. Možné hodnoty jsou '%values%'."
         invalidWCKompasGPS: "Objekt nemá nastaveny GPS souřadnice, z importní dávky byl vynechán."
+        invalidBrnoGisObjectType: "Hodnota '%value%' není mezi známými typy objektů."
         currentObject: "Importovaný objekt byl spárován se stávajícím, data byla přepsána."
         consistency:
             object1: "Přístupný je celý objekt nebo jeho větší část alespoň s jedním bezbariérovým vstupem."

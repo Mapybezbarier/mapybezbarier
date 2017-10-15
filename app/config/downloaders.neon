@@ -2,6 +2,8 @@ parameters:
     downloader:
         mapping:
             wheelmap: wheelmapDownloader
+            brno-gis: brnoGisDownloader
 
 services:
     wheelmapDownloader: MP\Exchange\Downloader\WheelmapDownloader
+    brnoGisDownloader: MP\Exchange\Downloader\BrnoGisDownloader

@@ -370,6 +370,7 @@ INSERT INTO exchange_source VALUES (11, 'DPA s.r.o.', 'csv', TRUE);
 INSERT INTO exchange_source VALUES (13, 'WC Kompas', 'wckompas', FALSE);
 INSERT INTO exchange_source VALUES (14, 'Wheelmap', 'wheelmap', FALSE);
 INSERT INTO exchange_source VALUES (15, 'Atlas přístupnosti objektů v Českých Budějovicích', 'cb', TRUE);
+INSERT INTO exchange_source VALUES (16, 'Brno GIS', 'brno-gis', FALSE);
 
 
 --

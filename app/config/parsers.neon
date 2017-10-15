@@ -8,6 +8,7 @@ parameters:
             wckompas: wcKompasParser
             wheelmap: wheelmapParser
             cb: cBParser
+            brno-gis: brnoGisParser
 
 services:
     xmlParser: MP\Exchange\Parser\XmlParser
@@ -17,3 +18,4 @@ services:
     wcKompasParser: MP\Exchange\Parser\WcKompasParser
     wheelmapParser: MP\Exchange\Parser\WheelmapParser
     cBParser: MP\Exchange\Parser\CBParser
+    brnoGisParser: MP\Exchange\Parser\BrnoGisParser
