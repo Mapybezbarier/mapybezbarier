@@ -78,7 +78,7 @@ class HomepagePresenter extends AbstractWebPresenter
      *
      * @throws \Nette\Application\BadRequestException
      */
-    public function actionDefault($id)
+    public function actionDefault(int $id = null)
     {
         $this->id = $id;
 

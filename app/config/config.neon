@@ -17,6 +17,10 @@ php:
     date.timezone: Europe/Prague
 
 
+constants:
+    DEFAULT_DETAIL_ZOOM: 17
+
+
 application:
     errorPresenter: Web:Error
     mapping:

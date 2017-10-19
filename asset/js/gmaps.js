@@ -1,5 +1,5 @@
 MapLayer = {
-    initMarkersCallbacks: []
+    initCallbacks: []
 };
 
 /** Handler pro naseptavac */
@@ -109,11 +109,6 @@ MapLayer.closeInfoBoxes = function () {
 MapLayer.initMarkers = function() {
     this.clusters.clearMarkers();
     this.clusters.addMarkers($.map(this._map.markers, function(v) { return v; }));
-
-    for (var i = 0, length = this.initMarkersCallbacks.length; i < length; i++) {
-        this.initMarkersCallbacks[i]();
-        this.initMarkersCallbacks.splice(i, 1);
-    }
 };
 
 MapLayer.closeInfoBox = function () {
@@ -131,8 +126,25 @@ MapLayer.getCenter = function() {
     return {x: this._map.map.getCenter().lng(), y: this._map.map.getCenter().lat()};
 };
 
+/**
+ * @param {integer} zoom
+ */
 MapLayer.setZoom = function(zoom) {
     this._map.map.setZoom(zoom);
+};
+
+/**
+ * @param {function} callback
+ */
+MapLayer.addInitCallback = function(callback) {
+    this.initCallbacks.push(callback);
+};
+
+MapLayer.applyInitCallbacks = function() {
+    for (var i = 0, length = this.initCallbacks.length; i < length; i++) {
+        this.initCallbacks[i]();
+        this.initCallbacks.splice(i, 1);
+    }
 };
 
 /**
@@ -141,6 +153,10 @@ MapLayer.setZoom = function(zoom) {
 MapLayer.initMap = function (map) {
     this._map = map;
     this._map.map = new google.maps.Map(this._map.config.item.get(0), this._map.config.map);
+
+    this._map.map.addListener('idle', function() {
+        MapLayer.applyInitCallbacks();
+    });
 
     // @see http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
     var styleDefaultOptions = {
@@ -225,11 +241,8 @@ MapLayer.prepareMarker = function (marker) {
         });
 
         if (marker.active) {
-            this.initMarkersCallbacks.push(function() {
+            this.addInitCallback(function() {
                 context.markerClick(marker);
-
-                MapLayer.setCenter(mapMarker.getPosition());
-                MapLayer.setZoom(context.config.infoBoxDefaultZoom);
             });
         }
 

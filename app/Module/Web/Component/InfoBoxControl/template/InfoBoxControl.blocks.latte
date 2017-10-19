@@ -39,7 +39,7 @@
 {/define}
 
 {define embeddedLink}
-    <a href="{plink //:Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}" target="_blank">{include objectTitle}</a>
+    <a href="{plink //:Web:Homepage:default 'id' => $object['id'], 'zoom' => DEFAULT_DETAIL_ZOOM}" title="{$object['title']}" target="_blank">{include objectTitle}</a>
 {/define}
 
 {define localLink}
@@ -65,7 +65,7 @@
 {define detail}
     <div class="ib_detail">
         {if $embedded}
-            <a class="detail_cont" href="{plink //:Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}"
+            <a class="detail_cont" href="{plink //:Web:Homepage:default 'id' => $object['id'], 'zoom' => DEFAULT_DETAIL_ZOOM}" title="{$object['title']}"
                target="_blank"
             >{_messages.control.map.infoBox.detail}</a>
         {else}

@@ -1,5 +1,5 @@
 MapLayer = {
-    initMarkersCallbacks: []
+    initCallbacks: []
 };
 
 MapLayer.initMap = function (map) {
@@ -41,6 +41,7 @@ MapLayer.initMap = function (map) {
 
     this._map.map.getSignals().addListener(this._map, "card-open", "markerClick");
     this._map.map.getSignals().addListener(this, 'map-redraw', "mapRedraw");
+    this._map.map.getSignals().addListener(this, 'tileset-load', "applyInitCallbacks");
 };
 
 MapLayer.isCloseView = function(zoom) {
@@ -99,11 +100,6 @@ MapLayer.initMarkers = function() {
     if (markers.length) {
         this._layerMarkers.addMarker(markers);
     }
-
-    for (var i = 0, length = this.initMarkersCallbacks.length; i < length; i++) {
-        this.initMarkersCallbacks[i]();
-        this.initMarkersCallbacks.splice(i, 1);
-    }
 };
 
 MapLayer.closeInfoBox = function () {
@@ -125,6 +121,13 @@ MapLayer.mapRedraw = function(e) {
     }
 
     this._lastZoom = zoom
+};
+
+MapLayer.applyInitCallbacks = function() {
+    for (var i = 0, length = this.initCallbacks.length; i < length; i++) {
+        this.initCallbacks[i]();
+        this.initCallbacks.splice(i, 1);
+    }
 };
 
 MapLayer.markerClick = function(e) {
@@ -163,9 +166,9 @@ MapLayer.prepareMarker = function (marker) {
         mapMarker.decorate(SMap.Marker.Feature.Card, card);
 
         if (marker.active) {
-            this.initMarkersCallbacks.push(function() {
+            this.addInitCallback(function() {
                 context.map.addCard(card, mapMarker.getCoords());
-                context.map.setCenterZoom(mapMarker.getCoords(), context.config.infoBoxDefaultZoom);
+                context.map.setCenter(mapMarker.getCoords());
             });
         }
 
@@ -185,6 +188,10 @@ MapLayer.setCenter = function(position) {
  */
 MapLayer.setZoom = function(zoom) {
     this._map.map.setZoom(zoom, null, false);
+};
+
+MapLayer.addInitCallback = function (callback) {
+    this.initCallbacks.push(callback);
 };
 
 /**

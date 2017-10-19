@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": ">= 7.0",
+    "php": ">= 7.1",
     "nette/nette": "~2.4",
     "flame/modules": "~2.3",
     "kdyby/translation": "~2.4",

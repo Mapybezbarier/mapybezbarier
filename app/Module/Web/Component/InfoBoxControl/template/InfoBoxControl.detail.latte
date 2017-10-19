@@ -16,7 +16,7 @@
 {/define}
 
 {define localLink}
-    <a href="{plink :Web:Homepage:default 'id' => $object['id']}" title="{$object['title']}">{include objectTitle}</a>
+    <a href="{plink :Web:Homepage:default, 'id' => $object['id'], 'zoom' => DEFAULT_DETAIL_ZOOM}" title="{$object['title']}">{include objectTitle}</a>
 {/define}
 
 {define closer}
