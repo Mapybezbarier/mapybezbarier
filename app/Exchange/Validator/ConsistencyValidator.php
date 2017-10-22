@@ -307,16 +307,21 @@ class ConsistencyValidator implements IValidator
     {
         $entrance1Accessibility = Arrays::get($this->object, 'entrance1Accessibility', null);
         $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
+        $objectInteriorAccessibility = Arrays::get($this->object, 'objectInteriorAccessibility', null);
 
-        $validTypes = [ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP];
+        if (isset($entrance1Accessibility) || isset($entrance2Accessibility) || isset($objectInteriorAccessibility)) {
+            $validTypes = [ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP];
 
-        $checkEntrance = (
-            (ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_ENTIRE === Arrays::get($this->object, 'objectInteriorAccessibility', null))
-            && (
-                in_array($entrance1Accessibility, $validTypes, true)
-                || in_array($entrance2Accessibility, $validTypes, true)
-            )
-        );
+            $checkEntrance = (
+                (ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_ENTIRE === $objectInteriorAccessibility)
+                && (
+                    in_array($entrance1Accessibility, $validTypes, true)
+                    || in_array($entrance2Accessibility, $validTypes, true)
+                )
+            );
+        } else {
+            $checkEntrance = true;
+        }
 
         return $checkEntrance;
     }
@@ -509,15 +514,21 @@ class ConsistencyValidator implements IValidator
      */
     protected function checkWcs()
     {
-        $ret = false;
+        $wcs = Arrays::get($this->object, ObjectMetadata::WC, []);
 
-        foreach (Arrays::get($this->object, ObjectMetadata::WC, []) as $wc) {
-            $wcAccessibility = Arrays::get($wc, "wcAccessibility", null);
+        if ($wcs) {
+            $ret = false;
 
-            if (in_array($wcAccessibility, [ObjectMetadata::WC_ACCESSIBILITY_OK, ObjectMetadata::WC_ACCESSIBILITY_PARTLY], true)) {
-                $ret = true;
-                break;
+            foreach ($wcs as $wc) {
+                $wcAccessibility = Arrays::get($wc, "wcAccessibility", null);
+
+                if (in_array($wcAccessibility, [ObjectMetadata::WC_ACCESSIBILITY_OK, ObjectMetadata::WC_ACCESSIBILITY_PARTLY], true)) {
+                    $ret = true;
+                    break;
+                }
             }
+        } else {
+            $ret = true;
         }
 
         return $ret;
@@ -528,11 +539,18 @@ class ConsistencyValidator implements IValidator
      */
     protected function checkInterior()
     {
-        return in_array(
-            Arrays::get($this->object, 'objectInteriorAccessibility', null),
-            [ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_ENTIRE, ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_PART],
-            true
-        );
+        $ret = true;
+        $objectInteriorAccessibility = Arrays::get($this->object, 'objectInteriorAccessibility', null);
+
+        if (isset($objectInteriorAccessibility)) {
+            $ret = in_array(
+                $objectInteriorAccessibility,
+                [ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_ENTIRE, ObjectMetadata::OBJECT_INTERIOR_ACCESSIBILITY_PART],
+                true
+            );
+        }
+
+        return $ret;
     }
 
     /**
@@ -584,17 +602,21 @@ class ConsistencyValidator implements IValidator
      */
     protected function checkEntranceSteps()
     {
+        $ret = true;
+
         $entrance1Accessibility = Arrays::get($this->object, 'entrance1Accessibility', null);
         $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
 
-        $validTypes = [
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP, ObjectMetadata::ENTRANCE_ACCESSIBILITY_PLATFORM,
-        ];
+        if (isset($entrance1Accessibility) || isset($entrance2Accessibility)) {
+            $validTypes = [
+                ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
+                ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP, ObjectMetadata::ENTRANCE_ACCESSIBILITY_PLATFORM,
+            ];
 
-        return (
-            in_array($entrance1Accessibility, $validTypes, true) || in_array($entrance2Accessibility, $validTypes, true)
-        );
+            $ret = in_array($entrance1Accessibility, $validTypes, true) || in_array($entrance2Accessibility, $validTypes, true);
+        }
+
+        return $ret;
     }
 
     /**
