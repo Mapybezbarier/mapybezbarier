@@ -333,6 +333,13 @@ control:
                     elevator: A description of the lift
                     wc: A description of the toilet
 
+            brnoGis:
+                detailDescription: Detail description
+                detailDescriptionWarning: Description might be outdated.
+                legalInfo: "Data provided by Magistrát města Brna, Odbor zdraví"
+                legalUrl: "http://www.brno.cz/mapa-pristupnosti"
+                legalTextUrl: "www.brno.cz/mapa-pristupnosti"
+
     mailer:
         subject: A new message from the mapybezbarier.cz web
 

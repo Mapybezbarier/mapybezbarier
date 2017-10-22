@@ -11,6 +11,7 @@ parameters:
                 vozejkmap: vozejkmapDetailRendererFactory
                 wckompas: wcKompasDetailRendererFactory
                 wheelmap: wheelmapDetailRendererFactory
+                brno-gis: brnoGisDetailRendererFactory
 
 services:
     infoBoxRendererFactory:
@@ -31,3 +32,4 @@ services:
     vozejkmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
     wcKompasDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WcKompasRenderer\IWcKompasRendererFactory
     wheelmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory
+    brnoGisDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\BrnoGisRenderer\IBrnoGisRendererFactory

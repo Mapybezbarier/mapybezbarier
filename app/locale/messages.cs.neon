@@ -333,6 +333,12 @@ control:
                     platform: Popis plošiny
                     elevator: Popis výtahu
                     wc: Popis toalety
+            brnoGis:
+                detailDescription: Podrobnější informace
+                detailDescriptionWarning: Uvedené údaje mohou být neaktuální.
+                legalInfo: "Informace byly poskytnuty Magistrátem města Brna, Odborem zdraví"
+                legalUrl: "http://www.brno.cz/mapa-pristupnosti"
+                legalTextUrl: "www.brno.cz/mapa-pristupnosti"
 
     mailer:
         subject: Nová zpráva z webu mapybezbarier.cz

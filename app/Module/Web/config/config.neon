@@ -25,6 +25,7 @@ parameters:
             wckompas: webWcKompasSourceDetail
             wheelmap: webWheelmapSourceDetail
             cb: webCBSourceDetail
+            brno-gis: webBrnoGisSourceDetail
             default: webDefaultSourceDetail
 
 services:
@@ -70,6 +71,7 @@ services:
     webWcKompasSourceDetail: MP\Module\SourceDetail\WcKompasSourceDetail
     webWheelmapSourceDetail: MP\Module\SourceDetail\WheelmapSourceDetail
     webCBSourceDetail: MP\Module\SourceDetail\CBSourceDetail
+    webBrnoGisSourceDetail: MP\Module\SourceDetail\BrnoGisSourceDetail
     webDefaultSourceDetail: MP\Module\SourceDetail\DefaultSourceDetail
 
 includes:
