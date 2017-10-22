@@ -57,3 +57,4 @@ services:
     platformMapper: MP\Mapper\PlatformMapper
     rampSkidsMapper: MP\Mapper\RampSkidsMapper
     wcMapper: MP\Mapper\WcMapper
+    gisMapper: MP\Mapper\GISMapper

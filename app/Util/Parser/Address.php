@@ -51,24 +51,14 @@ class Address
      * Rozparsuje cislo popisne a orientacni
      * @param array $ret
      * @param array $row
+     * @param mixed $key
      */
     public static function parseHouseNumber(&$ret, $row, $key)
     {
-        $housenumber = Arrays::get($row, $key, null);
+        $housenumber = trim(Arrays::get($row, $key, null));
 
         if ($housenumber) {
-            $matches = Strings::match($housenumber, '~(\d+)/?(\d*)(\D*)~');
-
-            if ($matches) {
-                if (!empty($matches[1]) && empty($matches[2]) && !empty($matches[3])) {
-                    $ret['streetOrientNo'] = $matches[1];
-                    $ret['streetOrientSymbol'] = $matches[3];
-                } else {
-                    $ret['streetDescNo'] = !empty($matches[1]) ? $matches[1] : null;
-                    $ret['streetOrientNo'] = !empty($matches[2]) ? $matches[2] : null;
-                    $ret['streetOrientSymbol'] = !empty($matches[3]) ? $matches[3] : null;
-                }
-            }
+            self::parseHouseNumberInner($ret, $housenumber);
         }
     }
 
@@ -123,4 +113,43 @@ class Address
         }
     }
 
+    /**
+     * Rozparsuje ulici, cislo popisne a orientacni
+     * @param array $ret
+     * @param array $row
+     * @param mixed $key
+     */
+    public static function parseStreetAndHouseNumber(&$ret, $row, $key)
+    {
+        $rawData = trim(Arrays::get($row, $key, null));
+
+        if ($rawData) {
+            $matches = Strings::match($rawData, '~(.*)\s+(\d+/?\d*[a-zA-Z]*)$~');
+
+            if ($matches) {
+                $ret['street'] = $matches[1];
+                self::parseHouseNumberInner($ret, $matches[2]);
+            }
+        }
+    }
+
+    /**
+     * @param array $ret
+     * @param string $housenumber
+     */
+    public static function parseHouseNumberInner(&$ret, $housenumber)
+    {
+        $matches = Strings::match($housenumber, '~(\d+)/?(\d*)([a-zA-Z]*)~');
+
+        if ($matches) {
+            if (!empty($matches[1]) && empty($matches[2]) && !empty($matches[3])) {
+                $ret['streetOrientNo'] = $matches[1];
+                $ret['streetOrientSymbol'] = $matches[3];
+            } else {
+                $ret['streetDescNo'] = !empty($matches[1]) ? $matches[1] : null;
+                $ret['streetOrientNo'] = !empty($matches[2]) ? $matches[2] : null;
+                $ret['streetOrientSymbol'] = !empty($matches[3]) ? $matches[3] : null;
+            }
+        }
+    }
 }

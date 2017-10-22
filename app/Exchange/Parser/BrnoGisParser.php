@@ -4,12 +4,12 @@ namespace MP\Exchange\Parser;
 
 use MP\Exchange\Exception\ParseException;
 use MP\Exchange\Service\ImportLogger;
+use MP\Mapper\GISMapper;
 use MP\Object\ObjectMetadata;
 use MP\Util\Address\Address;
 use MP\Util\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
-use Tracy\Debugger;
 
 /**
  * Parser pro data z GIS Brno (http://gis.brno.cz/arcgis/rest/services/PUBLIC/bezbarierove_objekty/MapServer)
@@ -18,6 +18,17 @@ use Tracy\Debugger;
  */
 class BrnoGisParser implements IParser
 {
+    /** @var GISMapper */
+    protected $gisMapper;
+
+    /**
+     * @param GISMapper $gisMapper
+     */
+    public function __construct(GISMapper $gisMapper)
+    {
+        $this->gisMapper = $gisMapper;
+    }
+
     /** @var array mapa ciselnikoveho atributu - typ objektu */
     protected $mapCategory = [
         'divadlo / koncerty' => 'TheatreObjectCategory',
@@ -39,6 +50,12 @@ class BrnoGisParser implements IParser
         'ordinace / nemocnice' => 'MedicalFacilityObjectCategory',
         'wc' => 'PublicToiletObjectCategory',
         'terminál hromadné dopravy' => 'TransportObjectCategory',
+    ];
+
+    protected $mapAccessibility = [
+        'přístupné' => ObjectMetadata::ACCESSIBILITY_OK,
+        'přístupné s asistencí' => ObjectMetadata::ACCESSIBILITY_PARTLY,
+        'nepřístupné' => ObjectMetadata::ACCESSIBILITY_NO,
     ];
 
     /**
@@ -89,9 +106,14 @@ class BrnoGisParser implements IParser
             'description' => $this->getDescription($attributes),
             'objectType' => $this->getObjectType($attributes),
             'accessibility' => $this->getObjectAccessibility($attributes),
+            'city' => 'Brno',
+            'webUrl' => Arrays::get($attributes, 'web', null),
             'externalData' => $this->prepareExternalData($attributes),
             'mappingDate' => (isset($attributes['aktualiz']) ? $attributes['aktualiz']/1000 : time()),
         ];
+
+        Address::parseStreetAndHouseNumber($ret, $attributes, 'adresa');
+        $this->prepareGps($ret, Arrays::get($row, 'geometry', []));
 
         return $ret;
     }
@@ -103,7 +125,28 @@ class BrnoGisParser implements IParser
      */
     protected function prepareExternalData($attributes)
     {
-        $ret = [];
+        $ret = [
+            'id' => Arrays::get($attributes, 'OBJECTID', null),
+            'local_type' => Arrays::get($attributes, 'typ_budovy', null),
+            'ID_ZZ' => Arrays::get($attributes, 'ID_ZZ', null),
+            'standard_pictograms' => [],
+        ];
+
+        for ($i = 1; $i <= 14; $i++) {
+            if ($val = Arrays::get($attributes, sprintf('pikto_%02d', $i), null)) {
+                $pictogramBool = (1 === $val);
+            } else {
+                $pictogramBool = null;
+            }
+
+            $ret['standard_pictograms'][$i-1] = $pictogramBool;
+        }
+
+        try {
+            $ret = Json::encode($ret);
+        } catch (JsonException $e) {
+            throw new ParseException('Nepodarilo se externi data zakodovat jako JSON.');
+        }
 
         return $ret;
     }
@@ -115,7 +158,10 @@ class BrnoGisParser implements IParser
      */
     protected function getObjectAccessibility($attributes)
     {
-        return ObjectMetadata::ACCESSIBILITY_NO;
+        $val = Arrays::get($attributes, 'pristup', null);
+        $ret = Arrays::get($this->mapAccessibility, $val, ObjectMetadata::ACCESSIBILITY_NO);
+
+        return $ret;
     }
 
     /**
@@ -131,6 +177,7 @@ class BrnoGisParser implements IParser
         if (isset($this->mapCategory[$categoryId])) {
             $ret = $this->mapCategory[$categoryId];
         } else {
+            $attributes['title'] = Arrays::get($attributes, 'nazev_CZ', null);
             ImportLogger::addNotice($attributes, 'invalidBrnoGisObjectType', ['value' => $categoryId]);
         }
 
@@ -143,7 +190,33 @@ class BrnoGisParser implements IParser
      */
     protected function getDescription($attributes)
     {
-        $ret = '';
-        return $ret;
+        $descriptions = [];
+
+        for ($i = 1; $i <= 11; $i++) {
+            $description = Arrays::get($attributes, sprintf('text_%02d_CZ', $i), null);
+
+            if ($description) {
+                $descriptions[] = $description;
+            }
+        }
+
+        return implode("\n", $descriptions);
+    }
+
+    /**
+     * Transformace S-JTSKT souradnic na GPS
+     * @param array $ret
+     * @param array $geometry
+     */
+    protected function prepareGps(&$ret, $geometry)
+    {
+        $x = Arrays::get($geometry, 'x', null);
+        $y = Arrays::get($geometry, 'y', null);
+
+        if ($x && $y) {
+            $gps = $this->gisMapper->transformSJTSKToGps($x, $y);
+            $ret['longitude'] = $gps['longitude'];
+            $ret['latitude'] = $gps['latitude'];
+        }
     }
 }
