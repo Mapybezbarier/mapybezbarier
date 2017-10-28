@@ -16,14 +16,12 @@ class GISMapper extends DatabaseMapper
      */
     public function transformSJTSKToGps($xSJTSK, $ySJTSK)
     {
-        $query = ['
+        $query = ["
             SELECT ST_X(wgs_point) AS longitude, ST_Y(wgs_point) AS latitude
             FROM (
-                SELECT ST_Transform(ST_GeomFromText(\'POINT(%f %f)\', 36), 4325)
-            )
-        ',
-            $xSJTSK, $ySJTSK
-        ];
+                SELECT ST_Transform(ST_GeomFromText('POINT({$xSJTSK} {$ySJTSK})', 5514), 4326) AS wgs_point
+            ) w
+        "];
 
         return $this->executeQuery($query)->fetch();
     }
