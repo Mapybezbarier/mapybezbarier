@@ -427,8 +427,9 @@ SELECT pg_catalog.setval('import_source_id_seq', 14, true);
 -- Data for Name: license; Type: TABLE DATA; Schema: public; Owner: mapy_pristupnosti_db_01
 --
 
-INSERT INTO license VALUES (1, 'ODbL', NULL);
-INSERT INTO license VALUES (2, 'CC BY-NC-SA 4.0', NULL);
+INSERT INTO license VALUES (1, 'ODbL', NULL, 'https://opendatacommons.org/licenses/odbl/summary/');
+INSERT INTO license VALUES (2, 'CC BY-NC-SA 4.0', NULL, 'https://creativecommons.org/licenses/by-nc-sa/4.0/');
+INSERT INTO license VALUES (3, 'CC BY-SA 4.0', NULL, 'https://creativecommons.org/licenses/by-sa/4.0/');
 
 
 --
