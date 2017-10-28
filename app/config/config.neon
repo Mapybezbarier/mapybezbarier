@@ -15,6 +15,7 @@ parameters:
 
 php:
     date.timezone: Europe/Prague
+    serialize_precision: 14
 
 
 constants:

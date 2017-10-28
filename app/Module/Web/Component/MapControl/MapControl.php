@@ -175,7 +175,7 @@ class MapControl extends AbstractControl
             }
 
             $markers[] = [
-                'id' => md5(implode(';', $objectIds)),
+                'id' => implode(';', $objectIds),
                 'title' => $first['title'],
                 'count' => $count,
                 'type' => $type,
