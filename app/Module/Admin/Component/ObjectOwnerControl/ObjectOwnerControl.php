@@ -50,7 +50,7 @@ class ObjectOwnerControl extends AbstractFormControl
     public function render()
     {
         $template = $this->getTemplate();
-        $template->currentOwnerName = $this->getCurrenctOwnerName($this->id);
+        $template->currentOwner = $this->getCurrenctOwner($this->id);
         $template->render();
     }
 
@@ -97,17 +97,16 @@ class ObjectOwnerControl extends AbstractFormControl
 
     /**
      * @param int $id
-     * @return string
+     * @return array
      */
-    protected function getCurrenctOwnerName($id)
+    protected function getCurrenctOwner($id)
     {
-        $ret = '';
+        $ret = [];
         $object = $this->objectService->getObjectValuesByObjectId($id);
 
         if ($object) {
             $userId = $object['user_id'];
-            $user = $this->userService->getUser($userId);
-            $ret = $user['fullname'];
+            $ret = $this->userService->getUser($userId);
         }
 
         return $ret;
