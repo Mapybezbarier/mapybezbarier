@@ -50,7 +50,7 @@ services:
         arguments: [%gA%]
     mapControlFactory:
         implement: MP\Module\Web\Component\MapControl\IMapControlFactory
-        arguments: [..., ..., ..., %categories.mapping%]
+        arguments: [..., ..., ..., @markersSqlStorage, %categories.mapping%]
     navigationControlFactory:
         implement: MP\Module\Web\Component\NavigationControl\INavigationControlFactory
         arguments: [..., %navigation%]
@@ -73,6 +73,12 @@ services:
     webCBSourceDetail: MP\Module\SourceDetail\CBSourceDetail
     webBrnoGisSourceDetail: MP\Module\SourceDetail\BrnoGisSourceDetail
     webDefaultSourceDetail: MP\Module\SourceDetail\DefaultSourceDetail
+
+    markersSqlStorage:
+        class: MP\Service\MarkersSqlStorage
+        autowired: false
+
+    markersCacheMapper: MP\Mapper\MarkersCacheMapper
 
 includes:
     - navigation.neon

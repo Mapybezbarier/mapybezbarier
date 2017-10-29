@@ -864,6 +864,21 @@ $_$;
 
 ALTER FUNCTION public.unaccent_string(text) OWNER TO mapy_pristupnosti_db_01;
 
+-- Function: service.invalidate_markers_cache()
+CREATE OR REPLACE FUNCTION service.invalidate_markers_cache()
+  RETURNS trigger AS
+$BODY$
+BEGIN
+  TRUNCATE service.markers_cache;
+  RETURN NEW;
+END;
+
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+ALTER FUNCTION service.invalidate_markers_cache() OWNER TO mapy_pristupnosti_db_01;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -4740,6 +4755,29 @@ ALTER TABLE geocoding_request_id_seq OWNER TO mapy_pristupnosti_db_01;
 
 ALTER SEQUENCE geocoding_request_id_seq OWNED BY geocoding_request.id;
 
+-- Table: service.markers_cache
+
+-- DROP TABLE service.markers_cache;
+
+CREATE TABLE service.markers_cache
+(
+  key text NOT NULL,
+  data json NOT NULL,
+  expire timestamp without time zone,
+  CONSTRAINT markers_cache_pk PRIMARY KEY (key)
+);
+
+ALTER TABLE service.markers_cache OWNER TO mapy_pristupnosti_db_01;
+
+-- Index: service.markers_cache_expire_index
+
+-- DROP INDEX service.markers_cache_expire_index;
+
+CREATE INDEX markers_cache_expire_index
+  ON service.markers_cache
+  USING btree
+  (expire);
+
 
 SET search_path = versions, pg_catalog;
 
@@ -6459,6 +6497,8 @@ CREATE TRIGGER map_object_before_insert_update BEFORE INSERT OR UPDATE ON map_ob
 
 CREATE TRIGGER map_object_lang_prepare_search_title BEFORE INSERT OR UPDATE ON map_object_lang FOR EACH ROW EXECUTE PROCEDURE map_object_lang_prepare_search_title();
 
+-- Trigger: map_object_after_modification on public.map_object
+CREATE TRIGGER map_object_after_modification AFTER INSERT OR UPDATE OR DELETE OR TRUNCATE ON public.map_object FOR EACH STATEMENT EXECUTE PROCEDURE service.invalidate_markers_cache();
 
 --
 -- TOC entry 2858 (class 2606 OID 736571)

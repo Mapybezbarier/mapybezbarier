@@ -9,6 +9,8 @@ use MP\Module\Web\Component\InfoBoxControl\InfoBoxControl;
 use MP\Service\FilterService;
 use MP\Util\Arrays;
 use Nette\Application\Responses\TextResponse;
+use Nette\Caching\Cache;
+use Nette\Caching\IStorage;
 use Nette\Http\IRequest;
 use Nette\Utils\Json;
 
@@ -64,22 +66,28 @@ class MapControl extends AbstractControl
     /** @var array */
     protected $object;
 
+    /** @var Cache */
+    protected $cache;
+
     /**
      * @param ObjectManager $objectManager
      * @param IInfoBoxControlFactory $infoBoxFactory
      * @param IRequest $request
+     * @param IStorage $storage
      * @param array $categories
      */
     public function __construct(
         ObjectManager $objectManager,
         IInfoBoxControlFactory $infoBoxFactory,
         IRequest $request,
+        IStorage $storage,
         array $categories
     )
     {
         $this->objectManager = $objectManager;
         $this->infoBoxFactory = $infoBoxFactory;
         $this->request = $request;
+        $this->cache = new Cache($storage);
         $this->categories = Arrays::flip($categories);
     }
 
@@ -140,54 +148,9 @@ class MapControl extends AbstractControl
      */
     protected function prepareMarkers()
     {
-        $objects = $this->objectManager->findMarkers($this->restrictor);
-
-        $markers = [];
-
-        // 1. seskupeni dle stejne adresy
-        $groups = $this->groupObjects($objects);
-
-        // 2. priprava markeru
-        foreach ($groups as $group_key => $group) {
-            $count = count($group);
-            $first = reset($group);
-            $objectIds = array_keys($group);
-            $active = null !== $this->object && isset($group[$this->object['object_id']]);
-
-            // group
-            if ($count > 1) {
-                $type = self::MARKER_TYPE_GROUP;
-                $markerPath = "cluster/marker_cluster_" . ($count >= static::MAX_GRAPHIC_GROUP_COUNT ? static::MAX_GRAPHIC_GROUP_COUNT : $count);
-            // others
-            } else {
-                $type = $this->getMarkerType($first);
-
-                // suffix
-                if (true === $type[0]) {
-                    $markerSuffix = "_c";
-                } else {
-                    $markerSuffix = null;
-                }
-
-                // napr. "1/churches_c"
-                // @see spec/markery.ods (puvodni nazvy obrazku)
-                $markerPath = "{$type[1]}/{$type[2]}{$markerSuffix}";
-            }
-
-            $markers[] = [
-                'id' => implode(';', $objectIds),
-                'title' => $first['title'],
-                'count' => $count,
-                'type' => $type,
-                'latitude' => $first['latitude'],
-                'longitude' => $first['longitude'],
-                'object_ids' => $objectIds,
-                'image' => sprintf(static::PATH_TO_MARKER_IMAGES, $markerPath),
-                'active' => $active,
-            ];
-        }
-
-        return Json::encode($markers);
+        return $this->cache->load($this->restrictor, function(& $dependencies) {
+            return $this->innerPrepareMarkers($this->restrictor);
+        });
     }
 
     /**
@@ -297,5 +260,57 @@ class MapControl extends AbstractControl
         }
 
         return $groups;
+    }
+
+    protected function innerPrepareMarkers($restrictor)
+    {
+        $objects = $this->objectManager->findMarkers($restrictor);
+
+        $markers = [];
+
+        // 1. seskupeni dle stejne adresy
+        $groups = $this->groupObjects($objects);
+
+        // 2. priprava markeru
+        foreach ($groups as $group_key => $group) {
+            $count = count($group);
+            $first = reset($group);
+            $objectIds = array_keys($group);
+            $active = null !== $this->object && isset($group[$this->object['object_id']]);
+
+            // group
+            if ($count > 1) {
+                $type = self::MARKER_TYPE_GROUP;
+                $markerPath = "cluster/marker_cluster_" . ($count >= static::MAX_GRAPHIC_GROUP_COUNT ? static::MAX_GRAPHIC_GROUP_COUNT : $count);
+                // others
+            } else {
+                $type = $this->getMarkerType($first);
+
+                // suffix
+                if (true === $type[0]) {
+                    $markerSuffix = "_c";
+                } else {
+                    $markerSuffix = null;
+                }
+
+                // napr. "1/churches_c"
+                // @see spec/markery.ods (puvodni nazvy obrazku)
+                $markerPath = "{$type[1]}/{$type[2]}{$markerSuffix}";
+            }
+
+            $markers[] = [
+                'id' => implode(';', $objectIds),
+                'title' => $first['title'],
+                'count' => $count,
+                'type' => $type,
+                'latitude' => $first['latitude'],
+                'longitude' => $first['longitude'],
+                'object_ids' => $objectIds,
+                'image' => sprintf(static::PATH_TO_MARKER_IMAGES, $markerPath),
+                'active' => $active,
+            ];
+        }
+
+        return Json::encode($markers);
     }
 }
