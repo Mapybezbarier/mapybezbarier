@@ -2431,6 +2431,15 @@ footer.half_opened .footer_logos {
 .detail .detail_description p a:hover {
   text-decoration: none;
 }
+.detail .detail_description p strong {
+  font-family: "Source Sans Pro", Arial, helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-weight: 700;
+}
+.detail .detail_description p em {
+  font-style: italic;
+}
 .detail .detail_description:first-of-type {
   padding-top: 30px;
 }

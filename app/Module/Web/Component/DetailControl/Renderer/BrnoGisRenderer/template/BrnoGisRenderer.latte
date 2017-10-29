@@ -1,14 +1,27 @@
 {include "../../DefaultRenderer/template/DefaultRenderer.latte"}
 
-{ifset $object['detail_description_url']}
-<div class="custom_description">
-    <a href="{$object['detail_description_url']}" target="_blank">{_messages.control.map.detail.brnoGis.detailDescription}</a>
-    <br/>
-    <em>{_messages.control.map.detail.brnoGis.detailDescriptionWarning}</em>
-</div>
-{/ifset}
+<div class="detail_descriptions">
+    <div n:ifset="$object['detail_description_url']" class="detail_description">
+        <p>
+            <a href="{$object['detail_description_url']}" target="_blank">
+                {_messages.control.map.detail.brnoGis.detailDescription}
+            </a>
+        </p>
 
-<div class="custom_description">
-    {_messages.control.map.detail.brnoGis.legalInfo}
-    <a href="{_messages.control.map.detail.brnoGis.legalUrl}" target="_blank">{_messages.control.map.detail.brnoGis.legalTextUrl}</a>
+        <p>
+            <em>{_messages.control.map.detail.brnoGis.detailDescriptionWarning}</em>
+        </p>
+    </div>
+
+    <div class="detail_description">
+        <p>
+            <em>{_messages.control.map.detail.brnoGis.legalInfo}</em>
+        </p>
+
+        <p>
+            <a href="{_messages.control.map.detail.brnoGis.legalUrl}" target="_blank">
+                {_messages.control.map.detail.brnoGis.legalTextUrl}
+            </a>
+        </p>
+    </div>
 </div>
