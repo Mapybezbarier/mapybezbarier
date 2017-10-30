@@ -19,8 +19,6 @@ use Nette\Utils\Json;
  */
 class MapControl extends AbstractControl
 {
-    const MARKER_GROUP_MAX_DISTANCE = 0.0002;
-
     /** @const GET parametry pro konfiguraci mapy. */
     const GET_CENTER_LAT = 'center-lat',
         GET_CENTER_LNG = 'center-lng',
@@ -214,49 +212,18 @@ class MapControl extends AbstractControl
     }
 
     /**
-     * Objekty seskupuji pokud maji stejne RUIAN ID a rozdil jejich GPS souradnic je pod 0.0002
+     * Objekty seskupuji pokud je jejich vzajemna vzdalenost mensi nez self::MARKER_GROUP_MAX_DISTANCE.
+     *
      * @param array $objects
      *
      * @return array
      */
     protected function groupObjects($objects)
     {
-        $ruianAddressGroups = $groups = [];
+        $groups = [];
 
-        foreach ($objects as $item) {
-            if ($item['ruian_address']) {
-                $groupFound = false;
-
-                if (!empty($ruianAddressGroups[$item['ruian_address']])) {
-                    foreach ($ruianAddressGroups[$item['ruian_address']] as $ruian_group) {
-                        $putTogether = true;
-
-                        foreach ($groups[$ruian_group] as $previousItem) {
-                            if (
-                                (abs($item['latitude'] - $previousItem['latitude']) > self::MARKER_GROUP_MAX_DISTANCE)
-                                || (abs($item['longitude'] - $previousItem['longitude']) > self::MARKER_GROUP_MAX_DISTANCE)
-                            ) {
-                                $putTogether = false;
-                                break;
-                            }
-                        }
-
-                        if ($putTogether) {
-                            $groups[$ruian_group][$item['object_id']] = $item;
-                            $groupFound = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!$groupFound) {
-                    $ruian_group = "{$item['ruian_address']}-parent-{$item['object_id']}";
-                    $ruianAddressGroups[$item['ruian_address']][] = $ruian_group;
-                    $groups[$ruian_group][$item['object_id']] = $item;
-                }
-            } else {
-                $groups["id-{$item['object_id']}"][$item['object_id']] = $item;
-            }
+        foreach ($objects as $object) {
+            $groups[$object['cluster_id']][$object['object_id']] = $object;
         }
 
         return $groups;
@@ -272,7 +239,7 @@ class MapControl extends AbstractControl
         $groups = $this->groupObjects($objects);
 
         // 2. priprava markeru
-        foreach ($groups as $group_key => $group) {
+        foreach ($groups as $group) {
             $count = count($group);
             $first = reset($group);
             $objectIds = array_keys($group);
@@ -281,14 +248,14 @@ class MapControl extends AbstractControl
             // group
             if ($count > 1) {
                 $type = self::MARKER_TYPE_GROUP;
-                $markerPath = "cluster/marker_cluster_" . ($count >= static::MAX_GRAPHIC_GROUP_COUNT ? static::MAX_GRAPHIC_GROUP_COUNT : $count);
+                $markerPath = 'cluster/marker_cluster_' . ($count >= static::MAX_GRAPHIC_GROUP_COUNT ? static::MAX_GRAPHIC_GROUP_COUNT : $count);
                 // others
             } else {
                 $type = $this->getMarkerType($first);
 
                 // suffix
                 if (true === $type[0]) {
-                    $markerSuffix = "_c";
+                    $markerSuffix = '_c';
                 } else {
                     $markerSuffix = null;
                 }

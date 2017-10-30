@@ -11,6 +11,8 @@ use MP\Service\FilterService;
  */
 class ObjectMapper extends AbstractLangAwareDatabaseMapper
 {
+    /** @const Maximalni vzdalenost objektu pro spad do stejneho clusteru */
+    const OBJECT_CLUSTER_MAX_DISTANCE = 0.0002;
     /** @const Nazev sloupce s ID objektu. */
     const OBJECT_ID = 'object_id';
     /** @const Nazev sloupce s ID puvodniho objektu. */
@@ -35,6 +37,13 @@ class ObjectMapper extends AbstractLangAwareDatabaseMapper
                     [ruian_address],
                     [longitude],
                     [latitude],
+                    ST_ClusterDBSCAN(
+                        ST_SetSRID(
+                            ST_MakePoint([longitude], [latitude]),
+                                4326
+                            ),
+                            eps := %f, minpoints := 1
+                    ) over () AS [cluster_id],
                     (
                         SELECT [title]
                         FROM [map_object_lang]
@@ -55,6 +64,7 @@ class ObjectMapper extends AbstractLangAwareDatabaseMapper
                     END AS [type]
                 FROM %n main
             ",
+            self::OBJECT_CLUSTER_MAX_DISTANCE,
             $this->lang->getLang(),
             FilterService::TYPE_OUTDATED,
             FilterService::TYPE_CERTIFIED,
