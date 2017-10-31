@@ -26,7 +26,7 @@ class BrnoGisDownloader implements IDownloader
         6, //Ubytování
         7, //Sport a volný čas
         8, //Zdravotnictví
-        9, //WC
+        //9, //WC - neimportuje se, obsahuje duplicity s objekty z ostatnich vrstev
         //10, //Family pointy - neimportuje se
         22, //Terminál hromadné dopravy
     ];
