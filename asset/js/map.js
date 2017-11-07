@@ -41,6 +41,7 @@ function bindClickTheMapInside() {
 var Map = function (config) {
     this.config = $.extend({
         item: null,
+        object: null,
         map: {},
         markers: [],
         contentSelector: ".content",
@@ -166,6 +167,8 @@ Map.prototype.loadMarkers = function () {
 Map.prototype.initMarkers = function () {
     for (var i = 0, count = this.config.markers.length; i < count; i++) {
         var marker = this.config.markers[i];
+
+        marker.active = (this.config.object && -1 !== $.inArray(this.config.object['object_id'], marker.object_ids));
 
         if (undefined === this.markers[marker['id']]) {
             this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
@@ -449,6 +452,15 @@ Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
     }
 
     return true;
+};
+
+/**
+ * Nastavi mapovy objekt.
+ *
+ * @param {object} object
+ */
+Map.prototype.setObject = function (object) {
+  this.config.object = object;
 };
 
 /**

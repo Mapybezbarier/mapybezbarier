@@ -71,6 +71,7 @@ class MarkersControl extends AbstractControl
         if ($this->isRenderable()) {
             $template = $this->getTemplate();
             $template->markers = $this->prepareMarkers();
+            $template->object = $this->prepareObject();
             $template->render();
         }
     }
@@ -92,9 +93,9 @@ class MarkersControl extends AbstractControl
     }
 
     /**
-     * @param array $object
+     * @param array|null $object
      */
-    public function setObject(array $object)
+    public function setObject($object)
     {
         $this->object = $object;
     }
@@ -112,11 +113,19 @@ class MarkersControl extends AbstractControl
      *
      * @return string
      */
-    private function prepareMarkers()
+    private function prepareMarkers(): string
     {
-        return $this->cache->load($this->restrictor, function(& $dependencies) {
+        return $this->cache->load($this->restrictor, function(&$dependencies) {
             return $this->innerPrepareMarkers($this->restrictor);
         });
+    }
+
+    /**
+     * @return string
+     */
+    private function prepareObject(): string
+    {
+        return Json::encode($this->object);
     }
 
     /**
@@ -175,7 +184,6 @@ class MarkersControl extends AbstractControl
             $count = count($group);
             $first = reset($group);
             $objectIds = array_keys($group);
-            $active = null !== $this->object && isset($group[$this->object['object_id']]);
 
             // group
             if ($count > 1) {
@@ -206,7 +214,6 @@ class MarkersControl extends AbstractControl
                 'longitude' => $first['longitude'],
                 'object_ids' => $objectIds,
                 'image' => sprintf(static::PATH_TO_MARKER_IMAGES, $markerPath),
-                'active' => $active,
             ];
         }
 
