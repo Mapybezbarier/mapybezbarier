@@ -24,7 +24,7 @@ class WebExtension extends ModuleExtension implements IRouterProvider
     {
         $routeList = new RouteList($this->getName());
 
-        $routeList[] = new Route("/", [
+        $routeList[] = new Route('/', [
             'presenter' => 'Homepage',
             'action' => 'default',
             'locale' => 'cs',

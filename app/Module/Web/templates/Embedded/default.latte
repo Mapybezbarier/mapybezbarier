@@ -1,6 +1,8 @@
 {block content}
     <div class="embedded_map">
         {control map}
-        {control map:markers}
+        {snippet markers}
+            {control markers}
+        {/snippet}
     </div>
 {/block}

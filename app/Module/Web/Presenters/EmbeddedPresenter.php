@@ -4,6 +4,8 @@ namespace MP\Module\Web\Presenters;
 
 use MP\Module\Web\Component\MapControl\IMapControlFactory;
 use MP\Module\Web\Component\MapControl\MapControl;
+use MP\Module\Web\Component\MarkersControl\IMarkersControlFactory;
+use MP\Module\Web\Component\MarkersControl\MarkersControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
 
 /**
@@ -20,7 +22,7 @@ class EmbeddedPresenter extends AbstractWebPresenter
 
     public function actionDefault()
     {
-        $this->getHttpResponse()->setHeader('X-Frame-Options', NULL);
+        $this->getHttpResponse()->setHeader('X-Frame-Options', null);
     }
 
     /**
@@ -30,13 +32,25 @@ class EmbeddedPresenter extends AbstractWebPresenter
      */
     protected function createComponentMap(IMapControlFactory $factory)
     {
+        $control = $factory->create();
+        $control->setEmbedded(true);
+
+        return $control;
+    }
+
+    /**
+     * @param IMarkersControlFactory $factory
+     *
+     * @return MarkersControl
+     */
+    protected function createComponentMarkers(IMarkersControlFactory $factory)
+    {
         $restrictions = $this->getHttpRequest()->getQuery();
 
         $this->restrictorBuilder->prepareRestrictions($restrictions, true);
 
         $control = $factory->create();
         $control->setRestrictor($this->restrictorBuilder->getRestrictor());
-        $control->setEmbedded(true);
 
         return $control;
     }

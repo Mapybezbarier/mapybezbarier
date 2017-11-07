@@ -15,18 +15,15 @@ use MP\Module\Web\Component\IEmbeddedInfoControlFactory;
 use MP\Module\Web\Component\IExportControlFactory;
 use MP\Module\Web\Component\IHelpControlFactory;
 use MP\Module\Web\Component\INewsControlFactory;
-use MP\Module\Web\Component\MapControl\IMapControlFactory;
 use MP\Module\Web\Component\MapControl\MapControl;
+use MP\Module\Web\Component\MarkersControl\MarkersControl;
 use MP\Module\Web\Component\NavigationControl\INavigationControlFactory;
 use MP\Module\Web\Component\NavigationControl\NavigationControl;
 use MP\Module\Web\Component\NewsControl;
 use MP\Module\Web\Service\ObjectRestrictorBuilder;
 use MP\Module\Web\Service\ObjectService;
-use MP\Util\Arrays;
-use MP\Util\WebLoader\JavaScriptLoader;
 use Nette\Application\Responses\TextResponse;
-use Nette\Http\IRequest;
-use WebLoader\FileCollection;
+use Nette\Utils\FileSystem;
 
 /**
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
@@ -47,6 +44,8 @@ class HomepagePresenter extends AbstractWebPresenter
     const COMPONENT_DETAIL = 'detail';
     /** @const Nazev komponenty s mapou */
     const COMPONENT_MAP = 'map';
+    /** @const Nazev komponenty s markery mapy */
+    const COMPONENT_MARKERS = 'markers';
     /** @const Nazev komponenty s novinkami */
     const COMPONENT_NEWS = 'news';
 
@@ -54,12 +53,6 @@ class HomepagePresenter extends AbstractWebPresenter
     const PARAM_POPUP = 'popup';
     /** @const Nazev parametru s volbou mapove sady */
     const PARAM_MAPS = 'maps';
-
-    /**
-     * @persistent
-     * @var int
-     */
-    public $id;
 
     /** @var ObjectService @inject */
     public $objectService;
@@ -73,6 +66,9 @@ class HomepagePresenter extends AbstractWebPresenter
     /** @var DpaTransformator @inject */
     public $dpaTransformator;
 
+    /** @var array */
+    private $restrictor;
+
     /**
      * @param int|null $id
      *
@@ -80,35 +76,28 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     public function actionDefault(int $id = null)
     {
-        $this->id = $id;
-
-        if (null !== $this->id) {
-            $object = $this->objectService->getObjectByObjectId($this->id);
+        if (null !== $id) {
+            $object = $this->objectService->getObjectByObjectId($id);
 
             if (!$object) {
-                throw new \Nette\Application\BadRequestException("Unknown object with ID '{$this->id}'.");
+                throw new \Nette\Application\BadRequestException("Unknown object with ID '{$id}'.");
             }
 
-            $this[self::COMPONENT_MAP]->setObject($object);
+            $this[self::COMPONENT_MARKERS]->setObject($object);
             $this[self::COMPONENT_DETAIL]->setObject($object);
             $this[self::COMPONENT_NEWS]->setRenderable(false);
         }
+
+        $this->restrictor = $this->objectRestrictorBuilder->getRestrictor();
     }
 
     public function renderDefault()
     {
-        $restrictor = $this->objectRestrictorBuilder->getRestrictor();
+        $this[self::COMPONENT_MARKERS]->setRestrictor($this->restrictor);
 
-        $this[self::COMPONENT_MAP]->setRestrictor($restrictor);
-
-        $this->template->filtered = (bool) $restrictor;
+        $this->template->filtered = (bool) $this->restrictor;
         $this->template->popup = $this->getParameter(self::PARAM_POPUP, null);
         $this->template->maps = $this->getParameter(self::PARAM_MAPS, null);
-
-        if ($this->isAjax() && $this->getHttpRequest()->isMethod(IRequest::POST)) {
-            $this->redrawControl('filter');
-            $this->redrawControl('markers');
-        }
     }
 
     public function handleDetail()
@@ -180,13 +169,13 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     public function actionParseDpa()
     {
-        $data = file_get_contents(STORAGE_DIR . "/example/dpa.csv");
+        $data = FileSystem::read(STORAGE_DIR . '/example/dpa.csv');
 
         $data = $this->dpaTransformator->transform($data);
 
         $response = new TextResponse($data);
 
-        $this->getHttpResponse()->setContentType("text/csv");
+        $this->getHttpResponse()->setContentType('text/csv');
         $this->sendResponse($response);
     }
 
@@ -198,6 +187,17 @@ class HomepagePresenter extends AbstractWebPresenter
     protected function createComponentFilter(IFilterControlFactory $factory)
     {
         $control = $factory->create();
+        $control->onFilterChanged[] = function (array $restrictor = null) {
+            $this->restrictor = $restrictor;
+
+            /** @var MarkersControl $markers */
+            $markers = $this[self::COMPONENT_MARKERS];
+            $markers->setRenderable(true);
+            $markers->setRestrictor($restrictor);
+
+            $this->redrawControl('filter');
+            $this->redrawControl('markers');
+        };
 
         return $control;
     }
@@ -209,9 +209,7 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentNavigation(INavigationControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 
     /**
@@ -221,9 +219,7 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentDetail(IDetailControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 
     /**
@@ -233,9 +229,7 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentExport(IExportControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 
     /**
@@ -245,9 +239,7 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentEmbeddedInfo(IEmbeddedInfoControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 
     /**
@@ -257,9 +249,7 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentHelp(IHelpControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 
     /**
@@ -269,8 +259,6 @@ class HomepagePresenter extends AbstractWebPresenter
      */
     protected function createComponentNews(INewsControlFactory $factory)
     {
-        $control = $factory->create();
-
-        return $control;
+        return $factory->create();
     }
 }

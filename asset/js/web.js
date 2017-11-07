@@ -176,14 +176,15 @@ function loadPopupContent(url, data) {
     $wrapper.removeClass('error');
     $content.html('');
 
-    $($wrapper).spin(getDefaultSpinner());
-
     if (url.length > 0) {
         togglePopup(true);
 
         var config = {
             url: url,
             data: data,
+            beforeSend: function() {
+                $($wrapper).spin(getDefaultSpinner());
+            },
             success: function (payload) {
                 $content.html(payload);
             },

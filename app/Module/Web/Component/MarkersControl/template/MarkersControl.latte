@@ -1,7 +1,5 @@
 <script type="text/javascript">
-    var mapMarkers = {$markers|noescape};
-
     if ('undefined' !== typeof window.googleMap) {
-        window.googleMap.setMarkers(mapMarkers);
+        window.googleMap.setMarkers({$markers|noescape});
     }
 </script>

@@ -17,8 +17,7 @@ $(window).resize(function () {
 function bindMap() {
     var config = {
         item: $('#map'),
-        map: mapConfig,
-        markers: mapMarkers
+        map: mapConfig
     };
 
     return new Map(config);
@@ -51,6 +50,7 @@ var Map = function (config) {
         detailContentSelector: '.detail',
         detailSelector: '.nwjs_detail',
         detailOpenClass: 'opened',
+        detailDefaultZoom: 17,
         newsSelector: '.nwjs_news',
         newsCloseSelector: '.nwjs_close_news',
         mapTypeChangeSelector: '.nwjs_change_map_type',
@@ -87,7 +87,6 @@ Map.prototype.init = function () {
 
     if (this.config.item !== undefined && this.config.item.length) {
         this.initMap();
-        this.initMarkers();
     }
 };
 
@@ -95,7 +94,12 @@ Map.prototype.init = function () {
  * Inicializace mapy.
  */
 Map.prototype.initMap = function () {
+    var context = this;
+
     this._mapLayer = MapLayer;
+    this._mapLayer.addInitMapCallback(function() {
+        context.loadMarkers();
+    });
     this._mapLayer.initMap(this);
 
     this.bindMapTypeChange();
@@ -111,6 +115,7 @@ Map.prototype.initMap = function () {
  */
 Map.prototype.markerClick = function (e) {
     var object_ids = this._mapLayer.markerClick(e);
+
     if (object_ids) {
         var context = this;
         var config = {
@@ -133,6 +138,29 @@ Map.prototype.markerClick = function (e) {
 };
 
 /**
+ * Nacteni markeru
+ */
+Map.prototype.loadMarkers = function () {
+    var context = this;
+    var config = {
+        url: this.config.item.data('markers-load-url'),
+        beforeSend: function () {
+            context.config.item.spin(getDefaultSpinner({
+                top: "35%"
+            }));
+        },
+        success: function (payload) {
+            context.setMarkers(payload);
+        },
+        complete: function() {
+            context.config.item.spin(false);
+        }
+    };
+
+    $.nette.ajax(config);
+};
+
+/**
  * Inicializace markeru
  */
 Map.prototype.initMarkers = function () {
@@ -148,7 +176,7 @@ Map.prototype.initMarkers = function () {
 };
 
 /**
- * Inicizalice sablon.
+ * Inicizalice sablon
  */
 Map.prototype.initTemplates = function () {
     for (var template in this.templates) {
@@ -448,6 +476,7 @@ Map.prototype.setMarkers = function (markers) {
     }
 
     var removeMarkers = [];
+
     for (id in this.markers) {
         index = $.inArray(id, ids);
 
