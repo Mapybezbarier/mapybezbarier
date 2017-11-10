@@ -40,6 +40,7 @@ class ObjectPresenter extends ApiPresenter
 
         if ($source) {
             ini_set('memory_limit', '2048M');
+			set_time_limit(240);
             $restrictor = $this->restrictorBuilder->getRestrictor();
 
             $objects = $this->objectService->getObjects($restrictor);
