@@ -103,7 +103,7 @@ class VozejkmapParser implements IParser
             'objectType' => ($locationTypeId ? Arrays::get(self::$mapLocationType, $locationTypeId, ObjectMetadata::CATEGORY_OTHER) : ObjectMetadata::CATEGORY_OTHER),
             'accessibility' => $this->getObjectAccessibility($row),
             'externalData' => $this->prepareExternalData($row),
-            'webUrl' => Arrays::get($row, 'link', null),
+            'webUrl' => $this->getWebUrl($row),
             'zipcode' => Arrays::get($row, 'zip', null),
             'street' => Arrays::get($row, 'street', null),
             'city' => Arrays::get($row, 'city', null),
@@ -183,6 +183,19 @@ class VozejkmapParser implements IParser
         if (!empty($row['attr2'])) {
             $ret = 'yes' === $row['attr2'] ? ObjectMetadata::ACCESSIBILITY_OK : ObjectMetadata::ACCESSIBILITY_PARTLY;
         }
+
+        return $ret;
+    }
+
+    /**
+     * URL adresy z vozejkmap nekdy obsahuji vce adres oddelenych strednikem
+     * @param array $row
+     * @return string|null
+     */
+    protected function getWebUrl($row)
+    {
+        $ret = Arrays::get($row, 'link', null);
+        list($ret) = explode(';', $ret);
 
         return $ret;
     }

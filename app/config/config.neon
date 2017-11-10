@@ -18,10 +18,6 @@ php:
     serialize_precision: 14
 
 
-constants:
-    DEFAULT_DETAIL_ZOOM: 17
-
-
 application:
     errorPresenter: Web:Error
     mapping:

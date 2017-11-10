@@ -4,6 +4,8 @@ namespace MP\Module\Web\Presenters;
 
 use MP\Module\Web\Component\MapControl\IMapControlFactory;
 use MP\Module\Web\Component\MapControl\MapControl;
+use MP\Module\Web\Component\MarkersControl\IMarkersControlFactory;
+use MP\Module\Web\Component\MarkersControl\MarkersControl;
 use MP\Util\Arrays;
 use MP\Util\WebLoader\JavaScriptLoader;
 use WebLoader\FileCollection;
@@ -50,12 +52,29 @@ trait TMapPresenter
         return $control;
     }
 
+    public function handleMarkers()
+    {
+        $this['markers']->setRenderable(true);
+
+        $this->redrawControl('markers');
+    }
+
     /**
      * @param IMapControlFactory $factory
      *
      * @return MapControl
      */
     protected function createComponentMap(IMapControlFactory $factory)
+    {
+        return $factory->create();
+    }
+
+    /**
+     * @param IMarkersControlFactory $factory
+     *
+     * @return MarkersControl
+     */
+    protected function createComponentMarkers(IMarkersControlFactory $factory)
     {
         return $factory->create();
     }

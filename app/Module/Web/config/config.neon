@@ -50,7 +50,9 @@ services:
         arguments: [%gA%]
     mapControlFactory:
         implement: MP\Module\Web\Component\MapControl\IMapControlFactory
-        arguments: [..., ..., ..., @markersSqlStorage, %categories.mapping%]
+    markersControlFactory:
+        implement: MP\Module\Web\Component\MarkersControl\IMarkersControlFactory
+        arguments: [..., @markersSqlStorage, %categories.mapping%]
     navigationControlFactory:
         implement: MP\Module\Web\Component\NavigationControl\INavigationControlFactory
         arguments: [..., %navigation%]

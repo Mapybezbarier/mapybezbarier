@@ -19,6 +19,9 @@ use Nette\Utils\Html;
  */
 class FilterControl extends AbstractFormControl
 {
+    /** @var callable function(array $restrictor) */
+    public $onFilterChanged = [];
+
     /** @var ObjectRestrictorBuilder */
     protected $restrictorBuilder;
 
@@ -75,6 +78,8 @@ class FilterControl extends AbstractFormControl
         $values[ObjectRestrictorBuilder::RESTRICTION_CATEGORY] = array_unique($categories);
 
         $this->restrictorBuilder->prepareRestrictions($values, true);
+
+        $this->onFilterChanged($this->restrictorBuilder->getRestrictor());
     }
 
     /**

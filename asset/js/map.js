@@ -17,8 +17,7 @@ $(window).resize(function () {
 function bindMap() {
     var config = {
         item: $('#map'),
-        map: mapConfig,
-        markers: mapMarkers
+        map: mapConfig
     };
 
     return new Map(config);
@@ -42,6 +41,7 @@ function bindClickTheMapInside() {
 var Map = function (config) {
     this.config = $.extend({
         item: null,
+        object: null,
         map: {},
         markers: [],
         contentSelector: ".content",
@@ -51,6 +51,7 @@ var Map = function (config) {
         detailContentSelector: '.detail',
         detailSelector: '.nwjs_detail',
         detailOpenClass: 'opened',
+        detailDefaultZoom: 17,
         newsSelector: '.nwjs_news',
         newsCloseSelector: '.nwjs_close_news',
         mapTypeChangeSelector: '.nwjs_change_map_type',
@@ -87,7 +88,6 @@ Map.prototype.init = function () {
 
     if (this.config.item !== undefined && this.config.item.length) {
         this.initMap();
-        this.initMarkers();
     }
 };
 
@@ -95,7 +95,12 @@ Map.prototype.init = function () {
  * Inicializace mapy.
  */
 Map.prototype.initMap = function () {
+    var context = this;
+
     this._mapLayer = MapLayer;
+    this._mapLayer.addInitMapCallback(function() {
+        context.loadMarkers();
+    });
     this._mapLayer.initMap(this);
 
     this.bindMapTypeChange();
@@ -111,6 +116,7 @@ Map.prototype.initMap = function () {
  */
 Map.prototype.markerClick = function (e) {
     var object_ids = this._mapLayer.markerClick(e);
+
     if (object_ids) {
         var context = this;
         var config = {
@@ -133,11 +139,36 @@ Map.prototype.markerClick = function (e) {
 };
 
 /**
+ * Nacteni markeru
+ */
+Map.prototype.loadMarkers = function () {
+    var context = this;
+    var config = {
+        url: this.config.item.data('markers-load-url'),
+        beforeSend: function () {
+            context.config.item.spin(getDefaultSpinner({
+                top: "35%"
+            }));
+        },
+        success: function (payload) {
+            context.setMarkers(payload);
+        },
+        complete: function() {
+            context.config.item.spin(false);
+        }
+    };
+
+    $.nette.ajax(config);
+};
+
+/**
  * Inicializace markeru
  */
 Map.prototype.initMarkers = function () {
     for (var i = 0, count = this.config.markers.length; i < count; i++) {
         var marker = this.config.markers[i];
+
+        marker.active = (this.config.object && -1 !== $.inArray(this.config.object['object_id'], marker.object_ids));
 
         if (undefined === this.markers[marker['id']]) {
             this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
@@ -148,7 +179,7 @@ Map.prototype.initMarkers = function () {
 };
 
 /**
- * Inicizalice sablon.
+ * Inicizalice sablon
  */
 Map.prototype.initTemplates = function () {
     for (var template in this.templates) {
@@ -424,6 +455,15 @@ Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
 };
 
 /**
+ * Nastavi mapovy objekt.
+ *
+ * @param {object} object
+ */
+Map.prototype.setObject = function (object) {
+  this.config.object = object;
+};
+
+/**
  * Nastavi novou sadu markeru.
  *
  * @param {object[]} markers
@@ -448,6 +488,7 @@ Map.prototype.setMarkers = function (markers) {
     }
 
     var removeMarkers = [];
+
     for (id in this.markers) {
         index = $.inArray(id, ids);
 

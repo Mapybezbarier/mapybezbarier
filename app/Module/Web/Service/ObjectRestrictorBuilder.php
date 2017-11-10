@@ -75,8 +75,8 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             $restrictor[] = $this->prepareTypeRestrictions($types);
         }
 
-        $restrictor[] = ["[latitude] IS NOT NULL"];
-        $restrictor[] = ["[longitude] IS NOT NULL"];
+        $restrictor[] = ['[latitude] IS NOT NULL'];
+        $restrictor[] = ['[longitude] IS NOT NULL'];
 
         $restrictor = array_filter($restrictor);
 

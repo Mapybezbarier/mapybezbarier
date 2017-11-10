@@ -1,5 +1,6 @@
 MapLayer = {
-    initCallbacks: []
+    initMapCallbacks: [],
+    initMarkersCallbacks: []
 };
 
 /** Handler pro naseptavac */
@@ -109,6 +110,8 @@ MapLayer.closeInfoBoxes = function () {
 MapLayer.initMarkers = function() {
     this.clusters.clearMarkers();
     this.clusters.addMarkers($.map(this._map.markers, function(v) { return v; }));
+
+    this.applyInitMarkersCallbacks();
 };
 
 MapLayer.closeInfoBox = function () {
@@ -136,14 +139,29 @@ MapLayer.setZoom = function(zoom) {
 /**
  * @param {function} callback
  */
-MapLayer.addInitCallback = function(callback) {
-    this.initCallbacks.push(callback);
+MapLayer.addInitMapCallback = function(callback) {
+    this.initMapCallbacks.push(callback);
 };
 
-MapLayer.applyInitCallbacks = function() {
-    for (var i = 0, length = this.initCallbacks.length; i < length; i++) {
-        this.initCallbacks[i]();
-        this.initCallbacks.splice(i, 1);
+/**
+ * @param {function} callback
+ */
+MapLayer.addInitMarkersCallback = function(callback) {
+    this.initMarkersCallbacks.push(callback);
+};
+
+MapLayer.applyInitMapCallbacks = function() {
+    this.applyCallback(this.initMapCallbacks);
+};
+
+MapLayer.applyInitMarkersCallbacks = function () {
+    this.applyCallback(this.initMarkersCallbacks);
+};
+
+MapLayer.applyCallback = function(callbacks) {
+    for (var i = 0, length = callbacks.length; i < length; i++) {
+        callbacks[i]();
+        callbacks.splice(i, 1);
     }
 };
 
@@ -155,7 +173,7 @@ MapLayer.initMap = function (map) {
     this._map.map = new google.maps.Map(this._map.config.item.get(0), this._map.config.map);
 
     this._map.map.addListener('idle', function() {
-        MapLayer.applyInitCallbacks();
+        MapLayer.applyInitMapCallbacks();
     });
 
     // @see http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/docs/reference.html
@@ -236,13 +254,15 @@ MapLayer.prepareMarker = function (marker) {
         };
 
         var mapMarker = new google.maps.Marker(config);
+
         mapMarker.addListener('click', function () {
             context.markerClick(marker);
         });
 
         if (marker.active) {
-            this.addInitCallback(function() {
+            this.addInitMarkersCallback(function() {
                 context.markerClick(marker);
+                context.map.setZoom(context.config.detailDefaultZoom);
             });
         }
 
