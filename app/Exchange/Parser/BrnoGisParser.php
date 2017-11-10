@@ -134,7 +134,7 @@ class BrnoGisParser implements IParser
 
         for ($i = 1; $i <= 14; $i++) {
             if ($val = Arrays::get($attributes, sprintf('pikto_%02d', $i), null)) {
-                $pictogramBool = (1 === $val);
+                $pictogramBool = (1 == $val); // muze byt integer i string
             } else {
                 $pictogramBool = null;
             }
