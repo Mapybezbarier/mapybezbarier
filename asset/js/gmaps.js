@@ -239,21 +239,18 @@ MapLayer.prepareMarker = function (marker) {
     if ('undefined' !== typeof marker['latitude'] && 'undefined' !== typeof marker['longitude']) {
         var context = this._map;
 
-        var marker_image = new google.maps.MarkerImage(
-            marker['image'],
-            null, /* size is determined at runtime */
-            null, /* origin is 0,0 */
-            null, /* anchor is bottom center of the scaled image */
-            new google.maps.Size(50, 70)
-        );
-
-        var config = {
+        var size = new google.maps.Size(50, 70);
+        var mapMarker = new google.maps.Marker({
             title: marker['title'],
-            icon: marker_image,
+            icon: {
+                url: marker['image'],
+                size: size,
+                origin: null,
+                anchor: null,
+                scaledSize: size
+            },
             position: new google.maps.LatLng(marker['latitude'], marker['longitude'])
-        };
-
-        var mapMarker = new google.maps.Marker(config);
+        });
 
         mapMarker.addListener('click', function () {
             context.markerClick(marker);
