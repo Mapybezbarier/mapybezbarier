@@ -150,9 +150,6 @@ Map.prototype.loadMarkers = function () {
                 top: "35%"
             }));
         },
-        success: function (payload) {
-            context.setMarkers(payload);
-        },
         complete: function() {
             context.config.item.spin(false);
         }
