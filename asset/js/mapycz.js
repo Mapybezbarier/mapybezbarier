@@ -31,8 +31,6 @@ MapLayer.initMap = function (map) {
     this._map.map.setPadding("left", 10);
     this._map.map.setPadding("right", 10);
 
-    this._lastZoom = this._map.map.getZoom();
-
     this._clusters = new SMap.Marker.Clusterer(this._map.map);
 
     this._layerMarkers = new SMap.Layer.Marker();
