@@ -466,16 +466,15 @@ Map.prototype.setObject = function (object) {
  * @param {object[]} markers
  */
 Map.prototype.setMarkers = function (markers) {
-    var ids = $.map(markers, function (marker) {
-        return marker['id'];
-    });
+    var ids = markers.reduce(function(ret, marker) {
+        ret[marker['id']] = true;
+        return ret;
+    }, {});
 
-    var id, index;
+    var id;
 
     for (id in this.infoBoxes) {
-        index = $.inArray(id, ids);
-
-        if (-1 === index) {
+        if (!ids.hasOwnProperty(id)) {
             if (this.infoBox === this.infoBoxes[id]) {
                 this.closeInfoBox();
             }
@@ -487,16 +486,14 @@ Map.prototype.setMarkers = function (markers) {
     var removeMarkers = [];
 
     for (id in this.markers) {
-        index = $.inArray(id, ids);
-
-        if (-1 === index) {
+        if (!ids.hasOwnProperty(id)) {
             removeMarkers.push(this.markers[id]);
 
             delete this.markers[id];
         }
     }
 
-    this._mapLayer.setMarkers(removeMarkers);
+    this._mapLayer.removeMarkers(removeMarkers);
 
     this.config.markers = markers;
 

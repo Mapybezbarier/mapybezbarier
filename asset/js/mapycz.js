@@ -56,7 +56,7 @@ MapLayer.setClustering = function setClustering(closeView) {
     }
 };
 
-MapLayer.setMarkers = function(markers) {
+MapLayer.removeMarkers = function(markers) {
     if (markers.length)
         this._layerMarkers.removeMarker(markers);
 };
