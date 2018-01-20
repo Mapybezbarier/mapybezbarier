@@ -121,14 +121,14 @@ class RuianSyncService
             $csvValues[] = [
                 'id' => $columns[0],
                 'city%sN' => $columns[2],
-                'city_momc%sN' => $columns[3],
-                'city_part%sN' => $columns[6],
-                'street%sN' => $columns[7],
-                'street_no_is_alternative%b' => ('č.p.' !== $columns[8]), // pokud neni cislo popisne, tak oznacim
-                'street_desc_no%iN' => $columns[9],
-                'street_orient_no%iN' => $columns[10],
-                'street_orient_symbol%sN' => $columns[11],
-                'zipcode%sN' => $columns[12],
+                'city_momc%sN' => $columns[4],
+                'city_part%sN' => $columns[8],
+                'street%sN' => $columns[10],
+                'street_no_is_alternative%b' => ('č.p.' !== $columns[11]), // pokud neni cislo popisne, tak oznacim
+                'street_desc_no%iN' => $columns[12],
+                'street_orient_no%iN' => $columns[13],
+                'street_orient_symbol%sN' => $columns[14],
+                'zipcode%sN' => $columns[15],
             ];
 
             $ret++;
