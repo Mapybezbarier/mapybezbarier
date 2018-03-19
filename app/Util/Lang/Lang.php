@@ -4,15 +4,17 @@ namespace MP\Util\Lang;
 
 use Kdyby\Translation\Translator;
 use Nette\Http\Request;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * Podpurna trida pro praci s jazkem (uzivalsky nastavenym, detekovanym z browseru apod.)
  *
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
  */
-class Lang extends Object
+class Lang
 {
+    use SmartObject;
+
     /** @const Parametr v URI nesouci jazykovou mutaci dat */
     const PARAM_LANG = 'lang';
 

@@ -28,8 +28,22 @@ services:
     wheelmapInfoBoxRendererFactory: MP\Module\Web\Component\InfoBoxControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory
 
     # detail
-    defaultDetailRendererControlFactory: MP\Module\Web\Component\DetailControl\Renderer\DefaultRenderer\IDefaultRendererFactory
-    vozejkmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
-    wcKompasDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WcKompasRenderer\IWcKompasRendererFactory
-    wheelmapDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory
-    brnoGisDetailRendererFactory: MP\Module\Web\Component\DetailControl\Renderer\BrnoGisRenderer\IBrnoGisRendererFactory
+    defaultDetailRendererControlFactory:
+        implement: MP\Module\Web\Component\DetailControl\Renderer\DefaultRenderer\IDefaultRendererFactory
+        inject: true
+
+    vozejkmapDetailRendererFactory:
+        implement: MP\Module\Web\Component\DetailControl\Renderer\VozejkmapRenderer\IVozejkmapRendererFactory
+        inject: true
+
+    wcKompasDetailRendererFactory:
+        implement: MP\Module\Web\Component\DetailControl\Renderer\WcKompasRenderer\IWcKompasRendererFactory
+        inject: true
+
+    wheelmapDetailRendererFactory:
+        implement: MP\Module\Web\Component\DetailControl\Renderer\WheelmapRenderer\IWheelmapRendererFactory
+        inject: true
+
+    brnoGisDetailRendererFactory:
+        implement: MP\Module\Web\Component\DetailControl\Renderer\BrnoGisRenderer\IBrnoGisRendererFactory
+        inject: true

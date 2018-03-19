@@ -2,15 +2,17 @@
 
 namespace MP\Mapper;
 
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * Globalni kontext mapperu.
  *
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
  */
-class Context extends Object
+class Context
 {
+    use SmartObject;
+
     /** @var bool Zda ma pri vyberu dat dojit k mergi jazykovych dat */
     protected $mergeLanguageData = true;
 

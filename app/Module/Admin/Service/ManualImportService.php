@@ -6,8 +6,8 @@ use MP\Exchange\Downloader\DownloaderFactory;
 use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\ImportService;
 use MP\Manager\ExchangeSourceManager;
-use MP\Module\Admin\Manager\ImportLogManager;
 use MP\Manager\LicenseManager;
+use MP\Module\Admin\Manager\ImportLogManager;
 use Nette\Http\FileUpload;
 use Nette\Utils\Json;
 

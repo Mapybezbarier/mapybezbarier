@@ -25,12 +25,12 @@
     "jstayton/google-maps-geocoder": "~2.4",
     "sabre/xml": "~2.0",
     "goodby/csv": "~1.3",
-    "pelago/emogrifier": "V1.2.0",
+    "pelago/emogrifier": "~2.0",
     "janmarek/webloader": "dev-master",
     "natxet/CssMin": "~3.0",
     "tedivm/jshrink": "~1.2",
     "h4kuna/ares": "~1.1",
-    "ipub/images": "~1.0",
+    "ipub/images": "~2.1",
     "vojtech-dobes/nette-ajax-history": "~2.0",
     "misd/linkify": "^1.1"
   }

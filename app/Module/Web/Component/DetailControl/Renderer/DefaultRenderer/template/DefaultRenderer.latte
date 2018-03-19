@@ -25,7 +25,7 @@
 
 <div n:if="$object['image']" class="detail_image">
     <a href="/storage/{$object['image']}" class="nwjs_imagebox">
-        <img n:src="'default://' . $object['image'], '560'" alt="{$object['title']}" />
+        <img src="{$imageSrc}" alt="{$object['title']}" />
     </a>
 </div>
 

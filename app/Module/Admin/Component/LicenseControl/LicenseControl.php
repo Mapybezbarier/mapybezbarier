@@ -4,8 +4,8 @@ namespace MP\Module\Admin\Component\LicenseControl;
 
 use MP\Component\Form\AbstractFormControl;
 use MP\Component\Form\FormFactory;
-use MP\Mapper\IMapper;
 use MP\Manager\LicenseManager;
+use MP\Mapper\IMapper;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Module\Admin\Service\LogService;
 use Nette\Forms\Form;

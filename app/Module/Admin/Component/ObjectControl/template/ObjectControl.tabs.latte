@@ -19,7 +19,7 @@
     <div n:if="$image" class="object_photo_wrapper">
         <div class="object_photo">
             <a href="/storage/{$image}" class="nwjs_imagebox">
-                <img n:src="'default://' . $image, '200x200'" />
+                <img src="{$imageSrc}" />
             </a>
         </div>
         <div class="delete_button">

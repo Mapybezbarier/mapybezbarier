@@ -1,7 +1,6 @@
 <?php
 
 namespace MP\Manager;
-use MP\Manager\AbstractManager;
 
 /**
  * Manazer licenci objektu - zakladni ciselnik.

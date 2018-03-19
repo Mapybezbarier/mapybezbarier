@@ -4,8 +4,8 @@ namespace MP\Exchange\Parser;
 
 use MP\Util\Arrays;
 use Nette\Utils\Strings;
-use Sabre\Xml\Reader;
 use Sabre\Xml\Element\Base;
+use Sabre\Xml\Reader;
 
 /**
  * Parser XML importniho souboru podle XSD http://mapybezbarier.cz/XMLSchema.

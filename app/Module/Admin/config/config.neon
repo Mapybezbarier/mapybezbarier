@@ -17,7 +17,9 @@ services:
     objectListControlFactory: MP\Module\Admin\Component\ObjectListControl\IObjectListControlFactory
     objectSelectControlFactory: MP\Module\Admin\Component\ObjectSelectControl\IObjectSelectControlFactory
     objectOwnerControlFactory: MP\Module\Admin\Component\ObjectOwnerControl\IObjectOwnerControlFactory
-    objectControlFactory: MP\Module\Admin\Component\ObjectControl\IObjectControlFactory
+    objectControlFactory:
+        implement: MP\Module\Admin\Component\ObjectControl\IObjectControlFactory
+        inject: true
     objectAddressMapControlFactory: MP\Module\Admin\Component\ObjectAddressMapControl\IObjectAddressMapControlFactory
     licenseListControlFactory: MP\Module\Admin\Component\LicenseListControl\ILicenseListControlFactory
     licenseControlFactory: MP\Module\Admin\Component\LicenseControl\ILicenseControlFactory

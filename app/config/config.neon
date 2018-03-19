@@ -47,8 +47,16 @@ images:
     routes:
         - "/<namespace .+>/<size>[-<algorithm>]/<filename>.<extension>"
     wwwDir: %wwwDir%
-    storage: [default: @defaultImageStorage]
 
+
+flysystem:
+    adapters:
+        images:
+            type: local
+            directory: %storageDir%/images
+    filesystems:
+        images:
+            adapter: images
 
 services:
     nette.templateFactory:
@@ -86,9 +94,6 @@ services:
     dpaTransformator: MP\Exchange\Service\DpaTransformator
     valuesNormalizer: MP\Exchange\Service\ValuesNormalizer
     automaticImportService: MP\Module\Admin\Service\AutomaticImportService
-    defaultImageStorage:
-        class: MP\Service\ImageFileStorage
-        arguments: [%storageDir%, %wwwDir%]
     filterSet: MP\Util\Latte\Filter\FilterSet
 
     # cache
@@ -223,6 +228,7 @@ extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
     translation: Kdyby\Translation\DI\TranslationExtension
     webloader: MP\Util\WebLoader\Extension
+    flysystem: IPub\Flysystem\DI\FlysystemExtension
     images: IPub\Images\DI\ImagesExtension
     ajaxHistory: VojtechDobes\NetteAjax\HistoryExtension
     managerExtension: MP\DI\ManagerExtension

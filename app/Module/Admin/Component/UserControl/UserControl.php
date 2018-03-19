@@ -3,8 +3,8 @@
 namespace MP\Module\Admin\Component\UserControl;
 
 use h4kuna\Ares\Ares;
-use MP\Module\Admin\Component\AbstractUserControl;
 use MP\Manager\LicenseManager;
+use MP\Module\Admin\Component\AbstractUserControl;
 use MP\Module\Admin\Service\Authorizator;
 use MP\Util\Arrays;
 use MP\Util\Forms;

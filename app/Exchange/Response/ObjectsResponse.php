@@ -4,15 +4,17 @@ namespace MP\Exchange\Response;
 
 use Nette\Http\IRequest;
 use Nette\Http\IResponse;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * Aplikacni odpoved pro objekty. Vyuzivano pri exportu a v ramci API.
  *
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
  */
-class ObjectsResponse extends Object implements \Nette\Application\IResponse
+class ObjectsResponse implements \Nette\Application\IResponse
 {
+    use SmartObject;
+
     /** @const Zname typy odpovedi. Slouzi pro nastaveni mime-type odpovedi. */
     const XML = 'xml',
         JSON = 'json',

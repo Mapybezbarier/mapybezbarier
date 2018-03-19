@@ -8,7 +8,6 @@ use Nette\Http\Url;
 use Nette\Utils\Arrays;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
-use Tracy\Debugger;
 
 /**
  * Downloader pro data z GIS Brno (http://gis.brno.cz/arcgis/rest/services/PUBLIC/bezbarierove_objekty/MapServer)

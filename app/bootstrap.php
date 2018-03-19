@@ -2,7 +2,6 @@
 
 use Dibi\Bridges\Tracy\Panel;
 use MP\Util\Tracy\Logger;
-use Nette\Application\Routers\Route;
 use Tracy\Debugger;
 
 require __DIR__ . '/../vendor/autoload.php';

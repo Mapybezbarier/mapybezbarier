@@ -2,7 +2,6 @@
 
 namespace MP\Manager;
 
-use MP\Service\ImageFileStorage;
 use MP\Util\Arrays;
 use Nette\Http\FileUpload;
 use Nette\Utils\FileSystem;
@@ -19,9 +18,6 @@ class ImageManager
     const NAMESPACE_DRAFT = 'draft',
         NAMESPACE_OBJECT = 'object';
 
-    /** @var ImageFileStorage */
-    protected $imageStorage;
-
     /** @var array */
     private static $types = [
         'image/gif' => 'gif',
@@ -31,14 +27,6 @@ class ImageManager
         'image/x-png' => 'png',
         'image/tiff' => 'tif',
     ];
-
-    /**
-     * @param ImageFileStorage $imageStorage
-     */
-    public function __construct(ImageFileStorage $imageStorage)
-    {
-        $this->imageStorage = $imageStorage;
-    }
 
     /**
      * Ulozi fotku
@@ -104,11 +92,9 @@ class ImageManager
      */
     public function remove($id, $namespace)
     {
-        $this->imageStorage->setNamespace("images/{$namespace}");
-
         /** @var \SplFileInfo $image */
         foreach (Finder::findFiles("{$id}.*")->from($this->getStorageDir($namespace)) as $image) {
-            $this->imageStorage->delete($image->getFilename());
+            FileSystem::delete($image->getRealPath());
         }
     }
 

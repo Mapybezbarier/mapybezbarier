@@ -2,6 +2,7 @@
 
 namespace MP\Module\Admin\Component\ObjectControl;
 
+use IPub\Images\TImages;
 use MP\Component\Form\FormFactory;
 use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\RuianFinder;
@@ -38,6 +39,8 @@ use Nette\Utils\Validators;
  */
 class ObjectControl extends AbstractObjectControl
 {
+    use TImages;
+
     /** @const Nazev parametru s hodnotou pro query naseptavani */
     const PARAM_TERM = 'term';
 
@@ -452,7 +455,7 @@ class ObjectControl extends AbstractObjectControl
     protected function publishObject(Form $form)
     {
         $values = $form->getValues(true);
-        
+
         $object = $this->prepareObject($values);
 
         $priority = (empty($object['latitude']) || empty($object['longitude']));
@@ -879,6 +882,10 @@ class ObjectControl extends AbstractObjectControl
      * @override Predani vystupu validace
      *
      * @param ITemplate $template
+     *
+     * @throws \IPub\Images\Exceptions\InvalidArgumentException
+     * @throws \IPub\Images\Exceptions\InvalidStateException
+     * @throws \Nette\Utils\JsonException
      */
     protected function prepareTemplateVars(ITemplate $template)
     {
@@ -886,8 +893,23 @@ class ObjectControl extends AbstractObjectControl
 
         $values = $this->prepareDefaults();
 
+        $image = $this->prepareImage();
+
         $template->values = $values;
-        $template->image = $this->prepareImage();
+        $template->image = $image;
+        $template->imageSrc = null;
+
+        if ($image) {
+            $template->imageSrc = $this->imgHelpers->imageLink([
+                'provider' => 'presenter',
+                'storage' => 'images',
+                'namespace' => basename(dirname($image)),
+                'filename' => basename($image),
+                'size' => '200x200',
+                'algorithm' => 'fit',
+            ]);
+        }
+
         $template->errors = $this->prepareErrors();
         $template->notices = $this->prepareNotices();
         $template->hasAddress = $this->prepareHasAddress($values);

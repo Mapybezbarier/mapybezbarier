@@ -6,6 +6,7 @@ use Nette;
 use Nette\Application\Request;
 use Nette\Application\Responses\CallbackResponse;
 use Nette\Application\Responses\ForwardResponse;
+use Nette\SmartObject;
 use Tracy\ILogger;
 
 /**
@@ -13,8 +14,10 @@ use Tracy\ILogger;
  *
  * @author Martin Odstrcilik <martin.odstrcilik@gmail.com>
  */
-class ErrorPresenter extends Nette\Object implements Nette\Application\IPresenter
+class ErrorPresenter implements Nette\Application\IPresenter
 {
+    use SmartObject;
+
     /** @var ILogger */
     private $logger;
 
@@ -39,7 +42,7 @@ class ErrorPresenter extends Nette\Object implements Nette\Application\IPresente
         }
 
         $this->logger->log($exception, ILogger::EXCEPTION);
-        
+
         return new CallbackResponse(function () {
             require __DIR__ . '/../templates/Error/500.phtml';
         });
