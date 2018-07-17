@@ -203,7 +203,7 @@ MapLayer.initMap = function (map) {
         };
 
     this.clusters = new MarkerClusterer(this._map.map, [], mcOptions);
-    
+
     this.fixInfoWindow();
 };
 
@@ -258,8 +258,9 @@ MapLayer.prepareMarker = function (marker) {
 
         if (marker.active) {
             this.addInitMarkersCallback(function() {
-                context.markerClick(marker);
+                context.map.setCenter(new google.maps.LatLng(marker['latitude'], marker['longitude']));
                 context.map.setZoom(context.config.detailDefaultZoom);
+                context.markerClick(marker);
             });
         }
 
