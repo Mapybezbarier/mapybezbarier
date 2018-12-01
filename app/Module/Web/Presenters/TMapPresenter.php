@@ -18,10 +18,11 @@ use WebLoader\FileCollection;
 trait TMapPresenter
 {
     /**
+     * Jsou GoogleMaps defaultnim mapovym podkladem?
      * @persistent
      * @var bool
      */
-    public $maps = true;
+    public $maps = false;
 
     /**
      * @override Pridani JavaScriptovych souboru podle zvolenych mapovych podkladu
