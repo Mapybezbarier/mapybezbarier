@@ -20,7 +20,7 @@ function bindMap() {
         map: mapConfig
     };
 
-    return new Map(config);
+    return new MapWrapper(config);
 }
 
 /**
@@ -38,7 +38,7 @@ function bindClickTheMapInside() {
  * @param {object} config
  * @constructor
  */
-var Map = function (config) {
+var MapWrapper = function (config) {
     this.config = $.extend({
         item: null,
         object: null,
@@ -83,7 +83,7 @@ var Map = function (config) {
 /**
  * Inicializace tridy.
  */
-Map.prototype.init = function () {
+MapWrapper.prototype.init = function () {
     this.initTemplates();
 
     if (this.config.item !== undefined && this.config.item.length) {
@@ -94,7 +94,7 @@ Map.prototype.init = function () {
 /**
  * Inicializace mapy.
  */
-Map.prototype.initMap = function () {
+MapWrapper.prototype.initMap = function () {
     var context = this;
 
     this._mapLayer = MapLayer;
@@ -114,7 +114,7 @@ Map.prototype.initMap = function () {
 /**
  * Inicializace markeru
  */
-Map.prototype.markerClick = function (e) {
+MapWrapper.prototype.markerClick = function (e) {
     var object_ids = this._mapLayer.markerClick(e);
 
     if (object_ids) {
@@ -141,7 +141,7 @@ Map.prototype.markerClick = function (e) {
 /**
  * Nacteni markeru
  */
-Map.prototype.loadMarkers = function () {
+MapWrapper.prototype.loadMarkers = function () {
     var context = this;
     var config = {
         url: this.config.item.data('markers-load-url'),
@@ -161,7 +161,7 @@ Map.prototype.loadMarkers = function () {
 /**
  * Inicializace markeru
  */
-Map.prototype.initMarkers = function () {
+MapWrapper.prototype.initMarkers = function () {
     for (var i = 0, count = this.config.markers.length; i < count; i++) {
         var marker = this.config.markers[i];
 
@@ -178,7 +178,7 @@ Map.prototype.initMarkers = function () {
 /**
  * Inicizalice sablon
  */
-Map.prototype.initTemplates = function () {
+MapWrapper.prototype.initTemplates = function () {
     for (var template in this.templates) {
         var $template = $('#info-box-template-' + template);
 
@@ -191,7 +191,7 @@ Map.prototype.initTemplates = function () {
 /**
  * Callback pro otevreni detailu.
  */
-Map.prototype.openDetailBox = function () {
+MapWrapper.prototype.openDetailBox = function () {
     $(this.config.detailSelector).addClass(this.config.detailOpenClass);
     this.closeNews();
 };
@@ -199,7 +199,7 @@ Map.prototype.openDetailBox = function () {
 /**
  * Callback pro zavreni detailu.
  */
-Map.prototype.closeDetailBox = function () {
+MapWrapper.prototype.closeDetailBox = function () {
     $(this.config.detailSelector).removeClass(this.config.detailOpenClass);
     $(this.config.detailSelector).find(this.config.detailContentSelector).empty();
 };
@@ -207,14 +207,14 @@ Map.prototype.closeDetailBox = function () {
 /**
  * Callback pro zavreni novinek.
  */
-Map.prototype.closeNews = function () {
+MapWrapper.prototype.closeNews = function () {
     $(this.config.newsSelector).removeClass(this.config.detailOpenClass);
 };
 
 /**
  * Zavreni aktualniho info boxu.
  */
-Map.prototype.closeInfoBox = function () {
+MapWrapper.prototype.closeInfoBox = function () {
     this.closeDetailBox();
 
     $('body').removeClass(this.config.openedInfoboxClass);
@@ -229,7 +229,7 @@ Map.prototype.closeInfoBox = function () {
  * Callback uspesneho nacteni obsahu info boxu.
  * @param {string} payload
  */
-Map.prototype.loadContentSuccessHandler = function (payload) {
+MapWrapper.prototype.loadContentSuccessHandler = function (payload) {
     this.infoBox.setContent(payload);
 
     this.bindDetailActions();
@@ -238,14 +238,14 @@ Map.prototype.loadContentSuccessHandler = function (payload) {
 /**
  * Callback neuspesneho nacteni obsahu info boxu.
  */
-Map.prototype.loadContentErrorHandler = function () {
+MapWrapper.prototype.loadContentErrorHandler = function () {
     this.infoBox.setContent(this.templates.error);
 };
 
 /**
  * Bind kliknuti na odkaz zobrazeni detailu.
  */
-Map.prototype.bindDetailActions = function () {
+MapWrapper.prototype.bindDetailActions = function () {
     var context = this;
     var $infoBox = $("." + this.config.infoBoxClass);
 
@@ -277,7 +277,7 @@ Map.prototype.bindDetailActions = function () {
 /**
  * Bind kliknuti na krizek zavreni novinek
  */
-Map.prototype.bindNewsClose = function () {
+MapWrapper.prototype.bindNewsClose = function () {
     var context = this;
 
     $(this.config.newsSelector).on('click', this.config.newsCloseSelector, function (event) {
@@ -288,7 +288,7 @@ Map.prototype.bindNewsClose = function () {
 /**
  * Bind zmena typu mapy
  */
-Map.prototype.bindMapTypeChange = function () {
+MapWrapper.prototype.bindMapTypeChange = function () {
     var context = this,
         activeClass = context.config.mapTypeChangeActiveClass;
 
@@ -311,7 +311,7 @@ Map.prototype.bindMapTypeChange = function () {
 /**
  * Bind zoom mapy
  */
-Map.prototype.bindMapZoom = function () {
+MapWrapper.prototype.bindMapZoom = function () {
     var context = this;
 
     $('body').on('click', this.config.mapZoomSelector, function () {
@@ -331,7 +331,7 @@ Map.prototype.bindMapZoom = function () {
 /**
  * Bind generovani odkazu na vlozenou mapu
  */
-Map.prototype.bindEmbeddedPopupOpen = function () {
+MapWrapper.prototype.bindEmbeddedPopupOpen = function () {
     var context = this;
 
     $('.nwjs_embedded_popup_opener').on('click', function (event) {
@@ -357,7 +357,7 @@ Map.prototype.bindEmbeddedPopupOpen = function () {
 /**
  * Bind nastaveni geolokace
  */
-Map.prototype.bindSetGeolocation = function () {
+MapWrapper.prototype.bindSetGeolocation = function () {
     var context = this;
 
     $(this.config.filterContentSelector).on('click', this.config.setGeolocationButtonSelector, function (event) {
@@ -366,7 +366,7 @@ Map.prototype.bindSetGeolocation = function () {
 };
 
 /** init geolokace */
-Map.prototype.initializeGeolocation = function () {
+MapWrapper.prototype.initializeGeolocation = function () {
     var context = this;
 
     if (navigator && navigator.geolocation) {
@@ -384,7 +384,7 @@ Map.prototype.initializeGeolocation = function () {
 };
 
 /** zpracovani geolokace */
-Map.prototype.geolocationHandleSuccess = function (position) {
+MapWrapper.prototype.geolocationHandleSuccess = function (position) {
     if (typeof window.gm_geolocation_success_callbacks === 'undefined' || window.gm_geolocation_success_callbacks == null) {
         window.gm_geolocation_success_callbacks = [];
     }
@@ -404,7 +404,7 @@ Map.prototype.geolocationHandleSuccess = function (position) {
 /**
  * handle gelokace neni podporovana prohlizecem
  */
-Map.prototype.geolocationHandleNotSupported = function () {
+MapWrapper.prototype.geolocationHandleNotSupported = function () {
     if (typeof window.gm_geolocation_not_supported_callbacks === 'undefined' || window.gm_geolocation_not_supported_callbacks == null) {
         window.gm_geolocation_not_supported_callbacks = [];
     }
@@ -421,7 +421,7 @@ Map.prototype.geolocationHandleNotSupported = function () {
 /** 
  *chyba geolokace 
  */
-Map.prototype.geolocationHandleError = function (error) {
+MapWrapper.prototype.geolocationHandleError = function (error) {
     if (typeof window.gm_geolocation_error_callbacks === 'undefined' || window.gm_geolocation_error_callbacks == null) {
         window.gm_geolocation_error_callbacks = [];
     }
@@ -443,7 +443,7 @@ Map.prototype.geolocationHandleError = function (error) {
  * @param PositionError $error
  * @return bool
  */
-Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
+MapWrapper.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
     if (error.code == error.POSITION_UNAVAILABLE) {
         alert(this.templates.autocompleteerror);
     }
@@ -456,7 +456,7 @@ Map.prototype.defaultGetCurrentPositionErrorHandler = function (error) {
  *
  * @param {object} object
  */
-Map.prototype.setObject = function (object) {
+MapWrapper.prototype.setObject = function (object) {
   this.config.object = object;
 };
 
@@ -465,7 +465,7 @@ Map.prototype.setObject = function (object) {
  *
  * @param {object[]} markers
  */
-Map.prototype.setMarkers = function (markers) {
+MapWrapper.prototype.setMarkers = function (markers) {
     var ids = markers.reduce(function(ret, marker) {
         ret[marker['id']] = true;
         return ret;

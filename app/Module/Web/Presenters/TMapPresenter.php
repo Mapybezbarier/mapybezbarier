@@ -22,7 +22,7 @@ trait TMapPresenter
      * @persistent
      * @var bool
      */
-    public $maps = false;
+    public $maps = true;
 
     /**
      * @override Pridani JavaScriptovych souboru podle zvolenych mapovych podkladu
