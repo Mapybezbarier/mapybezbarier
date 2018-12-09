@@ -28,14 +28,14 @@ chmod 777 {images/{draft,object},storage/images/{draft,object},temp/{cache,sessi
 * app/constant.php - IP adresa vývojového/produkčního serveru; adresář se zálohami DB; e-mailové adresy správce/supportu
 * app/config/credentials.neon - přístupy k databázovému serveru; klíče Google služeb; SMTP server
 
-## Spuštění vývojového prostředí prostředí
+### Spuštění vývojového prostředí prostředí
 
 ```bash
 cp .env.dist .env
 docker-compose up
 ```
 
-## Obnova produkční databáze na vývojové prostředí
+### Obnova produkční databáze na vývojové prostředí
 
 Nejprve vytvoříme databázi, uživatele a poté spustíme obnovu pomocí `pg_restore`.
 
