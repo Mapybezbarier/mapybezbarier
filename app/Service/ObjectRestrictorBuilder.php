@@ -85,7 +85,7 @@ class ObjectRestrictorBuilder
             '%and', [
                 "[certified]",
                 "[mapping_date] IS NOT NULL",
-                "[mapping_date] > (CURRENT_TIMESTAMP - INTERVAL '3 years')",
+                "[mapping_date] > (CURRENT_TIMESTAMP - INTERVAL '10 years')",
             ],
         ];
 
@@ -105,7 +105,7 @@ class ObjectRestrictorBuilder
                 [
                     '%or', [
                     "[mapping_date] IS NULL",
-                    "[mapping_date] <= (CURRENT_TIMESTAMP - INTERVAL '3 years')",
+                    "[mapping_date] <= (CURRENT_TIMESTAMP - INTERVAL '10 years')",
                 ],
                 ],
             ],

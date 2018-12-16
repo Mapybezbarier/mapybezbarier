@@ -277,7 +277,7 @@ control:
             changingDesk: Přebalovací pult
             entrance1Accessibility: Přístupný hlavním vchodem
             entrance2Accessibility: Přístupný vedlejším vchodem
-            outdatedWarning: "Upozorňujeme, že tato data o objektu jsou %tagStart%více než 3 roky stará%tagEnd%."
+            outdatedWarning: "Upozorňujeme, že tato data o objektu jsou %tagStart%více než 10 let stará%tagEnd%."
             address: Adresa
             gps: GPS souřadnice
             web: Webová stránka
