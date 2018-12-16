@@ -3535,7 +3535,7 @@ CREATE VIEW v_object AS
     o.ruian_address,
     o.web_url,
     lower((o.certified)::text) AS certified,
-    lower((((o.mapping_date + '3 years'::interval) > ('now'::text)::date))::text) AS up_to_date,
+    lower((((o.mapping_date + '10 years'::interval) > ('now'::text)::date))::text) AS up_to_date,
     (o.mapping_date)::date AS mapping_date,
     o.object_type_id,
     o.accessibility_id,

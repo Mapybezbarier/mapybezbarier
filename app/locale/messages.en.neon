@@ -276,7 +276,7 @@ control:
             changingDesk: A changing table
             entrance1Accessibility: Accessible through the main entrance
             entrance2Accessibility: Accessible through the side entrance
-            outdatedWarning: Please note that the place data %tagStart% is more than 3 years old %tagEnd%.
+            outdatedWarning: Please note that the place data %tagStart% is more than 10 years old %tagEnd%.
             address: An address
             gps: GPS coordinates
             web: A webpage
