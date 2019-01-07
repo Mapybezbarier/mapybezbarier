@@ -118,10 +118,11 @@ MapLayer.mapRedraw = function(e) {
         zoom !== this._lastZoom
         && this.isCloseView(zoom) !== this.isCloseView(this._lastZoom)
     ) {
-        this.setClustering(this.isCloseView(zoom))
+        this.setClustering(this.isCloseView(zoom));
     }
 
-    this._lastZoom = zoom
+    this._lastZoom = zoom;
+    this.applyCallback(this.initMapCallbacks);
 };
 
 /**
@@ -205,6 +206,27 @@ MapLayer.prepareMarker = function (marker) {
  */
 MapLayer.setCenter = function(position) {
     this._map.map.setCenter(position, true);
+};
+
+/**
+ * @param {object} marker
+ */
+MapLayer.checkMarkerInBounds = function(marker) {
+    var bounds = this._map.map.getViewport();
+
+    if (marker.latitude > bounds.rty) {
+        return false;
+    }
+    if (marker.latitude < bounds.lby) {
+        return false;
+    }
+    if (marker.longitude > bounds.rtx) {
+        return false;
+    }
+    if (marker.longitude < bounds.lbx) {
+        return false;
+    }
+    return true;
 };
 
 /**

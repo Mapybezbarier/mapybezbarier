@@ -130,6 +130,27 @@ MapLayer.getCenter = function() {
 };
 
 /**
+ * @param {object} marker
+ */
+MapLayer.checkMarkerInBounds = function(marker) {
+    var bounds = this._map.map.getBounds();
+
+    if (marker.latitude > bounds.getNorthEast().lat()) {
+        return false;
+    }
+    if (marker.latitude < bounds.getSouthWest().lat()) {
+        return false;
+    }
+    if (marker.longitude > bounds.getNorthEast().lng()) {
+        return false;
+    }
+    if (marker.longitude < bounds.getSouthWest().lng()) {
+        return false;
+    }
+    return true;
+};
+
+/**
  * @param {integer} zoom
  */
 MapLayer.setZoom = function(zoom) {

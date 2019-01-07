@@ -109,6 +109,8 @@ MapWrapper.prototype.initMap = function () {
     this._mapLayer.bindAutocomplete(this.config.autocompleteInputSelector);
     this.bindEmbeddedPopupOpen();
     this.bindNewsClose();
+
+    this.initializeGeolocation();
 };
 
 /**
@@ -162,17 +164,26 @@ MapWrapper.prototype.loadMarkers = function () {
  * Inicializace markeru
  */
 MapWrapper.prototype.initMarkers = function () {
+    var context = this;
+
     for (var i = 0, count = this.config.markers.length; i < count; i++) {
         var marker = this.config.markers[i];
 
         marker.active = (this.config.object && -1 !== $.inArray(this.config.object['object_id'], marker.object_ids));
 
-        if (undefined === this.markers[marker['id']]) {
-            this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
+        if (this._mapLayer.checkMarkerInBounds(marker)) {
+            if (undefined === this.markers[marker['id']]) {
+                this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
+            }
         }
     }
 
     this._mapLayer.initMarkers();
+
+    // volani initMarkers po pristi zmene ranges na mape
+    this._mapLayer.addInitMapCallback(function() {
+        context.initMarkers();
+    });
 };
 
 /**
