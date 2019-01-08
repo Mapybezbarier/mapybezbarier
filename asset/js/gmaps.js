@@ -204,7 +204,7 @@ MapLayer.initMap = function (map) {
         },
         mcOptions = {
             gridSize: 60,
-            maxZoom: 13,
+            maxZoom: 15,
             styles: [$.extend({
                 url: '/asset/img/markers/cluster/original_cluster_1.png',
                 textSize: 18,
