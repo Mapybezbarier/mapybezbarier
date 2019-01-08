@@ -98,8 +98,10 @@ class MapControl extends AbstractControl
      */
     private function prepareConfig()
     {
-        // Cesko -> lat 49.5, lng 14.9, zoom 8
-        // Konto Bariery -> lat 50.085, lng 14.42, zoom 15
+        /**
+         * jako stred vyhcoziho zobrazeni nastaveno sidlo Nadace Charty 77 - Konto Bariery
+         * uroven zoomu tak, aby ve viewportu nebylo prilis velke mnozstvi markeru (FE optimalizace)
+         */
         $config = [
             'center' => [
                 'lat' => (float) $this->request->getQuery(self::GET_CENTER_LAT, 50.085),
@@ -108,7 +110,7 @@ class MapControl extends AbstractControl
             'streetViewControl' => false, //pouze pro google maps
             'zoomControl' => false, //pouze pro google maps
             'mapTypeControl' => false, //pouze pro google maps
-            'zoom' => (int) $this->request->getQuery(self::GET_ZOOM, 16)
+            'zoom' => (int) $this->request->getQuery(self::GET_ZOOM, 15)
         ];
 
         return Json::encode($config);
