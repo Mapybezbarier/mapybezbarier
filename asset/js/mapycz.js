@@ -78,7 +78,7 @@ MapLayer.bindAutocomplete = function (input) {
  * @return boolean
  */
 MapLayer.defaultGetCurrentPositionSuccessHandler = function (position) {
-    this.map.setCenterZoom(
+    this._map.map.setCenterZoom(
         SMap.Coords.fromWGS84(position.coords.longitude, position.coords.latitude),
         this._map.config.infoBoxDefaultZoom,
         true

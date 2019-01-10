@@ -406,7 +406,7 @@ MapWrapper.prototype.geolocationHandleSuccess = function (position) {
     for (var i = 0; i < window.gm_geolocation_success_callbacks.length; i++) {
         var callback = window.gm_geolocation_success_callbacks[i];
 
-        if (!callback.call(this, position)) {
+        if (!callback.call(this._mapLayer, position)) {
             break;
         }
     }
