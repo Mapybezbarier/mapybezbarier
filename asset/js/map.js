@@ -59,7 +59,7 @@ var MapWrapper = function (config) {
         mapZoomSelector: '.nwjs_map_zoom',
         infoBoxCloseSelector: '.nwjs_infobox_closer',
         infoBoxClass: 'info_box',
-        infoBoxDefaultZoom: 10,
+        infoBoxDefaultZoom: 15,
         setGeolocationButtonSelector: '.nwjs_set_geolocation',
         autocompleteInputSelector: '#nwjs_search_place',
         autocompleteDefaultZoom: 17,
