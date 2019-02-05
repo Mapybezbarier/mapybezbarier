@@ -1,0 +1,19 @@
+parameters:
+    database:
+        host: postgresql
+        dbname: mapy_pristupnosti_db_01
+        user: mapy_pristupnosti_db_01
+        password: secret
+
+    google:
+        mapApiKey:
+        geocodingApiKey:
+
+    smtp:
+        host:
+        port:
+        username:
+        password:
+
+    gA:
+        code:

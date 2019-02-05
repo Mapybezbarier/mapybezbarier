@@ -26,6 +26,10 @@ Debugger::setLogger(new Logger(Debugger::$logDirectory, Debugger::$email, Debugg
 
 $configurator->addConfig(APP_DIR . '/config/config.neon');
 
+if (file_exists(APP_DIR . '/config/config.local.neon')) {
+    $configurator->addConfig(APP_DIR . '/config/config.local.neon');
+}
+
 if (file_exists(APP_DIR . '/config/config.test.neon')) {
     $configurator->addConfig(APP_DIR . '/config/config.test.neon');
 }

@@ -1,0 +1,40 @@
+version: '3.6'
+
+services:
+  postgresql:
+    image: mdillon/postgis:10
+    ports:
+      - "5432:5432"
+
+  php-upstream:
+    image: mapybezbarier/php-fpm:latest
+    env_file:
+      - .env
+    environment:
+      PHP_IDE_CONFIG: 'serverName=${XDEBUG_SERVER_NAME}'
+    build:
+      context: .
+      target: development-image
+    volumes:
+      - ./:/var/www/app
+    links:
+      - postgresql
+    depends_on:
+      - postgresql
+    extra_hosts:
+      - "docker.host:${DOCKER_HOST_IP}"
+
+  nginx:
+    image: mapybezbarier/nginx:latest
+    env_file:
+      - .env
+    build:
+      context: ./.docker/nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/app
+    links:
+      - php-upstream
+    depends_on:
+      - php-upstream
