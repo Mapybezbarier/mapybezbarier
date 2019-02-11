@@ -109,8 +109,6 @@ MapWrapper.prototype.initMap = function () {
     this._mapLayer.bindAutocomplete(this.config.autocompleteInputSelector);
     this.bindEmbeddedPopupOpen();
     this.bindNewsClose();
-
-    this.initializeGeolocation();
 };
 
 /**
