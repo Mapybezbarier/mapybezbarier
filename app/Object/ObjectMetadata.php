@@ -57,6 +57,8 @@ class ObjectMetadata
     public static $ENUM_COLUMN_TABLE_MAPPING = [
         self::OBJECT => [
             'accessibility' => 'accessibility',
+            'accessibility_pram' => 'accessibility',
+            'accessibility_pensioners' => 'accessibility',
             'source' => 'exchange_source',
             'entrance1_accessibility' => 'entrance_accessibility',
             'entrance1_bell_type' => 'bell_type',

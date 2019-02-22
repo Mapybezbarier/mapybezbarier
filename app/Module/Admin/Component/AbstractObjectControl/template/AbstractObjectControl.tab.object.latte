@@ -2,7 +2,14 @@
     <div class="form_wrapper common_info_form">
         <div class="form_inner">
             <div class="form_block accessibility">
+                <h3>Přístupné pro vozíčkáře</h3>
                 {include radioGroup, form => $form, name => 'accessibility'}
+
+                <h3>Přístupnost pro důchodce</h3>
+                {include radioGroup, form => $form, name => 'accessibilityPram'}
+
+                <h3>Přístupnost pro rodiče s kočárkem</h3>
+                {include radioGroup, form => $form, name => 'accessibilityPensioners'}
             </div>
             <div class="form_block">
                 {include inputText, form => $form, name => 'title'}

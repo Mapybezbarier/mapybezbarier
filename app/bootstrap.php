@@ -13,7 +13,7 @@ $configurator->addParameters([
     'databaseIp' => DATABASE_IP,
 ]);
 
-$configurator->setDebugMode(defined('DEBUG_EMAIL'));
+$configurator->setDebugMode(true);
 $configurator->enableDebugger(TRACY_DIR, BUGREPORT_MAIL);
 
 $configurator->setTempDirectory(TEMP_DIR);
