@@ -32,21 +32,21 @@ $transparent_color: 'transparent';
             background-color: $color;
         }
         .ib_header .title {
-            @if ('accessible_1, .accessibility_1' == $classname) {
+            @if ('accessible_1, .accessibility_1, .accessibility_pram_1, .accessibility_pensioners_1' == $classname) {
                 &:before {
                     background-color: $pict_green_color;
                 }
                 &:after {
                     background-image: bg_image($icons_path + 'ico_x_pristupny.svg') !important;
                 }
-            } @elseif ('accessible_2, .accessibility_2' == $classname) {
+            } @elseif ('accessible_2, .accessibility_2, .accessibility_pram_2, .accessibility_pensioners_2' == $classname) {
                 &:before {
                     background-color: $pict_orange_color;
                 }
                 &:after {
                     background-image: bg_image($icons_path + 'ico_x_omezene.svg') !important;
                 }
-            } @elseif ('accessible_3, .accessibility_3' == $classname) {
+            } @elseif ('accessible_3, .accessibility_3, .accessibility_pram_2, .accessibility_pensioners_3' == $classname) {
                 &:before {
                     background-color: $pict_red_color;
                 }
@@ -58,9 +58,9 @@ $transparent_color: 'transparent';
     }
 }
 
-@include ico('accessible_1, .accessibility_1', $pict_green_color, 'ico_x_pristupny');
-@include ico('accessible_2, .accessibility_2', $pict_orange_color, 'ico_x_omezene');
-@include ico('accessible_3, .accessibility_3', $pict_red_color, 'ico_x_nepristupny');
+@include ico('accessible_1, .accessibility_1, .accessibility_pram_1, .accessibility_pensioners_1', $pict_green_color, 'ico_x_pristupny');
+@include ico('accessible_2, .accessibility_2, .accessibility_pram_2, .accessibility_pensioners_2', $pict_orange_color, 'ico_x_omezene');
+@include ico('accessible_3, .accessibility_3, .accessibility_pram_3, .accessibility_pensioners_3', $pict_red_color, 'ico_x_nepristupny');
 
 @include ico('type_certified', $pict_blue_color, 'ico_y_profi');
 @include ico('type_outdated', $pict_blue_color, 'ico_y_profi_stare');
@@ -92,9 +92,9 @@ $transparent_color: 'transparent';
 @include ico('door_type', $transparent_color, '20_hlavni_vchod');
 @include ico('entrance', $transparent_color, '20_vedlejsi_vchod');
 
-@include accessibility_bg_color('accessible_1, .accessibility_1', $access_green_color);
-@include accessibility_bg_color('accessible_2, .accessibility_2', $access_orange_color);
-@include accessibility_bg_color('accessible_3, .accessibility_3', $access_red_color);
+@include accessibility_bg_color('accessible_1, .accessibility_1, .accessibility_pram_1, .accessibility_pensioners_1', $access_green_color);
+@include accessibility_bg_color('accessible_2, .accessibility_2, .accessibility_pram_2, .accessibility_pensioners_2', $access_orange_color);
+@include accessibility_bg_color('accessible_3, .accessibility_3, .accessibility_pram_3, .accessibility_pensioners_3', $access_red_color);
 
 @include detail_pictogram('parking', '20_parkoviste');
 @include detail_pictogram('difficult_surface', '20_nerovny_povrch');

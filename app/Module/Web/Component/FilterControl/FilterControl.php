@@ -94,6 +94,8 @@ class FilterControl extends AbstractFormControl
         $form->onSuccess[] = [$this, 'setFilter'];
 
         $this->appendAccessibility($form);
+        $this->appendAccessibilityPram($form);
+        $this->appendAccessibilityPensioners($form);
         $this->appendTypes($form);
         $this->appendCategories($form);
 
@@ -112,6 +114,36 @@ class FilterControl extends AbstractFormControl
 
             $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY, 'messages.control.filter.label.accessibility', $values)
                 ->setDefaultValue($this->restrictorBuilder->getAccesibility());
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    protected function appendAccessibilityPram(Form $form)
+    {
+        $accessibility = $this->filterService->getAccesibilityValues();
+
+        if ($accessibility) {
+            $values = $this->prepareSelectValues($accessibility,  "messages.enum.value." . ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_PRAM . ".");
+
+            $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_PRAM, 'messages.control.filter.label.accessibilityPram', $values)
+                ->setDefaultValue($this->restrictorBuilder->getAccesibilityPram());
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    protected function appendAccessibilityPensioners(Form $form)
+    {
+        $accessibility = $this->filterService->getAccesibilityValues();
+
+        if ($accessibility) {
+            $values = $this->prepareSelectValues($accessibility,  "messages.enum.value." . ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_PENSIONERS . ".");
+
+            $form->addCheckboxList(ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_PENSIONERS, 'messages.control.filter.label.accessibilityPensioners', $values)
+                ->setDefaultValue($this->restrictorBuilder->getAccesibilityPensioners());
         }
     }
 

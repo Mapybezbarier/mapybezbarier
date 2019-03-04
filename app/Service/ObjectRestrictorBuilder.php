@@ -10,7 +10,10 @@ namespace MP\Service;
 class ObjectRestrictorBuilder
 {
     /** @const Klice dostupnych restrikci */
-    const RESTRICTION_ACCESSIBILITY = 'accessibility',
+    const
+        RESTRICTION_ACCESSIBILITY = 'accessibility',
+        RESTRICTION_ACCESSIBILITY_PRAM = 'accessibilityPram',
+        RESTRICTION_ACCESSIBILITY_PENSIONERS = 'accessibilityPensioners',
         RESTRICTION_CATEGORY = 'category',
         RESTRICTION_TYPE = 'type';
 
@@ -24,6 +27,34 @@ class ObjectRestrictorBuilder
     public function prepareAccessibilityRestrictions(array $accessibility)
     {
         $restrictions = ["[accessibility_id] IN %in", $accessibility];
+
+        return $restrictions;
+    }
+
+    /**
+     * Pripravi restrikce pro pristupnost mapovych objektu.
+     *
+     * @param array $accessibility
+     *
+     * @return array
+     */
+    public function prepareAccessibilityPramRestrictions(array $accessibility)
+    {
+        $restrictions = ["[accessibility_pram_id] IN %in", $accessibility];
+
+        return $restrictions;
+    }
+
+    /**
+     * Pripravi restrikce pro pristupnost mapovych objektu.
+     *
+     * @param array $accessibility
+     *
+     * @return array
+     */
+    public function prepareAccessibilityPensionersRestrictions(array $accessibility)
+    {
+        $restrictions = ["[accessibility_pensioners_id] IN %in", $accessibility];
 
         return $restrictions;
     }

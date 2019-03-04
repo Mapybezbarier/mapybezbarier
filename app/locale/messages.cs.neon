@@ -135,6 +135,24 @@ enum:
                 partlyAccessibleObjectMKPO: Objekt částečně přístupný
                 inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
 
+        accessibilityPram:
+            accessibleObjectMKPO: přístupný
+            partlyAccessibleObjectMKPO: částečně přístupný
+            inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+            full:
+                accessibleObjectMKPO: Objekt přístupný
+                partlyAccessibleObjectMKPO: Objekt částečně přístupný
+                inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
+
+        accessibilityPensioners:
+            accessibleObjectMKPO: přístupný
+            partlyAccessibleObjectMKPO: částečně přístupný
+            inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+            full:
+                accessibleObjectMKPO: Objekt přístupný
+                partlyAccessibleObjectMKPO: Objekt částečně přístupný
+                inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
+
         type:
             certified: profesionální
             outdated: "profesionální, ale zastaralé"
@@ -239,6 +257,8 @@ control:
 
         label:
             accessibility: Přístupnost objektu
+            accessibilityPram: Přístupnost kočárky
+            accessibilityPensioners: Přístupnost důchodci
             category: Typ objektu
             type: Podklady
 

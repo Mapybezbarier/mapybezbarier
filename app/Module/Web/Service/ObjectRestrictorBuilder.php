@@ -62,6 +62,14 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             $restrictor[] = $this->prepareAccessibilityRestrictions($accessibility);
         }
 
+        if ($accessibility = $this->getAccesibilityPram()) {
+            $restrictor[] = $this->prepareAccessibilityPramRestrictions($accessibility);
+        }
+
+        if ($accessibility = $this->getAccesibilityPensioners()) {
+            $restrictor[] = $this->prepareAccessibilityPensionersRestrictions($accessibility);
+        }
+
         if ($categories = $this->getCategories()) {
             $restrictor[] = $this->prepareCategoryRestrictions($categories);
         }
@@ -105,6 +113,26 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             }
         }
 
+        if ($accessibility = $this->getAccesibilityPram()) {
+            if ($apiFormat) {
+                $allValues = $this->filterService->getAccesibilityValues();
+                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
+                $ret[self::RESTRICTION_ACCESSIBILITY_PRAM] = array_values($accessibilityCodes);
+            } else {
+                $ret[self::RESTRICTION_ACCESSIBILITY_PRAM] = array_values($accessibility);
+            }
+        }
+
+        if ($accessibility = $this->getAccesibilityPensioners()) {
+            if ($apiFormat) {
+                $allValues = $this->filterService->getAccesibilityValues();
+                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
+                $ret[self::RESTRICTION_ACCESSIBILITY_PENSIONERS] = array_values($accessibilityCodes);
+            } else {
+                $ret[self::RESTRICTION_ACCESSIBILITY_PENSIONERS] = array_values($accessibility);
+            }
+        }
+
         if ($types = $this->getTypes()) {
             $ret[self::RESTRICTION_TYPE] = array_values($types);
         }
@@ -123,13 +151,33 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     }
 
     /**
-     * Vraci aktualni nastaveni filtru - prisutpnost
+     * Vraci aktualni nastaveni filtru - pristupnost
      *
      * @return array|null
      */
     public function getAccesibility()
     {
         return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY};
+    }
+
+    /**
+     * Vraci aktualni nastaveni filtru - pristupnost pro rodice s kocarky
+     *
+     * @return array|null
+     */
+    public function getAccesibilityPram()
+    {
+        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_PRAM};
+    }
+
+    /**
+     * Vraci aktualni nastaveni filtru - pristupnost pro duchodce
+     *
+     * @return array|null
+     */
+    public function getAccesibilityPensioners()
+    {
+        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_PENSIONERS};
     }
 
     /**
@@ -183,14 +231,26 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     {
         $section = $this->session->getSection(self::SECTION);
 
+        // ulozime si do session pristupnost pro vozickare
         $accessibility = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY);
-
         if ($accessibility || $override) {
             $section->{self::RESTRICTION_ACCESSIBILITY} = $accessibility;
         }
 
-        $categories = $this->getRestrictionValues($restrictions, self::RESTRICTION_CATEGORY);
+        // ulozime si do session pristupnost pro rodice s detmi
+        $accessibilityPram = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_PRAM);
+        if ($accessibility || $override) {
+            $section->{self::RESTRICTION_ACCESSIBILITY_PRAM} = $accessibilityPram;
+        }
 
+        // ulozime si do session pristupnost pro duchodce
+        $accessibilityPensioners = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_PENSIONERS);
+        if ($accessibility || $override) {
+            $section->{self::RESTRICTION_ACCESSIBILITY_PENSIONERS} = $accessibilityPensioners;
+        }
+
+        // ulozime si do session kategorii
+        $categories = $this->getRestrictionValues($restrictions, self::RESTRICTION_CATEGORY);
         if ($categories || $override) {
             $section->{self::RESTRICTION_CATEGORY} = $categories;
         }
