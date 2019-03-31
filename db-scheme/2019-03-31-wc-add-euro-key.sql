@@ -1,0 +1,1 @@
+INSERT INTO mappable_entity_access (id, title, pair_key) VALUES (3, 'LockedEuroKeyMappableEntityAccess', 'uzamčená euro klíčem');

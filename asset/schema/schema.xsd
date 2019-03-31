@@ -712,6 +712,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="FreelyaccessibleMappableEntityAccess"/>
             <xs:enumeration value="LockedMappableEntityAccess"/>
+            <xs:enumeration value="LockedEuroKeyMappableEntityAccess"/>
         </xs:restriction>
     </xs:simpleType>
 
