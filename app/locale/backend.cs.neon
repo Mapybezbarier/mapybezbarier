@@ -311,7 +311,7 @@ control:
                 objectType: "Typ objektu"
                 accessibility: "Přístupnost objektu podle Metodiky kategorizace přístupnosti objektů (MKPO)"
                 accessibilityPram: "Přístupnost objektu pro rodiče s kočárkem podle MKPO"
-                accessibilityPensioners: "Přístupnost objektu pro důchodce podle MKPO"
+                accessibilitySeniors: "Přístupnost objektu pro důchodce podle MKPO"
                 region: "Kraj"
                 ruianAddress: "RUIAN ID"
                 zipcode: "PSČ"

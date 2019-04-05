@@ -144,7 +144,7 @@ enum:
                 partlyAccessibleObjectMKPO: Objekt částečně přístupný
                 inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
 
-        accessibilityPensioners:
+        accessibilitySeniors:
             accessibleObjectMKPO: přístupný
             partlyAccessibleObjectMKPO: částečně přístupný
             inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
@@ -258,7 +258,7 @@ control:
         label:
             accessibility: Přístupnost objektu
             accessibilityPram: Přístupnost kočárky
-            accessibilityPensioners: Přístupnost důchodci
+            accessibilitySeniors: Přístupnost důchodci
             category: Typ objektu
             type: Podklady
 

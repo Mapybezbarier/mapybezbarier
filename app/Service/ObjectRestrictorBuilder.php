@@ -13,7 +13,7 @@ class ObjectRestrictorBuilder
     const
         RESTRICTION_ACCESSIBILITY = 'accessibility',
         RESTRICTION_ACCESSIBILITY_PRAM = 'accessibilityPram',
-        RESTRICTION_ACCESSIBILITY_PENSIONERS = 'accessibilityPensioners',
+        RESTRICTION_ACCESSIBILITY_SENIORS = 'accessibilitySeniors',
         RESTRICTION_CATEGORY = 'category',
         RESTRICTION_TYPE = 'type';
 
@@ -52,9 +52,9 @@ class ObjectRestrictorBuilder
      *
      * @return array
      */
-    public function prepareAccessibilityPensionersRestrictions(array $accessibility)
+    public function prepareAccessibilitySeniorsRestrictions(array $accessibility)
     {
-        $restrictions = ["[accessibility_pensioners_id] IN %in", $accessibility];
+        $restrictions = ["[accessibility_seniors_id] IN %in", $accessibility];
 
         return $restrictions;
     }

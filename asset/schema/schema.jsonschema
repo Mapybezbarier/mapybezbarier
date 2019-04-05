@@ -44,7 +44,7 @@
             "required" : true,
             "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]
           },
-          "accessibilityPensioners" : {
+          "accessibilitySeniors" : {
             "type" : "string",
             "required" : true,
             "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]

@@ -66,8 +66,8 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             $restrictor[] = $this->prepareAccessibilityPramRestrictions($accessibility);
         }
 
-        if ($accessibility = $this->getAccesibilityPensioners()) {
-            $restrictor[] = $this->prepareAccessibilityPensionersRestrictions($accessibility);
+        if ($accessibility = $this->getAccesibilitySeniors()) {
+            $restrictor[] = $this->prepareAccessibilitySeniorsRestrictions($accessibility);
         }
 
         if ($categories = $this->getCategories()) {
@@ -123,13 +123,13 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
             }
         }
 
-        if ($accessibility = $this->getAccesibilityPensioners()) {
+        if ($accessibility = $this->getAccesibilitySeniors()) {
             if ($apiFormat) {
                 $allValues = $this->filterService->getAccesibilityValues();
                 $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
-                $ret[self::RESTRICTION_ACCESSIBILITY_PENSIONERS] = array_values($accessibilityCodes);
+                $ret[self::RESTRICTION_ACCESSIBILITY_SENIORS] = array_values($accessibilityCodes);
             } else {
-                $ret[self::RESTRICTION_ACCESSIBILITY_PENSIONERS] = array_values($accessibility);
+                $ret[self::RESTRICTION_ACCESSIBILITY_SENIORS] = array_values($accessibility);
             }
         }
 
@@ -175,9 +175,9 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
      *
      * @return array|null
      */
-    public function getAccesibilityPensioners()
+    public function getAccesibilitySeniors()
     {
-        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_PENSIONERS};
+        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_SENIORS};
     }
 
     /**
@@ -244,9 +244,9 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         }
 
         // ulozime si do session pristupnost pro duchodce
-        $accessibilityPensioners = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_PENSIONERS);
+        $accessibilitySeniors = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_SENIORS);
         if ($accessibility || $override) {
-            $section->{self::RESTRICTION_ACCESSIBILITY_PENSIONERS} = $accessibilityPensioners;
+            $section->{self::RESTRICTION_ACCESSIBILITY_SENIORS} = $accessibilitySeniors;
         }
 
         // ulozime si do session kategorii

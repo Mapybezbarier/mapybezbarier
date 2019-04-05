@@ -1,6 +1,6 @@
 ALTER TABLE public.map_object
-    ADD accessibility_pensioners_id integer DEFAULT NULL
-        CONSTRAINT map_object_accessibility_pensioners_id_fk
+    ADD accessibility_seniors_id integer DEFAULT NULL
+        CONSTRAINT map_object_accessibility_seniors_id_fk
             REFERENCES accessibility ON
             UPDATE CASCADE ON
             DELETE RESTRICT,
@@ -10,8 +10,8 @@ ALTER TABLE public.map_object
             UPDATE CASCADE ON
             DELETE RESTRICT;
 ALTER TABLE versions.map_object
-    ADD accessibility_pensioners_id integer DEFAULT NULL
-        CONSTRAINT map_object_accessibility_pensioners_id_fk
+    ADD accessibility_seniors_id integer DEFAULT NULL
+        CONSTRAINT map_object_accessibility_seniors_id_fk
             REFERENCES accessibility ON
             UPDATE CASCADE ON
             DELETE RESTRICT,
