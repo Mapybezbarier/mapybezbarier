@@ -155,6 +155,7 @@ enum:
         wcCabinAccess:
             FreelyaccessibleMappableEntityAccess: volně přístupná
             LockedMappableEntityAccess: uzamčená
+            LockedEuroKeyMappableEntityAccess: uzamčená euro klíčem
 
         doorOpeningDirection:
             OutwardsDoorOpeningDirection: z kabiny

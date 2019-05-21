@@ -121,7 +121,7 @@ class ObjectMetadata
         ],
         self::WC => [
             'wc_accessibility' => 'w_c_categorization',
-            'wc_cabin_access' => 'mappable_entity_access',
+            'wc_cabin_access' => 'mappable_entity_wc_cabin_access',
             'wc_cabin_localization' => 'w_c_cabin_localization',
             'wc_switch' => 'w_c_switch',
             'wc_flushing' => 'w_c_flushing',

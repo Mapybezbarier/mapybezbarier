@@ -961,7 +961,7 @@
                 },
                 "wcCabinAccess" : {
                   "type" : "string",
-                  "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess" ]
+                  "enum" : [ "FreelyaccessibleMappableEntityAccess", "LockedMappableEntityAccess", "LockedEuroKeyMappableEntityAccess" ]
                 },
                 "wcCabinLocalization" : {
                   "type" : "string",

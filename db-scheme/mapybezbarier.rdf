@@ -966,6 +966,13 @@
     ];
 .
 
+<#EntityWcCabinAccess>
+    rr:logicalTable [ rr:tableName "mappable_entity_wc_cabin_access" ];
+    rr:subjectMap [
+        rr:template "http://w3id.org/charta77/jup/{title}";
+    ];
+.
+
 <#Platform>
     rr:logicalTable [ rr:tableName "v_platform" ];
     rr:subjectMap [
@@ -2064,7 +2071,7 @@
     rr:predicateObjectMap [
         rr:predicate jup:wcCabinAccess;
         rr:objectMap [
-            rr:parentTriplesMap <#EntityAccess>;
+            rr:parentTriplesMap <#EntityWcCabinAccess>;
             rr:joinCondition [
                 rr:child "wc_cabin_access_id";
                 rr:parent "id";

@@ -802,6 +802,10 @@ control:
             mappableEntityAccess:
                 freelyaccessibleMappableEntityAccess: "volně přístupná"
                 lockedMappableEntityAccess: "uzamčená"
+            mappableEntityWcCabinAccess:
+                freelyaccessibleMappableEntityAccess: "volně přístupná"
+                lockedMappableEntityAccess: "uzamčená"
+                lockedEuroKeyMappableEntityAccess: "uzamčená euro klíčem"
 
             hallwayDoorMarking:
                 doorIsMarking: "ano"
