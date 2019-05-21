@@ -130,6 +130,27 @@ MapLayer.getCenter = function() {
 };
 
 /**
+ * @param {object} marker
+ */
+MapLayer.checkMarkerInBounds = function(marker) {
+    var bounds = this._map.map.getBounds();
+
+    if (marker.latitude > bounds.getNorthEast().lat()) {
+        return false;
+    }
+    if (marker.latitude < bounds.getSouthWest().lat()) {
+        return false;
+    }
+    if (marker.longitude > bounds.getNorthEast().lng()) {
+        return false;
+    }
+    if (marker.longitude < bounds.getSouthWest().lng()) {
+        return false;
+    }
+    return true;
+};
+
+/**
  * @param {integer} zoom
  */
 MapLayer.setZoom = function(zoom) {
@@ -183,7 +204,7 @@ MapLayer.initMap = function (map) {
         },
         mcOptions = {
             gridSize: 60,
-            maxZoom: 13,
+            maxZoom: 15,
             styles: [$.extend({
                 url: '/asset/img/markers/cluster/original_cluster_1.png',
                 textSize: 18,

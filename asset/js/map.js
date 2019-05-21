@@ -59,7 +59,7 @@ var MapWrapper = function (config) {
         mapZoomSelector: '.nwjs_map_zoom',
         infoBoxCloseSelector: '.nwjs_infobox_closer',
         infoBoxClass: 'info_box',
-        infoBoxDefaultZoom: 10,
+        infoBoxDefaultZoom: 15,
         setGeolocationButtonSelector: '.nwjs_set_geolocation',
         autocompleteInputSelector: '#nwjs_search_place',
         autocompleteDefaultZoom: 17,
@@ -162,17 +162,26 @@ MapWrapper.prototype.loadMarkers = function () {
  * Inicializace markeru
  */
 MapWrapper.prototype.initMarkers = function () {
+    var context = this;
+
     for (var i = 0, count = this.config.markers.length; i < count; i++) {
         var marker = this.config.markers[i];
 
         marker.active = (this.config.object && -1 !== $.inArray(this.config.object['object_id'], marker.object_ids));
 
-        if (undefined === this.markers[marker['id']]) {
-            this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
+        if (this._mapLayer.checkMarkerInBounds(marker)) {
+            if (undefined === this.markers[marker['id']]) {
+                this.markers[marker['id']] = this._mapLayer.prepareMarker(marker);
+            }
         }
     }
 
     this._mapLayer.initMarkers();
+
+    // volani initMarkers po pristi zmene ranges na mape
+    this._mapLayer.addInitMapCallback(function() {
+        context.initMarkers();
+    });
 };
 
 /**
@@ -395,7 +404,7 @@ MapWrapper.prototype.geolocationHandleSuccess = function (position) {
     for (var i = 0; i < window.gm_geolocation_success_callbacks.length; i++) {
         var callback = window.gm_geolocation_success_callbacks[i];
 
-        if (!callback.call(this, position)) {
+        if (!callback.call(this._mapLayer, position)) {
             break;
         }
     }
