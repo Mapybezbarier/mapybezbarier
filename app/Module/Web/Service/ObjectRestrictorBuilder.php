@@ -59,15 +59,7 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         $restrictor = [];
 
         if ($accessibility = $this->getAccesibility()) {
-            $restrictor[] = $this->prepareAccessibilityRestrictions($accessibility);
-        }
-
-        if ($accessibility = $this->getAccesibilityPram()) {
-            $restrictor[] = $this->prepareAccessibilityPramRestrictions($accessibility);
-        }
-
-        if ($accessibility = $this->getAccesibilitySeniors()) {
-            $restrictor[] = $this->prepareAccessibilitySeniorsRestrictions($accessibility);
+            $restrictor[] = $this->prepareTypedAccessibilityRestrictions($this->getAccessibilityType(), $accessibility);
         }
 
         if ($categories = $this->getCategories()) {
@@ -103,6 +95,16 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     {
         $ret = [];
 
+        if ($accessibility = $this->getAccessibilityType()) {
+            if ($apiFormat) {
+                $allValues = $this->filterService->getAccessibilityTypes();
+                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
+                $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = array_values($accessibilityCodes);
+            } else {
+                $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = array_values($accessibility);
+            }
+        }
+
         if ($accessibility = $this->getAccesibility()) {
             if ($apiFormat) {
                 $allValues = $this->filterService->getAccesibilityValues();
@@ -110,26 +112,6 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
                 $ret[self::RESTRICTION_ACCESSIBILITY] = array_values($accessibilityCodes);
             } else {
                 $ret[self::RESTRICTION_ACCESSIBILITY] = array_values($accessibility);
-            }
-        }
-
-        if ($accessibility = $this->getAccesibilityPram()) {
-            if ($apiFormat) {
-                $allValues = $this->filterService->getAccesibilityValues();
-                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
-                $ret[self::RESTRICTION_ACCESSIBILITY_PRAM] = array_values($accessibilityCodes);
-            } else {
-                $ret[self::RESTRICTION_ACCESSIBILITY_PRAM] = array_values($accessibility);
-            }
-        }
-
-        if ($accessibility = $this->getAccesibilitySeniors()) {
-            if ($apiFormat) {
-                $allValues = $this->filterService->getAccesibilityValues();
-                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
-                $ret[self::RESTRICTION_ACCESSIBILITY_SENIORS] = array_values($accessibilityCodes);
-            } else {
-                $ret[self::RESTRICTION_ACCESSIBILITY_SENIORS] = array_values($accessibility);
             }
         }
 
@@ -163,21 +145,11 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     /**
      * Vraci aktualni nastaveni filtru - pristupnost pro rodice s kocarky
      *
-     * @return array|null
+     * @return string
      */
-    public function getAccesibilityPram()
+    public function getAccessibilityType()
     {
-        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_PRAM};
-    }
-
-    /**
-     * Vraci aktualni nastaveni filtru - pristupnost pro duchodce
-     *
-     * @return array|null
-     */
-    public function getAccesibilitySeniors()
-    {
-        return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_SENIORS};
+        return (string) $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_TYPE} ?: FilterService::ACCESSIBILITY_TYPE_DEFAULT;
     }
 
     /**
@@ -208,6 +180,21 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         return $types;
     }
 
+
+    /**
+     * Vrati vychozi typy mapovych podkladu pro filtr.
+     *
+     * @return string[]
+     */
+    public function getAccessibilityTypes(): array
+    {
+        return [
+            FilterService::ACCESSIBILITY_TYPE_DEFAULT,
+            FilterService::ACCESSIBILITY_TYPE_PRAM,
+            FilterService::ACCESSIBILITY_TYPE_SENIORS,
+        ];
+    }
+
     /**
      * Vrati vychozi typy mapovych podkladu pro filtr.
      *
@@ -231,22 +218,14 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     {
         $section = $this->session->getSection(self::SECTION);
 
+        // ulozime si do session typ pristupnosti
+        $accessibilityType = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_TYPE);
+        $section->{self::RESTRICTION_ACCESSIBILITY_TYPE} = $accessibilityType;
+
         // ulozime si do session pristupnost pro vozickare
         $accessibility = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY);
         if ($accessibility || $override) {
             $section->{self::RESTRICTION_ACCESSIBILITY} = $accessibility;
-        }
-
-        // ulozime si do session pristupnost pro rodice s detmi
-        $accessibilityPram = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_PRAM);
-        if ($accessibility || $override) {
-            $section->{self::RESTRICTION_ACCESSIBILITY_PRAM} = $accessibilityPram;
-        }
-
-        // ulozime si do session pristupnost pro duchodce
-        $accessibilitySeniors = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_SENIORS);
-        if ($accessibility || $override) {
-            $section->{self::RESTRICTION_ACCESSIBILITY_SENIORS} = $accessibilitySeniors;
         }
 
         // ulozime si do session kategorii

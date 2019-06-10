@@ -21,6 +21,10 @@ class FilterService
         TYPE_OUTDATED = 'outdated',
         TYPE_COMMUNITY = 'community';
 
+    public const ACCESSIBILITY_TYPE_DEFAULT = 'default',
+        ACCESSIBILITY_TYPE_PRAM = 'pram',
+        ACCESSIBILITY_TYPE_SENIORS = 'seniors';
+
     /** @var ObjectManager */
     protected $objectManager;
 
@@ -40,6 +44,15 @@ class FilterService
         $this->objectManager = $objectManager;
         $this->accessibilityManager = $accessibilityManager;
         $this->objectTypeManager = $objectTypeManager;
+    }
+
+    public function getAccessibilityTypes(): array
+    {
+        return [
+            1 => 'Accessibility',
+            2 => 'AccessibilityPensioners',
+            3 => 'AccessibilityPram',
+        ];
     }
 
     /**

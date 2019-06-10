@@ -26,7 +26,11 @@
             <div class="filter_items">
                 <ul>
                     {foreach $form[$name]->items as $key => $label}
-                        {var $active = (false !== array_search($key, $form[$name]->value, true))}
+                        {if is_array($form[$name]->value)}
+                            {var $active = (false !== array_search($key, $form[$name]->value, true))}
+                        {else}
+                            {var $active = ($key === $form[$name]->value)}
+                        {/if}
 
                         <li n:class="$active ? active, nwjs_filter_item">
                             {input $name:$key}

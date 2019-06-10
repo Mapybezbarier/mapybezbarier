@@ -5,10 +5,12 @@ namespace MP\Module\SourceDetail;
 use Dibi\DateTime;
 use Kdyby\Translation\Translator;
 use MP\Manager\LicenseManager;
+use MP\Module\Web\Service\ObjectRestrictorBuilder;
 use MP\Module\Web\Service\ObjectService;
 use MP\Module\Web\Service\UserService;
 use MP\Object\ObjectHelper;
 use MP\Object\ObjectMetadata;
+use MP\Service\FilterService;
 use MP\Util\Arrays;
 use MP\Util\Strings;
 use Nette\Http\Url;
@@ -37,6 +39,9 @@ class DetailService
     /** @var UserService */
     protected $userService;
 
+    /** @var ObjectRestrictorBuilder */
+    private $objectRestrictorBuilder;
+
     /**
      * @param ObjectService $objectService
      * @param SourceDetailFactory $sourceDetailFactory
@@ -46,20 +51,22 @@ class DetailService
      * @param array $categories
      */
      public function __construct(
-            ObjectService $objectService,
-            SourceDetailFactory $sourceDetailFactory,
-            Translator $translator,
-            LicenseManager $licenseManager,
-            UserService $userService,
-            array $categories
-    ) {
-        $this->objectService = $objectService;
-        $this->sourceDetailFactory = $sourceDetailFactory;
-        $this->translator = $translator;
-        $this->licenseManager = $licenseManager;
-        $this->userService = $userService;
-        $this->categories = Arrays::flip($categories);
-    }
+         ObjectService $objectService,
+         SourceDetailFactory $sourceDetailFactory,
+         ObjectRestrictorBuilder $objectRestrictorBuilder,
+         Translator $translator,
+         LicenseManager $licenseManager,
+         UserService $userService,
+         array $categories
+     ) {
+         $this->objectService = $objectService;
+         $this->sourceDetailFactory = $sourceDetailFactory;
+         $this->objectRestrictorBuilder = $objectRestrictorBuilder;
+         $this->translator = $translator;
+         $this->licenseManager = $licenseManager;
+         $this->userService = $userService;
+         $this->categories = Arrays::flip($categories);
+     }
 
     /**
      * @param array $object
@@ -130,6 +137,32 @@ class DetailService
             'descriptions' => $this->getDescriptions($object),
             'source_id' => $object['source_id'],
         ];
+
+        switch ($this->objectRestrictorBuilder->getAccessibilityType()) {
+            case FilterService::ACCESSIBILITY_TYPE_DEFAULT:
+                $ret['accessibility_type'] = 'default';
+                $ret['accessibility'] = [
+                    'id' => $object['accessibility_id'],
+                    'title' => $object['accessibility'],
+                ];
+                break;
+            case FilterService::ACCESSIBILITY_TYPE_PRAM:
+
+                $ret['accessibility_type'] = 'pram';
+                $ret['accessibility'] = [
+                    'id' => $object['accessibility_pram_id'],
+                    'title' => $object['accessibility'],
+                ];
+                break;
+            case FilterService::ACCESSIBILITY_TYPE_SENIORS:
+
+                $ret['accessibility_type'] = 'seniors';
+                $ret['accessibility'] = [
+                    'id' => $object['accessibility_seniors_id'],
+                    'title' => $object['accessibility'],
+                ];
+                break;
+        }
 
         $sourceDetail = $this->sourceDetailFactory->create($object);
         $ret = array_merge($ret, $sourceDetail->prepareSourceData($object));

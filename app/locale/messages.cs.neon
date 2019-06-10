@@ -126,6 +126,11 @@ enum:
             exhibitionCentreObjectCategory: "výstaviště"
 
 
+        accessibilityType:
+            default: tělesně postižení
+            pram: rodiče s kočárkem
+            seniors: senioři
+
         accessibility:
             accessibleObjectMKPO: přístupný
             partlyAccessibleObjectMKPO: částečně přístupný
@@ -256,9 +261,8 @@ control:
             seekPositionButton: Načíst pozici
 
         label:
+            accessibilityType: Typ přístupnosti
             accessibility: Přístupnost objektu
-            accessibilityPram: Přístupnost kočárky
-            accessibilitySeniors: Přístupnost důchodci
             category: Typ objektu
             type: Podklady
 

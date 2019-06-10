@@ -3,7 +3,7 @@
 {include infoBox}
 
 {define infoBox}
-    <div class="info_box_content_wrapper detail accessible_{$object['accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
+    <div class="info_box_content_wrapper detail accessible_{$object['accessibility_type']}_{$object['accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
         {include content}
     </div>
 {/define}
