@@ -220,7 +220,9 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
 
         // ulozime si do session typ pristupnosti
         $accessibilityType = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_TYPE);
-        $section->{self::RESTRICTION_ACCESSIBILITY_TYPE} = $accessibilityType;
+        if ($accessibilityType || $override) {
+            $section->{self::RESTRICTION_ACCESSIBILITY_TYPE} = $accessibilityType;
+        }
 
         // ulozime si do session pristupnost pro vozickare
         $accessibility = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY);

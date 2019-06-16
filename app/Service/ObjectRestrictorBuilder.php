@@ -34,7 +34,7 @@ class ObjectRestrictorBuilder
                 $restrictions = ['([accessibility_pram_id] IS NOT NULL AND [accessibility_pram_id] IN %in) OR ([accessibility_pram_id] IS NULL AND [accessibility_id] IN %in)', $accessibility, $accessibility];
                 break;
             case FilterService::ACCESSIBILITY_TYPE_SENIORS:
-                $restrictions = ['([accessibility_seniors_id] IS NOT NULL AND [accessibility_pram_id] IN %in) OR ([accessibility_seniors_id] IS NULL AND [accessibility_id] IN %in)', $accessibility, $accessibility];
+                $restrictions = ['([accessibility_seniors_id] IS NOT NULL AND [accessibility_seniors_id] IN %in) OR ([accessibility_seniors_id] IS NULL AND [accessibility_id] IN %in)', $accessibility, $accessibility];
                 break;
         }
 
