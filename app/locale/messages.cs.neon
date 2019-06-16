@@ -127,8 +127,8 @@ enum:
 
 
         accessibilityType:
-            default: tělesně postižení
-            pram: rodiče s kočárkem
+            default: hendikepovaní
+            pram: rodiče s dětmi
             seniors: senioři
 
         accessibility:
