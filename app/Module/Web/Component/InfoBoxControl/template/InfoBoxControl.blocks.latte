@@ -1,5 +1,5 @@
 {define infoBox}
-    <div class="info_box_content_wrapper accessible_{$object['accessibility_type']}_{$object['accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
+    <div class="info_box_content_wrapper accessible_{$object['aggregated_accessibility']['id']}" vocab="http://schema.org/" typeof="TouristAttraction">
         {include content}
     </div>
 {/define}
@@ -20,7 +20,7 @@
     <div class="ib_header">
         <h2
             class="title"
-            title="{_'messages.enum.value.accessibility.full.' . \MP\Util\Strings::firstLower($object['accessibility']['title'])}"
+            title="{_'messages.enum.value.accessibility.full.' . \MP\Util\Strings::firstLower($object['aggregated_accessibility']['title'])}"
         >
             {include headerLink}
         </h2>

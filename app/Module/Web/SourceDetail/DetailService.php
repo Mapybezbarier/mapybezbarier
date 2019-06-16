@@ -130,7 +130,7 @@ class DetailService
             'license' => $object['license'],
             'license_url' => $this->getLicenseUrl($object['license_id']),
             'owner' => $object['data_owner_url'],
-            'accessibility' => [
+            'aggregated_accessibility' => [
                 'id' => $object['accessibility_id'],
                 'title' => $object['accessibility'],
             ],
@@ -138,30 +138,23 @@ class DetailService
             'source_id' => $object['source_id'],
         ];
 
-        switch ($this->objectRestrictorBuilder->getAccessibilityType()) {
-            case FilterService::ACCESSIBILITY_TYPE_DEFAULT:
-                $ret['accessibility_type'] = 'default';
-                $ret['accessibility'] = [
-                    'id' => $object['accessibility_id'],
-                    'title' => $object['accessibility'],
-                ];
-                break;
-            case FilterService::ACCESSIBILITY_TYPE_PRAM:
 
-                $ret['accessibility_type'] = 'pram';
-                $ret['accessibility'] = [
-                    'id' => $object['accessibility_pram_id'],
-                    'title' => $object['accessibility'],
-                ];
-                break;
-            case FilterService::ACCESSIBILITY_TYPE_SENIORS:
-
-                $ret['accessibility_type'] = 'seniors';
-                $ret['accessibility'] = [
-                    'id' => $object['accessibility_seniors_id'],
-                    'title' => $object['accessibility'],
-                ];
-                break;
+        if (
+            $this->objectRestrictorBuilder->getAccessibilityType() === FilterService::ACCESSIBILITY_TYPE_PRAM
+            && $object['accessibility_pram_id']
+        ) {
+            $ret['aggregated_accessibility'] = [
+                'id' => $object['accessibility_pram_id'],
+                'title' => $object['accessibility_pram'],
+            ];
+        } else if (
+            $this->objectRestrictorBuilder->getAccessibilityType() === FilterService::ACCESSIBILITY_TYPE_SENIORS
+            && $object['accessibility_seniors_id']
+        ) {
+            $ret['aggregated_accessibility'] = [
+                'id' => $object['accessibility_seniors_id'],
+                'title' => $object['accessibility_seniors'],
+            ];
         }
 
         $sourceDetail = $this->sourceDetailFactory->create($object);
