@@ -106,7 +106,7 @@ class FilterControl extends AbstractFormControl
      */
     protected function appendAccessibilityTypes(Form $form)
     {
-        $accessibilityTypes = $this->restrictorBuilder->getAccessibilityTypes();
+        $accessibilityTypes = $this->filterService->getAccessibilityTypes();
 
         $values = $this->prepareSelectValues(array_combine($accessibilityTypes, $accessibilityTypes), 'messages.enum.value.' . ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_TYPE . '.');
 

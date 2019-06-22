@@ -46,12 +46,17 @@ class FilterService
         $this->objectTypeManager = $objectTypeManager;
     }
 
+    /**
+     * Vrati moznosti pristupnosti pro filtr
+     *
+     * @return string[]
+     */
     public function getAccessibilityTypes(): array
     {
         return [
-            1 => 'Accessibility',
-            2 => 'AccessibilityPensioners',
-            3 => 'AccessibilityPram',
+            FilterService::ACCESSIBILITY_TYPE_DEFAULT,
+            FilterService::ACCESSIBILITY_TYPE_PRAM,
+            FilterService::ACCESSIBILITY_TYPE_SENIORS,
         ];
     }
 

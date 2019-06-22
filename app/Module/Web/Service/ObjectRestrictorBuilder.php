@@ -173,21 +173,6 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         return $types;
     }
 
-
-    /**
-     * Vrati vychozi typy mapovych podkladu pro filtr.
-     *
-     * @return string[]
-     */
-    public function getAccessibilityTypes(): array
-    {
-        return [
-            FilterService::ACCESSIBILITY_TYPE_DEFAULT,
-            FilterService::ACCESSIBILITY_TYPE_PRAM,
-            FilterService::ACCESSIBILITY_TYPE_SENIORS,
-        ];
-    }
-
     /**
      * Vrati vychozi typy mapovych podkladu pro filtr.
      *
