@@ -96,15 +96,7 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     {
         $ret = [];
 
-        if ($accessibility = $this->getAccessibilityType()) {
-            if ($apiFormat) {
-                $allValues = $this->filterService->getAccessibilityTypes();
-                $accessibilityCodes = array_intersect_key($allValues, array_flip($accessibility));
-                $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = array_values($accessibilityCodes);
-            } else {
-                $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = array_values($accessibility);
-            }
-        }
+        $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = $this->getAccessibilityType();
 
         if ($accessibility = $this->getAccesibility()) {
             if ($apiFormat) {
