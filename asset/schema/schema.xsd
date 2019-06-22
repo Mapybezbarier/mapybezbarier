@@ -21,8 +21,8 @@
                             <xs:element name="title" type="xs:string"/>
                             <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="accessibility" type="ObjectCategorization"/>
-                            <xs:element name="accessibilityPram" type="ObjectCategorization"/>
-                            <xs:element name="accessibilitySeniors" type="ObjectCategorization"/>
+                            <xs:element name="accessibilityPram" type="ObjectCategorization" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="accessibilitySeniors" type="ObjectCategorization" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="organizationIc" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="organizationName" type="xs:string" minOccurs="0" maxOccurs="1"/>
                             <xs:element name="mappingDate" type="xs:dateTime"/>
