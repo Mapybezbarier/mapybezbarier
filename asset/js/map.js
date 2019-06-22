@@ -475,34 +475,13 @@ MapWrapper.prototype.setObject = function (object) {
  * @param {object[]} markers
  */
 MapWrapper.prototype.setMarkers = function (markers) {
-    var ids = markers.reduce(function(ret, marker) {
-        ret[marker['id']] = true;
-        return ret;
-    }, {});
+    // Nova sada markeru a objektu muze mit i pri stejnem ID jiny obsah (napr. v zavislosti na typu filtrovani)
+    // Zavri a smaz vsechny aktualni infoboxy
+    this.closeInfoBox();
+    this.infoBoxes = {};
 
-    var id;
-
-    for (id in this.infoBoxes) {
-        if (!ids.hasOwnProperty(id)) {
-            if (this.infoBox === this.infoBoxes[id]) {
-                this.closeInfoBox();
-            }
-
-            delete this.infoBoxes[id];
-        }
-    }
-
-    var removeMarkers = [];
-
-    for (id in this.markers) {
-        if (!ids.hasOwnProperty(id)) {
-            removeMarkers.push(this.markers[id]);
-
-            delete this.markers[id];
-        }
-    }
-
-    this._mapLayer.removeMarkers(removeMarkers);
+    // Smaz vsechny soucasne markery
+    this.markers = {};
 
     this.config.markers = markers;
 
