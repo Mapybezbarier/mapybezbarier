@@ -4,6 +4,7 @@ namespace MP\Module\Web\Service;
 
 use MP\Service\FilterService;
 use MP\Util\Arrays;
+use Nette\Application\UI\Presenter;
 use Nette\Http\Request;
 use Nette\Http\Session;
 use Nette\Utils\Validators;
@@ -216,6 +217,11 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
      */
     public function prepareRestrictions(array $restrictions, $override = false)
     {
+        // pri zpracovani signalu neni zadouci nastavovat restrikce filtru, protoze se jinak nastavi default hodnoty
+        if (isset($restrictions[Presenter::SIGNAL_KEY])) {
+            return;
+        }
+
         $section = $this->session->getSection(self::SECTION);
 
         // ulozime si do session typ pristupnosti
