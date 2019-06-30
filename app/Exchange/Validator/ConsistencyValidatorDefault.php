@@ -96,6 +96,14 @@ class ConsistencyValidatorDefault implements IValidator
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return static::VALIDATOR_NAME;
+    }
+
+    /**
      * Zaloguje notice z kontroly konzistence - ve vypise bude oddeleno
      *
      * @param array $object

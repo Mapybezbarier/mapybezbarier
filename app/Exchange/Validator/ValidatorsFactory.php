@@ -78,4 +78,27 @@ class ValidatorsFactory
 
         return $order;
     }
+
+    /**
+     * @param string $validatorName
+     * @return IValidator|null
+     */
+    public function getByName(string $validatorName)
+    {
+        $ret = null;
+
+        $serviceNames = $this->context->findByType(IValidator::class);
+
+        foreach ($serviceNames as $serviceName) {
+            /** @var IValidator $validator */
+            $validator = $this->context->getService($serviceName);
+
+            if ($validator->getName() === $validatorName) {
+                $ret = $validator;
+                break;
+            }
+        }
+
+        return $ret;
+    }
 }

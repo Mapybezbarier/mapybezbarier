@@ -237,4 +237,12 @@ class QualityValidator implements IValidator
     {
         return IValidator::TYPE_QUALITY;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return IValidator::TYPE_QUALITY;
+    }
 }
