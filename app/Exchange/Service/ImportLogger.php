@@ -45,29 +45,17 @@ class ImportLogger
      * @param array $object
      * @param string $message
      * @param array $arguments
+     * @param string|null $validator
      */
-    public static function addNotice($object, $message, $arguments = [])
+    public static function addNotice($object, $message, $arguments = [], $validator = null)
     {
         self::$notices[] = [
             'object' => self::getObjectSimpleInfo($object),
             'message' => $message,
             'arguments' => $arguments,
+            'validator' => $validator,
         ];
     }
-
-    /**
-     * Zaloguje notice z kontroly konzistence - ve vypise bude oddeleno
-     *
-     * @param array $object
-     * @param string $message
-     * @param array $arguments
-     */
-    public static function addConsistencyNotice($object, $message, $arguments = [])
-    {
-        $message = 'consistency.'.$message;
-        self::addNotice($object, $message, $arguments);
-    }
-
 
     /**
      * Nastavi celkovy pocet importovanych objektu

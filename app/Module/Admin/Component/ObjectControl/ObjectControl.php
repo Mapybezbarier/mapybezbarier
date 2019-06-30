@@ -937,7 +937,7 @@ class ObjectControl extends AbstractObjectControl
         $notices = [];
 
         foreach (ImportLogger::getNotices() as $notice) {
-            $notices[] = $this->translator->translate("backend.import.notice.{$notice['message']}", $notice['arguments']);
+            $notices[$notice['validator']][] = $this->translator->translate("backend.import.notice.{$notice['message']}", $notice['arguments']);
         }
 
         return $notices;

@@ -40,6 +40,14 @@ import:
             elevators2: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 110 cm."
             platforms2: "Rozměry plošiny jsou minimálně: šířka vstupu 70 cm, přepravní plocha: šířka 70 cm x hloubka 90 cm."
             object2: "Před vstupem do objektu je maximálně jeden schod bez řešení k jeho překonání."
+            doorsteps3: "Výška prahů je maximálně 15 cm."
+            elevators3: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 80 cm x hloubka 100 cm."
+            stairsbannister1: "Schodiště v interiéru je opatřeno zábradlím"
+            wcs2: "Existuje alespoň jedna toaleta s madlem."
+            doors3: "Dveře a průchody jsou široké minimálně 60 cm."
+            elevators4: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 110 cm. Klec je vybavena sedátkem."
+            object3: "Před vstupem do objektu jsou maximálně dva schody bez řešení k jeho překonání."
+            elevators5: "Výtah má rozměry minimálně: šířka dveří 60 cm, vnitřní rozměr kabiny: šířka 80 cm x hloubka 100 cm."
             wc:
                 location1: "Nachází se v dámských toaletách (případně v dámských i pánských) nebo je umístěna samostatně. (příloha %key%)"
                 doors1: "Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 80 cm. Dveře se otevírají směrem ven z kabiny. (příloha %key%)"
@@ -972,6 +980,10 @@ control:
             title: "Výstup kontroly kvality a konzistence"
             description: "Níže naleznete popis chyb zjištěných po posledním odeslání formuláře."
             continue: "Pokračovat v editaci objektu"
+            validatorTitle:
+                consistencyDefault: "Přístupnost - základní"
+                consistencyPram: "Přístupnost - rodiče s dětmi"
+                consistencySeniors: "Přístupnost - senioři"
 
     search:
         label:

@@ -9,7 +9,7 @@ use MP\Util\Arrays;
 /**
  * Validator konzistence objektu.
  */
-class ConsistencyValidator implements IValidator
+class ConsistencyValidatorDefault implements IValidator
 {
     const OK_RAMP_MAX_LENGTH_1 = 300;
     const OK_RAMP_MAX_INCLINATION_1 = 12.5;
@@ -42,6 +42,8 @@ class ConsistencyValidator implements IValidator
     const PARTLY_WC_DOOR_WIDTH = 70;
     const PARTLY_WC_CABIN_SIZE = 140;
     const PARTLY_WC_BASIN_DISTANCE = 70;
+
+    const VALIDATOR_NAME = 'consistencyDefault';
 
     /** @var array */
     protected $object;
@@ -94,6 +96,19 @@ class ConsistencyValidator implements IValidator
     }
 
     /**
+     * Zaloguje notice z kontroly konzistence - ve vypise bude oddeleno
+     *
+     * @param array $object
+     * @param string $message
+     * @param array $arguments
+     */
+    public static function addConsistencyNotice($object, $message, $arguments = [])
+    {
+        $message = 'consistency.'.$message;
+        ImportLogger::addNotice($object, $message, $arguments, static::VALIDATOR_NAME);
+    }
+
+    /**
      * Kontrola, zda jednotlive parametry splnuji pozadavky na plne pristupny objekt
      */
     protected function checkAccessibilityOk()
@@ -102,49 +117,49 @@ class ConsistencyValidator implements IValidator
         $check = $this->checkEntrance();
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'object1');
+            $this->addConsistencyNotice($this->object, 'object1');
         }
 
         // 2. rampy/liziny
         $check = $this->checkRampSkids(
-            self::OK_RAMP_MAX_LENGTH_1, self::OK_RAMP_MAX_INCLINATION_1,
-            self::OK_RAMP_MAX_LENGTH_2, self::OK_RAMP_MAX_INCLINATION_2,
-            self::OK_RAMP_MIN_WIDTH
+            static::OK_RAMP_MAX_LENGTH_1, static::OK_RAMP_MAX_INCLINATION_1,
+            static::OK_RAMP_MAX_LENGTH_2, static::OK_RAMP_MAX_INCLINATION_2,
+            static::OK_RAMP_MIN_WIDTH
         );
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'ramps1');
+            $this->addConsistencyNotice($this->object, 'ramps1');
         }
 
         // 3. dvere
-        $check = $this->checkDoors(['mainpanel'], self::OK_DOOR_WIDTH, true);
+        $check = $this->checkDoors(['mainpanel'], static::OK_DOOR_WIDTH, true);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'doors1');
+            $this->addConsistencyNotice($this->object, 'doors1');
         }
 
         // 4. prahy
-        $check = $this->checkDoorSteps(self::OK_DOOR_STEP_HEIGHT);
+        $check = $this->checkDoorSteps(static::OK_DOOR_STEP_HEIGHT);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'doorsteps1');
+            $this->addConsistencyNotice($this->object, 'doorsteps1');
         }
 
         // 5. vytahy
         $check = $this->checkElevators(
-            self::OK_ELEVATOR_DOOR1_WIDTH, self::OK_ELEVATOR_DOOR2_WIDTH,
-            self::OK_ELEVATOR_CAGE_WIDTH, self::OK_ELEVATOR_CAGE_DEPTH
+            static::OK_ELEVATOR_DOOR1_WIDTH, static::OK_ELEVATOR_DOOR2_WIDTH,
+            static::OK_ELEVATOR_CAGE_WIDTH, static::OK_ELEVATOR_CAGE_DEPTH
         );
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'elevators1');
+            $this->addConsistencyNotice($this->object, 'elevators1');
         }
 
         // 6. zachody
         $check = $this->checkWcs();
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wcs1');
+            $this->addConsistencyNotice($this->object, 'wcs1');
         }
     }
 
@@ -157,58 +172,58 @@ class ConsistencyValidator implements IValidator
         $check = $this->checkInterior();
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'interior2');
+            $this->addConsistencyNotice($this->object, 'interior2');
         }
 
         // 2. rampy/liziny
         $check = $this->checkRampSkids(
-            self::PARTLY_RAMP_MAX_LENGTH_1, self::PARTLY_RAMP_MAX_INCLINATION_1,
-            self::PARTLY_RAMP_MAX_LENGTH_2, self::PARTLY_RAMP_MAX_INCLINATION_2,
-            self::PARTLY_RAMP_MIN_WIDTH
+            static::PARTLY_RAMP_MAX_LENGTH_1, static::PARTLY_RAMP_MAX_INCLINATION_1,
+            static::PARTLY_RAMP_MAX_LENGTH_2, static::PARTLY_RAMP_MAX_INCLINATION_2,
+            static::PARTLY_RAMP_MIN_WIDTH
         );
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'ramps2');
+            $this->addConsistencyNotice($this->object, 'ramps2');
         }
 
         // 3. dvere
-        $check = $this->checkDoors(['mainpanel', 'sidepanel'], self::PARTLY_DOOR_WIDTH, false);
+        $check = $this->checkDoors(['mainpanel', 'sidepanel'], static::PARTLY_DOOR_WIDTH, false);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'doors2');
+            $this->addConsistencyNotice($this->object, 'doors2');
         }
 
         // 4. prahy
-        $check = $this->checkDoorSteps(self::PARTLY_DOOR_STEP_HEIGHT);
+        $check = $this->checkDoorSteps(static::PARTLY_DOOR_STEP_HEIGHT);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'doorsteps2');
+            $this->addConsistencyNotice($this->object, 'doorsteps2');
         }
 
         // 5. vytahy
         $check = $this->checkElevators(
-            self::PARTLY_ELEVATOR_DOOR1_WIDTH, self::PARTLY_ELEVATOR_DOOR2_WIDTH,
-            self::PARTLY_ELEVATOR_CAGE_WIDTH, self::PARTLY_ELEVATOR_CAGE_DEPTH
+            static::PARTLY_ELEVATOR_DOOR1_WIDTH, static::PARTLY_ELEVATOR_DOOR2_WIDTH,
+            static::PARTLY_ELEVATOR_CAGE_WIDTH, static::PARTLY_ELEVATOR_CAGE_DEPTH
         );
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'elevators2');
+            $this->addConsistencyNotice($this->object, 'elevators2');
         }
 
         // 6. plosiny
         $check = $this->checkPlatforms(
-            self::PARTLY_PLATFORM_ENTRYAREA_WIDTH, self::PARTLY_PLATFORM_WIDTH, self::PARTLY_PLATFORM_DEPTH
+            static::PARTLY_PLATFORM_ENTRYAREA_WIDTH, static::PARTLY_PLATFORM_WIDTH, static::PARTLY_PLATFORM_DEPTH
         );
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'platforms2');
+            $this->addConsistencyNotice($this->object, 'platforms2');
         }
 
         // 7. vstup - schody
         $check = $this->checkEntranceSteps();
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'object2');
+            $this->addConsistencyNotice($this->object, 'object2');
         }
     }
 
@@ -224,49 +239,49 @@ class ConsistencyValidator implements IValidator
         $check = $this->checkWcLocalization($wc);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.location1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.location1', ['key' => $wcNo]);
         }
 
         // 2. dvere
-        $check = $this->checkWcDoors($wc, self::OK_WC_DOOR_WIDTH);
+        $check = $this->checkWcDoors($wc, static::OK_WC_DOOR_WIDTH);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.doors1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.doors1', ['key' => $wcNo]);
         }
 
         // 3. kabina
-        $check = $this->checkWcCabin($wc, self::OK_WC_CABIN_SIZE);
+        $check = $this->checkWcCabin($wc, static::OK_WC_CABIN_SIZE);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.cabin1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.cabin1', ['key' => $wcNo]);
         }
 
         // 4. misa
-        $check = $this->checkWcBasin($wc, self::OK_WC_BASIN_DISTANCE);
+        $check = $this->checkWcBasin($wc, static::OK_WC_BASIN_DISTANCE);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.basin1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.basin1', ['key' => $wcNo]);
         }
 
         // 5. madla
         $check = $this->checkWcHandles($wc);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.handles1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.handles1', ['key' => $wcNo]);
         }
 
         // 6. umyvadlo
         $check = $this->checkWcWashBasin($wc);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.washbasin1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.washbasin1', ['key' => $wcNo]);
         }
 
         // 7. manipulacni prostor
         $check = $this->checkWcSpace($wc);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.space1', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.space1', ['key' => $wcNo]);
         }
     }
 
@@ -279,24 +294,24 @@ class ConsistencyValidator implements IValidator
     protected function checkWcAccessibility2($wc, $wcNo)
     {
         // 1. dvere
-        $check = $this->checkWcDoors($wc, self::PARTLY_WC_DOOR_WIDTH);
+        $check = $this->checkWcDoors($wc, static::PARTLY_WC_DOOR_WIDTH);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.doors2', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.doors2', ['key' => $wcNo]);
         }
 
         // 2. kabina
-        $check = $this->checkWcCabin($wc, self::PARTLY_WC_CABIN_SIZE);
+        $check = $this->checkWcCabin($wc, static::PARTLY_WC_CABIN_SIZE);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.cabin2', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.cabin2', ['key' => $wcNo]);
         }
 
         // 3. misa
-        $check = $this->checkWcBasin($wc, self::PARTLY_WC_BASIN_DISTANCE);
+        $check = $this->checkWcBasin($wc, static::PARTLY_WC_BASIN_DISTANCE);
 
         if (!$check) {
-            ImportLogger::addConsistencyNotice($this->object, 'wc.basin2', ['key' => $wcNo]);
+            $this->addConsistencyNotice($this->object, 'wc.basin2', ['key' => $wcNo]);
         }
     }
 

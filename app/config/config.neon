@@ -115,8 +115,9 @@ services:
 
     # validators
     qualityValidator: MP\Exchange\Validator\QualityValidator
-    consistencyValidator: MP\Exchange\Validator\ConsistencyValidator
-
+    consistencyValidatorDefault: MP\Exchange\Validator\ConsistencyValidatorDefault
+    consistencyValidatorPram: MP\Exchange\Validator\ConsistencyValidatorPram
+    consistencyValidatorSeniors: MP\Exchange\Validator\ConsistencyValidatorSeniors
 
 dibi:
     driver: %database.driver%
