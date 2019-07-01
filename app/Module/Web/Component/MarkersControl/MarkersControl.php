@@ -156,7 +156,7 @@ class MarkersControl extends AbstractControl
 
         if ($this->accessibilityType === FilterService::ACCESSIBILITY_TYPE_PRAM && $object['accessibility_pram_id']) {
             $aggregated_accessibility_id = $object['accessibility_pram_id'];
-        } else if ($this->accessibilityType === FilterService::ACCESSIBILITY_TYPE_PRAM && $object['accessibility_seniors_id']) {
+        } else if ($this->accessibilityType === FilterService::ACCESSIBILITY_TYPE_SENIORS && $object['accessibility_seniors_id']) {
             $aggregated_accessibility_id = $object['accessibility_seniors_id'];
         }
 
