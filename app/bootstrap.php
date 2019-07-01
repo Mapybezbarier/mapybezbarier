@@ -13,7 +13,7 @@ $configurator->addParameters([
     'databaseIp' => DATABASE_IP,
 ]);
 
-$configurator->setDebugMode(true);
+$configurator->setDebugMode(file_exists(APP_DIR . '/config/config.local.neon'));
 $configurator->enableDebugger(TRACY_DIR, BUGREPORT_MAIL);
 
 $configurator->setTempDirectory(TEMP_DIR);
