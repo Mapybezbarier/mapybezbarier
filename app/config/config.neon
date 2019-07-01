@@ -94,6 +94,7 @@ services:
     dpaTransformator: MP\Exchange\Service\DpaTransformator
     valuesNormalizer: MP\Exchange\Service\ValuesNormalizer
     automaticImportService: MP\Module\Admin\Service\AutomaticImportService
+    autofillAccessibilityService: MP\Module\Admin\Service\AutofillAccessibilityService
     filterSet: MP\Util\Latte\Filter\FilterSet
 
     # cache

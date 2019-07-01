@@ -6,8 +6,6 @@ use IPub\Images\TImages;
 use MP\Component\Form\FormFactory;
 use MP\Exchange\Service\ImportLogger;
 use MP\Exchange\Service\RuianFinder;
-use MP\Exchange\Validator\ConsistencyValidatorPram;
-use MP\Exchange\Validator\ConsistencyValidatorSeniors;
 use MP\Exchange\Validator\ValidatorsFactory;
 use MP\Manager\ExchangeSourceManager;
 use MP\Mapper\IMapper;
@@ -16,6 +14,7 @@ use MP\Module\Admin\Component\AbstractObjectControl\Service\FormGenerator;
 use MP\Module\Admin\Component\ObjectAddressMapControl\IObjectAddressMapControlFactory;
 use MP\Module\Admin\Component\ObjectAddressMapControl\ObjectAddressMapControl;
 use MP\Module\Admin\Service\Authorizator;
+use MP\Module\Admin\Service\AutofillAccessibilityService;
 use MP\Module\Admin\Service\ObjectDraftService;
 use MP\Module\Admin\Service\ObjectRestrictorBuilder;
 use MP\Module\Admin\Service\ObjectService;
@@ -107,6 +106,9 @@ class ObjectControl extends AbstractObjectControl
     /** @var Request */
     protected $request;
 
+    /** @var AutofillAccessibilityService */
+    protected $autofillAccessibilityService;
+
     /**
      * @param FormFactory $factory
      * @param FormGenerator $formGenerator
@@ -121,6 +123,7 @@ class ObjectControl extends AbstractObjectControl
      * @param ExchangeSourceManager $sourceManager
      * @param ValidatorsFactory $validatorsFactory
      * @param Request $request
+     * @param AutofillAccessibilityService $autofillAccessibilityService
      */
     public function __construct(
         FormFactory $factory,
@@ -135,7 +138,8 @@ class ObjectControl extends AbstractObjectControl
         RuianFinder $ruianFinder,
         ExchangeSourceManager $sourceManager,
         ValidatorsFactory $validatorsFactory,
-        Request $request
+        Request $request,
+        AutofillAccessibilityService $autofillAccessibilityService
     ) {
         parent::__construct($factory, $formGenerator, $objectService, $translator);
 
@@ -148,6 +152,7 @@ class ObjectControl extends AbstractObjectControl
         $this->suggestionProvider = $suggestionProvider;
         $this->request = $request;
         $this->userService = $userService;
+        $this->autofillAccessibilityService = $autofillAccessibilityService;
     }
 
     public function render()
@@ -458,7 +463,7 @@ class ObjectControl extends AbstractObjectControl
     {
         $values = $form->getValues(true);
         $object = $this->prepareObject($values);
-        $object = $this->autofillAccessibility($object);
+        $object = $this->autofillAccessibilityService->autofillAccessibility($object);
 
         $priority = (empty($object['latitude']) || empty($object['longitude']));
 
@@ -501,55 +506,6 @@ class ObjectControl extends AbstractObjectControl
         }
 
         return $values;
-    }
-
-    /**
-     * Automaticke doplneni pristupnosti pro rodice s detmi a seniory, pokud neni explicitne zadano
-     * @param array $object
-     *
-     * @return array
-     */
-    protected function autofillAccessibility(array $object)
-    {
-        // pro komunitni data nenastavuji
-        if ($object['certified']) {
-            $object = $this->autofillAccessibilityItem($object, 'accessibilityPram', ConsistencyValidatorPram::VALIDATOR_NAME);
-            $object = $this->autofillAccessibilityItem($object, 'accessibilitySeniors', ConsistencyValidatorSeniors::VALIDATOR_NAME);
-        }
-
-        ImportLogger::reset();
-
-        return $object;
-    }
-
-    /**
-     * @param array $object
-     * @return array
-     */
-    protected function autofillAccessibilityItem(array $object, string $accessibilityKey, string $validatorName): array
-    {
-        if (!isset($object[$accessibilityKey])) {
-            $validator = $this->validatorsFactory->getByName($validatorName);
-
-            ImportLogger::reset();
-
-            if ($validator) {
-                $object[$accessibilityKey] = ObjectMetadata::ACCESSIBILITY_OK;
-                $validator->validate($object);
-
-                if (ImportLogger::hasErrors() || ImportLogger::hasNotices()) {
-                    $object[$accessibilityKey] = ObjectMetadata::ACCESSIBILITY_PARTLY;
-                    ImportLogger::reset();
-                    $validator->validate($object);
-
-                    if (ImportLogger::hasErrors() || ImportLogger::hasNotices()) {
-                        $object[$accessibilityKey] = ObjectMetadata::ACCESSIBILITY_NO;
-                    }
-                }
-            }
-        }
-
-        return $object;
     }
 
     /**

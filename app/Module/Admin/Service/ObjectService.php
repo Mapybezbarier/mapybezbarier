@@ -16,6 +16,7 @@ use MP\Mapper\IMapper;
 use MP\Object\ObjectMetadata;
 use MP\Service\GeocodingService;
 use MP\Util\Arrays;
+use MP\Util\Strings;
 use MP\Util\Transaction\ITransaction;
 use Nette\Security\User;
 use Nette\Utils\Json;
@@ -102,6 +103,41 @@ class ObjectService extends \MP\Service\ObjectService
     public function getObjects($restrictor = null, $order = null, Paginator $paginator = null)
     {
         $objects = $this->objectManager->findAll($restrictor, $order, $paginator);
+
+        return $objects;
+    }
+
+    public function getCamelCaseObjects($restrictor = null, $order = null, Paginator $paginator = null)
+    {
+        $objects = parent::getObjects($restrictor, $order, $paginator);
+
+        foreach ($objects as &$object) {
+            $object = $this->transformKeysToCamelCase($object);
+
+            if ($object['rampskids']) {
+                foreach ($object['rampskids'] as &$rampskids) {
+                    $rampskids = $this->transformKeysToCamelCase($rampskids);
+                }
+            }
+
+            if ($object['platform']) {
+                foreach ($object['platform'] as &$platform) {
+                    $platform = $this->transformKeysToCamelCase($platform);
+                }
+            }
+
+            if ($object['elevator']) {
+                foreach ($object['elevator'] as &$elevator) {
+                    $elevator = $this->transformKeysToCamelCase($elevator);
+                }
+            }
+
+            if ($object['wc']) {
+                foreach ($object['wc'] as &$wc) {
+                    $wc = $this->transformKeysToCamelCase($wc);
+                }
+            }
+        }
 
         return $objects;
     }
@@ -365,5 +401,18 @@ class ObjectService extends \MP\Service\ObjectService
         }
 
         $this->logService->log(Authorizator::RESOURCE_OBJECT, $action, $object['object_id'], $object['title'], $data);
+    }
+
+    /**
+     * @param $object
+     * @return array|false
+     */
+    protected function transformKeysToCamelCase($item)
+    {
+        $item = array_combine(
+            array_map(Strings::class . '::toCamelCase', array_keys($item)),
+            array_values($item)
+        );
+        return $item;
     }
 }
