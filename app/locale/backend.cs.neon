@@ -48,6 +48,7 @@ import:
             elevators4: "Výtah má rozměry minimálně: šířka dveří 70 cm, vnitřní rozměr kabiny: šířka 100 cm x hloubka 110 cm. Klec je vybavena sedátkem."
             object3: "Před vstupem do objektu jsou maximálně dva schody bez řešení k jeho překonání."
             elevators5: "Výtah má rozměry minimálně: šířka dveří 60 cm, vnitřní rozměr kabiny: šířka 80 cm x hloubka 100 cm."
+            object4: "Před vstupem do objektu je maximálně jeden schody bez řešení k jeho překonání o výšce max. 15 cm."
             wc:
                 location1: "Nachází se v dámských toaletách (případně v dámských i pánských) nebo je umístěna samostatně. (příloha %key%)"
                 doors1: "Vstupní dveře kabiny i všechny přístupy k ní jsou široké minimálně 80 cm. Dveře se otevírají směrem ven z kabiny. (příloha %key%)"

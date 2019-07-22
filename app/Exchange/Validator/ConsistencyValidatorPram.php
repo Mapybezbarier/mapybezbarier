@@ -3,7 +3,6 @@
 namespace MP\Exchange\Validator;
 
 use MP\Object\ObjectMetadata;
-use MP\Util\Arrays;
 
 /**
  * Validator konzistence objektu dle pristupnosti pro rodice s detmi.
@@ -82,7 +81,11 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
         }
 
         // 5. vstup - schody
-        $check = $this->checkEntranceSteps();
+        $validTypes = [
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP,
+        ];
+        $check = $this->checkEntranceSteps($validTypes);
 
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'object2');
@@ -156,32 +159,14 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
         }
 
         // 7. vstup - schody
-        $check = $this->checkEntranceSteps();
+        $validTypes = [
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP, ObjectMetadata::ENTRANCE_ACCESSIBILITY_PLATFORM,
+        ];
+        $check = $this->checkEntranceSteps($validTypes);
 
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'object2');
         }
-    }
-
-    /**
-     * @return bool
-     */
-    protected function checkEntranceSteps()
-    {
-        $ret = true;
-
-        $entrance1Accessibility = Arrays::get($this->object, 'entrance1Accessibility', null);
-        $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
-
-        if (isset($entrance1Accessibility) || isset($entrance2Accessibility)) {
-            $validTypes = [
-                ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
-                ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP
-            ];
-
-            $ret = in_array($entrance1Accessibility, $validTypes, true) || in_array($entrance2Accessibility, $validTypes, true);
-        }
-
-        return $ret;
     }
 }

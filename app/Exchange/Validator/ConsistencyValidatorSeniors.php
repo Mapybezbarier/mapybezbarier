@@ -16,6 +16,7 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
     const OK_ELEVATOR_DOOR2_WIDTH = 70;
     const OK_ELEVATOR_CAGE_WIDTH = 100;
     const OK_ELEVATOR_CAGE_DEPTH = 110;
+    const OK_ENTRANCE_MAX_ONE_STEP_HEIGHT = 15;
     const PARTLY_DOOR_WIDTH = 60;
     const PARTLY_DOOR_STEP_HEIGHT = 15;
     const PARTLY_ELEVATOR_DOOR1_WIDTH = 60;
@@ -95,10 +96,14 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
         }
 
         // 6. vstup - schody
-        $check = $this->checkEntranceSteps();
+        $validTypes = [
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP,
+        ];
+        $check = $this->checkEntranceSteps($validTypes, null,static::OK_ENTRANCE_MAX_ONE_STEP_HEIGHT);
 
         if (!$check) {
-            $this->addConsistencyNotice($this->object, 'object2');
+            $this->addConsistencyNotice($this->object, 'object4');
         }
 
         // 7. vytahy + dodatecna kontrola na sedatko
@@ -171,56 +176,15 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
         }
 
         // 7. vstup - schody
-        $check = $this->checkEntranceMaxSteps(static::PARTLY_ENTRANCE_MAX_STEPS);
+        $validTypes = [
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
+            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP, ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS,
+        ];
+        $check = $this->checkEntranceSteps($validTypes, static::PARTLY_ENTRANCE_MAX_STEPS);
 
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'object3');
         }
-    }
-
-    /**
-     * @param int $maxSteps max. pocet schodu
-     * @return bool
-     */
-    protected function checkEntranceMaxSteps($maxSteps)
-    {
-        $ret = true;
-
-        $entrance1Accessibility = Arrays::get($this->object, 'entrance1Accessibility', null);
-        $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
-        $entrance1Steps1NumberOf = Arrays::get($this->object, 'entrance1Steps1NumberOf', null);
-        $entrance2Steps1NumberOf = Arrays::get($this->object, 'entrance2Steps1NumberOf', null);
-
-        if (isset($entrance1Accessibility) || isset($entrance2Accessibility)) {
-            $validTypes = [
-                ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
-                ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP, ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
-            ];
-
-            if (isset($entrance1Accessibility)) {
-                $ret = in_array($entrance1Accessibility, $validTypes, true);
-            }
-
-            if (
-                $ret && $entrance1Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
-                && ($entrance1Steps1NumberOf === null || $entrance1Steps1NumberOf > $maxSteps)
-            ) {
-                $ret = false;
-            }
-
-            if ($ret && isset($entrance2Accessibility)) {
-                $ret = in_array($entrance2Accessibility, $validTypes, true);
-            }
-
-            if (
-                $ret && $entrance2Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
-                && ($entrance2Steps1NumberOf === null || $entrance2Steps1NumberOf > $maxSteps)
-            ) {
-                $ret = false;
-            }
-        }
-
-        return $ret;
     }
 
     /**
