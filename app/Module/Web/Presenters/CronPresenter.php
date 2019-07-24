@@ -90,8 +90,9 @@ class CronPresenter extends AbstractWebPresenter
      */
     public function actionAutofillAccessibility()
     {
-        $count = $this->autofillAccessibilityService->autofill();
-        dump($count);
+        $force = ($this->getHttpRequest()->getQuery('force') === '1');
+        $count = $this->autofillAccessibilityService->autofill($force);
+        dump('Pocet upravenych objektu: ' . $count);
         $this->terminate();
     }
 }
