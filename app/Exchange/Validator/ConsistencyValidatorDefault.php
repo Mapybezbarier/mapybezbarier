@@ -626,58 +626,49 @@ class ConsistencyValidatorDefault implements IValidator
 
     /**
      * Kontrola schodu u vstupu
-     * s vyberem povolenych typu vstupu a volitelnym omezenim na pocet schodu a vysku jednoho schodu
+     * s vyberem povolenych typu vstupu a volitelnym omezenim na max. pocet schodu
      * @return bool
      */
-    protected function checkEntranceSteps(array $validTypes, ?int $maxStepsCount = null, ?int $maxOneStepHeight = null) : bool
+    protected function checkEntranceSteps(array $validTypes, ?int $maxStepsCount = null) : bool
     {
-        $ret = true;
+        $entrance1Ok = false;
+        $entrance2Ok = false;
 
         $entrance1Accessibility = Arrays::get($this->object, 'entrance1Accessibility', null);
-        $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
 
-        if (isset($entrance1Accessibility) || isset($entrance2Accessibility)) {
-            $ret = in_array($entrance1Accessibility, $validTypes, true) || in_array($entrance2Accessibility, $validTypes, true);
+        if (isset($entrance1Accessibility)) {
+            $entrance1Ok = in_array($entrance1Accessibility, $validTypes, true);
 
-            if ($ret && $maxStepsCount !== null) {
+            if ($entrance1Ok && $maxStepsCount !== null) {
                 $entrance1Steps1NumberOf = Arrays::get($this->object, 'entrance1Steps1NumberOf', null);
-                $entrance2Steps1NumberOf = Arrays::get($this->object, 'entrance2Steps1NumberOf', null);
 
                 if (
-                    $ret && $entrance1Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
+                    $entrance1Ok && $entrance1Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
                     && ($entrance1Steps1NumberOf === null || $entrance1Steps1NumberOf > $maxStepsCount)
                 ) {
-                    $ret = false;
-                }
-
-                if (
-                    $ret && $entrance2Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
-                    && ($entrance2Steps1NumberOf === null || $entrance2Steps1NumberOf > $maxStepsCount)
-                ) {
-                    $ret = false;
-                }
-            }
-
-            if ($ret && $maxOneStepHeight !== null) {
-                $entrance1Steps1Height = Arrays::get($this->object, 'entrance1Steps1Height', null);
-                $entrance2Steps1Height = Arrays::get($this->object, 'entrance2Steps1Height', null);
-
-                if (
-                    $ret && $entrance1Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP
-                    && ($entrance1Steps1Height === null || $entrance1Steps1Height > $maxOneStepHeight)
-                ) {
-                    $ret = false;
-                }
-
-                if (
-                    $ret && $entrance2Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP
-                    && ($entrance2Steps1Height === null || $entrance2Steps1Height > $maxOneStepHeight)
-                ) {
-                    $ret = false;
+                    $entrance1Ok = false;
                 }
             }
         }
 
+        $entrance2Accessibility = Arrays::get($this->object, 'entrance2Accessibility', null);
+
+        if ($entrance1Ok === false && isset($entrance2Accessibility)) {
+            $entrance2Ok = in_array($entrance2Accessibility, $validTypes, true);
+
+            if ($entrance2Ok && $maxStepsCount !== null) {
+                $entrance2Steps1NumberOf = Arrays::get($this->object, 'entrance2Steps1NumberOf', null);
+
+                if (
+                    $entrance2Ok && $entrance2Accessibility === ObjectMetadata::ENTRANCE_ACCESSIBILITY_MORE_STEPS
+                    && ($entrance2Steps1NumberOf === null || $entrance2Steps1NumberOf > $maxStepsCount)
+                ) {
+                    $entrance2Ok = false;
+                }
+            }
+        }
+
+        $ret = $entrance1Ok || $entrance2Ok || ($entrance1Accessibility === null && $entrance2Accessibility === null);
         return $ret;
     }
 

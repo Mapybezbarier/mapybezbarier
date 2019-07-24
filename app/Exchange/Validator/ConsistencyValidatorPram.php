@@ -84,18 +84,7 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
             $this->addConsistencyNotice($this->object, 'doorsteps2');
         }
 
-        // 5. vstup - schody
-        $validTypes = [
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP,
-        ];
-        $check = $this->checkEntranceSteps($validTypes);
-
-        if (!$check) {
-            $this->addConsistencyNotice($this->object, 'object2');
-        }
-
-        // 6. vytahy
+        // 5. vytahy
         $check = $this->checkElevators(
             static::OK_ELEVATOR_DOOR1_WIDTH, static::OK_ELEVATOR_DOOR2_WIDTH,
             static::OK_ELEVATOR_CAGE_WIDTH, static::OK_ELEVATOR_CAGE_DEPTH
