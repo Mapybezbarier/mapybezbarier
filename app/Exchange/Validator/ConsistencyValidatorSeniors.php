@@ -16,7 +16,7 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
     const OK_ELEVATOR_DOOR2_WIDTH = 70;
     const OK_ELEVATOR_CAGE_WIDTH = 100;
     const OK_ELEVATOR_CAGE_DEPTH = 110;
-    const OK_ENTRANCE_MAX_ONE_STEP_HEIGHT = 15;
+    const OK_WC_BASIN_SEAT_HEIGHT = 45;
     const PARTLY_DOOR_WIDTH = 60;
     const PARTLY_DOOR_STEP_HEIGHT = 15;
     const PARTLY_ELEVATOR_DOOR1_WIDTH = 60;
@@ -24,7 +24,6 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
     const PARTLY_ELEVATOR_CAGE_WIDTH = 80;
     const PARTLY_ELEVATOR_CAGE_DEPTH = 100;
     const PARTLY_ENTRANCE_MAX_STEPS = 2;
-
     const VALIDATOR_NAME = 'consistencySeniors';
 
     /** @var array */
@@ -95,32 +94,21 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
             $this->addConsistencyNotice($this->object, 'doorsteps2');
         }
 
-        // 6. vstup - schody
-        $validTypes = [
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_NOELEVATION, ObjectMetadata::ENTRANCE_ACCESSIBILITY_RAMP,
-            ObjectMetadata::ENTRANCE_ACCESSIBILITY_ONE_STEP,
-        ];
-        $check = $this->checkEntranceSteps($validTypes, null,static::OK_ENTRANCE_MAX_ONE_STEP_HEIGHT);
-
-        if (!$check) {
-            $this->addConsistencyNotice($this->object, 'object4');
-        }
-
-        // 7. vytahy + dodatecna kontrola na sedatko
+        // 6. vytahy + dodatecna kontrola na sedatko
         $check = $this->checkElevators(
             static::OK_ELEVATOR_DOOR1_WIDTH, static::OK_ELEVATOR_DOOR2_WIDTH,
             static::OK_ELEVATOR_CAGE_WIDTH, static::OK_ELEVATOR_CAGE_DEPTH
         );
 
         if ($check) {
-            $check = $this->checkElevatorsAdditional();
+            $check = $this->checkElevatorsAdditional(true, true);
         }
 
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'elevators4');
         }
 
-        // 8. zachody
+        // 7. zachody
         $check = $this->checkWcs();
 
         if (!$check) {
@@ -170,6 +158,10 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
             static::PARTLY_ELEVATOR_DOOR1_WIDTH, static::PARTLY_ELEVATOR_DOOR2_WIDTH,
             static::PARTLY_ELEVATOR_CAGE_WIDTH, static::PARTLY_ELEVATOR_CAGE_DEPTH
         );
+
+        if ($check) {
+            $check = $this->checkElevatorsAdditional(false, true);
+        }
 
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'elevators5');
@@ -226,16 +218,27 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
     /**
      * @return bool
      */
-    protected function checkElevatorsAdditional()
+    protected function checkElevatorsAdditional(bool $requiredCageSeat, bool $requiredCageHandle) : bool
     {
         $ret = true;
 
         foreach (Arrays::get($this->object, ObjectMetadata::ELEVATOR, []) as $elevator) {
-            $elevatorIsCageSeat = Arrays::get($elevator, 'elevatorIsCageSeat', null);
+            if ($requiredCageSeat) {
+                $elevatorIsCageSeat = Arrays::get($elevator, 'elevatorIsCageSeat', null);
 
-            if ($elevatorIsCageSeat !== true) {
-                $ret = false;
-                break;
+                if ($elevatorIsCageSeat !== true) {
+                    $ret = false;
+                    break;
+                }
+            }
+
+            if ($requiredCageHandle) {
+                $elevatorIsCageHandle = Arrays::get($elevator, 'elevatorIsCageHandle', null);
+
+                if ($elevatorIsCageHandle !== true) {
+                    $ret = false;
+                    break;
+                }
             }
         }
 
@@ -247,17 +250,30 @@ class ConsistencyValidatorSeniors extends ConsistencyValidatorDefault
      */
     protected function checkWcs()
     {
-        $ret = false;
         $wcs = Arrays::get($this->object, ObjectMetadata::WC, []);
 
-        foreach ($wcs as $wc) {
-            $handle1Type = Arrays::get($wc, "handle1Type", null);
-            $handle2Type = Arrays::get($wc, "handle2Type", null);
+        if ($wcs) {
+            $ret = false;
 
-            if ($handle1Type !== null || $handle2Type !== null) {
-                $ret = true;
-                break;
+            foreach ($wcs as $wc) {
+                $handle1Type = Arrays::get($wc, "handle1Type", null);
+                $handle2Type = Arrays::get($wc, "handle2Type", null);
+                $wcIsAlarmbutton = Arrays::get($wc, 'wcIsAlarmbutton', null);
+                $washbasinUnderpass = Arrays::get($wc, 'washbasinUnderpass', null);
+                $wcBasinSeatHeight = Arrays::get($wc, 'wcBasinSeatHeight', null);
+
+                if (
+                    ($handle1Type !== null || $handle2Type !== null)
+                    && ($wcIsAlarmbutton === true)
+                    && ($washbasinUnderpass === ObjectMetadata::WC_WASHBASIN_UNDERPASS_SUFFICIENT)
+                    && ($wcBasinSeatHeight !== null && $wcBasinSeatHeight >= self::OK_WC_BASIN_SEAT_HEIGHT)
+                ) {
+                    $ret = true;
+                    break;
+                }
             }
+        } else {
+            $ret = true;
         }
 
         return $ret;

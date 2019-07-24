@@ -3,6 +3,7 @@
 namespace MP\Exchange\Validator;
 
 use MP\Object\ObjectMetadata;
+use MP\Util\Arrays;
 
 /**
  * Validator konzistence objektu dle pristupnosti pro rodice s detmi.
@@ -15,6 +16,9 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
     const OK_ELEVATOR_DOOR2_WIDTH = 70;
     const OK_ELEVATOR_CAGE_WIDTH = 100;
     const OK_ELEVATOR_CAGE_DEPTH = 110;
+    const OK_PLATFORM_ENTRYAREA_WIDTH = 70;
+    const OK_PLATFORM_WIDTH = 70;
+    const OK_PLATFORM_DEPTH = 90;
     const PARTLY_DOOR_STEP_HEIGHT = 15;
     const PARTLY_ELEVATOR_DOOR1_WIDTH = 70;
     const PARTLY_ELEVATOR_DOOR2_WIDTH = 70;
@@ -100,6 +104,22 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'elevators2');
         }
+
+        // 6. plosiny
+        $check = $this->checkPlatforms(
+            static::OK_PLATFORM_ENTRYAREA_WIDTH, static::OK_PLATFORM_WIDTH, static::OK_PLATFORM_DEPTH
+        );
+
+        if (!$check) {
+            $this->addConsistencyNotice($this->object, 'platforms2');
+        }
+
+        // 7. zachody
+        $check = $this->checkWcs();
+
+        if (!$check) {
+            $this->addConsistencyNotice($this->object, 'wcs3');
+        }
     }
 
     /**
@@ -168,5 +188,30 @@ class ConsistencyValidatorPram extends ConsistencyValidatorDefault
         if (!$check) {
             $this->addConsistencyNotice($this->object, 'object2');
         }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function checkWcs()
+    {
+        $wcs = Arrays::get($this->object, ObjectMetadata::WC, []);
+
+        if ($wcs) {
+            $ret = false;
+
+            foreach ($wcs as $wc) {
+                $wcIsChangingdesk = Arrays::get($wc, 'wcIsChangingdesk', null);
+
+                if ($wcIsChangingdesk === true) {
+                    $ret = true;
+                    break;
+                }
+            }
+        } else {
+            $ret = true;
+        }
+
+        return $ret;
     }
 }
