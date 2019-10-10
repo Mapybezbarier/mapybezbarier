@@ -7,3 +7,4 @@ app/config/config.local.neon
 .DS_Store
 .env
 .idea/
+.sass-cache/
