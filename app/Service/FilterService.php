@@ -21,6 +21,10 @@ class FilterService
         TYPE_OUTDATED = 'outdated',
         TYPE_COMMUNITY = 'community';
 
+    public const ACCESSIBILITY_TYPE_DEFAULT = 'default',
+        ACCESSIBILITY_TYPE_PRAM = 'pram',
+        ACCESSIBILITY_TYPE_SENIORS = 'seniors';
+
     /** @var ObjectManager */
     protected $objectManager;
 
@@ -40,6 +44,20 @@ class FilterService
         $this->objectManager = $objectManager;
         $this->accessibilityManager = $accessibilityManager;
         $this->objectTypeManager = $objectTypeManager;
+    }
+
+    /**
+     * Vrati moznosti pristupnosti pro filtr
+     *
+     * @return string[]
+     */
+    public function getAccessibilityTypes(): array
+    {
+        return [
+            FilterService::ACCESSIBILITY_TYPE_DEFAULT,
+            FilterService::ACCESSIBILITY_TYPE_PRAM,
+            FilterService::ACCESSIBILITY_TYPE_SENIORS,
+        ];
     }
 
     /**

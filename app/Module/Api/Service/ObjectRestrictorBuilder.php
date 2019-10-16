@@ -72,10 +72,13 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
      */
     protected function buildAccessibilityRestrictions(array &$restrictor)
     {
+        $accesibilityType = (string)
+            $this->extractStringValue(self::RESTRICTION_ACCESSIBILITY_TYPE, $this->filterService->getAccessibilityTypes())
+            ?: FilterService::ACCESSIBILITY_TYPE_DEFAULT;
         $accessibility = $this->extractArrayValues(self::RESTRICTION_ACCESSIBILITY, $this->filterService->getAccesibilityValues());
 
         if ($accessibility) {
-            $restrictor[] = $this->prepareAccessibilityRestrictions($accessibility);
+            $restrictor[] = $this->prepareTypedAccessibilityRestrictions($accesibilityType, $accessibility);
         }
     }
 
@@ -158,19 +161,24 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
 
     /**
      * Z requestu podle klice extrahuje hodnotu retezcove restrikce.
-     * Zaroven provadi validaci, zda je hodnota skutecne retezec.
+     * Zaroven provadi validaci, zda je hodnota skutecne retezec a volitelne kontroluje, zda je hodnota v povolenych.
      *
      * @param string $key
+     * @param array $allowedValues
      *
      * @return string|null
      */
-    protected function extractStringValue($key)
+    protected function extractStringValue($key, array $allowedValues = [])
     {
         $value = $this->request->getQuery($key, null);
 
         if (null !== $value) {
             if (!Validators::is($value, 'string')) {
                 throw new \MP\Module\Api\Exception\ApiException("Invalid value for key '{$key}'. String expected.");
+            }
+
+            if ($allowedValues && !in_array($value, $allowedValues)) {
+                throw new \MP\Module\Api\Exception\ApiException("Invalid value for key '{$key}'. Allowed values are [" . implode(', ' , $allowedValues) . "].");
             }
         }
 

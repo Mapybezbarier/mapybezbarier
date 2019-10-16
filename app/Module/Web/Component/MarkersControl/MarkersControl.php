@@ -51,6 +51,9 @@ class MarkersControl extends AbstractControl
     /** @var array */
     private $object;
 
+    /** @var string */
+    private $accessibilityType;
+
     /**
      * @param ObjectManager $objectManager
      * @param IStorage $storage
@@ -108,6 +111,12 @@ class MarkersControl extends AbstractControl
         $this->restrictor = $restrictor;
     }
 
+
+    public function setAccessibilityType(string $accessibilityType)
+    {
+        $this->accessibilityType = $accessibilityType;
+    }
+
     /**
      * Seskupeni objektu na stejne adrese a priprava dat pro vykresleni markeru.
      *
@@ -143,8 +152,15 @@ class MarkersControl extends AbstractControl
     {
         // zastarale profesionalni udaje se markerem nelisi od aktualnich
         $isCommunityMarker = $object['type'] === FilterService::TYPE_COMMUNITY;
+        $aggregated_accessibility_id = $object['accessibility_id'];
 
-        return [$isCommunityMarker, $object['accessibility_id'], $this->categories[$object['object_type_id']] ?? 'other'];
+        if ($this->accessibilityType === FilterService::ACCESSIBILITY_TYPE_PRAM && $object['accessibility_pram_id']) {
+            $aggregated_accessibility_id = $object['accessibility_pram_id'];
+        } else if ($this->accessibilityType === FilterService::ACCESSIBILITY_TYPE_SENIORS && $object['accessibility_seniors_id']) {
+            $aggregated_accessibility_id = $object['accessibility_seniors_id'];
+        }
+
+        return [$isCommunityMarker, $aggregated_accessibility_id, $this->categories[$object['object_type_id']] ?? 'other'];
     }
 
     /**

@@ -3,3 +3,8 @@
 /asset/temp/
 /log/
 app/config/config.test.neon
+app/config/config.local.neon
+.DS_Store
+.env
+.idea/
+.sass-cache/

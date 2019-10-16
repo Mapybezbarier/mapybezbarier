@@ -378,15 +378,6 @@ header {
     display: inline;
 }
 
-.button_set_geolocation {
-    background: $white_color bg_image($icons_path + 'ico_poloha.svg') no-repeat center center;
-    @include bs($icons_size);
-    @include border-radius(20px);
-    cursor: pointer;
-    height: 40px;
-    text-indent: $position_out;
-    width: 40px;
-}
 .nwjs_filter {
     .nwjs_filter_form {
         position: relative;
@@ -442,27 +433,6 @@ header {
                     }
                 }
 
-                &.maplayer {
-                    margin-left: 11px;
-                    padding: 0 !important;
-                    border-radius: inherit !important;
-
-                    a {
-                        display: inline-block;
-                        width: 29px;
-                        height: 29px;
-                        background-size: cover;
-
-                        &.gmaps {
-                            background-image: url("/asset/img/gmaps.png");
-                        }
-
-                        &.mapycz {
-                            background-image: url("/asset/img/mapycz.png");
-                        }
-                    }
-                }
-
                 &.active {
                     background-color: $yellow_color;
 
@@ -505,22 +475,18 @@ header {
         &.map_type {
             position: relative;
 
-            .button_set_geolocation {
-                float: right;
-                margin: -5px -20px -5px 0;
-            }
             .filter_items {
-                padding: 20px $page_h_padding;
+                padding: 20px 0px;
                 @include clearfix;
 
                 ul {
-                    float: left;
+                    display: flex;
+                    justify-content: center;
                 }
-                li {
+                li.nwjs_change_map_type {
                     @include border-radius(15px);
                     @include font_sizes(14, 14);
                     cursor: pointer;
-                    float: left;
                     padding: 7px 14px;
                     text-transform: uppercase;
                     @include trans;
@@ -532,6 +498,68 @@ header {
                     &.active {
                         background-color: $pict_blue_color;
                         color: $white_color;
+                    }
+                }
+                li.maplayer {
+                    width: 35px;
+                    margin-left: 5px;
+                    padding: 0 !important;
+                    border-radius: inherit !important;
+
+                    a {
+                        display: inline-block;
+                        width: 29px;
+                        height: 29px;
+                        background-size: cover;
+
+                        &.gmaps {
+                            background-image: url("/asset/img/gmaps.png");
+                        }
+
+                        &.mapycz {
+                            background-image: url("/asset/img/mapycz.png");
+                        }
+                    }
+                }
+                li.button_set_geolocation {
+                    background: $white_color bg_image($icons_path + 'ico_poloha.svg') no-repeat center center;
+                    @include bs($icons_size);
+                    cursor: pointer;
+                    //height: 40px;
+                    text-indent: $position_out;
+                    width: 40px;
+                    margin-top: -5px;
+                }
+            }
+        }
+        &.accessibilityType {
+
+
+            .filter_items {
+                @include clearfix;
+
+                ul {
+                    display: flex;
+                    //justify-content: space-between;
+                }
+                li {
+                    padding: 0px;
+                    width: 33.33%;
+                }
+                ul > span, li span{
+                    display: none;
+                }
+                li > label {
+                    padding: 0px;
+                    height: 90px;
+
+                    &:before, &:after {
+                        height: 70px;
+                        width: 70px;
+                        left: calc(50% - 35px);
+                        top: calc(50% - 35px);
+                        background-size: 70px;
+                        @include border_radius(35px);
                     }
                 }
             }

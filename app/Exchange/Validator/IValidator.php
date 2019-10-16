@@ -34,4 +34,11 @@ interface IValidator
      * @return string
      */
     public function getType();
+
+    /**
+     * Vrati nazev validatoru. Pouziva se pro prisutp ke konkretnimu validatoru.
+     *
+     * @return string
+     */
+    public function getName();
 }

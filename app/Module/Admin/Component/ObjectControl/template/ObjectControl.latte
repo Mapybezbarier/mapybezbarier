@@ -10,9 +10,12 @@
                 <ul n:if="$errors" class="fnw_errors">
                     <li n:foreach="$errors as $error">{$error}</li>
                 </ul>
-                <ul n:if="$notices" class="fnw_notics">
-                    <li n:foreach="$notices as $notice">{$notice}</li>
-                </ul>
+                {foreach $notices as $validator => $items}
+                    <h3>{_'backend.control.object.validation.validatorTitle.' . $validator}</h3>
+                    <ul class="fnw_notics">
+                        <li n:foreach="$items as $notice">{$notice}</li>
+                    </ul>
+                {/foreach}
             </div>
             <div class="more"><span class="nwjs_notification_opener">&hellip;</span></div>
         </div>

@@ -55,6 +55,8 @@ class ObjectMapper extends AbstractLangAwareDatabaseMapper
                     ) as [title],
                     [object_type_id],
                     [accessibility_id],
+                    [accessibility_pram_id],
+                    [accessibility_seniors_id],
                     CASE WHEN [certified] THEN
                         CASE WHEN ([mapping_date] IS NULL OR [mapping_date] <= (CURRENT_TIMESTAMP - INTERVAL '10 years'))
                             THEN %s

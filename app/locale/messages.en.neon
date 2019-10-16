@@ -125,6 +125,12 @@ enum:
             regionalOfficeObjectCategory: regional office
             exhibitionCentreObjectCategory: exhibitiom centre
 
+
+        accessibilityType:
+            default: default
+            pram: pram
+            seniors: seniors
+
         accessibility:
             accessibleObjectMKPO: accessible
             partlyAccessibleObjectMKPO: partially accessible
@@ -237,6 +243,7 @@ control:
             seekPositionButton: Load a position
 
         label:
+            accessibilityType: A place accessibility
             accessibility: A place accessibility
             category: A type of a place
             type: Data categories

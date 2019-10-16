@@ -223,6 +223,8 @@ abstract class AbstractObjectControl extends AbstractFormControl
             'objectType',
             'objectTypeCustom',
             'accessibility',
+            'accessibilityPram',
+            'accessibilitySeniors',
             'latitude',
             'longitude',
             'webUrl',

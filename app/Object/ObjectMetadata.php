@@ -24,6 +24,7 @@ class ObjectMetadata
     const ENTRANCE_ACCESSIBILITY_NOELEVATION = 'NoelevationEntranceAccessibility';
     const ENTRANCE_ACCESSIBILITY_RAMP = 'RampEntranceAccessibility';
     const ENTRANCE_ACCESSIBILITY_ONE_STEP = 'OneStepEntranceAccessibility';
+    const ENTRANCE_ACCESSIBILITY_MORE_STEPS = 'MoreStepsEntranceAccessibility';
     const ENTRANCE_ACCESSIBILITY_PLATFORM = 'PlatformEntranceAccessibility';
     const ENTRANCE_TYPE_1 = 'mainEntrance';
     const ENTRANCE_TYPE_2 = 'sideEntrance';
@@ -57,6 +58,8 @@ class ObjectMetadata
     public static $ENUM_COLUMN_TABLE_MAPPING = [
         self::OBJECT => [
             'accessibility' => 'accessibility',
+            'accessibility_pram' => 'accessibility',
+            'accessibility_seniors' => 'accessibility',
             'source' => 'exchange_source',
             'entrance1_accessibility' => 'entrance_accessibility',
             'entrance1_bell_type' => 'bell_type',

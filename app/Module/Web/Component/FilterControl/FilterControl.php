@@ -93,7 +93,8 @@ class FilterControl extends AbstractFormControl
         $form->getElementPrototype()->data('spinner', '.nwjs_filter');
         $form->onSuccess[] = [$this, 'setFilter'];
 
-        $this->appendAccessibility($form);
+        $this->appendAccessibilityTypes($form);
+        $this->appendAccessibilityValues($form);
         $this->appendTypes($form);
         $this->appendCategories($form);
 
@@ -103,7 +104,20 @@ class FilterControl extends AbstractFormControl
     /**
      * @param Form $form
      */
-    protected function appendAccessibility(Form $form)
+    protected function appendAccessibilityTypes(Form $form)
+    {
+        $accessibilityTypes = $this->filterService->getAccessibilityTypes();
+
+        $values = $this->prepareSelectValues(array_combine($accessibilityTypes, $accessibilityTypes), 'messages.enum.value.' . ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_TYPE . '.');
+
+        $form->addRadioList(ObjectRestrictorBuilder::RESTRICTION_ACCESSIBILITY_TYPE, 'messages.control.filter.label.accessibilityType', $values)
+            ->setDefaultValue($this->restrictorBuilder->getAccessibilityType());
+    }
+
+    /**
+     * @param Form $form
+     */
+    protected function appendAccessibilityValues(Form $form)
     {
         $accessibility = $this->filterService->getAccesibilityValues();
 

@@ -51,6 +51,7 @@ class EmbeddedPresenter extends AbstractWebPresenter
 
         $control = $factory->create();
         $control->setRestrictor($this->restrictorBuilder->getRestrictor());
+        $control->setAccessibilityType($this->restrictorBuilder->getAccessibilityType());
 
         return $control;
     }

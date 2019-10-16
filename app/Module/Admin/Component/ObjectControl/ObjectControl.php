@@ -14,6 +14,7 @@ use MP\Module\Admin\Component\AbstractObjectControl\Service\FormGenerator;
 use MP\Module\Admin\Component\ObjectAddressMapControl\IObjectAddressMapControlFactory;
 use MP\Module\Admin\Component\ObjectAddressMapControl\ObjectAddressMapControl;
 use MP\Module\Admin\Service\Authorizator;
+use MP\Module\Admin\Service\AutofillAccessibilityService;
 use MP\Module\Admin\Service\ObjectDraftService;
 use MP\Module\Admin\Service\ObjectRestrictorBuilder;
 use MP\Module\Admin\Service\ObjectService;
@@ -105,6 +106,9 @@ class ObjectControl extends AbstractObjectControl
     /** @var Request */
     protected $request;
 
+    /** @var AutofillAccessibilityService */
+    protected $autofillAccessibilityService;
+
     /**
      * @param FormFactory $factory
      * @param FormGenerator $formGenerator
@@ -119,6 +123,7 @@ class ObjectControl extends AbstractObjectControl
      * @param ExchangeSourceManager $sourceManager
      * @param ValidatorsFactory $validatorsFactory
      * @param Request $request
+     * @param AutofillAccessibilityService $autofillAccessibilityService
      */
     public function __construct(
         FormFactory $factory,
@@ -133,7 +138,8 @@ class ObjectControl extends AbstractObjectControl
         RuianFinder $ruianFinder,
         ExchangeSourceManager $sourceManager,
         ValidatorsFactory $validatorsFactory,
-        Request $request
+        Request $request,
+        AutofillAccessibilityService $autofillAccessibilityService
     ) {
         parent::__construct($factory, $formGenerator, $objectService, $translator);
 
@@ -146,6 +152,7 @@ class ObjectControl extends AbstractObjectControl
         $this->suggestionProvider = $suggestionProvider;
         $this->request = $request;
         $this->userService = $userService;
+        $this->autofillAccessibilityService = $autofillAccessibilityService;
     }
 
     public function render()
@@ -455,8 +462,8 @@ class ObjectControl extends AbstractObjectControl
     protected function publishObject(Form $form)
     {
         $values = $form->getValues(true);
-
         $object = $this->prepareObject($values);
+        $object = $this->autofillAccessibilityService->autofillAccessibility($object);
 
         $priority = (empty($object['latitude']) || empty($object['longitude']));
 
@@ -937,7 +944,7 @@ class ObjectControl extends AbstractObjectControl
         $notices = [];
 
         foreach (ImportLogger::getNotices() as $notice) {
-            $notices[] = $this->translator->translate("backend.import.notice.{$notice['message']}", $notice['arguments']);
+            $notices[$notice['validator']][] = $this->translator->translate("backend.import.notice.{$notice['message']}", $notice['arguments']);
         }
 
         return $notices;

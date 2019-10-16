@@ -10,10 +10,10 @@
                     <a href="{plink this, \MP\Module\Web\Presenters\HomepagePresenter::PARAM_MAPS => true}" title="{_messages.control.filter.mapType.items.gmaps}" class="gmaps"></a>
                 {/ifCurrent}
             </li>
+            <li class="button_set_geolocation nwjs_set_geolocation" title="{_messages.control.filter.mapType.seekPositionButton}" data-type="position">
+                {_messages.control.filter.mapType.seekPositionButton}
+            </li>
         </ul>
-        <div class="button_set_geolocation nwjs_set_geolocation" title="{_messages.control.filter.mapType.seekPositionButton}">
-            {_messages.control.filter.mapType.seekPositionButton}
-        </div>
     </div>
 </div>
 
@@ -26,7 +26,11 @@
             <div class="filter_items">
                 <ul>
                     {foreach $form[$name]->items as $key => $label}
-                        {var $active = (false !== array_search($key, $form[$name]->value, true))}
+                        {if is_array($form[$name]->value)}
+                            {var $active = (false !== array_search($key, $form[$name]->value, true))}
+                        {else}
+                            {var $active = ($key === $form[$name]->value)}
+                        {/if}
 
                         <li n:class="$active ? active, nwjs_filter_item">
                             {input $name:$key}

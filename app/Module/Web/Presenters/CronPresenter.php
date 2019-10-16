@@ -2,6 +2,7 @@
 
 namespace MP\Module\Web\Presenters;
 
+use MP\Module\Admin\Service\AutofillAccessibilityService;
 use MP\Module\Admin\Service\AutomaticImportService;
 use MP\Service\GeocodingService;
 use MP\Service\RuianSyncService;
@@ -24,6 +25,9 @@ class CronPresenter extends AbstractWebPresenter
 
     /** @var AutomaticImportService @inject */
     public $automaticImportService;
+
+    /** @var AutofillAccessibilityService @inject */
+    public $autofillAccessibilityService;
 
     /**
      * @override Overeni pristupu z povolene IP adresy.
@@ -76,6 +80,19 @@ class CronPresenter extends AbstractWebPresenter
     {
         $count = $this->automaticImportService->import();
         dump($count);
+        $this->terminate();
+    }
+
+
+    /**
+     * Doplneni pristupnosti pro rodice s detmi a seniory
+     * Aktualne neni urceno pro pravidelne spousteni
+     */
+    public function actionAutofillAccessibility()
+    {
+        $force = ($this->getHttpRequest()->getQuery('force') === '1');
+        $count = $this->autofillAccessibilityService->autofill($force);
+        dump('Pocet upravenych objektu: ' . $count);
         $this->terminate();
     }
 }

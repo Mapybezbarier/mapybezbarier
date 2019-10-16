@@ -126,7 +126,30 @@ enum:
             exhibitionCentreObjectCategory: "výstaviště"
 
 
+        accessibilityType:
+            default: hendikepovaní
+            pram: rodiče s dětmi
+            seniors: senioři
+
         accessibility:
+            accessibleObjectMKPO: přístupný
+            partlyAccessibleObjectMKPO: částečně přístupný
+            inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+            full:
+                accessibleObjectMKPO: Objekt přístupný
+                partlyAccessibleObjectMKPO: Objekt částečně přístupný
+                inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
+
+        accessibilityPram:
+            accessibleObjectMKPO: přístupný
+            partlyAccessibleObjectMKPO: částečně přístupný
+            inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
+            full:
+                accessibleObjectMKPO: Objekt přístupný
+                partlyAccessibleObjectMKPO: Objekt částečně přístupný
+                inAccessibleObjectMKPO: Objekt obtížně přístupný nebo nepřístupný
+
+        accessibilitySeniors:
             accessibleObjectMKPO: přístupný
             partlyAccessibleObjectMKPO: částečně přístupný
             inAccessibleObjectMKPO: obtížně přístupný nebo nepřístupný
@@ -238,6 +261,7 @@ control:
             seekPositionButton: Načíst pozici
 
         label:
+            accessibilityType: Typ přístupnosti
             accessibility: Přístupnost objektu
             category: Typ objektu
             type: Podklady

@@ -58,6 +58,10 @@ $transparent_color: 'transparent';
     }
 }
 
+@include ico('accessibilityType_default', $transparent_color, 'ico_large_vozik');
+@include ico('accessibilityType_pram', $transparent_color, 'ico_large_rodic');
+@include ico('accessibilityType_seniors', $transparent_color, 'ico_large_senior');
+
 @include ico('accessible_1, .accessibility_1', $pict_green_color, 'ico_x_pristupny');
 @include ico('accessible_2, .accessibility_2', $pict_orange_color, 'ico_x_omezene');
 @include ico('accessible_3, .accessibility_3', $pict_red_color, 'ico_x_nepristupny');

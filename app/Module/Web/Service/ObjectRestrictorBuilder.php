@@ -60,7 +60,7 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
         $restrictor = [];
 
         if ($accessibility = $this->getAccesibility()) {
-            $restrictor[] = $this->prepareAccessibilityRestrictions($accessibility);
+            $restrictor[] = $this->prepareTypedAccessibilityRestrictions($this->getAccessibilityType(), $accessibility);
         }
 
         if ($categories = $this->getCategories()) {
@@ -96,6 +96,8 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     {
         $ret = [];
 
+        $ret[self::RESTRICTION_ACCESSIBILITY_TYPE] = $this->getAccessibilityType();
+
         if ($accessibility = $this->getAccesibility()) {
             if ($apiFormat) {
                 $allValues = $this->filterService->getAccesibilityValues();
@@ -124,13 +126,23 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
     }
 
     /**
-     * Vraci aktualni nastaveni filtru - prisutpnost
+     * Vraci aktualni nastaveni filtru - pristupnost
      *
      * @return array|null
      */
     public function getAccesibility()
     {
         return $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY};
+    }
+
+    /**
+     * Vraci aktualni nastaveni filtru - pristupnost pro rodice s kocarky
+     *
+     * @return string
+     */
+    public function getAccessibilityType()
+    {
+        return (string) $this->session->getSection(self::SECTION)->{self::RESTRICTION_ACCESSIBILITY_TYPE} ?: FilterService::ACCESSIBILITY_TYPE_DEFAULT;
     }
 
     /**
@@ -189,14 +201,20 @@ class ObjectRestrictorBuilder extends \MP\Service\ObjectRestrictorBuilder
 
         $section = $this->session->getSection(self::SECTION);
 
-        $accessibility = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY);
+        // ulozime si do session typ pristupnosti
+        $accessibilityType = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY_TYPE);
+        if ($accessibilityType || $override) {
+            $section->{self::RESTRICTION_ACCESSIBILITY_TYPE} = $accessibilityType;
+        }
 
+        // ulozime si do session pristupnost pro vozickare
+        $accessibility = $this->getRestrictionValues($restrictions, self::RESTRICTION_ACCESSIBILITY);
         if ($accessibility || $override) {
             $section->{self::RESTRICTION_ACCESSIBILITY} = $accessibility;
         }
 
+        // ulozime si do session kategorii
         $categories = $this->getRestrictionValues($restrictions, self::RESTRICTION_CATEGORY);
-
         if ($categories || $override) {
             $section->{self::RESTRICTION_CATEGORY} = $categories;
         }

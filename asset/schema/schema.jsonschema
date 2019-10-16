@@ -44,6 +44,14 @@
             "required" : true,
             "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]
           },
+          "accessibilitySeniors" : {
+            "type" : "string",
+            "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]
+          },
+          "accessibilityPram" : {
+            "type" : "string",
+            "enum" : [ "AccessibleObjectMKPO", "PartlyAccessibleObjectMKPO", "InAccessibleObjectMKPO" ]
+          },
           "organizationIc" : {
             "type" : "string"
           },

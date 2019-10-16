@@ -10,9 +10,36 @@ namespace MP\Service;
 class ObjectRestrictorBuilder
 {
     /** @const Klice dostupnych restrikci */
-    const RESTRICTION_ACCESSIBILITY = 'accessibility',
+    const
+        RESTRICTION_ACCESSIBILITY_TYPE = 'accessibilityType',
+        RESTRICTION_ACCESSIBILITY = 'accessibility',
         RESTRICTION_CATEGORY = 'category',
         RESTRICTION_TYPE = 'type';
+
+    /**
+     * Pripravi restrikce pro pristupnost mapovych objektu.
+     *
+     * @param array $accessibility
+     *
+     * @return array
+     */
+    public function prepareTypedAccessibilityRestrictions(string $accesibilityType, array $accessibility)
+    {
+        $restrictions = [];
+        switch ($accesibilityType) {
+            case FilterService::ACCESSIBILITY_TYPE_DEFAULT:
+                $restrictions = ['[accessibility_id] IN %in', $accessibility];
+                break;
+            case FilterService::ACCESSIBILITY_TYPE_PRAM:
+                $restrictions = ['([accessibility_pram_id] IS NOT NULL AND [accessibility_pram_id] IN %in) OR ([accessibility_pram_id] IS NULL AND [accessibility_id] IN %in)', $accessibility, $accessibility];
+                break;
+            case FilterService::ACCESSIBILITY_TYPE_SENIORS:
+                $restrictions = ['([accessibility_seniors_id] IS NOT NULL AND [accessibility_seniors_id] IN %in) OR ([accessibility_seniors_id] IS NULL AND [accessibility_id] IN %in)', $accessibility, $accessibility];
+                break;
+        }
+
+        return $restrictions;
+    }
 
     /**
      * Pripravi restrikce pro pristupnost mapovych objektu.

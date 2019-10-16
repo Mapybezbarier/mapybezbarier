@@ -194,6 +194,7 @@ class HomepagePresenter extends AbstractWebPresenter
             $markers = $this[self::COMPONENT_MARKERS];
             $markers->setRenderable(true);
             $markers->setRestrictor($restrictor);
+            $markers->setAccessibilityType($this->objectRestrictorBuilder->getAccessibilityType());
 
             $this->redrawControl('filter');
             $this->redrawControl('markers');
