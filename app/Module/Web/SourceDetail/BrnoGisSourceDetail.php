@@ -9,7 +9,7 @@ use Nette\Utils\Json;
  */
 class BrnoGisSourceDetail extends StandardPictogramsSourceDetail
 {
-    const DETAIL_DESCRIPTION_URL_MASK = 'http://gis.brno.cz/mapa/assets/local/documents/bezbarierove_objekty/Zdravotnicka_zarizeni_HTML/%s.html';
+    const DETAIL_DESCRIPTION_URL_MASK = 'https://gis.brno.cz/ost/mapa-pristupnosti-export/export.php?lang=cs&ogc_fid=%s';
 
     /**
      * @var array mapa ciselnikoveho atributu - pristupnost
@@ -42,7 +42,7 @@ class BrnoGisSourceDetail extends StandardPictogramsSourceDetail
         $ret = parent::prepareSourceData($object);
         $externalData = Json::decode($object['external_data'], true);
 
-        if (!empty($externalData['ID_ZZ'])) {
+        if (!empty($externalData['ID_ZZ']) && !empty($externalData['cislo_zdravotnickeho_zarizeni'])) {
             $ret['detail_description_url'] = sprintf(self::DETAIL_DESCRIPTION_URL_MASK, $externalData['ID_ZZ']);
         }
 
