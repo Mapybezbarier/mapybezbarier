@@ -14,7 +14,7 @@ class Logger extends \Tracy\Logger
      *
      * @param string|\Exception|\Throwable $message
      */
-    protected function sendEmail($message)
+    protected function sendEmail($message): void
     {
         if ($this->email && $this->mailer) {
             call_user_func($this->mailer, $message, implode(', ', (array) $this->email));

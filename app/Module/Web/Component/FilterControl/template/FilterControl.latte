@@ -4,11 +4,11 @@
             <li class="nwjs_change_map_type active" data-type="roadmap">{_messages.control.filter.mapType.items.roadmap}</li>
             <li class="nwjs_change_map_type" data-type="hybrid">{_messages.control.filter.mapType.items.satellite}</li>
             <li class="maplayer" data-type="maplayer">
-                {ifCurrent this, \MP\Module\Web\Presenters\HomepagePresenter::PARAM_MAPS => true}
+                {if $presenter->isLinkCurrent('Homepage:default', [\MP\Module\Web\Presenters\HomepagePresenter::PARAM_MAPS => true])}
                     <a href="{plink this, \MP\Module\Web\Presenters\HomepagePresenter::PARAM_MAPS => false}" title="{_messages.control.filter.mapType.items.mapycz}" class="mapycz"></a>
                 {else}
                     <a href="{plink this, \MP\Module\Web\Presenters\HomepagePresenter::PARAM_MAPS => true}" title="{_messages.control.filter.mapType.items.gmaps}" class="gmaps"></a>
-                {/ifCurrent}
+                {/if}
             </li>
             <li class="button_set_geolocation nwjs_set_geolocation" title="{_messages.control.filter.mapType.seekPositionButton}" data-type="position">
                 {_messages.control.filter.mapType.seekPositionButton}

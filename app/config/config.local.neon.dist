@@ -17,3 +17,7 @@ parameters:
 
     gA:
         code:
+
+session:
+    expiration: "+1 year"
+    savePath: null

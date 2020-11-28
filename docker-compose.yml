@@ -7,7 +7,7 @@ services:
       - "5432:5432"
 
   php-upstream:
-    image: mapybezbarier/php-fpm:latest
+    image: mapybezbarier/php-fpm:7.1
     env_file:
       - .env
     environment:

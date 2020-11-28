@@ -28,9 +28,7 @@ $configurator->addConfig(APP_DIR . '/config/config.neon');
 
 if (file_exists(APP_DIR . '/config/config.local.neon')) {
     $configurator->addConfig(APP_DIR . '/config/config.local.neon');
-}
-
-if (file_exists(APP_DIR . '/config/config.test.neon')) {
+} else if (file_exists(APP_DIR . '/config/config.test.neon')) {
     $configurator->addConfig(APP_DIR . '/config/config.test.neon');
 }
 
