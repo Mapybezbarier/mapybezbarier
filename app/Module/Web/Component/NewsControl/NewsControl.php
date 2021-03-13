@@ -19,14 +19,19 @@ class NewsControl extends AbstractControl
     /** @var SessionSection */
     protected $session;
 
+    /** @var bool */
+    private $iframeReady;
+
     /**
      * @param Lang $lang
      * @param SessionSection $session
+     * @param bool $iframeReady
      */
-    public function __construct(Lang $lang, SessionSection $session)
+    public function __construct(Lang $lang, SessionSection $session, bool $iframeReady)
     {
         $this->lang = $lang;
         $this->session = $session;
+        $this->iframeReady = $iframeReady;
     }
 
     public function render()
@@ -55,7 +60,7 @@ class NewsControl extends AbstractControl
     {
         $isRenderable = true;
 
-        if (true === $this->session->rendered || !file_exists(ASSET_DIR . "/iframe/iframe.{$this->lang->getLocale()}.html")) {
+        if (true === $this->session->rendered || !file_exists(ASSET_DIR . "/iframe/iframe.{$this->lang->getLocale()}.html") || !$this->iframeReady) {
             $isRenderable = false;
         }
 

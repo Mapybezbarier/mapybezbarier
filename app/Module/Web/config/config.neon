@@ -62,7 +62,7 @@ services:
             - setExpiration(0)
     newsControlFactory:
         implement: MP\Module\Web\Component\INewsControlFactory
-        arguments: [..., @newsControlSection]
+        arguments: [..., @newsControlSection, false]
 
     # services
     webObjectService: MP\Module\Web\Service\ObjectService
