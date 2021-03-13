@@ -242,7 +242,7 @@ MapLayer.setZoom = function(zoom) {
 SMap.prototype.setMapTypeId = function(layer) { 
     var layers = window.layers;
 
-    if (layer === SMap.DEF_BASE) {
+    if (layer === "roadmap") {
         layers[SMap.DEF_BASE].enable();
         layers[SMap.DEF_OPHOTO].disable();
         layers[SMap.DEF_HYBRID].disable();

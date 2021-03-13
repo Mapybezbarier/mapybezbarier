@@ -308,10 +308,10 @@ MapWrapper.prototype.bindMapTypeChange = function () {
 
         switch ($this.data('type')) {
             case "roadmap":
-                context.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                context.map.setMapTypeId("roadmap");
                 break;
             case "hybrid":
-                context.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+                context.map.setMapTypeId("hybrid");
                 break;
         }
     });
