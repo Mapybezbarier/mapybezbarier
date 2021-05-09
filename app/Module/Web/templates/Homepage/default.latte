@@ -46,6 +46,21 @@
                         <input type="text" name="search_place" id="nwjs_search_place" placeholder="{_messages.control.search.placeholder}" />
                     </div>
                 </div>
+
+                {* TRASY *}
+                <div class="route nwjs_route" role="route" aria-label="{_messages.semantics.route}">
+                    <div class="open_button nwjs_route_opener">{_messages.semantics.search}</div>
+                    <div class="route_holder">
+                        <input type="text" name="search_route_from" id="nwjs_route_from" placeholder="{_messages.control.route.routeFrom.placeholder}" />
+                        <input type="text" name="search_route_to" id="nwjs_route_to" placeholder="{_messages.control.route.routeTo.placeholder}" />
+                        <div class="route_toolbox">
+                            <div class="route_toolbox_item active" data-obstacle='1'>{_messages.control.route.routeType.easy}</div>
+                            <div class="route_toolbox_item" data-obstacle='2'>{_messages.control.route.routeType.medium}</div>
+                            <div class="route_toolbox_item" data-obstacle='3'>{_messages.control.route.routeType.hard}</div>
+                            <div class="route_toolbox_button" id="nwjs_route_trigger">{_messages.control.route.routeButton}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tools">
                 <ul>

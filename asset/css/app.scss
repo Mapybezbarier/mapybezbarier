@@ -576,7 +576,7 @@ header {
         position: absolute;
         right: -70px;
         text-align: center;
-        top: 100px + $header_height;
+        top: 180px + $header_height;
         width: 40px;
     }
 }
@@ -656,6 +656,7 @@ header {
             background-image: bg_image($icons_path + 'ico_zavrit.svg');
         }
     }
+
     .search_holder {
         background-color: $white_color;
         @include base_box_shadow;
@@ -737,6 +738,166 @@ header {
             @include picture_hover_state_1;
         }
         .search_holder {
+            @include opacity(1);
+            margin-top: 0;
+        }
+    }
+}
+
+.route {
+    position: absolute;
+    left: 300px;
+    top: 100px + $header_height;
+
+    .open_button {
+        @include picture_hover_state_0;
+        background-color: $red_color;
+        @include border_radius(30px);
+        @include special_font_bold(40, 60);
+        color: $white_color;
+        cursor: pointer;
+        height: 60px;
+        left: 0;
+        position: absolute;
+        text-indent: $position_out;
+        text-align: center;
+        width: 60px;
+
+        &:before {
+            background: transparent none no-repeat center center;
+            //@include bs(60);
+            height: 100%;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-image: bg_image($icons_path + 'ico_trasa.svg');
+        }
+        &:after {
+            background: transparent none no-repeat center center;
+            @include bs($icons_size);
+            height: 100%;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-image: bg_image($icons_path + 'ico_zavrit.svg');
+        }
+    }
+
+    .route_holder {
+        background-color: transparent;
+        @include opacity(0);
+        margin-left: 90px;
+        margin-top: $position_out;
+        white-space: nowrap;
+        @include single-transition(opacity, $trans_duration);
+
+        input {
+            @include base_box_shadow;
+            background-color: $white_color;
+            border: 0 none;
+            @include special_font(16, 20);
+            display: block;
+            height: 60px;
+            padding: 20px 25px;
+            width: 450px;
+            margin-bottom: 20px;
+        }
+
+        @include mq($bp_mobile) {
+            input {
+                width: 250px;
+            }
+        }
+        @include mq($bp_430) {
+            position: fixed;
+            width: 60%;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .route_toolbox {
+            width: 450px;
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            vertical-align: middle;
+        }
+
+        .route_toolbox_item {
+            cursor: pointer;
+            background-color: $white_color;
+            width: 25%;
+            text-align: center;
+            box-sizing: content-box;
+            @include  special_font_semibold(16,40);
+            border-bottom: 2px solid $pict_gray_color;
+
+            &.active {
+                border-bottom: 2px solid $pict_blue_color;
+            }
+        }
+        .route_toolbox_button {
+            cursor: pointer;
+            width: 25%;
+            text-align: center;
+            @include  special_font_semibold(16,40);
+            background-color: $pict_gray_color;
+            &.active {
+                background-color: $pict_blue_color;
+            }
+        }
+
+
+            /* styly pro naseptavac mapy.cz */
+        .content {
+            .item{
+                padding: 0 4px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                line-height: 30px;
+                text-align: left;
+                border-top: 1px solid #e6e6e6;
+                font-size: 11px;
+                color: #999;
+
+                .image{
+                    width: 15px;
+                    height: 20px;
+                    margin-right: 7px;
+                    margin-top: 6px;
+                    display: inline-block;
+                    vertical-align: top;
+                    background: url("/asset/img/suggest.png") no-repeat -1px center;
+                }
+
+                br{
+                    display: none;
+                }
+
+                strong{
+                    font-size: 13px;
+                    font-weight: 700;
+                    padding-right: 5px;
+                }
+                &.active {
+                    background-color: #ebf2fe;
+
+                    .image {
+                        background-position: -18px center;
+                    }
+                }
+            }
+        }
+    }
+
+    &.opened {
+        .open_button {
+            @include picture_hover_state_1;
+        }
+        .route_holder {
             @include opacity(1);
             margin-top: 0;
         }

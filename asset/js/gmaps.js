@@ -3,6 +3,35 @@ MapLayer = {
     initMarkersCallbacks: []
 };
 
+
+MapLayer.showRoute= function (coords) {
+    if (!coords) return;
+
+    var context = this._map;
+
+    coords.forEach(function (b) {
+        var ll = [];
+        b.forEach(function (c) {
+            ll.push({
+                lat: c[1],
+                lng: c[0]
+            });
+        });
+
+        var _path = new google.maps.Polyline({
+            path: ll,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 5
+        });
+
+        _path.setMap(context.map);
+
+    }.bind(this));
+
+};
+
 /** Handler pro naseptavac */
 MapLayer.bindAutocomplete = function (input) {
     var $input = $(input);
@@ -31,9 +60,44 @@ MapLayer.bindAutocomplete = function (input) {
                 context.map.setCenter(place.geometry.location);
                 context.map.setZoom(context.config.autocompleteDefaultZoom);
             }
+
         });
     }
+
 };
+
+/** Handler pro naseptavac */
+MapLayer.bindAutocompleteRoute = function (input, callback) {
+    var $input = $(input);
+
+    if ($input.length) {
+        // napojeni naseptavace na input
+        var autocomplete = new google.maps.places.Autocomplete($input.get(0), {
+            componentRestrictions: {country: 'cz'}
+        });
+
+        var context = this._map;
+        autocomplete.bindTo('bounds', this._map.map);
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+
+            //MapLayer.closeInfoBoxes();
+
+            if (!place.geometry) {
+                throw("Autocomplete's returned place contains no geometry");
+            }
+
+            var lngLat = {
+                lng: place.geometry.location.lng(),
+                lat: place.geometry.location.lat()
+            };
+
+            callback && callback(lngLat);
+        });
+    }
+
+};
+
 
 /**
  * vychozi handler pro uspesne zjisteni pozice geolokace
