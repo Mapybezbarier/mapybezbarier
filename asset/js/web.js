@@ -14,6 +14,9 @@ $(document).ready(function () {
     // otevreni vyhledavani
     bindSearchOpener();
 
+    // otevreni trasy
+    bindRouteOpener();
+
     // otevreni hlavniho menu (mobile hamburger)
     bindMainMenuOpener();
 
@@ -47,12 +50,14 @@ function bindFilterOpener() {
     var $filter = $('.nwjs_filter'),
         $detail = $('.nwjs_detail'),
         $search = $('.nwjs_search_opener').parent();
+        $route = $('.nwjs_route_opener').parent();
 
     $('.nwjs_filter_opener').on('click', function () {
         // na mobilu otevreni filtru zavre detail a vyhledavani
         if (isMobile() && !$filter.hasClass('opened')) {
             $detail.removeClass('opened');
             $search.removeClass('opened');
+            $route.removeClass('opened');
         }
 
         $filter.toggleClass('opened');
@@ -100,6 +105,35 @@ function bindFooterOpener() {
  */
 function bindSearchOpener() {
     $('.nwjs_search_opener').on('click', function () {
+        var $parent = $(this).parent(),
+            opened_class = 'opened',
+            $autocomplete_container = $('.pac-container'),
+            $filter = $('.nwjs_filter'),
+            $detail = $('.nwjs_detail');
+
+        if ($parent.hasClass(opened_class)) {
+            $parent.removeClass(opened_class);
+            $autocomplete_container.removeClass(opened_class);
+
+        } else {
+            $parent.addClass(opened_class);
+            $autocomplete_container.addClass(opened_class);
+            $('input', $parent).focus();
+
+            // na mobilu otevreni vyhledavani zavre filtr a detail
+            if (isMobile()) {
+                $filter.removeClass(opened_class);
+                $detail.removeClass(opened_class);
+            }
+        }
+    });
+}
+
+/**
+ * Otevreni trasy a focus na input
+ */
+function bindRouteOpener() {
+    $('.nwjs_route_opener').on('click', function () {
         var $parent = $(this).parent(),
             opened_class = 'opened',
             $autocomplete_container = $('.pac-container'),

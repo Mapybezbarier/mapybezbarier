@@ -249,6 +249,18 @@ control:
     search:
         placeholder: Lokalita
 
+    route:
+        routeFrom:
+            placeholder: Start
+        routeTo:
+            placeholder: Cíl
+        routeType:
+            easy: Mírné
+            medium: Střední
+            hard: Velké
+
+        routeButton: Detail trasy
+
     filter:
         mapType:
             headline: Typ mapy
@@ -438,6 +450,7 @@ semantics:
     footer: Zápatí
     mainMenu: Hlavní menu
     search: Vyhledávání
+    route: Trasa
     languages: Výběr jazyka
     mainContent: Hlavní obsah
     aside: Vedlejší obsah
